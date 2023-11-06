@@ -1,0 +1,23 @@
+# Target routes
+AttackerVictim_API/src/persistence/dao/target/*
+AttackerVictim_API/src/logic/mappers/target/*
+AttackerVictim_API/src/logic/dtos/target/*
+AttackerVictim_API/src/logic/commands/target/*
+AttackerVictim_API/src/common/utilities/target/*
+AttackerVictim_API/src/common/properties/target/*
+AttackerVictim_API/src/common/exceptions/target/*
+AttackerVictim_API/src/common/enums/target/*
+AttackerVictim_API/src/common/entities/target/*
+AttackerVictim_API/src/services/implementation/target/*
+
+# Compiled class file
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
