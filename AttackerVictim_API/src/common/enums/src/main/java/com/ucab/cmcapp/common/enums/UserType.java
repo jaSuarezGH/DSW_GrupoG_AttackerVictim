@@ -1,20 +1,17 @@
 package com.ucab.cmcapp.common.enums;
 
-public enum UserType
-{
+public enum UserType {
 
-    ADMINISTRATOR( 1L ),
-    USER( 2L );
+    ADMINISTRATOR(1L),
+    USER(2L);
 
     private final Long _value;
 
-    UserType(Long value)
-    {
+    UserType(Long value) {
         _value = value;
     }
 
-    public Long getValue()
-    {
+    public Long getValue() {
         return _value;
     }
 }
