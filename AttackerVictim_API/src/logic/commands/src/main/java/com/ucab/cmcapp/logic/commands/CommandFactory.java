@@ -4,7 +4,7 @@ import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.logic.commands.user.atomic.AddUserCommand;
 import com.ucab.cmcapp.logic.commands.user.atomic.EraseUserCommand;
 import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByIdCommand;
-import com.ucab.cmcapp.logic.commands.user.composite.CreateDeleteUserCommand;
+import com.ucab.cmcapp.logic.commands.user.composite.DeleteUserCommand;
 import com.ucab.cmcapp.logic.commands.user.composite.CreateUserCommand;
 import com.ucab.cmcapp.logic.commands.user.composite.GetUserCommand;
 import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByEmailCommand;
@@ -20,9 +20,9 @@ public class CommandFactory {
         return new GetUserByEmailCommand(user);
     }
 
-    public static GetUserByEmailCommand createGetUserByEmailCommand(User user, DBHandler handler) {
+    /*public static GetUserByEmailCommand createGetUserByEmailCommand(User user, DBHandler handler) {
         return new GetUserByEmailCommand(user, handler);
-    }
+    }*/
 
     public static GetUserByIdCommand createGetUserByIdCommand(DBHandler handler, long userId) {
         return new GetUserByIdCommand(handler, userId);
@@ -40,12 +40,16 @@ public class CommandFactory {
         return new CreateUserCommand(user);
     }
 
-    public static CreateDeleteUserCommand createCreateDeleteUserCommand(User user){
-        return new CreateDeleteUserCommand(user);
+    public static DeleteUserCommand createDeleteUserCommand(User user){
+        return new DeleteUserCommand(user);
     }
 
     public static EraseUserCommand createEraseUserCommand(User user, DBHandler handler){
         return new EraseUserCommand(user, handler);
     }
+
+    //public static UpdateUserCommand - composite - primero
+
+    // public static ModifyUserCommand - atomic - este es el del handler
 
 }

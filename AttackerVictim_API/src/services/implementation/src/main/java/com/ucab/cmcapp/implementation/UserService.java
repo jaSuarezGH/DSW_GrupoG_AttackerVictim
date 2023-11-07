@@ -4,7 +4,7 @@ import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.common.util.CustomResponse;
 import com.ucab.cmcapp.logic.commands.CommandFactory;
 import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByEmailCommand;
-import com.ucab.cmcapp.logic.commands.user.composite.CreateDeleteUserCommand;
+import com.ucab.cmcapp.logic.commands.user.composite.DeleteUserCommand;
 import com.ucab.cmcapp.logic.commands.user.composite.CreateUserCommand;
 import com.ucab.cmcapp.logic.commands.user.composite.GetUserCommand;
 import com.ucab.cmcapp.logic.dtos.UserDto;
@@ -97,15 +97,15 @@ public class UserService extends BaseService {
     }
 
     @DELETE
-    @Path("delete")
-    public Response deleteUser(UserDto userDto) {
+    @Path("/{id}")
+    public Response deleteUser(@PathParam("id") long userId) {
         User entity;
         UserDto responseDTO = null;
-        CreateDeleteUserCommand command = null;
+        DeleteUserCommand command = null;
 
         try {
-            entity = UserMapper.mapDtoToEntity(userDto);
-            command = CommandFactory.createCreateDeleteUserCommand(entity);
+            entity = UserMapper.mapDtoToEntity(userId);
+            command = CommandFactory.createDeleteUserCommand(entity);
             command.execute();
 
             if (command.getReturnParam() != null)

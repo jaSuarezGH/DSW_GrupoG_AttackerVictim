@@ -3,18 +3,17 @@ package com.ucab.cmcapp.logic.commands.user.composite;
 import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.logic.commands.Command;
 import com.ucab.cmcapp.logic.commands.CommandFactory;
-import com.ucab.cmcapp.logic.commands.user.atomic.AddUserCommand;
 import com.ucab.cmcapp.logic.commands.user.atomic.EraseUserCommand;
 import com.ucab.cmcapp.persistence.DBHandler;
 
-public class CreateDeleteUserCommand extends Command<User> {
+public class DeleteUserCommand extends Command<User> {
 
     private User _user;
     private User _result;
 
     private EraseUserCommand _eraseUserCommand;
 
-    public CreateDeleteUserCommand(User user) {
+    public DeleteUserCommand(User user) {
         _user = user;
         setHandler(new DBHandler());
     }
