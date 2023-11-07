@@ -15,10 +15,6 @@ public class UserMapper extends BaseMapper {
     public static User mapDtoToEntity(UserDto dto) throws ParseException {
         User entity = EntityFactory.createUser();
 
-        //region Instrumentation DEBUG
-        _logger.debug("Get in UserMapper.mapDtoToEntity: dto {}", dto);
-        //endregion
-
         // No se incluye el ID !!!!!!!!!!!!!!!!!!!!!
         entity.set_id(dto.getId());
         entity.set_firstname(dto.get_firstname());
@@ -32,19 +28,11 @@ public class UserMapper extends BaseMapper {
             entity.set_userType(UserTypeMapper.mapDtoToEntity(dto.get_userType()));
         }
 
-        //region Instrumentation DEBUG
-        _logger.debug("Leaving UserMapper.mapDtoToEntity: entity {}", entity);
-        //endregion
-
         return entity;
     }
 
     public static UserDto mapEntityToDto(User entity) {
         final UserDto dto = new UserDto();
-
-        //region Instrumentation DEBUG
-        _logger.debug("Get in UserMapper.mapEntityToDto: entity {}", entity);
-        //endregion
 
         // Si se incluye el ID
 
@@ -59,41 +47,24 @@ public class UserMapper extends BaseMapper {
         if (Objects.nonNull(entity.get_userType()))
             dto.set_userType(UserTypeMapper.mapEntityToDto(entity.get_userType()));
 
-        //region Instrumentation DEBUG
-        _logger.debug("Leaving UserMapper.mapEntityToDto: dto {}", dto);
-        //endregion
         return dto;
     }
 
     public static User mapDtoToEntity(long id) {
         User entity = EntityFactory.createUser(id);
-
-        //region Instrumentation DEBUG
-        _logger.debug("Get in UserMapper.mapDtoToEntity: id {}", id);
-        //endregion
-
         entity.set_id(id);
-
-        //region Instrumentation DEBUG
-        _logger.debug("Leaving UserMapper.mapDtoToEntity: entity {}", entity);
-        //endregion
-
         return entity;
     }
 
     public static User mapDtoToEntityEmail(String email) {
         User entity = EntityFactory.createUser();
-
-        //region Instrumentation DEBUG
-        _logger.debug("Get in UserMapper.mapDtoToEntityEmail: email {}", email);
-        //endregion
-
         entity.set_email(email);
+        return entity;
+    }
 
-        //region Instrumentation DEBUG
-        _logger.debug("Leaving UserMapper.mapDtoToEntityEmail: entity {}", entity);
-        //endregion
-
+    public static User mapDtoToEntityUsername(String username){
+        User entity = EntityFactory.createUser();
+        entity.set_username(username);
         return entity;
     }
 

@@ -4,6 +4,7 @@ import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.common.util.CustomResponse;
 import com.ucab.cmcapp.logic.commands.CommandFactory;
 import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByEmailCommand;
+import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByUsernameCommand;
 import com.ucab.cmcapp.logic.commands.user.composite.DeleteUserCommand;
 import com.ucab.cmcapp.logic.commands.user.composite.CreateUserCommand;
 import com.ucab.cmcapp.logic.commands.user.composite.GetUserCommand;
@@ -51,7 +52,7 @@ public class UserService extends BaseService {
 
     @GET
     @Path("email/{email}")
-    public Response getUser(@PathParam("email") String userEmail) {
+    public Response getUserByEmail(@PathParam("email") String userEmail) {
         User entity;
         UserDto responseDTO = null;
         GetUserByEmailCommand command = null;
@@ -73,6 +74,32 @@ public class UserService extends BaseService {
         }
 
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "User for email " + userEmail + " found correctly")).build();
+    }
+
+    @GET
+    @Path("username/{username}")
+    public Response getUserByUsername(@PathParam("username") String username) {
+        User entity;
+        UserDto responseDTO = null;
+        GetUserByUsernameCommand command = null;
+
+        try {
+            entity = UserMapper.mapDtoToEntityUsername(username);
+            command = CommandFactory.createGetUserByUsernameCommand(entity);
+            command.execute();
+
+            if (command.getReturnParam() != null)
+                responseDTO = UserMapper.mapEntityToDto(command.getReturnParam());
+            else
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>("No user found for username " + username)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("Error getUser with username: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "User for username " + username + " found correctly")).build();
     }
 
     @POST
