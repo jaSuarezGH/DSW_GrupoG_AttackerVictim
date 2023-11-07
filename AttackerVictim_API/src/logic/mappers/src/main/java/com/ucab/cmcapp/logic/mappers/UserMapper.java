@@ -19,8 +19,8 @@ public class UserMapper extends BaseMapper {
         _logger.debug("Get in UserMapper.mapDtoToEntity: dto {}", dto);
         //endregion
 
-        // No se incluye el ID
-
+        // No se incluye el ID !!!!!!!!!!!!!!!!!!!!!
+        entity.set_id(dto.getId());
         entity.set_firstname(dto.get_firstname());
         entity.set_lastname(dto.get_lastname());
         entity.set_username(dto.get_username());

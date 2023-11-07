@@ -2,7 +2,9 @@ package com.ucab.cmcapp.logic.commands;
 
 import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.logic.commands.user.atomic.AddUserCommand;
+import com.ucab.cmcapp.logic.commands.user.atomic.EraseUserCommand;
 import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByIdCommand;
+import com.ucab.cmcapp.logic.commands.user.composite.CreateDeleteUserCommand;
 import com.ucab.cmcapp.logic.commands.user.composite.CreateUserCommand;
 import com.ucab.cmcapp.logic.commands.user.composite.GetUserCommand;
 import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByEmailCommand;
@@ -30,11 +32,20 @@ public class CommandFactory {
         return new AddUserCommand(user, handler);
     }
 
-    public static AddUserCommand createAddUserCommand(User user) {
+    /*public static AddUserCommand createAddUserCommand(User user) {
         return new AddUserCommand(user);
-    }
+    }*/
 
     public static CreateUserCommand createCreateUserCommand(User user) {
         return new CreateUserCommand(user);
     }
+
+    public static CreateDeleteUserCommand createCreateDeleteUserCommand(User user){
+        return new CreateDeleteUserCommand(user);
+    }
+
+    public static EraseUserCommand createEraseUserCommand(User user, DBHandler handler){
+        return new EraseUserCommand(user, handler);
+    }
+
 }
