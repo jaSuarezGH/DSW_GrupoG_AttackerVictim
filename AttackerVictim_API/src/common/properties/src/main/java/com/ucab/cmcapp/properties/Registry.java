@@ -7,9 +7,8 @@ import java.io.IOException;
 import java.util.Properties;
 
 
-public class Registry
-{
-    private static final Logger LOGGER = LoggerFactory.getLogger( Registry.class );
+public class Registry {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Registry.class);
 
     private static final String PROPERTIES_FILE = "cmcappconfig.properties";
 
@@ -66,7 +65,7 @@ public class Registry
     public static final String FIREBASE_KEY = "config.FireBaseKey";
 
     //Notification Scheduler
-    public static final String NOTIFICATION_RUN_AT= "config.runAt";
+    public static final String NOTIFICATION_RUN_AT = "config.runAt";
     public static final String NOTIFICATION_RUN_AT_STARTUP = "config.runAtStartup";
     //endregion
 
@@ -78,37 +77,31 @@ public class Registry
     private static Registry _instance;
     private Properties _properties;
 
-    public String getProperty( String key )
-    {
-        return _properties.getProperty( key );
+    public String getProperty(String key) {
+        return _properties.getProperty(key);
     }
 
-    public static Registry getInstance()
-    {
-        if ( _instance == null )
+    public static Registry getInstance() {
+        if (_instance == null)
             _instance = new Registry();
 
         return _instance;
     }
 
-    private Registry()
-    {
+    private Registry() {
         //region Instrumentation DEBUG
-        LOGGER.debug( "Entering Registry.CTOR" );
+        LOGGER.debug("Entering Registry.CTOR");
         //endregion
 
-        try
-        {
+        try {
             _properties = new Properties();
-            _properties.load( getClass().getClassLoader().getResourceAsStream( PROPERTIES_FILE ) );
-        }
-        catch ( IOException e )
-        {
-            throw new IllegalArgumentException( "Error reading properties from " + PROPERTIES_FILE, e );
+            _properties.load(getClass().getClassLoader().getResourceAsStream(PROPERTIES_FILE));
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Error reading properties from " + PROPERTIES_FILE, e);
         }
 
         //region Instrumentation DEBUG
-        LOGGER.debug( "Exiting Registry.CTOR: Properties {}", _properties );
+        LOGGER.debug("Exiting Registry.CTOR: Properties {}", _properties);
         //endregion
     }
 

@@ -4,17 +4,14 @@ import com.ucab.cmcapp.persistence.DBHandler;
 
 import java.io.IOException;
 
-public abstract class Command<T>
-{
+public abstract class Command<T> {
     private DBHandler _handler;
 
-    public DBHandler getHandler()
-    {
+    public DBHandler getHandler() {
         return _handler;
     }
 
-    public void setHandler(DBHandler handler)
-    {
+    public void setHandler(DBHandler handler) {
         _handler = handler;
     }
 

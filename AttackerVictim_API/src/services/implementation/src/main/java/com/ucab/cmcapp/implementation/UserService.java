@@ -37,7 +37,7 @@ public class UserService extends BaseService {
             if (command.getReturnParam() != null)
                 responseDTO = UserMapper.mapEntityToDto(command.getReturnParam());
             else
-                return Response.status(Response.Status.OK).entity(new CustomResponse<>("No user found for id "+userId)).build();
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>("No user found for id " + userId)).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>(e, "Error getUser with id " + e.getMessage())).build();
         } finally {
@@ -45,7 +45,7 @@ public class UserService extends BaseService {
                 command.closeHandlerSession();
         }
 
-        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "User for id "+userId+" found correctly")).build();
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "User for id " + userId + " found correctly")).build();
     }
 
 
@@ -64,7 +64,7 @@ public class UserService extends BaseService {
             if (command.getReturnParam() != null)
                 responseDTO = UserMapper.mapEntityToDto(command.getReturnParam());
             else
-                return Response.status(Response.Status.OK).entity(new CustomResponse<>("No user found for email "+userEmail)).build();
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>("No user found for email " + userEmail)).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("Error getUser with email: " + e.getMessage())).build();
         } finally {
@@ -72,7 +72,7 @@ public class UserService extends BaseService {
                 command.closeHandlerSession();
         }
 
-        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "User for email "+userEmail+" found correctly")).build();
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "User for email " + userEmail + " found correctly")).build();
     }
 
     @POST

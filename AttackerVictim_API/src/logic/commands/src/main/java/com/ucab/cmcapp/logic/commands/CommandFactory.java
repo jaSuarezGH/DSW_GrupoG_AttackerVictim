@@ -40,11 +40,11 @@ public class CommandFactory {
         return new CreateUserCommand(user);
     }
 
-    public static DeleteUserCommand createDeleteUserCommand(User user){
+    public static DeleteUserCommand createDeleteUserCommand(User user) {
         return new DeleteUserCommand(user);
     }
 
-    public static EraseUserCommand createEraseUserCommand(User user, DBHandler handler){
+    public static EraseUserCommand createEraseUserCommand(User user, DBHandler handler) {
         return new EraseUserCommand(user, handler);
     }
 
