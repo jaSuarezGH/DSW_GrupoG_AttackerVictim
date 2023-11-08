@@ -5,6 +5,7 @@ import com.ucab.cmcapp.logic.commands.user.atomic.*;
 import com.ucab.cmcapp.logic.commands.user.composite.DeleteUserCommand;
 import com.ucab.cmcapp.logic.commands.user.composite.CreateUserCommand;
 import com.ucab.cmcapp.logic.commands.user.composite.GetUserCommand;
+import com.ucab.cmcapp.logic.commands.user.composite.UpdateUserCommand;
 import com.ucab.cmcapp.persistence.DBHandler;
 
 public class CommandFactory {
@@ -47,6 +48,14 @@ public class CommandFactory {
 
     public static EraseUserCommand createEraseUserCommand(User user, DBHandler handler) {
         return new EraseUserCommand(user, handler);
+    }
+
+    public static UpdateUserCommand createUpdateUserCommand(User user){
+        return new UpdateUserCommand(user);
+    }
+
+    public static ModifyUserCommand createModifyUserCommand(User user, DBHandler handler){
+        return new ModifyUserCommand(user, handler);
     }
 
     //public static UpdateUserCommand - composite - primero

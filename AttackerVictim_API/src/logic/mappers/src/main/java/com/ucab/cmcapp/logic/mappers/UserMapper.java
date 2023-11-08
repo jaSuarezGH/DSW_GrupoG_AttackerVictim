@@ -15,7 +15,6 @@ public class UserMapper extends BaseMapper {
     public static User mapDtoToEntity(UserDto dto) throws ParseException {
         User entity = EntityFactory.createUser();
 
-        // No se incluye el ID !!!!!!!!!!!!!!!!!!!!!
         entity.set_id(dto.getId());
         entity.set_firstname(dto.get_firstname());
         entity.set_lastname(dto.get_lastname());
@@ -34,7 +33,6 @@ public class UserMapper extends BaseMapper {
     public static UserDto mapEntityToDto(User entity) {
         final UserDto dto = new UserDto();
 
-        // Si se incluye el ID
 
         dto.setId(entity.get_id());
         dto.set_firstname(entity.get_firstname());

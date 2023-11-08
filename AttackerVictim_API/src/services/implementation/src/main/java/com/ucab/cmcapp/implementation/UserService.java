@@ -8,6 +8,7 @@ import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByUsernameCommand;
 import com.ucab.cmcapp.logic.commands.user.composite.DeleteUserCommand;
 import com.ucab.cmcapp.logic.commands.user.composite.CreateUserCommand;
 import com.ucab.cmcapp.logic.commands.user.composite.GetUserCommand;
+import com.ucab.cmcapp.logic.commands.user.composite.UpdateUserCommand;
 import com.ucab.cmcapp.logic.dtos.UserDto;
 import com.ucab.cmcapp.logic.mappers.UserMapper;
 import org.slf4j.Logger;
@@ -149,5 +150,27 @@ public class UserService extends BaseService {
         }
 
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "User eliminated correctly")).build();
+    }
+
+    @PUT
+    public Response updateUser(UserDto userDto) {
+        User entity;
+        UserDto responseDTO = null;
+        UpdateUserCommand command = null;
+        try {
+            entity = UserMapper.mapDtoToEntity(userDto);
+            command = CommandFactory.createUpdateUserCommand(entity);
+            command.execute();
+            if (command.getReturnParam() != null)
+                responseDTO = UserMapper.mapEntityToDto(command.getReturnParam());
+            else
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>("Could not edit user with id: " + userDto.getId())).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("Exception error in updateUser: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "User with id " + userDto.getId() + " modified correctly")).build();
     }
 }
