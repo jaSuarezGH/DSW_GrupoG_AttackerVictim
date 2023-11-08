@@ -9,6 +9,7 @@ public class UserDto extends BaseDto {
     private String _personal_id;
     private String _email;
     private String _mac_address;
+    private Boolean _active;
     private UserTypeDto _userType;
 
 
@@ -73,5 +74,13 @@ public class UserDto extends BaseDto {
 
     public void set_userType(UserTypeDto _userType) {
         this._userType = _userType;
+    }
+
+    public Boolean get_active() {
+        return _active;
+    }
+
+    public void set_active(Boolean _active) {
+        this._active = _active;
     }
 }

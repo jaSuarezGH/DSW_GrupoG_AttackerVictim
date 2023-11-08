@@ -51,11 +51,11 @@ public class User {
     @Transient
     private String _password;
 
-    /*@Basic(optional = false)
-    @Column(name = "term_condition", insertable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
-    private Boolean _termCondition;
-
     @Basic(optional = false)
+    @Column(name = "active", insertable = false, updatable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
+    private Boolean _active;
+
+    /*@Basic(optional = false)
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
             insertable = false, updatable = false, nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -135,5 +135,13 @@ public class User {
 
     public void set_userType(UserType _userType) {
         this._userType = _userType;
+    }
+
+    public Boolean get_active() {
+        return _active;
+    }
+
+    public void set_active(Boolean _active) {
+        this._active = _active;
     }
 }

@@ -22,6 +22,7 @@ public class UserMapper extends BaseMapper {
         entity.set_personal_id(dto.get_personal_id());
         entity.set_email(dto.get_email());
         entity.set_mac_address(dto.get_mac_address());
+        entity.set_active(dto.get_active());
 
         if (Objects.nonNull(dto.get_userType())) {
             entity.set_userType(UserTypeMapper.mapDtoToEntity(dto.get_userType()));
@@ -41,6 +42,7 @@ public class UserMapper extends BaseMapper {
         dto.set_personal_id(entity.get_personal_id());
         dto.set_email(entity.get_email());
         dto.set_mac_address(entity.get_mac_address());
+        dto.set_active(entity.get_active());
 
         if (Objects.nonNull(entity.get_userType()))
             dto.set_userType(UserTypeMapper.mapEntityToDto(entity.get_userType()));
