@@ -2,7 +2,6 @@ package com.ucab.cmcapp.common.entities;
 
 
 import javax.persistence.*;
-import java.util.Date;
 
 
 @Entity
@@ -16,7 +15,7 @@ public class User {
         _firstname = user._firstname;
         _lastname = user._lastname;
         _username = user._username;
-        _license = user._license;
+        _personal_id = user._personal_id;
         _email = user._email;
         _mac_address = user._mac_address;
         _userType = user._userType;
@@ -40,8 +39,8 @@ public class User {
     @Column(name = "username", nullable = false, unique = true)
     private String _username;
 
-    @Column(name = "license", nullable = false, unique = true)
-    private String _license;
+    @Column(name = "personal_id", nullable = false, unique = true)
+    private String _personal_id;
 
     @Column(name = "email", nullable = false, unique = true)
     private String _email;
@@ -98,12 +97,12 @@ public class User {
         this._username = _username;
     }
 
-    public String get_license() {
-        return _license;
+    public String get_personal_id() {
+        return _personal_id;
     }
 
-    public void set_license(String _license) {
-        this._license = _license;
+    public void set_personal_id(String _license) {
+        this._personal_id = _license;
     }
 
     public String get_email() {

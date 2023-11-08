@@ -1,14 +1,12 @@
 package com.ucab.cmcapp.logic.dtos;
 
 
-import java.util.List;
-
 public class UserDto extends BaseDto {
 
     private String _firstname;
     private String _lastname;
     private String _username;
-    private String _license;
+    private String _personal_id;
     private String _email;
     private String _mac_address;
     private UserTypeDto _userType;
@@ -45,12 +43,12 @@ public class UserDto extends BaseDto {
         this._username = _username;
     }
 
-    public String get_license() {
-        return _license;
+    public String get_personal_id() {
+        return _personal_id;
     }
 
-    public void set_license(String _license) {
-        this._license = _license;
+    public void set_personal_id(String _personal_id) {
+        this._personal_id = _personal_id;
     }
 
     public String get_email() {

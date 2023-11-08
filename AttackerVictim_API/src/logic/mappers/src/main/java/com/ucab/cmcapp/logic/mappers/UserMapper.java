@@ -19,7 +19,7 @@ public class UserMapper extends BaseMapper {
         entity.set_firstname(dto.get_firstname());
         entity.set_lastname(dto.get_lastname());
         entity.set_username(dto.get_username());
-        entity.set_license(dto.get_license());
+        entity.set_personal_id(dto.get_personal_id());
         entity.set_email(dto.get_email());
         entity.set_mac_address(dto.get_mac_address());
 
@@ -38,7 +38,7 @@ public class UserMapper extends BaseMapper {
         dto.set_firstname(entity.get_firstname());
         dto.set_lastname(entity.get_lastname());
         dto.set_username(entity.get_username());
-        dto.set_license(entity.get_license());
+        dto.set_personal_id(entity.get_personal_id());
         dto.set_email(entity.get_email());
         dto.set_mac_address(entity.get_mac_address());
 
