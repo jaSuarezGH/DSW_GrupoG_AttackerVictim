@@ -19,11 +19,7 @@ public class GetUserByUsernameCommand extends Command<User> {
 
     @Override
     public void execute() {
-        try{
-            _user = _dao.getUserByUsername(_user.get_username());
-        } catch (Exception e){
-            _user = null;
-        }
+        _user = _dao.getUserByUsername(_user.get_username());
     }
 
     @Override

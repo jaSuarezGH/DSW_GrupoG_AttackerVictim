@@ -44,7 +44,8 @@ public class UserDao extends BaseDao<User> {
             result = _em.createQuery(query).getSingleResult();
         } catch (NoResultException e) {
             _logger.error(String.format("Error UserDao.getUserByEmail: No Result {%s}", e.getMessage()));
-            throw new CupraException(e.getMessage());
+            //throw new CupraException(e.getMessage());
+            return null;
         } catch (Exception e) {
             _logger.error(String.format("Error UserDao.getUserByEmail: {%s}", e.getMessage()));
             throw new CupraException(e.getMessage());
@@ -67,7 +68,7 @@ public class UserDao extends BaseDao<User> {
 
             result = _em.createQuery(query).getSingleResult();
         } catch (NoResultException e) {
-            throw new CupraException(e.getMessage());
+            return null;
         } catch (Exception e) {
             throw new CupraException(e.getMessage());
         }

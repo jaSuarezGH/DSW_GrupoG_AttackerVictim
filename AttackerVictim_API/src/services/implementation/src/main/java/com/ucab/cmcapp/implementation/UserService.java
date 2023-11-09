@@ -141,7 +141,6 @@ public class UserService extends BaseService {
             else
                 return Response.status(Response.Status.OK).entity(new CustomResponse<>("Could not delete user")).build();
 
-
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>(e, e.getMessage())).build();
         } finally {
@@ -161,10 +160,7 @@ public class UserService extends BaseService {
             entity = UserMapper.mapDtoToEntity(userDto);
             command = CommandFactory.createUpdateUserCommand(entity);
             command.execute();
-            if (command.getReturnParam() != null)
-                responseDTO = UserMapper.mapEntityToDto(command.getReturnParam());
-            else
-                return Response.status(Response.Status.OK).entity(new CustomResponse<>("Could not edit user with id: " + userDto.getId())).build();
+            responseDTO = UserMapper.mapEntityToDto(command.getReturnParam());
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("Exception error in updateUser: " + e.getMessage())).build();
         } finally {
