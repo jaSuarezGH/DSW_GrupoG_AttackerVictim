@@ -1,9 +1,10 @@
 'use client'
 
-import { enlace, getVictimaByCedula } from "@/app/components/conexion/Enlace";
+import { endGetVictimaByCedula, enlaceAPI } from "@/app/models/endpoint.model";
+
 
 export const getVictima = (valor) => {
-  return fetch(`${enlace}${getVictimaByCedula}${valor}`)
+  return fetch(`${enlaceAPI}${endGetVictimaByCedula}${valor}`)
   .then((res) => res.json());
 };
 

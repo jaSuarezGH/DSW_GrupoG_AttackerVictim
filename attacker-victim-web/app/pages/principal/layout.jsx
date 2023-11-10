@@ -1,5 +1,4 @@
 
-import { Navegacion } from '@/app/components/compartido/Navegacion'
 import './../../styles/globals.css'
 
 

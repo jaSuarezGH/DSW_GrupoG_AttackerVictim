@@ -1,6 +1,6 @@
 'use client'
 
-import {Navegacion} from '@/app/components/compartido/Navegacion';
+import {Navegacion} from '@/app/components/compartido/Navigation';
 import {ResponseVictima} from '@/app/components/users/victima/get/ResponseVictima'
 
 

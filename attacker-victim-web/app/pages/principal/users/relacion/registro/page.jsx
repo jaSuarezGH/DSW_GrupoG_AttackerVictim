@@ -1,4 +1,4 @@
-import { Navegacion } from "@/app/components/compartido/Navegacion";
+import { Navegacion } from "@/app/components/compartido/Navigation";
 import {RegistrarRelacion} from '@/app/components/users/relacion/RegistrarRelacion'
 
 

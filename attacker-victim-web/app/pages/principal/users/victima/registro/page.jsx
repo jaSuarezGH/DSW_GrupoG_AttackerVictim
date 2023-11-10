@@ -1,4 +1,4 @@
-import { Navegacion } from "@/app/components/compartido/Navegacion";
+import { Navegacion } from "@/app/components/compartido/Navigation";
 import { RegistrarVictima } from "@/app/components/users/victima/registro/RegistrarVictima";
 
 

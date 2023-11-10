@@ -7,6 +7,7 @@ import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { useRouter } from "next/navigation";
 
 import {VictimaFetch} from '@/app/components/users/victima/get/VictimaFetch'
+import { DivHeader } from "@/components/Div";
 
 const opcion = [
   "Username",
@@ -45,18 +46,9 @@ export function ConsultarVictima() {
 
 
   return (
-    <div className="ring-1 ring-opacity-30 ring-zinc-300 rounded-xl shadow-md shadow-indigo-100 mt-6 flex min-h-full flex-1 flex-col justify-center align-middle px-6 py-6 lg:px-8 mx-auto max-w-7xl gap-x-8 gap-y-12">
-      <div className="block max-w-full mt-3">
-        <span className=" items-center rounded-md bg-green-50 px-2 py-1 ml-2 mr-2 font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-          Victima
-        </span>
-        <h2 className="mt-3 text-3xl font-bold tracking-tight text-gray-900">
-          Consultar Victima
-        </h2>
-        <p className="mt-4 mb-2 text-lg leading-8 text-gray-600 block">
-          Consulta un usuario de tipo Victima registrado en el sistema.
-        </p>
-      </div>
+    
+    <div className="ring-1 ring-opacity-40 ring-zinc-300 rounded-xl shadow-md shadow-indigo-100 mt-6 flex min-h-full flex-1 flex-col justify-center align-middle px-6 py-6 lg:px-8 mx-auto max-w-7xl gap-x-8 gap-y-12">
+      <DivHeader title="Consultar una Victima" description='Consulta un usuario de tipo Victima registrado en el sistema.' tags={[2]}></DivHeader>
       <div className=" ring-1 ring-opacity-70 ring-zinc-300 shadow-lg shadow-indigo-300 mb-6 rounded-lg p-9 sm:mx-auto sm:w-full sm:max-w-sm">
         <form
           className="space-y-6 "
@@ -175,5 +167,6 @@ export function ConsultarVictima() {
         </form>
       </div>
     </div>
+    
   );
 }

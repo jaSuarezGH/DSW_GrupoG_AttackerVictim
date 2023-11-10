@@ -1,12 +1,12 @@
-import {Navegacion} from '@/app/components/compartido/Navegacion';
 import {ConsultarVictima} from '@/app/components/users/victima/get/ConsultarVictima'
+import { Navigation } from '@/components/Navigation';
 
 
 export default async function getVictimaPage() {
 
 
   return <>
-  <Navegacion number={1}></Navegacion>
+  <Navigation number={1}></Navigation>
   <ConsultarVictima></ConsultarVictima>
   
   </>

@@ -1,13 +1,23 @@
-import { fetchAllUsers } from "@/app/components/getAll/UsersFetch";
-import {Navegacion} from '@/app/components/compartido/Navegacion';
-import {GetAllAtacantes} from '@/app/components/users/atacante/getAll/GetAllAtacantes'
 
-export default async function getAllAtacantesPage() {
+import { UsersFetch } from '../../../getAll';
+import { Navigation } from '@/components/Navigation';
+import { DivHeader } from '@/components/Div';
+import { TablaVictimAttacker } from '@/components/Table/VictimAttacker/TablaVictimAttacker';
 
-    const users = await fetchAllUsers();
+export default async function getAllVictimasPage() {
+
+    const users = await UsersFetch();
 
   return <>
-  <Navegacion number={2}></Navegacion>
-  <GetAllAtacantes users={users}></GetAllAtacantes>
+  <Navigation number={2}></Navigation>
+
+  <div className="bg-white py-2 sm:py-10 ">
+      <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-12 px-6 lg:px-8 ">
+        <DivHeader title='Usuarios Atacante en el Sistema' description='Usuarios de tipo Atacante registrados en el sistema.' tags={[3]}></DivHeader>
+        
+        <TablaVictimAttacker users={users} tipo={3}></TablaVictimAttacker>
+        
+      </div>
+    </div>
   </>
 }

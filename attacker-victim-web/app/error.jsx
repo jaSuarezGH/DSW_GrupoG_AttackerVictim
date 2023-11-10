@@ -1,7 +1,16 @@
 "use client";
 
-import { ErrorConexion } from "./components/conexion/ErrorConexion";
+import { InformacionPage } from "@/components/InformationPage/InformationPage";
+import { Routes } from "./models";
 
 export default function ErrorRoot() {
-  return <ErrorConexion></ErrorConexion>;
+  return (
+    <InformacionPage
+      title="Pagina no encontrada"
+      description="Lo siento, el enlace ingresado no es valido o no se encuentra disponible."
+      encabezado="Error 404"
+      link={Routes.HOME}
+      linkText="Volver a Conectar"
+    ></InformacionPage>
+  );
 }
