@@ -4,6 +4,7 @@ import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.common.util.CustomResponse;
 import com.ucab.cmcapp.logic.commands.CommandFactory;
 import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByEmailCommand;
+import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByPersonalIdCommand;
 import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByUsernameCommand;
 import com.ucab.cmcapp.logic.commands.user.composite.*;
 import com.ucab.cmcapp.logic.dtos.UserDto;
@@ -123,6 +124,32 @@ public class UserService extends BaseService {
         }
 
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "User for username " + username + " found correctly")).build();
+    }
+
+    @GET
+    @Path("personal_id/{personal_id}")
+    public Response getUserByPersonalId(@PathParam("personal_id") String personal_id) {
+        User entity;
+        UserDto responseDTO = null;
+        GetUserByPersonalIdCommand command = null;
+
+        try {
+            entity = UserMapper.mapDtoToEntityPersonalId(personal_id);
+            command = CommandFactory.createGetUserByPersonalIdCommand(entity);
+            command.execute();
+
+            if (command.getReturnParam() != null)
+                responseDTO = UserMapper.mapEntityToDto(command.getReturnParam());
+            else
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>("No user found for personal_id " + personal_id)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("Error getUser with getUserByPersonalId: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "User for personal_id " + personal_id + " found correctly")).build();
     }
 
     @POST

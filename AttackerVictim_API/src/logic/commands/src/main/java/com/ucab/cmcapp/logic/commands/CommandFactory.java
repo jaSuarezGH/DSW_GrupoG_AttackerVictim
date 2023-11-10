@@ -19,6 +19,10 @@ public class CommandFactory {
         return new GetUserByUsernameCommand(user);
     }
 
+    public static GetUserByPersonalIdCommand createGetUserByPersonalIdCommand(User user){
+        return new GetUserByPersonalIdCommand(user);
+    }
+
     /*public static GetUserByEmailCommand createGetUserByEmailCommand(User user, DBHandler handler) {
         return new GetUserByEmailCommand(user, handler);
     }*/

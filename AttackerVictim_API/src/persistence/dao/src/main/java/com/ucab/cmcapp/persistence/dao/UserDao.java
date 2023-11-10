@@ -76,4 +76,23 @@ public class UserDao extends BaseDao<User> {
         return result;
     }
 
+    public User getUserByPersonalId(String personal_id) {
+        User result = EntityFactory.createUser();
+        try {
+            CriteriaQuery<User> query = _builder.createQuery(User.class);
+            Root<User> root = query.from(User.class);
+
+            query.select(root);
+            query.where(_builder.equal(root.get("_personal_id"), personal_id));
+
+            result = _em.createQuery(query).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        } catch (Exception e) {
+            throw new CupraException(e.getMessage());
+        }
+
+        return result;
+    }
+
 }
