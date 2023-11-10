@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../../AppDeliveryReactNative-master"
+		},
+		{
+			"path": "../MobileVictimApp"
+		}
+	],
+	"settings": {}
+}
