@@ -5,10 +5,7 @@ import com.ucab.cmcapp.common.util.CustomResponse;
 import com.ucab.cmcapp.logic.commands.CommandFactory;
 import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByEmailCommand;
 import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByUsernameCommand;
-import com.ucab.cmcapp.logic.commands.user.composite.DeleteUserCommand;
-import com.ucab.cmcapp.logic.commands.user.composite.CreateUserCommand;
-import com.ucab.cmcapp.logic.commands.user.composite.GetUserCommand;
-import com.ucab.cmcapp.logic.commands.user.composite.UpdateUserCommand;
+import com.ucab.cmcapp.logic.commands.user.composite.*;
 import com.ucab.cmcapp.logic.dtos.UserDto;
 import com.ucab.cmcapp.logic.mappers.UserMapper;
 import org.slf4j.Logger;
@@ -17,12 +14,37 @@ import org.slf4j.LoggerFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserService extends BaseService {
     private static Logger _logger = LoggerFactory.getLogger(UserService.class);
+
+    @GET
+    @Path("/all")
+    public Response getAllUsers() {
+        List<UserDto> responseDTO = null;
+        GetAllUserCommand command = null;
+
+        try {
+            command = CommandFactory.createGetAllUserCommand();
+            command.execute();
+            responseDTO = UserMapper.mapEntityListToDtoList(command.getReturnParam());
+
+            if(responseDTO.size() == 0)
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>("Currently there are no users in database")).build();
+
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("General Exception at getAllUsers: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "All users listed correctly")).build();
+    }
 
     @GET
     @Path("/{id}")

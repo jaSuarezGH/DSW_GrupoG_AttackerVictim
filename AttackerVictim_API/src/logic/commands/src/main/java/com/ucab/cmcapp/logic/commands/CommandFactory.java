@@ -2,10 +2,7 @@ package com.ucab.cmcapp.logic.commands;
 
 import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.logic.commands.user.atomic.*;
-import com.ucab.cmcapp.logic.commands.user.composite.DeleteUserCommand;
-import com.ucab.cmcapp.logic.commands.user.composite.CreateUserCommand;
-import com.ucab.cmcapp.logic.commands.user.composite.GetUserCommand;
-import com.ucab.cmcapp.logic.commands.user.composite.UpdateUserCommand;
+import com.ucab.cmcapp.logic.commands.user.composite.*;
 import com.ucab.cmcapp.persistence.DBHandler;
 
 public class CommandFactory {
@@ -58,8 +55,12 @@ public class CommandFactory {
         return new ModifyUserCommand(user, handler);
     }
 
-    //public static UpdateUserCommand - composite - primero
+    public static GetAllUserCommand createGetAllUserCommand(){
+        return new GetAllUserCommand();
+    }
 
-    // public static ModifyUserCommand - atomic - este es el del handler
+    public static GetAllUserListCommand createGetAllUserListCommand(DBHandler handler){
+        return new GetAllUserListCommand(handler);
+    }
 
 }

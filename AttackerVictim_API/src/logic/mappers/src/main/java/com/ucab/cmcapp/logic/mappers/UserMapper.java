@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class UserMapper extends BaseMapper {
@@ -66,6 +68,30 @@ public class UserMapper extends BaseMapper {
         User entity = EntityFactory.createUser();
         entity.set_username(username);
         return entity;
+    }
+
+    public static List<UserDto> mapEntityListToDtoList(List<User> entityList){
+        List<UserDto> dtoList = new ArrayList<>();
+        UserDto userDto;
+
+        for (User user : entityList) {
+            userDto = new UserDto();
+            userDto.setId(user.get_id());
+            userDto.set_firstname(user.get_firstname());
+            userDto.set_lastname(user.get_lastname());
+            userDto.set_username(user.get_username());
+            userDto.set_personal_id(user.get_personal_id());
+            userDto.set_email(user.get_email());
+            userDto.set_mac_address(user.get_mac_address());
+            userDto.set_active(user.get_active());
+
+            if (Objects.nonNull(user.get_userType()))
+                userDto.set_userType(UserTypeMapper.mapEntityToDto(user.get_userType()));
+
+            dtoList.add(userDto);
+        }
+
+        return dtoList;
     }
 
 }
