@@ -11,6 +11,7 @@ import java.util.List;
 public class GetAllUserCommand extends Command<User> {
 
     private List<User> _user;
+    private GetAllUserListCommand _getAllUserListCommand;
 
     public GetAllUserCommand() {
         setHandler(new DBHandler());
@@ -19,9 +20,9 @@ public class GetAllUserCommand extends Command<User> {
     @Override
     public void execute() {
         try {
-            GetAllUserListCommand getAllUserListCommand = CommandFactory.createGetAllUserListCommand(getHandler());
-            getAllUserListCommand.execute();
-            _user = getAllUserListCommand.getReturnParam();
+            _getAllUserListCommand = CommandFactory.createGetAllUserListCommand(getHandler());
+            _getAllUserListCommand.execute();
+            _user = _getAllUserListCommand.getReturnParam();
         } catch (Exception e) {
             getHandler().rollbackTransaction();
             getHandler().closeSession();

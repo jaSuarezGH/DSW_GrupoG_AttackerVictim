@@ -10,7 +10,6 @@ public class DeleteUserCommand extends Command<User> {
 
     private User _user;
     private User _result;
-
     private EraseUserCommand _eraseUserCommand;
 
     public DeleteUserCommand(User user) {

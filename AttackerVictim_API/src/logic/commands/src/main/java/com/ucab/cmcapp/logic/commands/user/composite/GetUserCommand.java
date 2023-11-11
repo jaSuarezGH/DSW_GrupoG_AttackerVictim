@@ -12,6 +12,7 @@ public class GetUserCommand extends Command<User> {
     private static Logger _logger = LoggerFactory.getLogger(GetUserCommand.class);
     private User _user;
     long _id;
+    private GetUserByIdCommand _getUserByIdCommand;
 
     public GetUserCommand(User user) {
         //region Instrumentation DEBUG
@@ -30,9 +31,9 @@ public class GetUserCommand extends Command<User> {
     @Override
     public void execute() {
         try {
-            GetUserByIdCommand getUserByIdCommand = CommandFactory.createGetUserByIdCommand(getHandler(), _id);
-            getUserByIdCommand.execute();
-            _user = getUserByIdCommand.getReturnParam();
+            _getUserByIdCommand = CommandFactory.createGetUserByIdCommand(getHandler(), _id);
+            _getUserByIdCommand.execute();
+            _user = _getUserByIdCommand.getReturnParam();
         } catch (Exception e) {
             getHandler().rollbackTransaction();
             getHandler().closeSession();
