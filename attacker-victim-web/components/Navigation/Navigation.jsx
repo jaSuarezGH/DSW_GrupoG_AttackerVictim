@@ -40,7 +40,7 @@ export function Navigation({ number = 0 }) {
 
   return (
     <>
-      <div className="min-h-full min-w-full sticky top-0">
+      <div className="min-h-full min-w-full sticky top-0 z-50">
         <Disclosure as="nav" className="bg-gray-800">
           {({ open }) => (
             <>

@@ -2,7 +2,7 @@ import { Input } from "@/components/Input/Input";
 import { Label } from "@/components/Label/Label";
 
 
-export function DivFormElement({ textLabel, type, name, id, placeholder }) {
+export function DivFormElement({ textLabel, type, name, id, placeholder = '' }) {
 
     return (
         <div className="sm:col-span-3">

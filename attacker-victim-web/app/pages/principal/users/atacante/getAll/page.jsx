@@ -1,5 +1,5 @@
 
-import { UsersFetch } from '../../../getAll';
+import { UsersFetch } from '../../getAll';
 import { Navigation } from '@/components/Navigation';
 import { DivHeader } from '@/components/Div';
 import { TablaVictimAttacker } from '@/components/Table/VictimAttacker/TablaVictimAttacker';

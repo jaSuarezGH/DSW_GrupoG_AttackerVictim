@@ -7,7 +7,6 @@ import { Label } from "@/components/Label/Label";
 import { Input } from "@/components/Input/Input";
 import { DivImageHeader } from "@/components/Div/Header/DivImageHeader/DivImageHeader";
 import { ButtonSubmit } from "@/components/Button/ButtonSubmit";
-import { setEnlace } from "./models/endpoint.model";
 
 
 export default function RootPage() {
@@ -30,7 +29,6 @@ export default function RootPage() {
               fetch(url)
                 .then((response) => {
                   if (response.ok) {
-                    setEnlace(url);
                     alert("Conexión Exitosa");
                     router.push("pages/login");
                   }

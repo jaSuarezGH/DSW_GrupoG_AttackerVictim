@@ -9,12 +9,14 @@ export const Routes = {
     USER_CONFIG: '',
 
     //Funcionalidades:
-    GETALL_USERS: '/pages/principal/getAll',
+    GETALL_USERS: '/pages/principal/users/getAll',
     GET_NOTIFICATIONS: '',
     GETALL_VICTIMS: '/pages/principal/users/victima/getAll',
     GETALL_ATTACKERS: '/pages/principal/users/atacante/getAll',
-    GET_VICTIM: '/pages/principal/users/victima/get',
-    GET_ATTACKER: '/pages/principal/users/atacante/get',
+    GET_VICTIM: '/pages/principal/users/get/victim',
+    GET_VICTIM_RESPONSE: '/pages/principal/users/get/victim/response',
+    GET_ATTACKER: '',
+    GET_ATTACKER_RESPONSE: '',
     UPDATE_ZS: '',
     UPDATE_RELATION: '',
     GET_LOCATION: '',

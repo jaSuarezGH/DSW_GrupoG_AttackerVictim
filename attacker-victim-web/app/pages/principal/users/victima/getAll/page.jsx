@@ -1,9 +1,9 @@
 
 
-import { UsersFetch } from '../../../getAll';
 import { Navigation } from '@/components/Navigation';
 import { DivHeader } from '@/components/Div';
 import { TablaVictimAttacker } from '@/components/Table/VictimAttacker/TablaVictimAttacker';
+import { UsersFetch } from '../../getAll';
 
 export default async function getAllVictimasPage() {
 
@@ -18,6 +18,8 @@ export default async function getAllVictimasPage() {
         
         <TablaVictimAttacker users={users} tipo={2}></TablaVictimAttacker>
         
+        
+
       </div>
     </div>
   </>
