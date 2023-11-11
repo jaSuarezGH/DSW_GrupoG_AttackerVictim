@@ -44,7 +44,8 @@ public class UserDao extends BaseDao<User> {
             result = _em.createQuery(query).getSingleResult();
         } catch (NoResultException e) {
             _logger.error(String.format("Error UserDao.getUserByEmail: No Result {%s}", e.getMessage()));
-            throw new CupraException(e.getMessage());
+            //throw new CupraException(e.getMessage());
+            return null;
         } catch (Exception e) {
             _logger.error(String.format("Error UserDao.getUserByEmail: {%s}", e.getMessage()));
             throw new CupraException(e.getMessage());
@@ -52,6 +53,63 @@ public class UserDao extends BaseDao<User> {
         //region Instrumentation
         _logger.debug(String.format("Leavin UserDao.getUserByEmail: result {%s}", result));
         //endregion
+
+        return result;
+    }
+
+    public User getUserByUsername(String email) {
+        User result = EntityFactory.createUser();
+        try {
+            CriteriaQuery<User> query = _builder.createQuery(User.class);
+            Root<User> root = query.from(User.class);
+
+            query.select(root);
+            query.where(_builder.equal(root.get("_username"), email));
+
+            result = _em.createQuery(query).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        } catch (Exception e) {
+            throw new CupraException(e.getMessage());
+        }
+
+        return result;
+    }
+
+    public User getUserByPersonalId(String personal_id) {
+        User result = EntityFactory.createUser();
+        try {
+            CriteriaQuery<User> query = _builder.createQuery(User.class);
+            Root<User> root = query.from(User.class);
+
+            query.select(root);
+            query.where(_builder.equal(root.get("_personal_id"), personal_id));
+
+            result = _em.createQuery(query).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        } catch (Exception e) {
+            throw new CupraException(e.getMessage());
+        }
+
+        return result;
+    }
+
+    public User getUserByMacAddress(String mac_address) {
+        User result = EntityFactory.createUser();
+        try {
+            CriteriaQuery<User> query = _builder.createQuery(User.class);
+            Root<User> root = query.from(User.class);
+
+            query.select(root);
+            query.where(_builder.equal(root.get("_mac_address"), mac_address));
+
+            result = _em.createQuery(query).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        } catch (Exception e) {
+            throw new CupraException(e.getMessage());
+        }
 
         return result;
     }

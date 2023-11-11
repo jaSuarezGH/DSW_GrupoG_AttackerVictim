@@ -1,34 +1,30 @@
-package com.ucab.cmcapp.logic.commands.persona.composite;
+package com.ucab.cmcapp.logic.commands.user.composite;
 
-import com.ucab.cmcapp.common.entities.Persona;
 import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.logic.commands.Command;
 import com.ucab.cmcapp.logic.commands.CommandFactory;
-import com.ucab.cmcapp.logic.commands.CommandFactoryPersona;
-import com.ucab.cmcapp.logic.commands.persona.atomic.AddPersonaCommand;
 import com.ucab.cmcapp.logic.commands.user.atomic.AddUserCommand;
+import com.ucab.cmcapp.logic.commands.user.atomic.ModifyUserCommand;
 import com.ucab.cmcapp.persistence.DBHandler;
 
-public class CreatePersonaCommand extends Command<Persona> {
-    private Persona _persona;
-    private Persona _result;
-    private AddPersonaCommand _addPersonaCommand;
+public class UpdateUserCommand extends Command<User> {
 
-    public CreatePersonaCommand(Persona persona) {
+    private User _user;
+    private User _result;
+    private ModifyUserCommand _modifyUserCommand;
 
-        _persona = persona;
+    public UpdateUserCommand(User user) {
+        _user = user;
         setHandler(new DBHandler());
-
     }
 
     @Override
     public void execute() {
-
         try {
             getHandler().beginTransaction();
-            _addPersonaCommand = CommandFactoryPersona.createAddPersonaCommand(_persona, getHandler());
-            _addPersonaCommand.execute();
-            _result = _addPersonaCommand.getReturnParam();
+            _modifyUserCommand = CommandFactory.createModifyUserCommand(_user, getHandler());
+            _modifyUserCommand.execute();
+            _result = _modifyUserCommand.getReturnParam();
             getHandler().finishTransaction();
             getHandler().closeSession();
         } catch (Exception e) {
@@ -36,11 +32,10 @@ public class CreatePersonaCommand extends Command<Persona> {
             getHandler().closeSession();
             throw e;
         }
-
     }
 
     @Override
-    public Persona getReturnParam() {
+    public User getReturnParam() {
         return _result;
     }
 
@@ -48,4 +43,5 @@ public class CreatePersonaCommand extends Command<Persona> {
     public void closeHandlerSession() {
         getHandler().closeSession();
     }
+
 }

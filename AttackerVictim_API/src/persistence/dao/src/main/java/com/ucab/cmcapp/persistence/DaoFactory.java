@@ -10,8 +10,4 @@ public class DaoFactory {
         return new UserDao(handler);
     }
 
-    public static  PersonaDao createPersonaDao(DBHandler handler) {
-        return new PersonaDao(handler);
-    }
-
 }
