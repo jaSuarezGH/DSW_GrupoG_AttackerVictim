@@ -23,6 +23,10 @@ public class CommandFactory {
         return new GetUserByPersonalIdCommand(user);
     }
 
+    public static GetUserByMacAddressCommand createGetUserByMacAddressCommand(User user){
+        return new GetUserByMacAddressCommand(user);
+    }
+
     /*public static GetUserByEmailCommand createGetUserByEmailCommand(User user, DBHandler handler) {
         return new GetUserByEmailCommand(user, handler);
     }*/

@@ -4,6 +4,7 @@ import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.common.util.CustomResponse;
 import com.ucab.cmcapp.logic.commands.CommandFactory;
 import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByEmailCommand;
+import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByMacAddressCommand;
 import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByPersonalIdCommand;
 import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByUsernameCommand;
 import com.ucab.cmcapp.logic.commands.user.composite.*;
@@ -34,7 +35,7 @@ public class UserService extends BaseService {
             command.execute();
             responseDTO = UserMapper.mapEntityListToDtoList(command.getReturnParam());
 
-            if(responseDTO.isEmpty())
+            if (responseDTO.isEmpty())
                 return Response.status(Response.Status.OK).entity(new CustomResponse<>("[OK EMPTY RESPONSE] Currently there are no users in database")).build();
 
         } catch (Exception e) {
@@ -150,6 +151,32 @@ public class UserService extends BaseService {
         }
 
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found user with personal_id: " + personal_id)).build();
+    }
+
+    @GET
+    @Path("mac/{mac_adress}")
+    public Response getUserByMacAddress(@PathParam("mac_adress") String mac_address) {
+        User entity;
+        UserDto responseDTO = null;
+        GetUserByMacAddressCommand command = null;
+
+        try {
+            entity = UserMapper.mapDtoToEntityMacAddress(mac_address);
+            command = CommandFactory.createGetUserByMacAddressCommand(entity);
+            command.execute();
+
+            if (command.getReturnParam() != null)
+                responseDTO = UserMapper.mapEntityToDto(command.getReturnParam());
+            else
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>("[OK EMPTY RESPONSE] No user found for mac_address: " + mac_address)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method getUserByMacAddress: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found user with mac_address: " + mac_address)).build();
     }
 
     @POST

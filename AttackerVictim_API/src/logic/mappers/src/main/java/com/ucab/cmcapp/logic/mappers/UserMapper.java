@@ -76,6 +76,12 @@ public class UserMapper extends BaseMapper {
         return entity;
     }
 
+    public static User mapDtoToEntityMacAddress(String mac_address){
+        User entity = EntityFactory.createUser();
+        entity.set_mac_address(mac_address);
+        return entity;
+    }
+
     public static List<UserDto> mapEntityListToDtoList(List<User> entityList){
         List<UserDto> dtoList = new ArrayList<>();
         UserDto userDto;
