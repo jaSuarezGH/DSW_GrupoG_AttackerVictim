@@ -98,7 +98,7 @@ export default function PrincipalPage() {
             title="Crear Usuario Victima y Atacante"
             description='Crear usuarios de tipo "Victima" y su respectivo usuario
             "Atacante" relacionado.'
-            link={Routes.GET_ATTACKER}
+            link={Routes.CREATE_USER}
             tags={[2,3]}
           ></Card>
 

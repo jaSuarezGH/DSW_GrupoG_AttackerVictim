@@ -3,7 +3,7 @@
 import "@/tailwind.config";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Label } from "@/components/Llabel/Label";
+import { Label } from "@/components/Label/Label";
 import { Input } from "@/components/Input/Input";
 import { DivImageHeader } from "@/components/Div/Header/DivImageHeader/DivImageHeader";
 import { ButtonSubmit } from "@/components/Button/ButtonSubmit";

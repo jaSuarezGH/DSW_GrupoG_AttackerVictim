@@ -18,13 +18,16 @@ export const Routes = {
     UPDATE_ZS: '',
     UPDATE_RELATION: '',
     GET_LOCATION: '',
-    CREATE_USER: '',
+    CREATE_USER: '/pages/principal/users/registro',
     UPDATE_VICTIM: '',
     UPDATE_ATTACKER: '',
     DELETE_USERS: '',
 
     //Login
     SIGN_OFF: '/pages/login',
-    FORGOT_PASS: '/pages/login/recuperarClave'
+    FORGOT_PASS: '/pages/login/recuperarClave',
+
+    //Inofmation:
+    INF_REGISTER: '/pages/informacion/exitoRegistro'
 
 }

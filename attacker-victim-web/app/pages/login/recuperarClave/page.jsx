@@ -3,7 +3,7 @@
 import { ButtonSubmit } from "@/components/Button/ButtonSubmit";
 import { DivImageHeader } from "@/components/Div/Header/DivImageHeader/DivImageHeader";
 import { Input } from "@/components/Input/Input";
-import { Label } from "@/components/Llabel/Label";
+import { Label } from "@/components/Label/Label";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
