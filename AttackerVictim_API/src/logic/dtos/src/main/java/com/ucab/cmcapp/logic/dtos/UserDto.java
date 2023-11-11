@@ -12,7 +12,6 @@ public class UserDto extends BaseDto {
     private Boolean _active;
     private UserTypeDto _userType;
 
-
     public UserDto() {
     }
 
