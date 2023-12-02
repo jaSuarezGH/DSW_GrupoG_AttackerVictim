@@ -1,9 +1,12 @@
 package com.ucab.cmcapp.logic.commands;
 
 import com.ucab.cmcapp.common.entities.User;
+import com.ucab.cmcapp.common.entities.Victim;
 import com.ucab.cmcapp.logic.commands.user.atomic.*;
 import com.ucab.cmcapp.logic.commands.user.composite.*;
+import com.ucab.cmcapp.logic.commands.victim.atomic.AddVictimCommand;
 import com.ucab.cmcapp.logic.commands.victim.atomic.GetAllVictimListCommand;
+import com.ucab.cmcapp.logic.commands.victim.composite.CreateVictimCommand;
 import com.ucab.cmcapp.logic.commands.victim.composite.GetAllVictimCommand;
 import com.ucab.cmcapp.persistence.DBHandler;
 
@@ -82,6 +85,15 @@ public class CommandFactory {
 
     public static GetAllVictimListCommand createGetAllVictimListCommand(DBHandler handler){
         return new GetAllVictimListCommand(handler);
+    }
+
+    // ------------------( addVictim )-----------------------------
+    public static CreateVictimCommand createCreateVictimCommand(Victim victim) {
+        return new CreateVictimCommand(victim);
+    }
+
+    public static AddVictimCommand createAddVictimCommand(Victim victim, DBHandler handler) {
+        return new AddVictimCommand(victim, handler);
     }
 
 }
