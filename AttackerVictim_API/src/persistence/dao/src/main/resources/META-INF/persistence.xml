@@ -18,9 +18,10 @@
             <property name="hibernate.format_sql" value="false" />
             <!--<property name="hibernate.hbm2ddl.auto" value="none" />-->
 
+            <!--
             <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />
-            <!-- -->
+            -->
          </properties>
 
     </persistence-unit>

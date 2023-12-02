@@ -3,6 +3,8 @@ package com.ucab.cmcapp.logic.commands;
 import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.logic.commands.user.atomic.*;
 import com.ucab.cmcapp.logic.commands.user.composite.*;
+import com.ucab.cmcapp.logic.commands.victim.atomic.GetAllVictimListCommand;
+import com.ucab.cmcapp.logic.commands.victim.composite.GetAllVictimCommand;
 import com.ucab.cmcapp.persistence.DBHandler;
 
 public class CommandFactory {
@@ -70,6 +72,16 @@ public class CommandFactory {
 
     public static ModifyUserCommand createModifyUserCommand(User user, DBHandler handler){
         return new ModifyUserCommand(user, handler);
+    }
+
+    // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    public static GetAllVictimCommand createGetAllVictimCommand(){
+        return new GetAllVictimCommand();
+    }
+
+    public static GetAllVictimListCommand createGetAllVictimListCommand(DBHandler handler){
+        return new GetAllVictimListCommand(handler);
     }
 
 }

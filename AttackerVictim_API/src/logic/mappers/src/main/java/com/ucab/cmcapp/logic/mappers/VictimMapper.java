@@ -9,6 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class VictimMapper extends BaseMapper {
     private static Logger _logger = LoggerFactory.getLogger(VictimMapper.class);
@@ -36,4 +39,19 @@ public class VictimMapper extends BaseMapper {
         entity.set_id(id);
         return entity;
     }
+
+    public static List<VictimDto> mapEntityListToDtoList(List<Victim> entityList){
+        List<VictimDto> dtoList = new ArrayList<>();
+        VictimDto victimDto;
+
+        for (Victim victim : entityList) {
+            victimDto = new VictimDto();
+            victimDto.setId(victim.get_id());
+            victimDto.set_user_id(UserMapper.mapEntityToDto(victim.get_user_id()));
+            dtoList.add(victimDto);
+        }
+
+        return dtoList;
+    }
+
 }
