@@ -10,4 +10,8 @@ public class DaoFactory {
         return new UserDao(handler);
     }
 
+    public static VictimDao createVictimDao(DBHandler handler) {
+        return new VictimDao(handler);
+    }
+
 }

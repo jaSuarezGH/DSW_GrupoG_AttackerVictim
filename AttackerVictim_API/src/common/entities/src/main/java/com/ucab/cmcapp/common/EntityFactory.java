@@ -12,6 +12,8 @@ public class EntityFactory {
         return new User(id);
     }
 
+    // --------------------
+
     public static UserType createUserType() {
         return new UserType();
     }
@@ -19,4 +21,15 @@ public class EntityFactory {
     public static UserType createUserType(long id) {
         return new UserType(id);
     }
+
+    // --------------------
+
+    public static Victim createVictim(){
+        return new Victim();
+    }
+
+    public static Victim createVictim(long id){
+        return new Victim(id);
+    }
+
 }
