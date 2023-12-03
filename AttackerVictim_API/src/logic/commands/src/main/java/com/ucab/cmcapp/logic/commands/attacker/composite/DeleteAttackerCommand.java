@@ -8,7 +8,7 @@ import com.ucab.cmcapp.logic.commands.attacker.atomic.EraseAttackerCommand;
 import com.ucab.cmcapp.logic.commands.victim.atomic.EraseVictimCommand;
 import com.ucab.cmcapp.persistence.DBHandler;
 
-public class DeleteAttackerCommand extends Command<Attacker>{
+public class DeleteAttackerCommand extends Command<Attacker> {
 
     private Attacker _attacker;
     private Attacker _result;

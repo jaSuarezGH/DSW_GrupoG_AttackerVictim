@@ -24,11 +24,11 @@ import com.ucab.cmcapp.persistence.DBHandler;
 public class CommandFactory {
 
     // ------------------( getAllUsers )-------------------------
-    public static GetAllUserCommand createGetAllUserCommand(){
+    public static GetAllUserCommand createGetAllUserCommand() {
         return new GetAllUserCommand();
     }
 
-    public static GetAllUserListCommand createGetAllUserListCommand(DBHandler handler){
+    public static GetAllUserListCommand createGetAllUserListCommand(DBHandler handler) {
         return new GetAllUserListCommand(handler);
     }
 
@@ -47,17 +47,17 @@ public class CommandFactory {
     }
 
     // ------------------( getUserByUsername )-------------------
-    public static GetUserByUsernameCommand createGetUserByUsernameCommand(User user){
+    public static GetUserByUsernameCommand createGetUserByUsernameCommand(User user) {
         return new GetUserByUsernameCommand(user);
     }
 
     // ------------------( getUserByPersonalId )-----------------
-    public static GetUserByPersonalIdCommand createGetUserByPersonalIdCommand(User user){
+    public static GetUserByPersonalIdCommand createGetUserByPersonalIdCommand(User user) {
         return new GetUserByPersonalIdCommand(user);
     }
 
     // ------------------( getUserByMacAddress )-----------------
-    public static GetUserByMacAddressCommand createGetUserByMacAddressCommand(User user){
+    public static GetUserByMacAddressCommand createGetUserByMacAddressCommand(User user) {
         return new GetUserByMacAddressCommand(user);
     }
 
@@ -80,11 +80,11 @@ public class CommandFactory {
     }
 
     // ------------------( updateUser )--------------------------
-    public static UpdateUserCommand createUpdateUserCommand(User user){
+    public static UpdateUserCommand createUpdateUserCommand(User user) {
         return new UpdateUserCommand(user);
     }
 
-    public static ModifyUserCommand createModifyUserCommand(User user, DBHandler handler){
+    public static ModifyUserCommand createModifyUserCommand(User user, DBHandler handler) {
         return new ModifyUserCommand(user, handler);
     }
 
@@ -92,16 +92,16 @@ public class CommandFactory {
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     // ------------------( getAllVictims )-----------------------
-    public static GetAllVictimCommand createGetAllVictimCommand(){
+    public static GetAllVictimCommand createGetAllVictimCommand() {
         return new GetAllVictimCommand();
     }
 
-    public static GetAllVictimListCommand createGetAllVictimListCommand(DBHandler handler){
+    public static GetAllVictimListCommand createGetAllVictimListCommand(DBHandler handler) {
         return new GetAllVictimListCommand(handler);
     }
 
     // ------------------( getVictimByUserId )-------------------
-    public static GetVictimByUserIdCommand createGetVictimByUserIdCommand(Victim victim){
+    public static GetVictimByUserIdCommand createGetVictimByUserIdCommand(Victim victim) {
         return new GetVictimByUserIdCommand(victim);
     }
 
@@ -126,21 +126,21 @@ public class CommandFactory {
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    // ------------------( getAllAttackers )-----------------------
-    public static GetAllAttackerCommand createGetAllAttackerCommand(){
+    // ------------------( getAllAttackers )---------------------
+    public static GetAllAttackerCommand createGetAllAttackerCommand() {
         return new GetAllAttackerCommand();
     }
 
-    public static GetAllAttackerListCommand createGetAllAttackerListCommand(DBHandler handler){
+    public static GetAllAttackerListCommand createGetAllAttackerListCommand(DBHandler handler) {
         return new GetAllAttackerListCommand(handler);
     }
 
-    // ------------------( getAttackerByUserId )-------------------
-    public static GetAttackerByUserIdCommand createGetAttackerByUserIdCommand(Attacker attacker){
+    // ------------------( getAttackerByUserId )-----------------
+    public static GetAttackerByUserIdCommand createGetAttackerByUserIdCommand(Attacker attacker) {
         return new GetAttackerByUserIdCommand(attacker);
     }
 
-    // ------------------( addAttacker )---------------------------
+    // ------------------( addAttacker )-------------------------
     public static CreateAttackerCommand createCreateAttackerCommand(Attacker attacker) {
         return new CreateAttackerCommand(attacker);
     }
@@ -149,7 +149,7 @@ public class CommandFactory {
         return new AddAttackerCommand(attacker, handler);
     }
 
-    // ------------------( deleteAttacker )------------------------
+    // ------------------( deleteAttacker )----------------------
     public static DeleteAttackerCommand createDeleteAttackerCommand(Attacker attacker) {
         return new DeleteAttackerCommand(attacker);
     }
@@ -157,5 +157,9 @@ public class CommandFactory {
     public static EraseAttackerCommand createEraseAttackerCommand(Attacker attacker, DBHandler handler) {
         return new EraseAttackerCommand(attacker, handler);
     }
+
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 
 }
