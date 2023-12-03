@@ -5,8 +5,10 @@ import com.ucab.cmcapp.common.entities.Victim;
 import com.ucab.cmcapp.common.util.CustomResponse;
 import com.ucab.cmcapp.logic.commands.CommandFactory;
 import com.ucab.cmcapp.logic.commands.attacker.atomic.GetAttackerByUserIdCommand;
+import com.ucab.cmcapp.logic.commands.attacker.composite.CreateAttackerCommand;
 import com.ucab.cmcapp.logic.commands.attacker.composite.GetAllAttackerCommand;
 import com.ucab.cmcapp.logic.commands.victim.atomic.GetVictimByUserIdCommand;
+import com.ucab.cmcapp.logic.commands.victim.composite.CreateVictimCommand;
 import com.ucab.cmcapp.logic.commands.victim.composite.GetAllVictimCommand;
 import com.ucab.cmcapp.logic.dtos.AttackerDto;
 import com.ucab.cmcapp.logic.dtos.VictimDto;
@@ -74,5 +76,26 @@ public class AttackerService extends BaseService {
         }
 
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found attacker with user_id: " + userId)).build();
+    }
+
+    @POST
+    public Response addAttacker(AttackerDto attackerDto) {
+        Attacker entity;
+        AttackerDto responseDTO = null;
+        CreateAttackerCommand command = null;
+
+        try {
+            entity = AttackerMapper.mapDtoToEntity(attackerDto);
+            command = CommandFactory.createCreateAttackerCommand(entity);
+            command.execute();
+            responseDTO = AttackerMapper.mapEntityToDto(command.getReturnParam());
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method addAttacker, attacker could not be added: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] attacker created successfully")).build();
     }
 }
