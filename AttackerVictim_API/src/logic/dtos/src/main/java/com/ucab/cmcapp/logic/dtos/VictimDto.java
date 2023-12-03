@@ -4,7 +4,7 @@ public class VictimDto extends BaseDto {
 
     private UserDto _user_id;
 
-    public VictimDto(){
+    public VictimDto() {
     }
 
     public UserDto get_user_id() {

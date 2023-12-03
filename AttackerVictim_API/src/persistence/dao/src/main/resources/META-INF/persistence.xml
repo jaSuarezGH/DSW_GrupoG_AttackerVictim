@@ -8,6 +8,7 @@
         <class>com.ucab.cmcapp.common.entities.User</class>
         <class>com.ucab.cmcapp.common.entities.UserType</class>
         <class>com.ucab.cmcapp.common.entities.Victim</class>
+        <class>com.ucab.cmcapp.common.entities.Attacker</class>
 
         <properties>
             <property name="hibernate.generate_statistics" value="true"/>

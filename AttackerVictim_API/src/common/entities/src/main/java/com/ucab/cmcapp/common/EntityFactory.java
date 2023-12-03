@@ -32,4 +32,14 @@ public class EntityFactory {
         return new Victim(id);
     }
 
+    // --------------------
+
+    public static Attacker createAttacker(){
+        return new Attacker();
+    }
+
+    public static Attacker createAttacker(long id){
+        return new Attacker(id);
+    }
+
 }

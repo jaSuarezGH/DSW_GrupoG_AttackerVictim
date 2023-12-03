@@ -14,4 +14,8 @@ public class DaoFactory {
         return new VictimDao(handler);
     }
 
+    public static AttackerDao createAttackerDao(DBHandler handler) {
+        return new AttackerDao(handler);
+    }
+
 }
