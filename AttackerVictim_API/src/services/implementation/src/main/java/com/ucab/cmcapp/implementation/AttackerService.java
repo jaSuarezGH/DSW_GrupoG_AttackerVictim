@@ -1,21 +1,14 @@
 package com.ucab.cmcapp.implementation;
 
 import com.ucab.cmcapp.common.entities.Attacker;
-import com.ucab.cmcapp.common.entities.Victim;
 import com.ucab.cmcapp.common.util.CustomResponse;
 import com.ucab.cmcapp.logic.commands.CommandFactory;
 import com.ucab.cmcapp.logic.commands.attacker.atomic.GetAttackerByUserIdCommand;
 import com.ucab.cmcapp.logic.commands.attacker.composite.CreateAttackerCommand;
 import com.ucab.cmcapp.logic.commands.attacker.composite.DeleteAttackerCommand;
 import com.ucab.cmcapp.logic.commands.attacker.composite.GetAllAttackerCommand;
-import com.ucab.cmcapp.logic.commands.victim.atomic.GetVictimByUserIdCommand;
-import com.ucab.cmcapp.logic.commands.victim.composite.CreateVictimCommand;
-import com.ucab.cmcapp.logic.commands.victim.composite.DeleteVictimCommand;
-import com.ucab.cmcapp.logic.commands.victim.composite.GetAllVictimCommand;
 import com.ucab.cmcapp.logic.dtos.AttackerDto;
-import com.ucab.cmcapp.logic.dtos.VictimDto;
 import com.ucab.cmcapp.logic.mappers.AttackerMapper;
-import com.ucab.cmcapp.logic.mappers.VictimMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
