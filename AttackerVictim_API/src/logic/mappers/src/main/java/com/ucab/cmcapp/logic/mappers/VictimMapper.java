@@ -29,7 +29,8 @@ public class VictimMapper extends BaseMapper {
         final VictimDto dto = new VictimDto();
 
         dto.setId(entity.get_id());
-        dto.set_user_id(UserMapper.mapEntityToDto(entity.get_user_id()));
+        if(entity.get_user_id() != null)
+            dto.set_user_id(UserMapper.mapEntityToDto(entity.get_user_id()));
 
         return dto;
     }

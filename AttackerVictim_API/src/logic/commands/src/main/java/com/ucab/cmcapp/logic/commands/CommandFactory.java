@@ -5,8 +5,10 @@ import com.ucab.cmcapp.common.entities.Victim;
 import com.ucab.cmcapp.logic.commands.user.atomic.*;
 import com.ucab.cmcapp.logic.commands.user.composite.*;
 import com.ucab.cmcapp.logic.commands.victim.atomic.AddVictimCommand;
+import com.ucab.cmcapp.logic.commands.victim.atomic.EraseVictimCommand;
 import com.ucab.cmcapp.logic.commands.victim.atomic.GetAllVictimListCommand;
 import com.ucab.cmcapp.logic.commands.victim.composite.CreateVictimCommand;
+import com.ucab.cmcapp.logic.commands.victim.composite.DeleteVictimCommand;
 import com.ucab.cmcapp.logic.commands.victim.composite.GetAllVictimCommand;
 import com.ucab.cmcapp.persistence.DBHandler;
 
@@ -77,7 +79,7 @@ public class CommandFactory {
         return new ModifyUserCommand(user, handler);
     }
 
-    // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     public static GetAllVictimCommand createGetAllVictimCommand(){
         return new GetAllVictimCommand();
@@ -94,6 +96,15 @@ public class CommandFactory {
 
     public static AddVictimCommand createAddVictimCommand(Victim victim, DBHandler handler) {
         return new AddVictimCommand(victim, handler);
+    }
+
+    // ------------------( deleteVictim FIX )--------------------------
+    public static DeleteVictimCommand createDeleteVictimCommand(Victim victim) {
+        return new DeleteVictimCommand(victim);
+    }
+
+    public static EraseVictimCommand createEraseVictimCommand(Victim victim, DBHandler handler) {
+        return new EraseVictimCommand(victim, handler);
     }
 
 }
