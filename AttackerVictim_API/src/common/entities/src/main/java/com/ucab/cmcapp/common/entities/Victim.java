@@ -15,7 +15,7 @@ public class Victim {
 
     public Victim(Victim victim) {
         _id = victim._id;
-        _user_id = victim._user_id;
+        _user = victim._user;
     }
 
     @Id
@@ -24,8 +24,8 @@ public class Victim {
     private long _id;
 
     @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, unique = true)
-    private User _user_id;
+    @JoinColumn(name = "user", nullable = false, unique = true)
+    private User _user;
 
     public long get_id() {
         return _id;
@@ -35,11 +35,11 @@ public class Victim {
         this._id = _id;
     }
 
-    public User get_user_id() {
-        return _user_id;
+    public User get_user() {
+        return _user;
     }
 
-    public void set_user_id(User _user_id) {
-        this._user_id = _user_id;
+    public void set_user(User _user_id) {
+        this._user = _user_id;
     }
 }

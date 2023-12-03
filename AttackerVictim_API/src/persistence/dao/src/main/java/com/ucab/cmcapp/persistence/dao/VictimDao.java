@@ -38,7 +38,7 @@ public class VictimDao extends BaseDao<Victim>{
             Root<Victim> root = query.from(Victim.class);
 
             query.select(root);
-            query.where(_builder.equal(root.get("_user_id"), userId));
+            query.where(_builder.equal(root.get("_user"), userId));
 
             result = _em.createQuery(query).getSingleResult();
         } catch (NoResultException e) {

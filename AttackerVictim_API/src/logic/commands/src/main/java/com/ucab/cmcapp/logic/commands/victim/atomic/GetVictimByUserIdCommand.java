@@ -1,11 +1,9 @@
 package com.ucab.cmcapp.logic.commands.victim.atomic;
 
-import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.common.entities.Victim;
 import com.ucab.cmcapp.logic.commands.Command;
 import com.ucab.cmcapp.persistence.DBHandler;
 import com.ucab.cmcapp.persistence.DaoFactory;
-import com.ucab.cmcapp.persistence.dao.UserDao;
 import com.ucab.cmcapp.persistence.dao.VictimDao;
 
 public class GetVictimByUserIdCommand extends Command<Victim> {
@@ -21,7 +19,7 @@ public class GetVictimByUserIdCommand extends Command<Victim> {
 
     @Override
     public void execute() {
-        _victim = _dao.getVictimByUserId(_victim.get_user_id());
+        _victim = _dao.getVictimByUserId(_victim.get_user());
     }
 
     @Override
