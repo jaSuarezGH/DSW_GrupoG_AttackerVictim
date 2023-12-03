@@ -1,8 +1,10 @@
 package com.ucab.cmcapp.logic.commands;
 
+import com.ucab.cmcapp.common.entities.Attacker;
 import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.common.entities.Victim;
 import com.ucab.cmcapp.logic.commands.attacker.atomic.GetAllAttackerListCommand;
+import com.ucab.cmcapp.logic.commands.attacker.atomic.GetAttackerByUserIdCommand;
 import com.ucab.cmcapp.logic.commands.attacker.composite.GetAllAttackerCommand;
 import com.ucab.cmcapp.logic.commands.user.atomic.*;
 import com.ucab.cmcapp.logic.commands.user.composite.*;
@@ -127,6 +129,11 @@ public class CommandFactory {
 
     public static GetAllAttackerListCommand createGetAllAttackerListCommand(DBHandler handler){
         return new GetAllAttackerListCommand(handler);
+    }
+
+    // ------------------( getAttackerByUserId )-------------------
+    public static GetAttackerByUserIdCommand createGetAttackerByUserIdCommand(Attacker attacker){
+        return new GetAttackerByUserIdCommand(attacker);
     }
 
 }
