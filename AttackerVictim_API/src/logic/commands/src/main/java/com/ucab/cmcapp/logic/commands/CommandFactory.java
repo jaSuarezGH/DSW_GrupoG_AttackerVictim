@@ -7,6 +7,7 @@ import com.ucab.cmcapp.logic.commands.user.composite.*;
 import com.ucab.cmcapp.logic.commands.victim.atomic.AddVictimCommand;
 import com.ucab.cmcapp.logic.commands.victim.atomic.EraseVictimCommand;
 import com.ucab.cmcapp.logic.commands.victim.atomic.GetAllVictimListCommand;
+import com.ucab.cmcapp.logic.commands.victim.atomic.GetVictimByUserIdCommand;
 import com.ucab.cmcapp.logic.commands.victim.composite.CreateVictimCommand;
 import com.ucab.cmcapp.logic.commands.victim.composite.DeleteVictimCommand;
 import com.ucab.cmcapp.logic.commands.victim.composite.GetAllVictimCommand;
@@ -79,8 +80,10 @@ public class CommandFactory {
         return new ModifyUserCommand(user, handler);
     }
 
-    // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+    // ------------------( getAllVictims )-----------------------
     public static GetAllVictimCommand createGetAllVictimCommand(){
         return new GetAllVictimCommand();
     }
@@ -89,7 +92,12 @@ public class CommandFactory {
         return new GetAllVictimListCommand(handler);
     }
 
-    // ------------------( addVictim )-----------------------------
+    // ------------------( getVictimByUserId )-------------------
+    public static GetVictimByUserIdCommand createGetVictimByUserIdCommand(Victim victim){
+        return new GetVictimByUserIdCommand(victim);
+    }
+
+    // ------------------( addVictim )---------------------------
     public static CreateVictimCommand createCreateVictimCommand(Victim victim) {
         return new CreateVictimCommand(victim);
     }
@@ -98,7 +106,7 @@ public class CommandFactory {
         return new AddVictimCommand(victim, handler);
     }
 
-    // ------------------( deleteVictim FIX )--------------------------
+    // ------------------( deleteVictim )------------------------
     public static DeleteVictimCommand createDeleteVictimCommand(Victim victim) {
         return new DeleteVictimCommand(victim);
     }
@@ -106,5 +114,8 @@ public class CommandFactory {
     public static EraseVictimCommand createEraseVictimCommand(Victim victim, DBHandler handler) {
         return new EraseVictimCommand(victim, handler);
     }
+
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 }

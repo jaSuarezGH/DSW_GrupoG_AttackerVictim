@@ -55,4 +55,12 @@ public class VictimMapper extends BaseMapper {
         return dtoList;
     }
 
+    public static Victim mapDtoToEntityUserId(String userId){
+        User user = new User();
+        user.set_id(Integer.valueOf(userId));
+        Victim entity = EntityFactory.createVictim();
+        entity.set_user_id(user);
+        return entity;
+    }
+
 }

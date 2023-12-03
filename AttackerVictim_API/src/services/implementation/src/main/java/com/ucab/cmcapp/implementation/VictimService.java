@@ -4,9 +4,11 @@ import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.common.entities.Victim;
 import com.ucab.cmcapp.common.util.CustomResponse;
 import com.ucab.cmcapp.logic.commands.CommandFactory;
+import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByMacAddressCommand;
 import com.ucab.cmcapp.logic.commands.user.composite.CreateUserCommand;
 import com.ucab.cmcapp.logic.commands.user.composite.DeleteUserCommand;
 import com.ucab.cmcapp.logic.commands.user.composite.GetAllUserCommand;
+import com.ucab.cmcapp.logic.commands.victim.atomic.GetVictimByUserIdCommand;
 import com.ucab.cmcapp.logic.commands.victim.composite.CreateVictimCommand;
 import com.ucab.cmcapp.logic.commands.victim.composite.DeleteVictimCommand;
 import com.ucab.cmcapp.logic.commands.victim.composite.GetAllVictimCommand;
@@ -51,6 +53,32 @@ public class VictimService extends BaseService {
         }
 
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully listed all victims")).build();
+    }
+
+    @GET
+    @Path("/{user_id}")
+    public Response getVictimByUserId(@PathParam("user_id") String userId) {
+        Victim entity;
+        VictimDto responseDTO = null;
+        GetVictimByUserIdCommand command = null;
+
+        try {
+            entity = VictimMapper.mapDtoToEntityUserId(userId);
+            command = CommandFactory.createGetVictimByUserIdCommand(entity);
+            command.execute();
+
+            if (command.getReturnParam() != null)
+                responseDTO = VictimMapper.mapEntityToDto(command.getReturnParam());
+            else
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>("[OK EMPTY RESPONSE] No victim found for user_id: " + userId)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method getVictimByUserId: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found victim with user_id: " + userId)).build();
     }
 
     @POST
