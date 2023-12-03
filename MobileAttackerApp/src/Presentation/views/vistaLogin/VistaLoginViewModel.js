@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import {UserModel} from '../../../Domain/entities/User';
 import { PostUserData } from "../../../Domain/useCases/VerificarUsuario";
-import * as Location from 'expo-location';
 import { getDataUsuario } from '../../../Data/local/repositories/AutenticationRepo';
 import { useNavigation } from '@react-navigation/native';
 
@@ -28,7 +27,6 @@ export const loginViewModel = () => {
           // Verificar si la respuesta de la API es exitosa
             if (statusLogin.status === 202) {
                 // Mostrar un mensaje de éxito al usuario
-                Alert.alert('Exito');
                 navigation.navigate('VistaPrincipal');
                 return true;
             }else if(statusLogin.status === 401) {

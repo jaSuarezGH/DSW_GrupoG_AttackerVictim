@@ -5,14 +5,31 @@ const db = SQLite.openDatabase('MainDB');
 export const setupDatabase = async () => {
   db.transaction(tx => {
     tx.executeSql(
-      'CREATE TABLE IF NOT EXISTS Location (id INTEGER PRIMARY KEY AUTOINCREMENT, latitude REAL, longitude REAL);'
+      'CREATE TABLE IF NOT EXISTS Location (id INTEGER PRIMARY KEY AUTOINCREMENT, latitude REAL, longitude REAL, idUser INTEGER);'
     );
   });
 };
 
-export const saveLocation = async (latitude, longitude) => {
-  db.transaction(tx => {
-    tx.executeSql('INSERT INTO Location (latitude, longitude) VALUES (?, ?);', [latitude, longitude]);
+export const saveLocation = (coordenadas) => {
+  return new Promise((resolve, reject) => {
+    db.transaction(tx => {
+      tx.executeSql(
+        'INSERT INTO Location (latitude, longitude, idUser) VALUES (?, ?, ?);',
+        [coordenadas.latitude, coordenadas.longitude, coordenadas.idUser],
+        (_, result) => {
+          // Si la inserción fue exitosa, result.rowsAffected será mayor que 0
+          if (result.rowsAffected > 0) {
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+        },
+        (_, error) => {
+          // Si hay un error, rechaza la promesa
+          reject(error);
+        }
+      );
+    });
   });
 };
 
@@ -25,7 +42,27 @@ export const getLocations = async () => {
 };
 
 export const deleteLocations = async () => {
-  db.transaction(tx => {
-    tx.executeSql('DELETE FROM Location;');
+  return new Promise((resolve, reject) => {
+    db.transaction(tx => {
+      tx.executeSql(
+        'DELETE FROM Location;',
+        [],
+        (_, result) => {
+          // Si la operación fue exitosa, result.rowsAffected debería ser mayor a 0
+          console.log(result.rowsAffected);////////////////////////
+          if (result.rowsAffected > 0) {
+            console.log('true');///////////////////////////
+            resolve(true);
+          } else {
+            console.log('false');///////////////////////////
+            resolve(false);
+          }
+        },
+        (_, error) => {
+          // En caso de error, rechazamos la promesa
+          reject(error);
+        }
+      );
+    });
   });
 };

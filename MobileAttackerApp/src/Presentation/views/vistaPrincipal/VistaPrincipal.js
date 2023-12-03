@@ -1,8 +1,12 @@
 import React from 'react';
 import { View,Text,StyleSheet,Image } from 'react-native';
-
+import { principalViewModel } from '../../../../src/Presentation/views/vistaPrincipal/VistaPrincipalViewModel';
 
 export const VistaPrincipalScreen = () => {
+
+    const { useLocationSync } = principalViewModel();
+    const isConnected = useLocationSync();
+    
     return(
         
         <View style = {styles.container}>
@@ -16,10 +20,11 @@ export const VistaPrincipalScreen = () => {
             
 
             <Text style ={styles.textForm}>Status: </Text>
-            <Text style ={styles.textForm}>Online</Text>
+            <Text style={styles.textForm}>{isConnected ? 'Online' : 'Offline'}</Text>
         </View>
     );
 }
+
 
 const styles = StyleSheet.create({
     container: {
@@ -52,6 +57,4 @@ const styles = StyleSheet.create({
         marginLeft:8,
         fontWeight:'bold',
     },
-
-    
 });
