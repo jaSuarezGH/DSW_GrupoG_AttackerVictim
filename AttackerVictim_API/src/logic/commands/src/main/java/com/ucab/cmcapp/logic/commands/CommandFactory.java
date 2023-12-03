@@ -4,9 +4,11 @@ import com.ucab.cmcapp.common.entities.Attacker;
 import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.common.entities.Victim;
 import com.ucab.cmcapp.logic.commands.attacker.atomic.AddAttackerCommand;
+import com.ucab.cmcapp.logic.commands.attacker.atomic.EraseAttackerCommand;
 import com.ucab.cmcapp.logic.commands.attacker.atomic.GetAllAttackerListCommand;
 import com.ucab.cmcapp.logic.commands.attacker.atomic.GetAttackerByUserIdCommand;
 import com.ucab.cmcapp.logic.commands.attacker.composite.CreateAttackerCommand;
+import com.ucab.cmcapp.logic.commands.attacker.composite.DeleteAttackerCommand;
 import com.ucab.cmcapp.logic.commands.attacker.composite.GetAllAttackerCommand;
 import com.ucab.cmcapp.logic.commands.user.atomic.*;
 import com.ucab.cmcapp.logic.commands.user.composite.*;
@@ -145,6 +147,15 @@ public class CommandFactory {
 
     public static AddAttackerCommand createAddAttackerCommand(Attacker attacker, DBHandler handler) {
         return new AddAttackerCommand(attacker, handler);
+    }
+
+    // ------------------( deleteAttacker )------------------------
+    public static DeleteAttackerCommand createDeleteAttackerCommand(Attacker attacker) {
+        return new DeleteAttackerCommand(attacker);
+    }
+
+    public static EraseAttackerCommand createEraseAttackerCommand(Attacker attacker, DBHandler handler) {
+        return new EraseAttackerCommand(attacker, handler);
     }
 
 }
