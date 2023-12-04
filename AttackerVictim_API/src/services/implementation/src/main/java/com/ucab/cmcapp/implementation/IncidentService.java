@@ -6,8 +6,10 @@ import com.ucab.cmcapp.common.util.CustomResponse;
 import com.ucab.cmcapp.logic.commands.CommandFactory;
 import com.ucab.cmcapp.logic.commands.Incident.atomic.GetIncidentByAttackerIdCommand;
 import com.ucab.cmcapp.logic.commands.Incident.atomic.GetIncidentByVictimIdCommand;
+import com.ucab.cmcapp.logic.commands.Incident.composite.CreateIncidentCommand;
 import com.ucab.cmcapp.logic.commands.Incident.composite.GetAllIncidentCommand;
 import com.ucab.cmcapp.logic.commands.victim.atomic.GetVictimByUserIdCommand;
+import com.ucab.cmcapp.logic.commands.victim.composite.CreateVictimCommand;
 import com.ucab.cmcapp.logic.commands.victim.composite.GetAllVictimCommand;
 import com.ucab.cmcapp.logic.dtos.IncidentDto;
 import com.ucab.cmcapp.logic.dtos.VictimDto;
@@ -102,4 +104,26 @@ public class IncidentService extends BaseService {
 
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found attacker-victim relationship with attacker registry id: " + attackerId)).build();
     }
+
+    @POST
+    public Response addIncident(IncidentDto incidentDto) {
+        Incident entity;
+        IncidentDto responseDTO = null;
+        CreateIncidentCommand command = null;
+
+        try {
+            entity = IncidentMapper.mapDtoToEntity(incidentDto);
+            command = CommandFactory.createCreateIncidentCommand(entity);
+            command.execute();
+            responseDTO = IncidentMapper.mapEntityToDto(command.getReturnParam());
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method addIncident, relationship attacker-victim could not be added: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] relationship attacker-victim created successfully")).build();
+    }
+
 }
