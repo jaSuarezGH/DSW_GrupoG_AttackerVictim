@@ -4,6 +4,7 @@ public class IncidentDto extends BaseDto {
 
     private VictimDto _victim;
     private AttackerDto _attacker;
+    private Double _separation_distance;
 
     public IncidentDto() {
     }
@@ -22,5 +23,13 @@ public class IncidentDto extends BaseDto {
 
     public void set_attacker(AttackerDto _attacker) {
         this._attacker = _attacker;
+    }
+
+    public Double get_separation_distance() {
+        return _separation_distance;
+    }
+
+    public void set_separation_distance(Double _separation_distance) {
+        this._separation_distance = _separation_distance;
     }
 }

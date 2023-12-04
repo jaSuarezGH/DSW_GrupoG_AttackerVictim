@@ -21,6 +21,7 @@ public class IncidentMapper extends BaseMapper {
         entity.set_id(dto.getId());
         entity.set_attacker(AttackerMapper.mapDtoToEntity(dto.get_attacker()));
         entity.set_victim(VictimMapper.mapDtoToEntity(dto.get_victim()));
+        entity.set_separation_distance(dto.get_separation_distance());
         return entity;
     }
 
@@ -28,11 +29,14 @@ public class IncidentMapper extends BaseMapper {
         final IncidentDto dto = new IncidentDto();
 
         dto.setId(entity.get_id());
+
         if(entity.get_attacker() != null)
             dto.set_attacker(AttackerMapper.mapEntityToDto(entity.get_attacker()));
 
         if(entity.get_victim() != null)
             dto.set_victim(VictimMapper.mapEntityToDto(entity.get_victim()));
+
+        dto.set_separation_distance(entity.get_separation_distance());
 
         return dto;
     }
@@ -52,6 +56,7 @@ public class IncidentMapper extends BaseMapper {
             incidentDto.setId(incident.get_id());
             incidentDto.set_attacker(AttackerMapper.mapEntityToDto(incident.get_attacker()));
             incidentDto.set_victim(VictimMapper.mapEntityToDto(incident.get_victim()));
+            incidentDto.set_separation_distance(incident.get_separation_distance());
             dtoList.add(incidentDto);
         }
 

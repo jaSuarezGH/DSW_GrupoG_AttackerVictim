@@ -16,6 +16,7 @@ public class Incident {
         _id = incident._id;
         _victim = incident._victim;
         _attacker = incident._attacker;
+        _separation_distance = incident._separation_distance;
     }
 
     @Id
@@ -30,6 +31,9 @@ public class Incident {
     @OneToOne
     @JoinColumn(name = "attacker", nullable = false, unique = true)
     private Attacker _attacker;
+
+    @Column(name = "separation_distance", nullable = false)
+    private Double _separation_distance;
 
     public long get_id() {
         return _id;
@@ -53,5 +57,13 @@ public class Incident {
 
     public void set_attacker(Attacker _attacker) {
         this._attacker = _attacker;
+    }
+
+    public Double get_separation_distance() {
+        return _separation_distance;
+    }
+
+    public void set_separation_distance(Double _separation_distance) {
+        this._separation_distance = _separation_distance;
     }
 }
