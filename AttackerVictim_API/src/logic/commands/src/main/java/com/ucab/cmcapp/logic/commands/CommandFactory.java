@@ -175,12 +175,12 @@ public class CommandFactory {
         return new GetAllIncidentListCommand(handler);
     }
 
-    // ------------------( getIncidentByVictimId )-----------------
+    // ------------------( getIncidentByVictimId )---------------
     public static GetIncidentByVictimIdCommand createGetIncidentByVictimIdCommand(Incident incident) {
         return new GetIncidentByVictimIdCommand(incident);
     }
 
-    // ------------------( getIncidentByAttackerId )-----------------
+    // ------------------( getIncidentByAttackerId )-------------
     public static GetIncidentByAttackerIdCommand createGetIncidentByAttackerIdCommand(Incident incident) {
         return new GetIncidentByAttackerIdCommand(incident);
     }
