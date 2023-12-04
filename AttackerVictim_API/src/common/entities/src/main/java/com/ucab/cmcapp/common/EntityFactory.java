@@ -42,4 +42,14 @@ public class EntityFactory {
         return new Attacker(id);
     }
 
+    // --------------------
+
+    public static Incident createIncident(){
+        return new Incident();
+    }
+
+    public static Incident createIncident(long id){
+        return new Incident(id);
+    }
+
 }
