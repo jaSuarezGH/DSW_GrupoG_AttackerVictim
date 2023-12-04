@@ -30,4 +30,23 @@ public class IncidentDao extends BaseDao<Incident> {
         _builder = _em.getCriteriaBuilder();
     }
 
+    public Incident getIncidentByVictimId(Victim victimId) {
+        Incident result;
+        try {
+            CriteriaQuery<Incident> query = _builder.createQuery(Incident.class);
+            Root<Incident> root = query.from(Incident.class);
+
+            query.select(root);
+            query.where(_builder.equal(root.get("_victim"), victimId));
+
+            result = _em.createQuery(query).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        } catch (Exception e) {
+            throw new CupraException(e.getMessage());
+        }
+
+        return result;
+    }
+
 }

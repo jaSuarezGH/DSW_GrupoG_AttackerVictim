@@ -1,8 +1,12 @@
 package com.ucab.cmcapp.implementation;
 
+import com.ucab.cmcapp.common.entities.Incident;
+import com.ucab.cmcapp.common.entities.Victim;
 import com.ucab.cmcapp.common.util.CustomResponse;
 import com.ucab.cmcapp.logic.commands.CommandFactory;
+import com.ucab.cmcapp.logic.commands.Incident.atomic.GetIncidentByVictimIdCommand;
 import com.ucab.cmcapp.logic.commands.Incident.composite.GetAllIncidentCommand;
+import com.ucab.cmcapp.logic.commands.victim.atomic.GetVictimByUserIdCommand;
 import com.ucab.cmcapp.logic.commands.victim.composite.GetAllVictimCommand;
 import com.ucab.cmcapp.logic.dtos.IncidentDto;
 import com.ucab.cmcapp.logic.dtos.VictimDto;
@@ -11,10 +15,7 @@ import com.ucab.cmcapp.logic.mappers.VictimMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -47,5 +48,31 @@ public class IncidentService extends BaseService {
         }
 
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully listed all victim-attacker relationships")).build();
+    }
+
+    @GET
+    @Path("victimRegistry/{victim_id}")
+    public Response getVictimByVictimId(@PathParam("victim_id") String victimId) {
+        Incident entity;
+        IncidentDto responseDTO = null;
+        GetIncidentByVictimIdCommand command = null;
+
+        try {
+            entity = IncidentMapper.mapDtoToEntityVictimId(victimId);
+            command = CommandFactory.createGetIncidentByVictimIdCommand(entity);
+            command.execute();
+
+            if (command.getReturnParam() != null)
+                responseDTO = IncidentMapper.mapEntityToDto(command.getReturnParam());
+            else
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>("[OK EMPTY RESPONSE] No attacker-victim relationship found for user_id: " + victimId)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method getVictimByVictimId: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found attacker-victim relationship with victim registry id: " + victimId)).build();
     }
 }
