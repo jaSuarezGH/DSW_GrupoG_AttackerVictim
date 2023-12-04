@@ -4,11 +4,9 @@ import com.ucab.cmcapp.common.entities.Attacker;
 import com.ucab.cmcapp.common.entities.Incident;
 import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.common.entities.Victim;
-import com.ucab.cmcapp.logic.commands.Incident.atomic.AddIncidentCommand;
-import com.ucab.cmcapp.logic.commands.Incident.atomic.GetAllIncidentListCommand;
-import com.ucab.cmcapp.logic.commands.Incident.atomic.GetIncidentByAttackerIdCommand;
-import com.ucab.cmcapp.logic.commands.Incident.atomic.GetIncidentByVictimIdCommand;
+import com.ucab.cmcapp.logic.commands.Incident.atomic.*;
 import com.ucab.cmcapp.logic.commands.Incident.composite.CreateIncidentCommand;
+import com.ucab.cmcapp.logic.commands.Incident.composite.DeleteIncidentCommand;
 import com.ucab.cmcapp.logic.commands.Incident.composite.GetAllIncidentCommand;
 import com.ucab.cmcapp.logic.commands.attacker.atomic.AddAttackerCommand;
 import com.ucab.cmcapp.logic.commands.attacker.atomic.EraseAttackerCommand;
@@ -195,5 +193,17 @@ public class CommandFactory {
     public static AddIncidentCommand createAddIncidentCommand(Incident incident, DBHandler handler) {
         return new AddIncidentCommand(incident, handler);
     }
+
+    // ------------------( deleteIncident )----------------------
+    public static DeleteIncidentCommand createDeleteIncidentCommand(Incident incident) {
+        return new DeleteIncidentCommand(incident);
+    }
+
+    public static EraseIncidentCommand createEraseIncidentCommand(Incident incident, DBHandler handler) {
+        return new EraseIncidentCommand(incident, handler);
+    }
+
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 }

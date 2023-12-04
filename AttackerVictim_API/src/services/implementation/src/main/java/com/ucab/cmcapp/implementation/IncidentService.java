@@ -7,9 +7,11 @@ import com.ucab.cmcapp.logic.commands.CommandFactory;
 import com.ucab.cmcapp.logic.commands.Incident.atomic.GetIncidentByAttackerIdCommand;
 import com.ucab.cmcapp.logic.commands.Incident.atomic.GetIncidentByVictimIdCommand;
 import com.ucab.cmcapp.logic.commands.Incident.composite.CreateIncidentCommand;
+import com.ucab.cmcapp.logic.commands.Incident.composite.DeleteIncidentCommand;
 import com.ucab.cmcapp.logic.commands.Incident.composite.GetAllIncidentCommand;
 import com.ucab.cmcapp.logic.commands.victim.atomic.GetVictimByUserIdCommand;
 import com.ucab.cmcapp.logic.commands.victim.composite.CreateVictimCommand;
+import com.ucab.cmcapp.logic.commands.victim.composite.DeleteVictimCommand;
 import com.ucab.cmcapp.logic.commands.victim.composite.GetAllVictimCommand;
 import com.ucab.cmcapp.logic.dtos.IncidentDto;
 import com.ucab.cmcapp.logic.dtos.VictimDto;
@@ -124,6 +126,29 @@ public class IncidentService extends BaseService {
         }
 
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] relationship attacker-victim created successfully")).build();
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public Response deleteIncident(@PathParam("id") long incidentId) {
+        Incident entity;
+        IncidentDto responseDTO;
+        DeleteIncidentCommand command = null;
+
+        try {
+            entity = IncidentMapper.mapDtoToEntity(incidentId);
+            command = CommandFactory.createDeleteIncidentCommand(entity);
+            command.execute();
+            entity = command.getReturnParam();
+            responseDTO = IncidentMapper.mapEntityToDto(entity);
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method deleteIncident, relationship attacker-victim could not be deleted: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully deleted relationship attacker-victim registry with id: " + incidentId)).build();
     }
 
 }
