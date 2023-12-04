@@ -5,6 +5,7 @@ import com.ucab.cmcapp.common.entities.Incident;
 import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.common.entities.Victim;
 import com.ucab.cmcapp.logic.commands.Incident.atomic.GetAllIncidentListCommand;
+import com.ucab.cmcapp.logic.commands.Incident.atomic.GetIncidentByAttackerIdCommand;
 import com.ucab.cmcapp.logic.commands.Incident.atomic.GetIncidentByVictimIdCommand;
 import com.ucab.cmcapp.logic.commands.Incident.composite.GetAllIncidentCommand;
 import com.ucab.cmcapp.logic.commands.attacker.atomic.AddAttackerCommand;
@@ -174,9 +175,14 @@ public class CommandFactory {
         return new GetAllIncidentListCommand(handler);
     }
 
-    // ------------------( getVictimByVictimId )-----------------
+    // ------------------( getIncidentByVictimId )-----------------
     public static GetIncidentByVictimIdCommand createGetIncidentByVictimIdCommand(Incident incident) {
         return new GetIncidentByVictimIdCommand(incident);
+    }
+
+    // ------------------( getIncidentByAttackerId )-----------------
+    public static GetIncidentByAttackerIdCommand createGetIncidentByAttackerIdCommand(Incident incident) {
+        return new GetIncidentByAttackerIdCommand(incident);
     }
 
 }

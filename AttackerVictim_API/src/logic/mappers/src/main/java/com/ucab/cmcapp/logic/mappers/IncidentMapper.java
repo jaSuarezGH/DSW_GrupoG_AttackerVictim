@@ -1,6 +1,7 @@
 package com.ucab.cmcapp.logic.mappers;
 
 import com.ucab.cmcapp.common.EntityFactory;
+import com.ucab.cmcapp.common.entities.Attacker;
 import com.ucab.cmcapp.common.entities.Incident;
 import com.ucab.cmcapp.common.entities.Victim;
 import com.ucab.cmcapp.logic.dtos.IncidentDto;
@@ -62,6 +63,14 @@ public class IncidentMapper extends BaseMapper {
         victim.set_id(Integer.valueOf(victimId));
         Incident entity = EntityFactory.createIncident();
         entity.set_victim(victim);
+        return entity;
+    }
+
+    public static Incident mapDtoToEntityAttackerId(String attackerId){
+        Attacker attacker = new Attacker();
+        attacker.set_id(Integer.valueOf(attackerId));
+        Incident entity = EntityFactory.createIncident();
+        entity.set_attacker(attacker);
         return entity;
     }
 

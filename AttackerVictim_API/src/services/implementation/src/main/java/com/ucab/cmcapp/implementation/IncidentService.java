@@ -4,6 +4,7 @@ import com.ucab.cmcapp.common.entities.Incident;
 import com.ucab.cmcapp.common.entities.Victim;
 import com.ucab.cmcapp.common.util.CustomResponse;
 import com.ucab.cmcapp.logic.commands.CommandFactory;
+import com.ucab.cmcapp.logic.commands.Incident.atomic.GetIncidentByAttackerIdCommand;
 import com.ucab.cmcapp.logic.commands.Incident.atomic.GetIncidentByVictimIdCommand;
 import com.ucab.cmcapp.logic.commands.Incident.composite.GetAllIncidentCommand;
 import com.ucab.cmcapp.logic.commands.victim.atomic.GetVictimByUserIdCommand;
@@ -52,7 +53,7 @@ public class IncidentService extends BaseService {
 
     @GET
     @Path("victimRegistry/{victim_id}")
-    public Response getVictimByVictimId(@PathParam("victim_id") String victimId) {
+    public Response getIncidentByVictimId(@PathParam("victim_id") String victimId) {
         Incident entity;
         IncidentDto responseDTO = null;
         GetIncidentByVictimIdCommand command = null;
@@ -65,14 +66,40 @@ public class IncidentService extends BaseService {
             if (command.getReturnParam() != null)
                 responseDTO = IncidentMapper.mapEntityToDto(command.getReturnParam());
             else
-                return Response.status(Response.Status.OK).entity(new CustomResponse<>("[OK EMPTY RESPONSE] No attacker-victim relationship found for user_id: " + victimId)).build();
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>("[OK EMPTY RESPONSE] No attacker-victim relationship found for victim registry id: " + victimId)).build();
         } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method getVictimByVictimId: " + e.getMessage())).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method getIncidentByVictimId: " + e.getMessage())).build();
         } finally {
             if (command != null)
                 command.closeHandlerSession();
         }
 
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found attacker-victim relationship with victim registry id: " + victimId)).build();
+    }
+
+    @GET
+    @Path("attackerRegistry/{attacker_id}")
+    public Response getIncidentByAttackerId(@PathParam("attacker_id") String attackerId) {
+        Incident entity;
+        IncidentDto responseDTO = null;
+        GetIncidentByAttackerIdCommand command = null;
+
+        try {
+            entity = IncidentMapper.mapDtoToEntityAttackerId(attackerId);
+            command = CommandFactory.createGetIncidentByAttackerIdCommand(entity);
+            command.execute();
+
+            if (command.getReturnParam() != null)
+                responseDTO = IncidentMapper.mapEntityToDto(command.getReturnParam());
+            else
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>("[OK EMPTY RESPONSE] No attacker-victim relationship found for attacker registry id: " + attackerId)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method getIncidentByVictimId: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found attacker-victim relationship with attacker registry id: " + attackerId)).build();
     }
 }

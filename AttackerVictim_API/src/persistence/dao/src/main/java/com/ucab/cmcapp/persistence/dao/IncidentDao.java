@@ -1,5 +1,6 @@
 package com.ucab.cmcapp.persistence.dao;
 
+import com.ucab.cmcapp.common.entities.Attacker;
 import com.ucab.cmcapp.common.entities.Incident;
 import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.common.entities.Victim;
@@ -38,6 +39,25 @@ public class IncidentDao extends BaseDao<Incident> {
 
             query.select(root);
             query.where(_builder.equal(root.get("_victim"), victimId));
+
+            result = _em.createQuery(query).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        } catch (Exception e) {
+            throw new CupraException(e.getMessage());
+        }
+
+        return result;
+    }
+
+    public Incident getIncidentByAttackerId(Attacker attackerId) {
+        Incident result;
+        try {
+            CriteriaQuery<Incident> query = _builder.createQuery(Incident.class);
+            Root<Incident> root = query.from(Incident.class);
+
+            query.select(root);
+            query.where(_builder.equal(root.get("_attacker"), attackerId));
 
             result = _em.createQuery(query).getSingleResult();
         } catch (NoResultException e) {
