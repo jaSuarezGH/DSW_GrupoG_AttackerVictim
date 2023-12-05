@@ -15,6 +15,8 @@ import com.ucab.cmcapp.logic.commands.attacker.atomic.GetAttackerByUserIdCommand
 import com.ucab.cmcapp.logic.commands.attacker.composite.CreateAttackerCommand;
 import com.ucab.cmcapp.logic.commands.attacker.composite.DeleteAttackerCommand;
 import com.ucab.cmcapp.logic.commands.attacker.composite.GetAllAttackerCommand;
+import com.ucab.cmcapp.logic.commands.history.atomic.GetAllHistoryListCommand;
+import com.ucab.cmcapp.logic.commands.history.composite.GetAllHistoryCommand;
 import com.ucab.cmcapp.logic.commands.user.atomic.*;
 import com.ucab.cmcapp.logic.commands.user.composite.*;
 import com.ucab.cmcapp.logic.commands.victim.atomic.AddVictimCommand;
@@ -205,5 +207,14 @@ public class CommandFactory {
 
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    // ------------------( getAllHistories )---------------------
+    public static GetAllHistoryCommand createGetAllHistoryCommand() {
+        return new GetAllHistoryCommand();
+    }
+
+    public static GetAllHistoryListCommand createGetAllHistoryListCommand(DBHandler handler) {
+        return new GetAllHistoryListCommand(handler);
+    }
 
 }
