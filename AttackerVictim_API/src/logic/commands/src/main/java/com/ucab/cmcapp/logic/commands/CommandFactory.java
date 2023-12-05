@@ -1,9 +1,6 @@
 package com.ucab.cmcapp.logic.commands;
 
-import com.ucab.cmcapp.common.entities.Attacker;
-import com.ucab.cmcapp.common.entities.Incident;
-import com.ucab.cmcapp.common.entities.User;
-import com.ucab.cmcapp.common.entities.Victim;
+import com.ucab.cmcapp.common.entities.*;
 import com.ucab.cmcapp.logic.commands.Incident.atomic.*;
 import com.ucab.cmcapp.logic.commands.Incident.composite.CreateIncidentCommand;
 import com.ucab.cmcapp.logic.commands.Incident.composite.DeleteIncidentCommand;
@@ -15,7 +12,9 @@ import com.ucab.cmcapp.logic.commands.attacker.atomic.GetAttackerByUserIdCommand
 import com.ucab.cmcapp.logic.commands.attacker.composite.CreateAttackerCommand;
 import com.ucab.cmcapp.logic.commands.attacker.composite.DeleteAttackerCommand;
 import com.ucab.cmcapp.logic.commands.attacker.composite.GetAllAttackerCommand;
+import com.ucab.cmcapp.logic.commands.history.atomic.AddHistoryCommand;
 import com.ucab.cmcapp.logic.commands.history.atomic.GetAllHistoryListCommand;
+import com.ucab.cmcapp.logic.commands.history.composite.CreateHistoryCommand;
 import com.ucab.cmcapp.logic.commands.history.composite.GetAllHistoryCommand;
 import com.ucab.cmcapp.logic.commands.user.atomic.*;
 import com.ucab.cmcapp.logic.commands.user.composite.*;
@@ -215,6 +214,15 @@ public class CommandFactory {
 
     public static GetAllHistoryListCommand createGetAllHistoryListCommand(DBHandler handler) {
         return new GetAllHistoryListCommand(handler);
+    }
+
+    // ------------------( addHistory )-------------------------
+    public static CreateHistoryCommand createCreateHistoryCommand(History history) {
+        return new CreateHistoryCommand(history);
+    }
+
+    public static AddHistoryCommand createAddHistoryCommand(History history, DBHandler handler) {
+        return new AddHistoryCommand(history, handler);
     }
 
 }
