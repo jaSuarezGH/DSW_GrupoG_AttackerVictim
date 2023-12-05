@@ -1,21 +1,14 @@
 package com.ucab.cmcapp.implementation;
 
 import com.ucab.cmcapp.common.entities.History;
-import com.ucab.cmcapp.common.entities.Victim;
 import com.ucab.cmcapp.common.util.CustomResponse;
 import com.ucab.cmcapp.logic.commands.CommandFactory;
 import com.ucab.cmcapp.logic.commands.history.atomic.GetAllHistoryByUserIdCommand;
 import com.ucab.cmcapp.logic.commands.history.composite.CreateHistoryCommand;
 import com.ucab.cmcapp.logic.commands.history.composite.DeleteHistoryCommand;
 import com.ucab.cmcapp.logic.commands.history.composite.GetAllHistoryCommand;
-import com.ucab.cmcapp.logic.commands.victim.atomic.GetVictimByUserIdCommand;
-import com.ucab.cmcapp.logic.commands.victim.composite.CreateVictimCommand;
-import com.ucab.cmcapp.logic.commands.victim.composite.DeleteVictimCommand;
-import com.ucab.cmcapp.logic.commands.victim.composite.GetAllVictimCommand;
 import com.ucab.cmcapp.logic.dtos.HistoryDto;
-import com.ucab.cmcapp.logic.dtos.VictimDto;
 import com.ucab.cmcapp.logic.mappers.HistoryMapper;
-import com.ucab.cmcapp.logic.mappers.VictimMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -77,7 +70,7 @@ public class HistoryService extends BaseService {
                 command.closeHandlerSession();
         }
 
-        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found history with user_id: " + userId)).build();
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found all histories with user_id: " + userId)).build();
     }
 
     @POST

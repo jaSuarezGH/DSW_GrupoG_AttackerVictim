@@ -224,7 +224,7 @@ public class CommandFactory {
         return new GetAllHistoryByUserIdCommand(history);
     }
 
-    // ------------------( addHistory )-------------------------
+    // ------------------( addHistory )--------------------------
     public static CreateHistoryCommand createCreateHistoryCommand(History history) {
         return new CreateHistoryCommand(history);
     }
@@ -233,7 +233,7 @@ public class CommandFactory {
         return new AddHistoryCommand(history, handler);
     }
 
-    // ------------------( deleteHistory )----------------------
+    // ------------------( deleteHistory )-----------------------
     public static DeleteHistoryCommand createDeleteHistoryCommand(History history) {
         return new DeleteHistoryCommand(history);
     }
