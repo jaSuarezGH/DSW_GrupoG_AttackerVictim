@@ -52,4 +52,14 @@ public class EntityFactory {
         return new Incident(id);
     }
 
+    // --------------------
+
+    public static History createHistory(){
+        return new History();
+    }
+
+    public static History createHistory(long id){
+        return new History(id);
+    }
+
 }

@@ -22,4 +22,8 @@ public class DaoFactory {
         return new IncidentDao(handler);
     }
 
+    public static HistoryDao createHistoryDao(DBHandler handler) {
+        return new HistoryDao(handler);
+    }
+
 }

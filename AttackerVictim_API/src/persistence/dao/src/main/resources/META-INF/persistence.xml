@@ -10,6 +10,7 @@
         <class>com.ucab.cmcapp.common.entities.Victim</class>
         <class>com.ucab.cmcapp.common.entities.Attacker</class>
         <class>com.ucab.cmcapp.common.entities.Incident</class>
+        <class>com.ucab.cmcapp.common.entities.History</class>
 
         <properties>
             <property name="hibernate.generate_statistics" value="true"/>
