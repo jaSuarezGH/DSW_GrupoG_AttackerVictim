@@ -5,8 +5,10 @@ import com.ucab.cmcapp.common.entities.Victim;
 import com.ucab.cmcapp.common.util.CustomResponse;
 import com.ucab.cmcapp.logic.commands.CommandFactory;
 import com.ucab.cmcapp.logic.commands.history.composite.CreateHistoryCommand;
+import com.ucab.cmcapp.logic.commands.history.composite.DeleteHistoryCommand;
 import com.ucab.cmcapp.logic.commands.history.composite.GetAllHistoryCommand;
 import com.ucab.cmcapp.logic.commands.victim.composite.CreateVictimCommand;
+import com.ucab.cmcapp.logic.commands.victim.composite.DeleteVictimCommand;
 import com.ucab.cmcapp.logic.commands.victim.composite.GetAllVictimCommand;
 import com.ucab.cmcapp.logic.dtos.HistoryDto;
 import com.ucab.cmcapp.logic.dtos.VictimDto;
@@ -71,6 +73,29 @@ public class HistoryService extends BaseService {
         }
 
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] history created successfully")).build();
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public Response deleteHistory(@PathParam("id") long historyId) {
+        History entity;
+        HistoryDto responseDTO;
+        DeleteHistoryCommand command = null;
+
+        try {
+            entity = HistoryMapper.mapDtoToEntity(historyId);
+            command = CommandFactory.createDeleteHistoryCommand(entity);
+            command.execute();
+            entity = command.getReturnParam();
+            responseDTO = HistoryMapper.mapEntityToDto(entity);
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method deleteHistory, history could not be deleted: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully deleted history registry with id: " + historyId)).build();
     }
 
 }

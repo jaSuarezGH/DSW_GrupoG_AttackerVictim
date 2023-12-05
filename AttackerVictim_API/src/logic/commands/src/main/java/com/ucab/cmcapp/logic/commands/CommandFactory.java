@@ -13,8 +13,10 @@ import com.ucab.cmcapp.logic.commands.attacker.composite.CreateAttackerCommand;
 import com.ucab.cmcapp.logic.commands.attacker.composite.DeleteAttackerCommand;
 import com.ucab.cmcapp.logic.commands.attacker.composite.GetAllAttackerCommand;
 import com.ucab.cmcapp.logic.commands.history.atomic.AddHistoryCommand;
+import com.ucab.cmcapp.logic.commands.history.atomic.EraseHistoryCommand;
 import com.ucab.cmcapp.logic.commands.history.atomic.GetAllHistoryListCommand;
 import com.ucab.cmcapp.logic.commands.history.composite.CreateHistoryCommand;
+import com.ucab.cmcapp.logic.commands.history.composite.DeleteHistoryCommand;
 import com.ucab.cmcapp.logic.commands.history.composite.GetAllHistoryCommand;
 import com.ucab.cmcapp.logic.commands.user.atomic.*;
 import com.ucab.cmcapp.logic.commands.user.composite.*;
@@ -224,5 +226,17 @@ public class CommandFactory {
     public static AddHistoryCommand createAddHistoryCommand(History history, DBHandler handler) {
         return new AddHistoryCommand(history, handler);
     }
+
+    // ------------------( deleteHistory )----------------------
+    public static DeleteHistoryCommand createDeleteHistoryCommand(History history) {
+        return new DeleteHistoryCommand(history);
+    }
+
+    public static EraseHistoryCommand createEraseHistoryCommand(History history, DBHandler handler) {
+        return new EraseHistoryCommand(history, handler);
+    }
+
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 }
