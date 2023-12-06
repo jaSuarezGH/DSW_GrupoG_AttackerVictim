@@ -11,6 +11,7 @@
         <class>com.ucab.cmcapp.common.entities.Attacker</class>
         <class>com.ucab.cmcapp.common.entities.Incident</class>
         <class>com.ucab.cmcapp.common.entities.History</class>
+        <class>com.ucab.cmcapp.common.entities.SafeZone</class>
 
         <properties>
             <property name="hibernate.generate_statistics" value="true"/>

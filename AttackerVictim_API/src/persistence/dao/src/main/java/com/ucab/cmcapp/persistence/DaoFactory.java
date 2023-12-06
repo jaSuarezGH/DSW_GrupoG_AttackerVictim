@@ -26,4 +26,8 @@ public class DaoFactory {
         return new HistoryDao(handler);
     }
 
+    public static SafeZoneDao createSafeZoneDao(DBHandler handler) {
+        return new SafeZoneDao(handler);
+    }
+
 }

@@ -62,4 +62,14 @@ public class EntityFactory {
         return new History(id);
     }
 
+    // --------------------
+
+    public static SafeZone createSafeZone(){
+        return new SafeZone();
+    }
+
+    public static SafeZone createSafeZone(long id){
+        return new SafeZone(id);
+    }
+
 }
