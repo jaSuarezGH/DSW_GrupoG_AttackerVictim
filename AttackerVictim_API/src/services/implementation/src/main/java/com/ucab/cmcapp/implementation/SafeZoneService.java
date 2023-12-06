@@ -7,6 +7,7 @@ import com.ucab.cmcapp.logic.commands.CommandFactory;
 import com.ucab.cmcapp.logic.commands.history.composite.CreateHistoryCommand;
 import com.ucab.cmcapp.logic.commands.history.composite.DeleteHistoryCommand;
 import com.ucab.cmcapp.logic.commands.safeZone.composite.CreateSafeZoneCommand;
+import com.ucab.cmcapp.logic.commands.safeZone.composite.DeleteSafeZoneCommand;
 import com.ucab.cmcapp.logic.commands.safeZone.composite.GetAllSafeZoneCommand;
 import com.ucab.cmcapp.logic.commands.victim.composite.GetAllVictimCommand;
 import com.ucab.cmcapp.logic.dtos.HistoryDto;
@@ -74,7 +75,7 @@ public class SafeZoneService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] safe zone created successfully")).build();
     }
 
-    /*@DELETE
+    @DELETE
     @Path("/{id}")
     public Response deleteSafeZone(@PathParam("id") long safeZoneId) {
         SafeZone entity;
@@ -95,6 +96,6 @@ public class SafeZoneService extends BaseService {
         }
 
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully deleted safe zone registry with id: " + safeZoneId)).build();
-    }*/
+    }
 
 }

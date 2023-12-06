@@ -20,8 +20,10 @@ import com.ucab.cmcapp.logic.commands.history.composite.CreateHistoryCommand;
 import com.ucab.cmcapp.logic.commands.history.composite.DeleteHistoryCommand;
 import com.ucab.cmcapp.logic.commands.history.composite.GetAllHistoryCommand;
 import com.ucab.cmcapp.logic.commands.safeZone.atomic.AddSafeZoneCommand;
+import com.ucab.cmcapp.logic.commands.safeZone.atomic.EraseSafeZoneCommand;
 import com.ucab.cmcapp.logic.commands.safeZone.atomic.GetAllSafeZoneListCommand;
 import com.ucab.cmcapp.logic.commands.safeZone.composite.CreateSafeZoneCommand;
+import com.ucab.cmcapp.logic.commands.safeZone.composite.DeleteSafeZoneCommand;
 import com.ucab.cmcapp.logic.commands.safeZone.composite.GetAllSafeZoneCommand;
 import com.ucab.cmcapp.logic.commands.user.atomic.*;
 import com.ucab.cmcapp.logic.commands.user.composite.*;
@@ -265,6 +267,15 @@ public class CommandFactory {
 
     public static AddSafeZoneCommand createAddSafeZoneCommand(SafeZone safeZone, DBHandler handler) {
         return new AddSafeZoneCommand(safeZone, handler);
+    }
+
+    // ------------------( deleteSafeZone )-----------------------
+    public static DeleteSafeZoneCommand createDeleteSafeZoneCommand(SafeZone safeZone) {
+        return new DeleteSafeZoneCommand(safeZone);
+    }
+
+    public static EraseSafeZoneCommand createEraseSafeZoneCommand(SafeZone safeZone, DBHandler handler) {
+        return new EraseSafeZoneCommand(safeZone, handler);
     }
 
 }
