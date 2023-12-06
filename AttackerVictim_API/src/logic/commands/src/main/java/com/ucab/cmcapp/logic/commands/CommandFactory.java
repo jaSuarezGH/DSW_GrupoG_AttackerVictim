@@ -19,6 +19,8 @@ import com.ucab.cmcapp.logic.commands.history.atomic.GetAllHistoryListCommand;
 import com.ucab.cmcapp.logic.commands.history.composite.CreateHistoryCommand;
 import com.ucab.cmcapp.logic.commands.history.composite.DeleteHistoryCommand;
 import com.ucab.cmcapp.logic.commands.history.composite.GetAllHistoryCommand;
+import com.ucab.cmcapp.logic.commands.safeZone.atomic.GetAllSafeZoneListCommand;
+import com.ucab.cmcapp.logic.commands.safeZone.composite.GetAllSafeZoneCommand;
 import com.ucab.cmcapp.logic.commands.user.atomic.*;
 import com.ucab.cmcapp.logic.commands.user.composite.*;
 import com.ucab.cmcapp.logic.commands.victim.atomic.AddVictimCommand;
@@ -244,5 +246,14 @@ public class CommandFactory {
 
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    // ------------------( getAllSafeZones )---------------------
+    public static GetAllSafeZoneCommand createGetAllSafeZoneCommand() {
+        return new GetAllSafeZoneCommand();
+    }
+
+    public static GetAllSafeZoneListCommand createGetAllSafeZoneListCommand(DBHandler handler) {
+        return new GetAllSafeZoneListCommand(handler);
+    }
 
 }
