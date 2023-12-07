@@ -12,7 +12,9 @@ import com.ucab.cmcapp.logic.commands.attacker.atomic.GetAttackerByUserIdCommand
 import com.ucab.cmcapp.logic.commands.attacker.composite.CreateAttackerCommand;
 import com.ucab.cmcapp.logic.commands.attacker.composite.DeleteAttackerCommand;
 import com.ucab.cmcapp.logic.commands.attacker.composite.GetAllAttackerCommand;
+import com.ucab.cmcapp.logic.commands.coordinate.atomic.AddCoordinateCommand;
 import com.ucab.cmcapp.logic.commands.coordinate.atomic.GetAllCoordinateListCommand;
+import com.ucab.cmcapp.logic.commands.coordinate.composite.CreateCoordinateCommand;
 import com.ucab.cmcapp.logic.commands.coordinate.composite.GetAllCoordinateCommand;
 import com.ucab.cmcapp.logic.commands.history.atomic.AddHistoryCommand;
 import com.ucab.cmcapp.logic.commands.history.atomic.EraseHistoryCommand;
@@ -296,6 +298,15 @@ public class CommandFactory {
 
     public static GetAllCoordinateListCommand createGetAllCoordinateListCommand(DBHandler handler) {
         return new GetAllCoordinateListCommand(handler);
+    }
+
+    // ------------------( addCoordinate )-------------------------
+    public static CreateCoordinateCommand createCreateCoordinateCommand(Coordinate coordinate) {
+        return new CreateCoordinateCommand(coordinate);
+    }
+
+    public static AddCoordinateCommand createAddCoordinateCommand(Coordinate coordinate, DBHandler handler) {
+        return new AddCoordinateCommand(coordinate, handler);
     }
 
 }
