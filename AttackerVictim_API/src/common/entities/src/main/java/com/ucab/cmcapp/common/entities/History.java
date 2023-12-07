@@ -7,14 +7,14 @@ import java.util.Date;
 @Table(name = "history")
 public class History {
 
-    public History(){
+    public History() {
     }
 
     public History(long id) {
         _id = id;
     }
 
-    public History(History history){
+    public History(History history) {
         _id = history._id;
         _full_date = history._full_date;
         _status = history._status;

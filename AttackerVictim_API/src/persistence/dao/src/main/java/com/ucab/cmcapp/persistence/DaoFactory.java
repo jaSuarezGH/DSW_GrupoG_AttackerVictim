@@ -30,4 +30,8 @@ public class DaoFactory {
         return new SafeZoneDao(handler);
     }
 
+    public static CoordinateDao createCoordinateDao(DBHandler handler) {
+        return new CoordinateDao(handler);
+    }
+
 }

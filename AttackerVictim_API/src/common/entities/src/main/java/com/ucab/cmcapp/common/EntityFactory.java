@@ -72,4 +72,14 @@ public class EntityFactory {
         return new SafeZone(id);
     }
 
+    // --------------------
+
+    public static Coordinate createCoordinate(){
+        return new Coordinate();
+    }
+
+    public static Coordinate createCoordinate(long id){
+        return new Coordinate(id);
+    }
+
 }
