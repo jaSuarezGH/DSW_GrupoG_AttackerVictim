@@ -12,6 +12,8 @@ import com.ucab.cmcapp.logic.commands.attacker.atomic.GetAttackerByUserIdCommand
 import com.ucab.cmcapp.logic.commands.attacker.composite.CreateAttackerCommand;
 import com.ucab.cmcapp.logic.commands.attacker.composite.DeleteAttackerCommand;
 import com.ucab.cmcapp.logic.commands.attacker.composite.GetAllAttackerCommand;
+import com.ucab.cmcapp.logic.commands.coordinate.atomic.GetAllCoordinateListCommand;
+import com.ucab.cmcapp.logic.commands.coordinate.composite.GetAllCoordinateCommand;
 import com.ucab.cmcapp.logic.commands.history.atomic.AddHistoryCommand;
 import com.ucab.cmcapp.logic.commands.history.atomic.EraseHistoryCommand;
 import com.ucab.cmcapp.logic.commands.history.atomic.GetAllHistoryByUserIdCommand;
@@ -286,5 +288,14 @@ public class CommandFactory {
 
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    // ------------------( getAllCoordinates )---------------------
+    public static GetAllCoordinateCommand createGetAllCoordinateCommand() {
+        return new GetAllCoordinateCommand();
+    }
+
+    public static GetAllCoordinateListCommand createGetAllCoordinateListCommand(DBHandler handler) {
+        return new GetAllCoordinateListCommand(handler);
+    }
 
 }
