@@ -13,7 +13,7 @@ public class Coordinate {
         _id = id;
     }
 
-    public Coordinate(Coordinate coordinate){
+    public Coordinate(Coordinate coordinate) {
         _id = coordinate._id;
         _latitude = coordinate._latitude;
         _longitude = coordinate._longitude;

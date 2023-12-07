@@ -293,7 +293,7 @@ public class CommandFactory {
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    // ------------------( getAllCoordinates )---------------------
+    // ------------------( getAllCoordinates )-------------------
     public static GetAllCoordinateCommand createGetAllCoordinateCommand() {
         return new GetAllCoordinateCommand();
     }
@@ -302,7 +302,7 @@ public class CommandFactory {
         return new GetAllCoordinateListCommand(handler);
     }
 
-    // ------------------( getCoordinateById )-------------------------
+    // ------------------( getCoordinateById )-------------------
     public static GetCoordinateCommand createGetCoordinateCommand(Coordinate coordinate) {
         return new GetCoordinateCommand(coordinate);
     }
@@ -311,7 +311,7 @@ public class CommandFactory {
         return new GetCoordinateByIdCommand(handler, coordinateId);
     }
 
-    // ------------------( addCoordinate )-------------------------
+    // ------------------( addCoordinate )-----------------------
     public static CreateCoordinateCommand createCreateCoordinateCommand(Coordinate coordinate) {
         return new CreateCoordinateCommand(coordinate);
     }
