@@ -261,12 +261,12 @@ public class CommandFactory {
         return new GetAllSafeZoneListCommand(handler);
     }
 
-    // ------------------( getAllSafeZoneByUserId )---------------
+    // ------------------( getAllSafeZoneByUserId )--------------
     public static GetAllSafeZoneByUserIdCommand createGetAllSafeZoneByUserIdCommand(SafeZone safeZone) {
         return new GetAllSafeZoneByUserIdCommand(safeZone);
     }
 
-    // ------------------( addSafeZone )--------------------------
+    // ------------------( addSafeZone )-------------------------
     public static CreateSafeZoneCommand createCreateSafeZoneCommand(SafeZone safeZone) {
         return new CreateSafeZoneCommand(safeZone);
     }
@@ -275,7 +275,7 @@ public class CommandFactory {
         return new AddSafeZoneCommand(safeZone, handler);
     }
 
-    // ------------------( deleteSafeZone )-----------------------
+    // ------------------( deleteSafeZone )----------------------
     public static DeleteSafeZoneCommand createDeleteSafeZoneCommand(SafeZone safeZone) {
         return new DeleteSafeZoneCommand(safeZone);
     }
@@ -283,5 +283,8 @@ public class CommandFactory {
     public static EraseSafeZoneCommand createEraseSafeZoneCommand(SafeZone safeZone, DBHandler handler) {
         return new EraseSafeZoneCommand(safeZone, handler);
     }
+
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 }
