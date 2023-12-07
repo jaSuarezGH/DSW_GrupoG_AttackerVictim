@@ -42,7 +42,7 @@ public class HistoryDao extends BaseDao<History> {
 
             results = _em.createQuery(query).getResultList();
 
-            if(results.isEmpty()) // Retornar null en lugar de []
+            if (results.isEmpty()) // Retornar null en lugar de []
                 return null;
 
         } catch (NoResultException e) {

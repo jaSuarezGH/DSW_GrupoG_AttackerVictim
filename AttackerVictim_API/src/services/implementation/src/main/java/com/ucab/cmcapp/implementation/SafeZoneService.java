@@ -4,8 +4,10 @@ import com.ucab.cmcapp.common.entities.History;
 import com.ucab.cmcapp.common.entities.SafeZone;
 import com.ucab.cmcapp.common.util.CustomResponse;
 import com.ucab.cmcapp.logic.commands.CommandFactory;
+import com.ucab.cmcapp.logic.commands.history.atomic.GetAllHistoryByUserIdCommand;
 import com.ucab.cmcapp.logic.commands.history.composite.CreateHistoryCommand;
 import com.ucab.cmcapp.logic.commands.history.composite.DeleteHistoryCommand;
+import com.ucab.cmcapp.logic.commands.safeZone.atomic.GetAllSafeZoneByUserIdCommand;
 import com.ucab.cmcapp.logic.commands.safeZone.composite.CreateSafeZoneCommand;
 import com.ucab.cmcapp.logic.commands.safeZone.composite.DeleteSafeZoneCommand;
 import com.ucab.cmcapp.logic.commands.safeZone.composite.GetAllSafeZoneCommand;
@@ -52,6 +54,32 @@ public class SafeZoneService extends BaseService {
         }
 
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully listed all safe zones")).build();
+    }
+
+    @GET
+    @Path("/{user_id}")
+    public Response getAllSafeZonesByUserId(@PathParam("user_id") String userId) {
+        SafeZone entity;
+        List<SafeZoneDto> responseDTO = null;
+        GetAllSafeZoneByUserIdCommand command = null;
+
+        try {
+            entity = SafeZoneMapper.mapDtoToEntityUserId(userId);
+            command = CommandFactory.createGetAllSafeZoneByUserIdCommand(entity);
+            command.execute();
+
+            if (command.getReturnParam() != null)
+                responseDTO = SafeZoneMapper.mapEntityListToDtoList(command.getReturnParam());
+            else
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>("[OK EMPTY RESPONSE] No safe zones found for user_id: " + userId)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method getAllSafeZonesByUserId: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found all histories with user_id: " + userId)).build();
     }
 
     @POST

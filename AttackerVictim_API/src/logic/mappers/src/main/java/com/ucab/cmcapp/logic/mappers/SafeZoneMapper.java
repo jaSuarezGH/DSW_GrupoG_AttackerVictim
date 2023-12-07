@@ -1,7 +1,9 @@
 package com.ucab.cmcapp.logic.mappers;
 
 import com.ucab.cmcapp.common.EntityFactory;
+import com.ucab.cmcapp.common.entities.History;
 import com.ucab.cmcapp.common.entities.SafeZone;
+import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.logic.dtos.SafeZoneDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,6 +56,14 @@ public class SafeZoneMapper extends BaseMapper {
         }
 
         return dtoList;
+    }
+
+    public static SafeZone mapDtoToEntityUserId(String userId) {
+        User user = new User();
+        user.set_id(Integer.valueOf(userId));
+        SafeZone entity = EntityFactory.createSafeZone();
+        entity.set_user(user);
+        return entity;
     }
 
 }
