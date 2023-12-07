@@ -22,6 +22,7 @@ public class SafeZoneMapper extends BaseMapper {
         entity.set_id(dto.getId());
         entity.set_name(dto.get_name());
         entity.set_user(UserMapper.mapDtoToEntity(dto.get_user()));
+        entity.set_coordinate(CoordinateMapper.mapDtoToEntity(dto.get_coordinate()));
 
         return entity;
     }
@@ -31,8 +32,12 @@ public class SafeZoneMapper extends BaseMapper {
 
         dto.setId(entity.get_id());
         dto.set_name(entity.get_name());
+
         if (entity.get_user() != null)
             dto.set_user(UserMapper.mapEntityToDto(entity.get_user()));
+
+        if (entity.get_coordinate() != null)
+            dto.set_coordinate(CoordinateMapper.mapEntityToDto(entity.get_coordinate()));
 
         return dto;
     }
@@ -52,6 +57,7 @@ public class SafeZoneMapper extends BaseMapper {
             safeZoneDto.setId(safeZone.get_id());
             safeZoneDto.set_name(safeZone.get_name());
             safeZoneDto.set_user(UserMapper.mapEntityToDto(safeZone.get_user()));
+            safeZoneDto.set_coordinate(CoordinateMapper.mapEntityToDto(safeZone.get_coordinate()));
             dtoList.add(safeZoneDto);
         }
 

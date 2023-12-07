@@ -31,9 +31,9 @@ public class SafeZone {
     @JoinColumn(name = "user", nullable = false)
     private User _user;
 
-    /*@ElementCollection
-    @Column(name="nickname")
-    private List<Point> _coordinates;*/
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "coordinate", nullable = false)
+    private Coordinate _coordinate;
 
     public long get_id() {
         return _id;
@@ -57,5 +57,13 @@ public class SafeZone {
 
     public void set_user(User _user) {
         this._user = _user;
+    }
+
+    public Coordinate get_coordinate() {
+        return _coordinate;
+    }
+
+    public void set_coordinate(Coordinate _coordinate) {
+        this._coordinate = _coordinate;
     }
 }

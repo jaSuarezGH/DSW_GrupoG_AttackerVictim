@@ -4,6 +4,7 @@ public class SafeZoneDto extends BaseDto {
 
     private String _name;
     private UserDto _user;
+    private CoordinateDto _coordinate;
 
     public SafeZoneDto(){
     }
@@ -22,5 +23,13 @@ public class SafeZoneDto extends BaseDto {
 
     public void set_user(UserDto _user) {
         this._user = _user;
+    }
+
+    public CoordinateDto get_coordinate() {
+        return _coordinate;
+    }
+
+    public void set_coordinate(CoordinateDto _coordinate) {
+        this._coordinate = _coordinate;
     }
 }
