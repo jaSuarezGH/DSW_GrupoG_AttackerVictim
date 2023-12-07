@@ -2,6 +2,7 @@ package com.ucab.cmcapp.implementation;
 
 import com.ucab.cmcapp.common.entities.History;
 import com.ucab.cmcapp.common.entities.SafeZone;
+import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.common.util.CustomResponse;
 import com.ucab.cmcapp.logic.commands.CommandFactory;
 import com.ucab.cmcapp.logic.commands.history.atomic.GetAllHistoryByUserIdCommand;
@@ -11,12 +12,16 @@ import com.ucab.cmcapp.logic.commands.safeZone.atomic.GetAllSafeZoneByUserIdComm
 import com.ucab.cmcapp.logic.commands.safeZone.composite.CreateSafeZoneCommand;
 import com.ucab.cmcapp.logic.commands.safeZone.composite.DeleteSafeZoneCommand;
 import com.ucab.cmcapp.logic.commands.safeZone.composite.GetAllSafeZoneCommand;
+import com.ucab.cmcapp.logic.commands.safeZone.composite.UpdateSafeZoneCommand;
+import com.ucab.cmcapp.logic.commands.user.composite.UpdateUserCommand;
 import com.ucab.cmcapp.logic.commands.victim.composite.GetAllVictimCommand;
 import com.ucab.cmcapp.logic.dtos.HistoryDto;
 import com.ucab.cmcapp.logic.dtos.SafeZoneDto;
+import com.ucab.cmcapp.logic.dtos.UserDto;
 import com.ucab.cmcapp.logic.dtos.VictimDto;
 import com.ucab.cmcapp.logic.mappers.HistoryMapper;
 import com.ucab.cmcapp.logic.mappers.SafeZoneMapper;
+import com.ucab.cmcapp.logic.mappers.UserMapper;
 import com.ucab.cmcapp.logic.mappers.VictimMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -124,6 +129,25 @@ public class SafeZoneService extends BaseService {
         }
 
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully deleted safe zone registry with id: " + safeZoneId)).build();
+    }
+
+    @PUT
+    public Response updateSafeZone(SafeZoneDto safeZoneDto) {
+        SafeZone entity;
+        SafeZoneDto responseDTO = null;
+        UpdateSafeZoneCommand command = null;
+        try {
+            entity = SafeZoneMapper.mapDtoToEntity(safeZoneDto);
+            command = CommandFactory.createUpdateSafeZoneCommand(entity);
+            command.execute();
+            responseDTO = SafeZoneMapper.mapEntityToDto(command.getReturnParam());
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method updateSafeZone, safe zone could not be updated: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully modified the safe zone with id: " + safeZoneDto.getId())).build();
     }
 
 }
