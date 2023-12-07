@@ -14,8 +14,10 @@ import com.ucab.cmcapp.logic.commands.attacker.composite.DeleteAttackerCommand;
 import com.ucab.cmcapp.logic.commands.attacker.composite.GetAllAttackerCommand;
 import com.ucab.cmcapp.logic.commands.coordinate.atomic.AddCoordinateCommand;
 import com.ucab.cmcapp.logic.commands.coordinate.atomic.GetAllCoordinateListCommand;
+import com.ucab.cmcapp.logic.commands.coordinate.atomic.GetCoordinateByIdCommand;
 import com.ucab.cmcapp.logic.commands.coordinate.composite.CreateCoordinateCommand;
 import com.ucab.cmcapp.logic.commands.coordinate.composite.GetAllCoordinateCommand;
+import com.ucab.cmcapp.logic.commands.coordinate.composite.GetCoordinateCommand;
 import com.ucab.cmcapp.logic.commands.history.atomic.AddHistoryCommand;
 import com.ucab.cmcapp.logic.commands.history.atomic.EraseHistoryCommand;
 import com.ucab.cmcapp.logic.commands.history.atomic.GetAllHistoryByUserIdCommand;
@@ -298,6 +300,15 @@ public class CommandFactory {
 
     public static GetAllCoordinateListCommand createGetAllCoordinateListCommand(DBHandler handler) {
         return new GetAllCoordinateListCommand(handler);
+    }
+
+    // ------------------( getCoordinateById )-------------------------
+    public static GetCoordinateCommand createGetCoordinateCommand(Coordinate coordinate) {
+        return new GetCoordinateCommand(coordinate);
+    }
+
+    public static GetCoordinateByIdCommand createGetCoordinateByIdCommand(DBHandler handler, long coordinateId) {
+        return new GetCoordinateByIdCommand(handler, coordinateId);
     }
 
     // ------------------( addCoordinate )-------------------------

@@ -2,16 +2,21 @@ package com.ucab.cmcapp.implementation;
 
 import com.ucab.cmcapp.common.entities.Coordinate;
 import com.ucab.cmcapp.common.entities.History;
+import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.common.util.CustomResponse;
 import com.ucab.cmcapp.logic.commands.CommandFactory;
 import com.ucab.cmcapp.logic.commands.coordinate.composite.CreateCoordinateCommand;
 import com.ucab.cmcapp.logic.commands.coordinate.composite.GetAllCoordinateCommand;
+import com.ucab.cmcapp.logic.commands.coordinate.composite.GetCoordinateCommand;
 import com.ucab.cmcapp.logic.commands.history.composite.CreateHistoryCommand;
 import com.ucab.cmcapp.logic.commands.history.composite.GetAllHistoryCommand;
+import com.ucab.cmcapp.logic.commands.user.composite.GetUserCommand;
 import com.ucab.cmcapp.logic.dtos.CoordinateDto;
 import com.ucab.cmcapp.logic.dtos.HistoryDto;
+import com.ucab.cmcapp.logic.dtos.UserDto;
 import com.ucab.cmcapp.logic.mappers.CoordinateMapper;
 import com.ucab.cmcapp.logic.mappers.HistoryMapper;
+import com.ucab.cmcapp.logic.mappers.UserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,6 +54,32 @@ public class CoordinateService extends BaseService {
         }
 
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully listed all coordinates")).build();
+    }
+
+    @GET
+    @Path("/{id}")
+    public Response getCoordinateById(@PathParam("id") long coordinateId) {
+        Coordinate entity;
+        CoordinateDto responseDTO = null;
+        GetCoordinateCommand command = null;
+
+        try {
+            entity = CoordinateMapper.mapDtoToEntity(coordinateId);
+            command = CommandFactory.createGetCoordinateCommand(entity);
+            command.execute();
+
+            if (command.getReturnParam() != null)
+                responseDTO = CoordinateMapper.mapEntityToDto(command.getReturnParam());
+            else
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>("[OK EMPTY RESPONSE] No coordinate found for id: " + coordinateId)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method getCoordinateById: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found coordinate with id: " + coordinateId)).build();
     }
 
     @POST
