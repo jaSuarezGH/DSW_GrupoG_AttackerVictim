@@ -1,14 +1,15 @@
 
 import { DivHeader } from "@/components/Div";
 import { Navigation } from "@/components/Navigation";
-import {UsersFetch} from ".";
+import {UsersFetch} from "@/app/pages/principal/users/fetch/UsersFetch";
 import TablaAllUsers from "@/components/Table/AllUsers/TablaAllUsers";
+import { endGetAllUsers } from "@/app/models/endpoint.model";
 
 
 
 export default async function UsersPage() {
 
-  const users = await UsersFetch();
+  const users = await UsersFetch(endGetAllUsers);
 
   return (
     <>

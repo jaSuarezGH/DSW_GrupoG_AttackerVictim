@@ -1,12 +1,11 @@
-"use client";
 
 import { InformacionPage } from "@/components/InformationPage/InformationPage";
 import { Routes } from "@/app/models/routes.model";
 
-export default function ErrorRoot() {
+export default function NoFoundRoot() {
   return (
     <InformacionPage
-      title="Pagina no encontrada"
+      title="Dirección de Enlace Invalida"
       description="Lo siento, el enlace ingresado no es valido o no se encuentra disponible."
       encabezado="Error 404"
       link={Routes.HOME}

@@ -1,6 +1,6 @@
 "use client";
 
-import { Routes } from "@/app/models";
+import { Routes } from "@/app/models/routes.model";
 import { ButtonSubmit } from "@/components/Button/ButtonSubmit";
 import { DivHeader } from "@/components/Div";
 import { DivForm } from "@/components/Div/DivForm/DivForm";

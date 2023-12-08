@@ -1,6 +1,6 @@
 "use client";
 
-import { Routes } from "@/app/models";
+import { Routes } from "@/app/models/routes.model";
 import { Disclosure } from "@headlessui/react";
 import {
   Bars3Icon,

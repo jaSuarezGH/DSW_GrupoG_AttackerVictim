@@ -1,5 +1,5 @@
 
-import { Routes } from "@/app/models";
+import { Routes } from "@/app/models/routes.model";
 
 import Card from "@/components/Card/Card";
 import HeaderPrincipal from "@/components/Header/HeaderPrincipal";
@@ -46,31 +46,20 @@ export default function PrincipalPage() {
           ></Card>
 
 
-          {/* CONSULTAR VICTIMA */}
+          {/* CONSULTAR UN USUARIO */}
           <Card
-            title="Consultar una Victima"
+            title="Consultar un Usuario"
             description='Consultar a un usuario de tipo "Victima" registrado en el sistema.'
-            link={Routes.GET_VICTIM}
-            tags={[2]}
+            link={Routes.GET_USER}
+            tags={[1,2,3]}
           ></Card>
           
-
-          {/* CONSULTAR ATACANTE */}
-          <Card
-            title="Consultar un Atacante"
-            description='Consultar a un usuario de tipo "Atacante" registrado en el
-            sistema.'
-            link={Routes.GET_ATTACKER}
-            tags={[3]}
-          ></Card>
-          
-
           {/* Modificar Zonas Seguras de Victima. */}
           <Card
             title="Modificar Zonas Seguras de Victima"
             description='Modificar las Zonas Seguras relacionadas a un usuario de tipo
             "Victima" registrado en el sistema.'
-            link={Routes.GET_ATTACKER}
+            link={Routes.GET_USER}
             tags={[2]}
           ></Card>
           
@@ -80,7 +69,7 @@ export default function PrincipalPage() {
             title="Modificar Relación Victima/Atacante"
             description='Modificar la relacion entre un usuario "Victima" y un usuario
             "Atacante".'
-            link={Routes.GET_ATTACKER}
+            link={Routes.GET_USER}
             tags={[2,3]}
           ></Card>
 
@@ -89,7 +78,7 @@ export default function PrincipalPage() {
             title="Posicionamiento de Victima/Atacante"
             description='Consultar el ultimo posicionamiento de un usuario tipo "Victima" o
             un usuario "Atacante".'
-            link={Routes.GET_ATTACKER}
+            link={Routes.GET_USER}
             tags={[2,3]}
           ></Card>
 
@@ -102,21 +91,12 @@ export default function PrincipalPage() {
             tags={[2,3]}
           ></Card>
 
-          {/* Modificar una Victima */}
+          {/* Modificar un Usuario Victima/Atacante */}
           <Card
-            title="Modificar una Victima"
-            description='Modificar a un usuario de tipo "Victima" registrado en el sistema.'
-            link={Routes.GET_ATTACKER}
-            tags={[2]}
-          ></Card>
-
-          {/* Modificar un Atacante */}
-          <Card
-            title="Modificar un Atacante"
-            description='Modificar a un usuario de tipo "Atacante" registrado en el
-            sistema.'
-            link={Routes.GET_ATTACKER}
-            tags={[3]}
+            title="Modificar Usuario"
+            description='Modificar a un usuario registrado en el sistema.'
+            link={Routes.GET_USER}
+            tags={[1,2,3]}
           ></Card>
 
           {/* Eliminar Usuario Victima y Atacante */}
@@ -124,7 +104,7 @@ export default function PrincipalPage() {
             title="Eliminar Usuario Victima y Atacante"
             description='Eliminar un usuario de tipo "Victima" y su respectivo usuario
             "Atacante" relacionado.'
-            link={Routes.GET_ATTACKER}
+            link={Routes.CREATE_USER}
             tags={[2,3]}
           ></Card>
 

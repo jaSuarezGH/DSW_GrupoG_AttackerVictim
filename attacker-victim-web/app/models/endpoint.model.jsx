@@ -7,10 +7,8 @@ export const enlaceAPI = "https://big-famous-raccoon.ngrok-free.app";
 
 export const endGetAllUsers = `/testAPI/api/productos`;
 
-export const endGetVictimaByUsername = "/testAPI/api/productos/username/";
-export const endGetVictimaByCedula = "/testAPI/api/productos/cedula/";
-export const endGetVictimaByCorreo = "/testAPI/api/productos/";
+export const endGetUserByUsername = "/testAPI/api/productos/username/";
+export const endGetUserByCedula = "/testAPI/api/productos/cedula/";
+export const endGetUserByEmail = "/testAPI/api/productos/correo/";
+export const endGetUserByMAC = "/testAPI/api/productos/mac/";
 
-export const endGetAtacanteByUsername = "/testAPI/api/productos/username/";
-export const endGetAtacanteByCedula = "/testAPI/api/productos";
-export const endGetAtacanteByCorreo = "/testAPI/api/productos";

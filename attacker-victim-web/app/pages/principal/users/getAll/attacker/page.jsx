@@ -1,12 +1,13 @@
 
-import { UsersFetch } from '../../getAll';
+import { UsersFetch } from '../../fetch/UsersFetch';
 import { Navigation } from '@/components/Navigation';
 import { DivHeader } from '@/components/Div';
 import { TablaVictimAttacker } from '@/components/Table/VictimAttacker/TablaVictimAttacker';
+import { endGetAllUsers } from '@/app/models/endpoint.model';
 
 export default async function getAllVictimasPage() {
 
-    const users = await UsersFetch();
+    const users = await UsersFetch(endGetAllUsers);
 
   return <>
   <Navigation number={2}></Navigation>
