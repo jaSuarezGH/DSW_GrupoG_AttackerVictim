@@ -10,8 +10,28 @@ public class DaoFactory {
         return new UserDao(handler);
     }
 
-    public static  PersonaDao createPersonaDao(DBHandler handler) {
-        return new PersonaDao(handler);
+    public static VictimDao createVictimDao(DBHandler handler) {
+        return new VictimDao(handler);
+    }
+
+    public static AttackerDao createAttackerDao(DBHandler handler) {
+        return new AttackerDao(handler);
+    }
+
+    public static IncidentDao createIncidentDao(DBHandler handler) {
+        return new IncidentDao(handler);
+    }
+
+    public static HistoryDao createHistoryDao(DBHandler handler) {
+        return new HistoryDao(handler);
+    }
+
+    public static SafeZoneDao createSafeZoneDao(DBHandler handler) {
+        return new SafeZoneDao(handler);
+    }
+
+    public static CoordinateDao createCoordinateDao(DBHandler handler) {
+        return new CoordinateDao(handler);
     }
 
 }

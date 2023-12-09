@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class UserMapper extends BaseMapper {
@@ -15,26 +17,18 @@ public class UserMapper extends BaseMapper {
     public static User mapDtoToEntity(UserDto dto) throws ParseException {
         User entity = EntityFactory.createUser();
 
-        //region Instrumentation DEBUG
-        _logger.debug("Get in UserMapper.mapDtoToEntity: dto {}", dto);
-        //endregion
-
-        // No se incluye el ID
-
+        entity.set_id(dto.getId());
         entity.set_firstname(dto.get_firstname());
         entity.set_lastname(dto.get_lastname());
         entity.set_username(dto.get_username());
-        entity.set_license(dto.get_license());
+        entity.set_personal_id(dto.get_personal_id());
         entity.set_email(dto.get_email());
         entity.set_mac_address(dto.get_mac_address());
+        entity.set_active(dto.get_active());
 
         if (Objects.nonNull(dto.get_userType())) {
             entity.set_userType(UserTypeMapper.mapDtoToEntity(dto.get_userType()));
         }
-
-        //region Instrumentation DEBUG
-        _logger.debug("Leaving UserMapper.mapDtoToEntity: entity {}", entity);
-        //endregion
 
         return entity;
     }
@@ -42,59 +36,74 @@ public class UserMapper extends BaseMapper {
     public static UserDto mapEntityToDto(User entity) {
         final UserDto dto = new UserDto();
 
-        //region Instrumentation DEBUG
-        _logger.debug("Get in UserMapper.mapEntityToDto: entity {}", entity);
-        //endregion
-
-        // Si se incluye el ID
 
         dto.setId(entity.get_id());
         dto.set_firstname(entity.get_firstname());
         dto.set_lastname(entity.get_lastname());
         dto.set_username(entity.get_username());
-        dto.set_license(entity.get_license());
+        dto.set_personal_id(entity.get_personal_id());
         dto.set_email(entity.get_email());
         dto.set_mac_address(entity.get_mac_address());
+        dto.set_active(entity.get_active());
 
         if (Objects.nonNull(entity.get_userType()))
             dto.set_userType(UserTypeMapper.mapEntityToDto(entity.get_userType()));
 
-        //region Instrumentation DEBUG
-        _logger.debug("Leaving UserMapper.mapEntityToDto: dto {}", dto);
-        //endregion
         return dto;
     }
 
     public static User mapDtoToEntity(long id) {
         User entity = EntityFactory.createUser(id);
-
-        //region Instrumentation DEBUG
-        _logger.debug("Get in UserMapper.mapDtoToEntity: id {}", id);
-        //endregion
-
         entity.set_id(id);
-
-        //region Instrumentation DEBUG
-        _logger.debug("Leaving UserMapper.mapDtoToEntity: entity {}", entity);
-        //endregion
-
         return entity;
     }
 
     public static User mapDtoToEntityEmail(String email) {
         User entity = EntityFactory.createUser();
-
-        //region Instrumentation DEBUG
-        _logger.debug("Get in UserMapper.mapDtoToEntityEmail: email {}", email);
-        //endregion
-
         entity.set_email(email);
-
-        //region Instrumentation DEBUG
-        _logger.debug("Leaving UserMapper.mapDtoToEntityEmail: entity {}", entity);
-        //endregion
-
         return entity;
+    }
+
+    public static User mapDtoToEntityUsername(String username){
+        User entity = EntityFactory.createUser();
+        entity.set_username(username);
+        return entity;
+    }
+
+    public static User mapDtoToEntityPersonalId(String personal_id){
+        User entity = EntityFactory.createUser();
+        entity.set_personal_id(personal_id);
+        return entity;
+    }
+
+    public static User mapDtoToEntityMacAddress(String mac_address){
+        User entity = EntityFactory.createUser();
+        entity.set_mac_address(mac_address);
+        return entity;
+    }
+
+    public static List<UserDto> mapEntityListToDtoList(List<User> entityList){
+        List<UserDto> dtoList = new ArrayList<>();
+        UserDto userDto;
+
+        for (User user : entityList) {
+            userDto = new UserDto();
+            userDto.setId(user.get_id());
+            userDto.set_firstname(user.get_firstname());
+            userDto.set_lastname(user.get_lastname());
+            userDto.set_username(user.get_username());
+            userDto.set_personal_id(user.get_personal_id());
+            userDto.set_email(user.get_email());
+            userDto.set_mac_address(user.get_mac_address());
+            userDto.set_active(user.get_active());
+
+            if (Objects.nonNull(user.get_userType()))
+                userDto.set_userType(UserTypeMapper.mapEntityToDto(user.get_userType()));
+
+            dtoList.add(userDto);
+        }
+
+        return dtoList;
     }
 
 }

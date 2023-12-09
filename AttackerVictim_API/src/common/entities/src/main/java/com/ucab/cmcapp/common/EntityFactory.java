@@ -12,6 +12,8 @@ public class EntityFactory {
         return new User(id);
     }
 
+    // --------------------
+
     public static UserType createUserType() {
         return new UserType();
     }
@@ -19,4 +21,65 @@ public class EntityFactory {
     public static UserType createUserType(long id) {
         return new UserType(id);
     }
+
+    // --------------------
+
+    public static Victim createVictim(){
+        return new Victim();
+    }
+
+    public static Victim createVictim(long id){
+        return new Victim(id);
+    }
+
+    // --------------------
+
+    public static Attacker createAttacker(){
+        return new Attacker();
+    }
+
+    public static Attacker createAttacker(long id){
+        return new Attacker(id);
+    }
+
+    // --------------------
+
+    public static Incident createIncident(){
+        return new Incident();
+    }
+
+    public static Incident createIncident(long id){
+        return new Incident(id);
+    }
+
+    // --------------------
+
+    public static History createHistory(){
+        return new History();
+    }
+
+    public static History createHistory(long id){
+        return new History(id);
+    }
+
+    // --------------------
+
+    public static SafeZone createSafeZone(){
+        return new SafeZone();
+    }
+
+    public static SafeZone createSafeZone(long id){
+        return new SafeZone(id);
+    }
+
+    // --------------------
+
+    public static Coordinate createCoordinate(){
+        return new Coordinate();
+    }
+
+    public static Coordinate createCoordinate(long id){
+        return new Coordinate(id);
+    }
+
 }

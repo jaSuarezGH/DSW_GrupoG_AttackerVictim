@@ -4,22 +4,19 @@ import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.common.util.CustomResponse;
 import com.ucab.cmcapp.logic.commands.CommandFactory;
 import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByEmailCommand;
-import com.ucab.cmcapp.logic.commands.user.composite.CreateUserCommand;
-import com.ucab.cmcapp.logic.commands.user.composite.GetUserCommand;
+import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByMacAddressCommand;
+import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByPersonalIdCommand;
+import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByUsernameCommand;
+import com.ucab.cmcapp.logic.commands.user.composite.*;
 import com.ucab.cmcapp.logic.dtos.UserDto;
 import com.ucab.cmcapp.logic.mappers.UserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
@@ -28,8 +25,32 @@ public class UserService extends BaseService {
     private static Logger _logger = LoggerFactory.getLogger(UserService.class);
 
     @GET
+    @Path("/all")
+    public Response getAllUsers() {
+        List<UserDto> responseDTO = null;
+        GetAllUserCommand command = null;
+
+        try {
+            command = CommandFactory.createGetAllUserCommand();
+            command.execute();
+            responseDTO = UserMapper.mapEntityListToDtoList(command.getReturnParam());
+
+            if (responseDTO.isEmpty())
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>("[OK EMPTY RESPONSE] Currently there are no users in database")).build();
+
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method getAllUsers: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully listed all users")).build();
+    }
+
+    @GET
     @Path("/{id}")
-    public Response getUser(@PathParam("id") long userId) {
+    public Response getUserById(@PathParam("id") long userId) {
         User entity;
         UserDto responseDTO = null;
         GetUserCommand command = null;
@@ -42,21 +63,21 @@ public class UserService extends BaseService {
             if (command.getReturnParam() != null)
                 responseDTO = UserMapper.mapEntityToDto(command.getReturnParam());
             else
-                return Response.status(Response.Status.OK).entity(new CustomResponse<>("No user found for id "+userId)).build();
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>("[OK EMPTY RESPONSE] No user found for id: " + userId)).build();
         } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>(e, "Error getUser with id " + e.getMessage())).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method getUserById: " + e.getMessage())).build();
         } finally {
             if (command != null)
                 command.closeHandlerSession();
         }
 
-        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "User for id "+userId+" found correctly")).build();
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found user with id: " + userId)).build();
     }
 
 
     @GET
     @Path("email/{email}")
-    public Response getUser(@PathParam("email") String userEmail) {
+    public Response getUserByEmail(@PathParam("email") String userEmail) {
         User entity;
         UserDto responseDTO = null;
         GetUserByEmailCommand command = null;
@@ -69,15 +90,93 @@ public class UserService extends BaseService {
             if (command.getReturnParam() != null)
                 responseDTO = UserMapper.mapEntityToDto(command.getReturnParam());
             else
-                return Response.status(Response.Status.OK).entity(new CustomResponse<>("No user found for email "+userEmail)).build();
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>("[OK EMPTY RESPONSE] No user found for email: " + userEmail)).build();
         } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("Error getUser with email: " + e.getMessage())).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method getUserByEmail: " + e.getMessage())).build();
         } finally {
             if (command != null)
                 command.closeHandlerSession();
         }
 
-        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "User for email "+userEmail+" found correctly")).build();
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found user with email: " + userEmail)).build();
+    }
+
+    @GET
+    @Path("username/{username}")
+    public Response getUserByUsername(@PathParam("username") String username) {
+        User entity;
+        UserDto responseDTO = null;
+        GetUserByUsernameCommand command = null;
+
+        try {
+            entity = UserMapper.mapDtoToEntityUsername(username);
+            command = CommandFactory.createGetUserByUsernameCommand(entity);
+            command.execute();
+
+            if (command.getReturnParam() != null)
+                responseDTO = UserMapper.mapEntityToDto(command.getReturnParam());
+            else
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>("[OK EMPTY RESPONSE] No user found for username: " + username)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method getUserByUsername: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found user with username: " + username)).build();
+    }
+
+    @GET
+    @Path("personal_id/{personal_id}")
+    public Response getUserByPersonalId(@PathParam("personal_id") String personal_id) {
+        User entity;
+        UserDto responseDTO = null;
+        GetUserByPersonalIdCommand command = null;
+
+        try {
+            entity = UserMapper.mapDtoToEntityPersonalId(personal_id);
+            command = CommandFactory.createGetUserByPersonalIdCommand(entity);
+            command.execute();
+
+            if (command.getReturnParam() != null)
+                responseDTO = UserMapper.mapEntityToDto(command.getReturnParam());
+            else
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>("[OK EMPTY RESPONSE] No user found for personal_id: " + personal_id)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method getUserByPersonalId: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found user with personal_id: " + personal_id)).build();
+    }
+
+    @GET
+    @Path("mac/{mac_adress}")
+    public Response getUserByMacAddress(@PathParam("mac_adress") String mac_address) {
+        User entity;
+        UserDto responseDTO = null;
+        GetUserByMacAddressCommand command = null;
+
+        try {
+            entity = UserMapper.mapDtoToEntityMacAddress(mac_address);
+            command = CommandFactory.createGetUserByMacAddressCommand(entity);
+            command.execute();
+
+            if (command.getReturnParam() != null)
+                responseDTO = UserMapper.mapEntityToDto(command.getReturnParam());
+            else
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>("[OK EMPTY RESPONSE] No user found for mac_address: " + mac_address)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method getUserByMacAddress: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found user with mac_address: " + mac_address)).build();
     }
 
     @POST
@@ -92,12 +191,53 @@ public class UserService extends BaseService {
             command.execute();
             responseDTO = UserMapper.mapEntityToDto(command.getReturnParam());
         } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>(e, e.getMessage())).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method addUser, user could not be added: " + e.getMessage())).build();
         } finally {
             if (command != null)
                 command.closeHandlerSession();
         }
 
-        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "User created correctly")).build();
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] user created successfully")).build();
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public Response deleteUser(@PathParam("id") long userId) {
+        User entity;
+        UserDto responseDTO = null;
+        DeleteUserCommand command = null;
+
+        try {
+            entity = UserMapper.mapDtoToEntity(userId);
+            command = CommandFactory.createDeleteUserCommand(entity);
+            command.execute();
+            responseDTO = UserMapper.mapEntityToDto(command.getReturnParam());
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method deleteUser, user could not be deleted: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully deleted user with id: " + userId)).build();
+    }
+
+    @PUT
+    public Response updateUser(UserDto userDto) {
+        User entity;
+        UserDto responseDTO = null;
+        UpdateUserCommand command = null;
+        try {
+            entity = UserMapper.mapDtoToEntity(userDto);
+            command = CommandFactory.createUpdateUserCommand(entity);
+            command.execute();
+            responseDTO = UserMapper.mapEntityToDto(command.getReturnParam());
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method updateUser, user could not be updated: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully modified the user with id: " + userDto.getId())).build();
     }
 }

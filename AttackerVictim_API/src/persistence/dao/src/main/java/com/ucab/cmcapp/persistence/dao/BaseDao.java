@@ -43,12 +43,6 @@ public abstract class BaseDao<T> {
         _dbHandler = handler;
     }
 
-    /**
-     * Name:                  update
-     * Description:           method for adding a record on the DB
-     *
-     * @param entity entity
-     */
     public T insert(T entity) {
         setEntityManager(_dbHandler.getSession());
         T result;
@@ -68,12 +62,6 @@ public abstract class BaseDao<T> {
         return entity;
     }
 
-    /**
-     * Name:                  insertMultiple
-     * Description:           method for adding multiple records in the DB
-     *
-     * @param entityList entityList
-     */
     public List<T> insertMultiple(List<T> entityList) {
         for (T entity : entityList) {
             insert(entity);
@@ -81,12 +69,6 @@ public abstract class BaseDao<T> {
         return entityList;
     }
 
-    /**
-     * Name:                  update
-     * Description:           method for updating a record on the DB
-     *
-     * @param entity entity
-     */
     public T update(T entity) {
         setEntityManager(_dbHandler.getSession());
         //implementar logger
@@ -102,18 +84,17 @@ public abstract class BaseDao<T> {
         return entity;
     }
 
-    /**
-     * Name:                  delete
-     * Description:           method for deleting a record from the DB
-     *
-     * @param entity entity
-     */
     public T delete(T entity) {
         setEntityManager(_dbHandler.getSession());
         //implementar logger
         try {
-            getEntityManager().remove(entity);
+            //getEntityManager().merge( entity );
+            //getEntityManager().flush();
+            getEntityManager().remove(getEntityManager().merge(entity));
             getEntityManager().flush();
+
+            _logger.debug("DELETING: {}", entity);
+
         } catch (Exception e) {
             //implementar logger
             throw new DeleteException(e.getMessage() + "Entity: " + entity.toString());
@@ -123,14 +104,6 @@ public abstract class BaseDao<T> {
         return entity;
     }
 
-    /**
-     * Name:                  findAll
-     * Description:           method for collecting all registers from an entity
-     *
-     * @param type Class
-     * @author teixbr
-     * @since 20/10/17
-     */
     public List<T> findAll(Class<T> type) {
         //implementar logger
         setEntityManager(_dbHandler.getSession());
@@ -153,13 +126,6 @@ public abstract class BaseDao<T> {
         return list;
     }
 
-    /**
-     * Name:                  find
-     * Description:           method used for find a single record by it's ID
-     *
-     * @param id   id of entity to search
-     * @param type Class
-     */
     public T find(Long id, Class<T> type) {
         //implementar logger
         T entity;
@@ -176,12 +142,6 @@ public abstract class BaseDao<T> {
         return entity;
     }
 
-    /**
-     * Name:                  getDBHandler
-     * Description:           method that returns the daoHandler
-     *
-     * @return instance of daoHandler
-     */
     public DBHandler getDBHandler() {
         return _dbHandler;
     }
