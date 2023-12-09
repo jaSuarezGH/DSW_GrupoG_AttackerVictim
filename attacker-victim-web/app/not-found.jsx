@@ -1,3 +1,4 @@
+'use client'
 
 import { InformacionPage } from "@/components/InformationPage/InformationPage";
 import { Routes } from "@/app/models/routes.model";

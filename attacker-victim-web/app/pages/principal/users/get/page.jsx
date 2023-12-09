@@ -26,9 +26,11 @@ export default function getVictimaPage() {
     switch (selected) {
 
       case "Username":
+        router.push(`${Routes.GET_USER_USERNAME}${valor}`);
         break;
 
       case "Correo Electronico":
+        router.push(`${Routes.GET_USER_EMAIL}${valor}`);
         break;
 
       case "Cedula de Identidad":
@@ -36,6 +38,7 @@ export default function getVictimaPage() {
         break;
 
       case "Direccion MAC":
+        router.push(`${Routes.GET_USER_MAC}${valor}`);
         break;
 
     }

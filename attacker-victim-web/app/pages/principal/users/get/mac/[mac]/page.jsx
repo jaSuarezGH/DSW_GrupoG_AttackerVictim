@@ -1,12 +1,10 @@
 import { DivResponseUser } from "@/components/Div/DivResponseUser/DivResponseUser";
-import { endGetUserByCedula } from "@/app/models/endpoint.model";
+import { endGetUserByMAC } from "@/app/models/endpoint.model";
 import { UsersFetch } from "../../../fetch/UsersFetch";
-import { InformacionPage } from "@/components/InformationPage/InformationPage";
-import { Routes } from "@/app/models/routes.model";
 
-export default async function getVictimaCedulaPage({ params }) {
+export default async function getVictimaMACPage({ params }) {
   
-  const user = await UsersFetch (endGetUserByCedula, params.cedula);
+  const user = await UsersFetch (endGetUserByMAC, params.mac);
   
   if (user === null) {
     
@@ -22,12 +20,11 @@ export default async function getVictimaCedulaPage({ params }) {
     )
   }
   
-
   return (
     <DivResponseUser
       user={user}
-      title="Consultar Usuario por Cedula"
-      description={`Todos los datos del usuario a consultar poseedor de la cedula: ${user.cedula}.`}
+      title="Consultar Usuario por Correo Electronico"
+      description={`Todos los datos del usuario a consultar poseedor del email: ${user.mac}.`}
       tags={[user.tipo]}
     ></DivResponseUser>
   );

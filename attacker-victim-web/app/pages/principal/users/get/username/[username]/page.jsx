@@ -1,13 +1,11 @@
 import { DivResponseUser } from "@/components/Div/DivResponseUser/DivResponseUser";
-import { endGetUserByCedula } from "@/app/models/endpoint.model";
+import { endGetUserByUsername } from "@/app/models/endpoint.model";
 import { UsersFetch } from "../../../fetch/UsersFetch";
-import { InformacionPage } from "@/components/InformationPage/InformationPage";
-import { Routes } from "@/app/models/routes.model";
 
-export default async function getVictimaCedulaPage({ params }) {
+export default async function getUserUsernamePage({ params }) {
   
-  const user = await UsersFetch (endGetUserByCedula, params.cedula);
-  
+  const user = await UsersFetch (endGetUserByUsername, params.username);
+
   if (user === null) {
     
     const description = `Lo siento, el usuario a consultar poseedor de la Cedula: ${params.cedula} no se encuentra registrado.`
@@ -21,13 +19,12 @@ export default async function getVictimaCedulaPage({ params }) {
     ></InformacionPage>
     )
   }
-  
 
   return (
     <DivResponseUser
       user={user}
-      title="Consultar Usuario por Cedula"
-      description={`Todos los datos del usuario a consultar poseedor de la cedula: ${user.cedula}.`}
+      title="Consultar Usuario por Nombre de Usuario (Username)"
+      description={`Todos los datos del usuario a consultar poseedor del Username: ${user.username}.`}
       tags={[user.tipo]}
     ></DivResponseUser>
   );
