@@ -24,11 +24,11 @@ public class Incident {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long _id;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "victim", nullable = false, unique = true)
     private Victim _victim;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "attacker", nullable = false, unique = true)
     private Attacker _attacker;
 

@@ -14,16 +14,6 @@ public class EntityFactory {
 
     // --------------------
 
-    public static UserType createUserType() {
-        return new UserType();
-    }
-
-    public static UserType createUserType(long id) {
-        return new UserType(id);
-    }
-
-    // --------------------
-
     public static Victim createVictim(){
         return new Victim();
     }

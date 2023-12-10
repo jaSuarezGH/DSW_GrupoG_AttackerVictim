@@ -18,7 +18,7 @@ public class User {
         _personal_id = user._personal_id;
         _email = user._email;
         _mac_address = user._mac_address;
-        _userType = user._userType;
+        _active = user._active;
     }
 
     public User(long id) {
@@ -48,7 +48,7 @@ public class User {
     @Column(name = "mac_address", nullable = false, unique = true)
     private String _mac_address;
 
-    @Transient
+    @Column(name = "password", nullable = false)
     private String _password;
 
     @Basic(optional = false)
@@ -60,10 +60,6 @@ public class User {
             insertable = false, updatable = false, nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date _createAt;*/
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_type_id", nullable = false)
-    private UserType _userType;
 
     public long get_id() {
         return _id;
@@ -127,14 +123,6 @@ public class User {
 
     public void set_password(String _password) {
         this._password = _password;
-    }
-
-    public UserType get_userType() {
-        return _userType;
-    }
-
-    public void set_userType(UserType _userType) {
-        this._userType = _userType;
     }
 
     public Boolean get_active() {

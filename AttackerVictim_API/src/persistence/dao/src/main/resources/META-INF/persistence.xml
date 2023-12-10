@@ -6,7 +6,6 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <non-jta-data-source>java:/AttackerVictim_DS</non-jta-data-source>
         <class>com.ucab.cmcapp.common.entities.User</class>
-        <class>com.ucab.cmcapp.common.entities.UserType</class>
         <class>com.ucab.cmcapp.common.entities.Victim</class>
         <class>com.ucab.cmcapp.common.entities.Attacker</class>
         <class>com.ucab.cmcapp.common.entities.Incident</class>
