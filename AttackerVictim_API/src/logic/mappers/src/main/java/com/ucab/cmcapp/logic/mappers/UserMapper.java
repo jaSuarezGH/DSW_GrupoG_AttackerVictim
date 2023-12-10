@@ -14,7 +14,7 @@ import java.util.Objects;
 public class UserMapper extends BaseMapper {
     private static Logger _logger = LoggerFactory.getLogger(UserMapper.class);
 
-    public static User mapDtoToEntity(UserDto dto) throws ParseException {
+    public static User mapDtoToEntity(UserDto dto) {
         User entity = EntityFactory.createUser();
 
         entity.set_id(dto.getId());

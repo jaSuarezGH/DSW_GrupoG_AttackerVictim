@@ -50,7 +50,7 @@ public class IncidentService extends BaseService {
 
     @GET
     @Path("victimRegistry/{victim_id}")
-    public Response getIncidentByVictimId(@PathParam("victim_id") String victimId) {
+    public Response getIncidentByVictimId(@PathParam("victim_id") long victimId) {
         Incident entity;
         IncidentDto responseDTO = null;
         GetIncidentByVictimIdCommand command = null;
@@ -76,7 +76,7 @@ public class IncidentService extends BaseService {
 
     @GET
     @Path("attackerRegistry/{attacker_id}")
-    public Response getIncidentByAttackerId(@PathParam("attacker_id") String attackerId) {
+    public Response getIncidentByAttackerId(@PathParam("attacker_id") long attackerId) {
         Incident entity;
         IncidentDto responseDTO = null;
         GetIncidentByAttackerIdCommand command = null;

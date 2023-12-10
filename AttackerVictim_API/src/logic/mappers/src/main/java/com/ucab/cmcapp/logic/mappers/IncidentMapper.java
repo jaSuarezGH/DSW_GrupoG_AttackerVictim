@@ -4,7 +4,9 @@ import com.ucab.cmcapp.common.EntityFactory;
 import com.ucab.cmcapp.common.entities.Attacker;
 import com.ucab.cmcapp.common.entities.Incident;
 import com.ucab.cmcapp.common.entities.Victim;
+import com.ucab.cmcapp.logic.dtos.AttackerDto;
 import com.ucab.cmcapp.logic.dtos.IncidentDto;
+import com.ucab.cmcapp.logic.dtos.VictimDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +18,7 @@ public class IncidentMapper extends BaseMapper {
 
     private static Logger _logger = LoggerFactory.getLogger(IncidentMapper.class);
 
-    public static Incident mapDtoToEntity(IncidentDto dto) throws ParseException {
+    public static Incident mapDtoToEntity(IncidentDto dto) {
         Incident entity = EntityFactory.createIncident();
         entity.set_id(dto.getId());
         entity.set_attacker(AttackerMapper.mapDtoToEntity(dto.get_attacker()));
@@ -63,19 +65,17 @@ public class IncidentMapper extends BaseMapper {
         return dtoList;
     }
 
-    public static Incident mapDtoToEntityVictimId(String victimId){
-        Victim victim = new Victim();
-        victim.set_id(Integer.valueOf(victimId));
+    public static Incident mapDtoToEntityVictimId(long victimId){
+        VictimDto victimDto = new VictimDto(victimId);
         Incident entity = EntityFactory.createIncident();
-        entity.set_victim(victim);
+        entity.set_victim(VictimMapper.mapDtoToEntity(victimDto.getId()));
         return entity;
     }
 
-    public static Incident mapDtoToEntityAttackerId(String attackerId){
-        Attacker attacker = new Attacker();
-        attacker.set_id(Integer.valueOf(attackerId));
+    public static Incident mapDtoToEntityAttackerId(long attackerId){
+        AttackerDto attackerDto = new AttackerDto(attackerId);
         Incident entity = EntityFactory.createIncident();
-        entity.set_attacker(attacker);
+        entity.set_attacker(AttackerMapper.mapDtoToEntity(attackerDto.getId()));
         return entity;
     }
 

@@ -4,6 +4,7 @@ import com.ucab.cmcapp.common.EntityFactory;
 import com.ucab.cmcapp.common.entities.History;
 import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.logic.dtos.HistoryDto;
+import com.ucab.cmcapp.logic.dtos.UserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +16,7 @@ public class HistoryMapper extends BaseMapper {
 
     private static Logger _logger = LoggerFactory.getLogger(HistoryMapper.class);
 
-    public static History mapDtoToEntity(HistoryDto dto) throws ParseException {
+    public static History mapDtoToEntity(HistoryDto dto) {
         History entity = EntityFactory.createHistory();
 
         entity.set_id(dto.getId());
@@ -66,11 +67,10 @@ public class HistoryMapper extends BaseMapper {
         return dtoList;
     }
 
-    public static History mapDtoToEntityUserId(String userId) {
-        User user = new User();
-        user.set_id(Integer.valueOf(userId));
+    public static History mapDtoToEntityUserId(long userId) {
+        UserDto userDto = new UserDto(userId);
         History entity = EntityFactory.createHistory();
-        entity.set_user(user);
+        entity.set_user(UserMapper.mapDtoToEntity(userDto));
         return entity;
     }
 

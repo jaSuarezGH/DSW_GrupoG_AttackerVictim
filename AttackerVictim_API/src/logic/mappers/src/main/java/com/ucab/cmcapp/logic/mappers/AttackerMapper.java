@@ -5,6 +5,7 @@ import com.ucab.cmcapp.common.entities.Attacker;
 import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.common.entities.Victim;
 import com.ucab.cmcapp.logic.dtos.AttackerDto;
+import com.ucab.cmcapp.logic.dtos.UserDto;
 import com.ucab.cmcapp.logic.dtos.VictimDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,7 @@ public class AttackerMapper extends BaseMapper {
 
     private static Logger _logger = LoggerFactory.getLogger(AttackerMapper.class);
 
-    public static Attacker mapDtoToEntity(AttackerDto dto) throws ParseException {
+    public static Attacker mapDtoToEntity(AttackerDto dto) {
         Attacker entity = EntityFactory.createAttacker();
 
         entity.set_id(dto.getId());
@@ -56,11 +57,10 @@ public class AttackerMapper extends BaseMapper {
         return dtoList;
     }
 
-    public static Attacker mapDtoToEntityUserId(String userId){
-        User user = new User();
-        user.set_id(Integer.valueOf(userId));
+    public static Attacker mapDtoToEntityUserId(long userId){
+        UserDto userDto = new UserDto(userId);
         Attacker entity = EntityFactory.createAttacker();
-        entity.set_user(user);
+        entity.set_user(UserMapper.mapDtoToEntity(userDto));
         return entity;
     }
 

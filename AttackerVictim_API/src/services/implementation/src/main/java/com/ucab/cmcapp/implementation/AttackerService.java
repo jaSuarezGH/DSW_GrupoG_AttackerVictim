@@ -49,7 +49,7 @@ public class AttackerService extends BaseService {
 
     @GET
     @Path("/{user_id}")
-    public Response getAttackerByUserId(@PathParam("user_id") String userId) {
+    public Response getAttackerByUserId(@PathParam("user_id") long userId) {
         Attacker entity;
         AttackerDto responseDTO = null;
         GetAttackerByUserIdCommand command = null;

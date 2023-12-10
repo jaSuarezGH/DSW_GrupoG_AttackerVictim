@@ -63,7 +63,7 @@ public class SafeZoneService extends BaseService {
 
     @GET
     @Path("/{user_id}")
-    public Response getAllSafeZonesByUserId(@PathParam("user_id") String userId) {
+    public Response getAllSafeZonesByUserId(@PathParam("user_id") long userId) {
         SafeZone entity;
         List<SafeZoneDto> responseDTO = null;
         GetAllSafeZoneByUserIdCommand command = null;

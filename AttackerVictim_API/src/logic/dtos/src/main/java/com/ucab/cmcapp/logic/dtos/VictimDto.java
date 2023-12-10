@@ -7,6 +7,10 @@ public class VictimDto extends BaseDto {
     public VictimDto() {
     }
 
+    public VictimDto(long id) {
+        super(id);
+    }
+
     public UserDto get_user() {
         return _user;
     }

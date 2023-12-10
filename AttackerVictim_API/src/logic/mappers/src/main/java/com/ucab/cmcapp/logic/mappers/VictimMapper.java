@@ -3,6 +3,7 @@ package com.ucab.cmcapp.logic.mappers;
 import com.ucab.cmcapp.common.EntityFactory;
 import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.common.entities.Victim;
+import com.ucab.cmcapp.logic.dtos.UserDto;
 import com.ucab.cmcapp.logic.dtos.VictimDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +15,7 @@ import java.util.List;
 public class VictimMapper extends BaseMapper {
     private static Logger _logger = LoggerFactory.getLogger(VictimMapper.class);
 
-    public static Victim mapDtoToEntity(VictimDto dto) throws ParseException {
+    public static Victim mapDtoToEntity(VictimDto dto) {
         Victim entity = EntityFactory.createVictim();
 
         entity.set_id(dto.getId());
@@ -53,11 +54,10 @@ public class VictimMapper extends BaseMapper {
         return dtoList;
     }
 
-    public static Victim mapDtoToEntityUserId(String userId){
-        User user = new User();
-        user.set_id(Integer.valueOf(userId));
+    public static Victim mapDtoToEntityUserId(long userId){
+        UserDto userDto = new UserDto(userId);
         Victim entity = EntityFactory.createVictim();
-        entity.set_user(user);
+        entity.set_user(UserMapper.mapDtoToEntity(userDto));
         return entity;
     }
 

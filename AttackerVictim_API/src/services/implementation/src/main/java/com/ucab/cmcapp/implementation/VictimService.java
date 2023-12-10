@@ -50,7 +50,7 @@ public class VictimService extends BaseService {
 
     @GET
     @Path("/{user_id}")
-    public Response getVictimByUserId(@PathParam("user_id") String userId) {
+    public Response getVictimByUserId(@PathParam("user_id") long userId) {
         Victim entity;
         VictimDto responseDTO = null;
         GetVictimByUserIdCommand command = null;
