@@ -10,7 +10,7 @@ public class UserDto extends BaseDto {
     private String _email;
     private String _mac_address;
     private Boolean _active;
-    private UserTypeDto _userType;
+    private String _password;
 
     public UserDto() {
     }
@@ -67,19 +67,19 @@ public class UserDto extends BaseDto {
         this._mac_address = _mac_address;
     }
 
-    public UserTypeDto get_userType() {
-        return _userType;
-    }
-
-    public void set_userType(UserTypeDto _userType) {
-        this._userType = _userType;
-    }
-
     public Boolean get_active() {
         return _active;
     }
 
     public void set_active(Boolean _active) {
         this._active = _active;
+    }
+
+    public String get_password() {
+        return _password;
+    }
+
+    public void set_password(String _password) {
+        this._password = _password;
     }
 }

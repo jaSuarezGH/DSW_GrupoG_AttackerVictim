@@ -25,17 +25,13 @@ public class UserMapper extends BaseMapper {
         entity.set_email(dto.get_email());
         entity.set_mac_address(dto.get_mac_address());
         entity.set_active(dto.get_active());
-
-        if (Objects.nonNull(dto.get_userType())) {
-            entity.set_userType(UserTypeMapper.mapDtoToEntity(dto.get_userType()));
-        }
+        entity.set_password(dto.get_password());
 
         return entity;
     }
 
     public static UserDto mapEntityToDto(User entity) {
         final UserDto dto = new UserDto();
-
 
         dto.setId(entity.get_id());
         dto.set_firstname(entity.get_firstname());
@@ -45,9 +41,7 @@ public class UserMapper extends BaseMapper {
         dto.set_email(entity.get_email());
         dto.set_mac_address(entity.get_mac_address());
         dto.set_active(entity.get_active());
-
-        if (Objects.nonNull(entity.get_userType()))
-            dto.set_userType(UserTypeMapper.mapEntityToDto(entity.get_userType()));
+        dto.set_password(entity.get_password());
 
         return dto;
     }
@@ -96,10 +90,7 @@ public class UserMapper extends BaseMapper {
             userDto.set_email(user.get_email());
             userDto.set_mac_address(user.get_mac_address());
             userDto.set_active(user.get_active());
-
-            if (Objects.nonNull(user.get_userType()))
-                userDto.set_userType(UserTypeMapper.mapEntityToDto(user.get_userType()));
-
+            userDto.set_password(user.get_password());
             dtoList.add(userDto);
         }
 
