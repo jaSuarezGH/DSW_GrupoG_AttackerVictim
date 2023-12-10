@@ -23,7 +23,7 @@ public class Victim {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long _id;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user", nullable = false, unique = true)
     private User _user;
 
