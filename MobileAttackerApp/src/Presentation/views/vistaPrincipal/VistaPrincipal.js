@@ -11,7 +11,6 @@ export const VistaPrincipalScreen = () => {
         
         <View style = {styles.container}>
             <View style={styles.logoContainer}>
-              
               <Image 
                 source={require('../../../../assets/LogoAVapp.png')} 
                 style={styles.imageLogoLogin} />

@@ -1,19 +1,9 @@
 import React from "react";
 import { TouchableOpacity,Text,StyleSheet } from "react-native";
 import { useNavigation } from '@react-navigation/native';
-import { homeViewModelConnection } from "../views/home/HomeViewModel";
 
 
 export const RoundedButton = ({text,onPress}) =>{
-    const navigation = useNavigation();
-    /*
-    const handlePress = async () => {
-        const isConnected = await homeViewModelConnection(urlApi);
-        console.log(isConnected);
-        if (isConnected) {
-          navigation.navigate('VistaLogin');
-        }
-    };*/
     
     return(
         <TouchableOpacity
@@ -28,17 +18,18 @@ export const RoundedButton = ({text,onPress}) =>{
 
 const styles= StyleSheet.create({
     roundeButton:{
-        with:'100%',
-        height: 50,
+        with:1000,
+        height: 60,
         backgroundColor: '#1253C0',
         alignItems:'center',
         justifyContent:'center',
         borderRadius: 15,
-        marginTop: 30,
+        marginTop: 35,
     },
     textButton:{
         color:'white',
-        fontWeight:'bold'
+        fontWeight:'bold',
+        fontSize:18,
     }
 
 })

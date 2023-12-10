@@ -15,6 +15,11 @@ const App = () => {
           }}>
 
             <Stack.Screen
+              name ="Home"
+              component={HomeScreen}
+            />
+
+            <Stack.Screen
               name ="VistaPrincipal"
               component={VistaPrincipalScreen}
             />
@@ -22,11 +27,6 @@ const App = () => {
             <Stack.Screen
               name ="VistaLogin"
               component={VistaLoginScreen}
-            />
-
-            <Stack.Screen
-              name ="Home"
-              component={HomeScreen}
             />
 
         </Stack.Navigator>

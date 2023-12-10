@@ -49,12 +49,9 @@ export const deleteLocations = async () => {
         [],
         (_, result) => {
           // Si la operación fue exitosa, result.rowsAffected debería ser mayor a 0
-          console.log(result.rowsAffected);////////////////////////
           if (result.rowsAffected > 0) {
-            console.log('true');///////////////////////////
             resolve(true);
           } else {
-            console.log('false');///////////////////////////
             resolve(false);
           }
         },

@@ -39,7 +39,6 @@ export const loginViewModel = () => {
           clearInputs();
           Alert.alert('Ocurrió un error al iniciar sesión. Por favor inténtalo nuevamente');
           return false;
-
         }
     };
 
@@ -58,8 +57,7 @@ export const loginViewModel = () => {
                   clearInputs();
               }
           } catch (error) {
-
-            Alert.alert('Ocurrió un error inesperado. Por favor inténtalo nuevamente');
+            Alert.alert('Ocurrió un error inesperado. Por favor inténtalo nuevamente', error);
           }
     };
 

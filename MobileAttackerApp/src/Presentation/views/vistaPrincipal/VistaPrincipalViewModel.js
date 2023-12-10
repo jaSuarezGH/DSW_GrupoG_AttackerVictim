@@ -15,8 +15,7 @@ export const principalViewModel = () => {
       try {
         const response = await postCoordenadas(coordenadas);
         if (response.status === 200) {
-          //console.log(`${coordenadas.latitude} ${coordenadas.longitude} ${coordenadas.idUser}`);
-          //console.log('Ubicación enviada con éxito');
+          console.log('Ubicación enviada con éxito');
         }else if(response.status === 401) {
           Alert.alert('Ocurrió un error al enviar la ubicación');
         }
@@ -27,68 +26,71 @@ export const principalViewModel = () => {
 
     const useLocationSync = () => {
         const [isConnected, setIsConnected] = useState(false);
+
             useEffect(() => {
               setupDatabase();
               const interval = setInterval(async () => {
-              let { status } = await Location.requestForegroundPermissionsAsync();
-              
-              if (status !== 'granted') {
-                console.error('Permiso para acceder a la ubicación denegado');
-                return;
-              }
-        
-              let location = await Location.getCurrentPositionAsync({});
-
-              const coordenadas = { 
-                latitude: location.coords.latitude, 
-                longitude: location.coords.longitude, 
-                idUser: 1 };
-        
-              if (isConnected) {
-
-                enviarCoordenadas(coordenadas);
-
-                const locationSQL = await ObtenerCoordenadasSQL();
-                if (locationSQL.length > 0){
-                  for (let location of locationSQL) {
-                    const coordenadas = { 
-                      latitude: location.latitude, 
-                      longitude: location.longitude, 
-                      idUser: location.idUser };
-
-                    try {
-                      console.log(`Ubicación: Latitud - ${location.latitude}, Longitud - ${location.longitude}, ID de usuario - ${location.idUser}`);/////////////
-                      enviarCoordenadas(coordenadas);
-                    } catch (error) {
-                      Alert.alert('Error al imprimir la ubicación:', error);
-                    }
-                  }
-                  EliminarUsuarioCoordenadas()
-                    .then((deleted ) => {
-                      if (!deleted) {
-                        Alert.alert('No se lograron eliminar las ubicaciones.');
-                      }
-                    })
-                    .catch((error) => {
-                      Alert.alert('Ocurrió un error al eliminar la ubicación:', error);
-                    });
+                let { status } = await Location.requestForegroundPermissionsAsync();
+                
+                if (status !== 'granted') {
+                  console.error('Permiso para acceder a la ubicación denegado');
+                  return;
                 }
-              } else {
-                GuardarCoordenadasSQL(coordenadas)
-                .then((wasSuccessful) => {
-                  if (!wasSuccessful) {
-                    Alert.alert('No se pudo guardar la ubicación.');
+          
+                let location = await Location.getCurrentPositionAsync({});
+
+                const coordenadas = { 
+                  latitude: location.coords.latitude, 
+                  longitude: location.coords.longitude, 
+                  idUser: 1 
+                };
+          
+                if (isConnected) {
+
+                  enviarCoordenadas(coordenadas);
+
+                  const locationSQL = await ObtenerCoordenadasSQL();
+                  if (locationSQL.length > 0){
+                    for (let location of locationSQL) {
+                      const coordenadas = { 
+                        latitude: location.latitude, 
+                        longitude: location.longitude, 
+                        idUser: location.idUser 
+                      };
+                      try {
+                      // console.log(`Ubicación: Latitud - ${location.latitude}, Longitud - ${location.longitude}, ID de usuario - ${location.idUser}`);/////////////
+                        enviarCoordenadas(coordenadas);
+                      } catch (error) {
+                        Alert.alert('Error al enviar las ubicaciones:', error);
+                      }
+                    }
+
+                    EliminarUsuarioCoordenadas()
+                      .then((deleted ) => {
+                        if (!deleted) {
+                          Alert.alert('No se lograron eliminar las ubicaciones.');
+                        }
+                      })
+                      .catch((error) => {
+                        Alert.alert('Ocurrió un error al eliminar la ubicación:', error);
+                      });
                   }
-                })
-                .catch((error) => {
-                  Alert.alert('Ocurrió un error al guardar la ubicación:', error);
-                });
-              }
-            }, 30000);
-            return () => {
-              clearInterval(interval);
-            };
-        }, [isConnected]);
+                } else {
+                  GuardarCoordenadasSQL(coordenadas)
+                  .then((wasSuccessful) => {
+                    if (!wasSuccessful) {
+                      Alert.alert('No se pudo guardar la ubicación.');
+                    }
+                  })
+                  .catch((error) => {
+                    Alert.alert('Ocurrió un error al guardar la ubicación:', error);
+                  });
+                }
+              }, 30000);
+              return () => {
+                clearInterval(interval);
+              };
+            }, [isConnected]);
         
         useEffect(() => {
             const unsubscribe = NetInfo.addEventListener(state => {
@@ -99,7 +101,7 @@ export const principalViewModel = () => {
             };
         }, []);
       
-        return isConnected;
+      return isConnected;
     };
 
     return {useLocationSync};
