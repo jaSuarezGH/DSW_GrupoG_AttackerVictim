@@ -9,8 +9,8 @@ public class UserDto extends BaseDto {
     private String _personal_id;
     private String _email;
     private String _mac_address;
-    private Boolean _active;
     private String _password;
+    private Boolean _active;
 
     public UserDto() {
     }
