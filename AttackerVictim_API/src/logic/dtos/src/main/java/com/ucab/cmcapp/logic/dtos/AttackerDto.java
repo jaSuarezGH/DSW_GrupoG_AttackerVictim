@@ -7,6 +7,10 @@ public class AttackerDto extends BaseDto {
     public AttackerDto() {
     }
 
+    public AttackerDto(long id) {
+        super(id);
+    }
+
     public UserDto get_user() {
         return _user;
     }

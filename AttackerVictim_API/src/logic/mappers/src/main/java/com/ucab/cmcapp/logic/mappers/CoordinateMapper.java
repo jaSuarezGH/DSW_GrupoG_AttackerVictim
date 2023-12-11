@@ -15,7 +15,7 @@ public class CoordinateMapper extends BaseMapper {
 
     private static Logger _logger = LoggerFactory.getLogger(CoordinateMapper.class);
 
-    public static Coordinate mapDtoToEntity(CoordinateDto dto) throws ParseException {
+    public static Coordinate mapDtoToEntity(CoordinateDto dto) {
         Coordinate entity = EntityFactory.createCoordinate();
         entity.set_id(dto.getId());
         entity.set_latitude(dto.get_latitude());

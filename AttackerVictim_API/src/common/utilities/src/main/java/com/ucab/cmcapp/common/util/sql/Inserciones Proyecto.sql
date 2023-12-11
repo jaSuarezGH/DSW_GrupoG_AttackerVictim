@@ -3,7 +3,7 @@
 ---------------------( USER )--------------------------------
 
 insert into user (firstname, lastname, username, personal_id, email, mac_address, password) values
-('Jose', 'Suarez', 'jarsjars', 'V-29.552.507', 'joseantonsr@gmail.com', '00-B0-D0-63-C2-26', 'eY6>K2|D+*j0Ssd'),
+('Jesus', 'Manuel', 'jesumanu', 'V-29.552.507', 'jesumanu@gmail.com', '00-B0-D0-63-C2-26', 'eY6>K2|D+*j0Ssd'),
 ('Mariangel', 'Torres', 'marpastelito', 'V-26.260.787', 'mariangeltsilva@gmail.com', '01-B2-D1-64-C1-27', 'wJ6"<|~xLM"!N'),
 ('Shae', 'O''Corr', 'socorr0', 'V-48.271.945', 'socorr0@huffingtonpost.com', 'D5-AB-50-D6-18-BD', 'uH6=*j+/Lt*$('),
 ('Esra', 'Staresmeare', 'estaresmeare1', 'V-97.356.668', 'estaresmeare1@ihg.com', '39-56-1A-FE-E0-54', 'zF5?uJIa$@VxI'),
@@ -305,3 +305,11 @@ insert into history (full_date, latitude, longitude, status, user) values
 ('2023-07-08 14:25:00', -70.231729, -102.570595, 'INMOBILE', 14),
 ('2023-01-05 02:35:00', -6.84753, -68.815282, 'OFFLINE', 11),
 ('2023-10-18 23:07:00', 12.860027, 46.733112, 'INMOBILE', 14);
+
+
+---------------------( ADMINISTRATOR )-----------------------
+
+insert into administrator (username, email, password) values
+('joseAdmin', 'joseantonsr@gmail.com', 'uA2#bxfdx)usFd2'),
+('gaboAdmin', 'gadv1331@gmail.com', 'xA6{b%WxtwIRd?'),
+('mickelAdmin', 'arrozmickel@gmail.com', 'zZ2$T8D.yRFdua');

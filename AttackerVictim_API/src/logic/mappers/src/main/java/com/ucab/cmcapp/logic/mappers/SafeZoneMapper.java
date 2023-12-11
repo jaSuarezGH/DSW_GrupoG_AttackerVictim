@@ -5,6 +5,7 @@ import com.ucab.cmcapp.common.entities.History;
 import com.ucab.cmcapp.common.entities.SafeZone;
 import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.logic.dtos.SafeZoneDto;
+import com.ucab.cmcapp.logic.dtos.UserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +17,7 @@ public class SafeZoneMapper extends BaseMapper {
 
     private static Logger _logger = LoggerFactory.getLogger(SafeZoneMapper.class);
 
-    public static SafeZone mapDtoToEntity(SafeZoneDto dto) throws ParseException {
+    public static SafeZone mapDtoToEntity(SafeZoneDto dto) {
         SafeZone entity = EntityFactory.createSafeZone();
 
         entity.set_id(dto.getId());
@@ -64,11 +65,10 @@ public class SafeZoneMapper extends BaseMapper {
         return dtoList;
     }
 
-    public static SafeZone mapDtoToEntityUserId(String userId) {
-        User user = new User();
-        user.set_id(Integer.valueOf(userId));
+    public static SafeZone mapDtoToEntityUserId(long userId) {
+        UserDto userDto = new UserDto(userId);
         SafeZone entity = EntityFactory.createSafeZone();
-        entity.set_user(user);
+        entity.set_user(UserMapper.mapDtoToEntity(userDto));
         return entity;
     }
 

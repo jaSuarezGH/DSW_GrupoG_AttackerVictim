@@ -12,6 +12,7 @@
         <class>com.ucab.cmcapp.common.entities.History</class>
         <class>com.ucab.cmcapp.common.entities.SafeZone</class>
         <class>com.ucab.cmcapp.common.entities.Coordinate</class>
+        <class>com.ucab.cmcapp.common.entities.Administrator</class>
 
         <properties>
             <property name="hibernate.generate_statistics" value="true"/>

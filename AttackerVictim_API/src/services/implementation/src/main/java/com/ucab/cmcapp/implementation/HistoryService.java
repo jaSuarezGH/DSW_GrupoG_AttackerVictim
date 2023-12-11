@@ -49,7 +49,7 @@ public class HistoryService extends BaseService {
 
     @GET
     @Path("/{user_id}")
-    public Response getAllHistoryByUserId(@PathParam("user_id") String userId) {
+    public Response getAllHistoryByUserId(@PathParam("user_id") long userId) {
         History entity;
         List<HistoryDto> responseDTO = null;
         GetAllHistoryByUserIdCommand command = null;
