@@ -334,7 +334,7 @@ public class CommandFactory {
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    // ------------------( getAllAdministrators )-------------------
+    // ------------------( getAllAdministrators )----------------
     public static GetAllAdministratorCommand createGetAllAdministratorCommand() {
         return new GetAllAdministratorCommand();
     }
@@ -343,17 +343,17 @@ public class CommandFactory {
         return new GetAllAdministratorListCommand(handler);
     }
 
-    // ------------------( getAdministratorByEmail )----------------------
+    // ------------------( getAdministratorByEmail )-------------
     public static GetAdministratorByEmailCommand createGetAdministratorByEmailCommand(Administrator administrator) {
         return new GetAdministratorByEmailCommand(administrator);
     }
 
-    // ------------------( getAdministratorByUsername )-------------------
+    // ------------------( getAdministratorByUsername )----------
     public static GetAdministratorByUsernameCommand createGetAdministratorByUsernameCommand(Administrator administrator) {
         return new GetAdministratorByUsernameCommand(administrator);
     }
 
-    // ------------------( addAdministrator )-----------------------------
+    // ------------------( addAdministrator )--------------------
     public static CreateAdministratorCommand createCreateAdministratorCommand(Administrator administrator) {
         return new CreateAdministratorCommand(administrator);
     }
@@ -362,7 +362,7 @@ public class CommandFactory {
         return new AddAdministratorCommand(administrator, handler);
     }
 
-    // ------------------( deleteAdministrator )--------------------------
+    // ------------------( deleteAdministrator )-----------------
     public static DeleteAdministratorCommand createDeleteAdministratorCommand(Administrator administrator) {
         return new DeleteAdministratorCommand(administrator);
     }
