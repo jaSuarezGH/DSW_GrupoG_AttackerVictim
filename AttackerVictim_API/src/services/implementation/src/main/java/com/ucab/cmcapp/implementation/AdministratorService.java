@@ -1,8 +1,12 @@
 package com.ucab.cmcapp.implementation;
 
+import com.ucab.cmcapp.common.entities.Administrator;
+import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.common.util.CustomResponse;
 import com.ucab.cmcapp.logic.commands.CommandFactory;
+import com.ucab.cmcapp.logic.commands.administrator.atomic.GetAdministratorByEmailCommand;
 import com.ucab.cmcapp.logic.commands.administrator.composite.GetAllAdministratorCommand;
+import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByEmailCommand;
 import com.ucab.cmcapp.logic.commands.user.composite.GetAllUserCommand;
 import com.ucab.cmcapp.logic.dtos.AdministratorDto;
 import com.ucab.cmcapp.logic.dtos.UserDto;
@@ -11,10 +15,7 @@ import com.ucab.cmcapp.logic.mappers.UserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -48,6 +49,32 @@ public class AdministratorService extends BaseService {
         }
 
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully listed all administrators")).build();
+    }
+
+    @GET
+    @Path("email/{email}")
+    public Response getAdministratorByEmail(@PathParam("email") String administratorEmail) {
+        Administrator entity;
+        AdministratorDto responseDTO = null;
+        GetAdministratorByEmailCommand command = null;
+
+        try {
+            entity = AdministratorMapper.mapDtoToEntityEmail(administratorEmail);
+            command = CommandFactory.createGetAdministratorByEmailCommand(entity);
+            command.execute();
+
+            if (command.getReturnParam() != null)
+                responseDTO = AdministratorMapper.mapEntityToDto(command.getReturnParam());
+            else
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>("[OK EMPTY RESPONSE] No administrators found for email: " + administratorEmail)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method getAdministratorByEmail: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found administrator with email: " + administratorEmail)).build();
     }
 
 }
