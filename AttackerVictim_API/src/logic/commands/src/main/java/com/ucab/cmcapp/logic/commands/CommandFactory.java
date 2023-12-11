@@ -6,6 +6,7 @@ import com.ucab.cmcapp.logic.commands.Incident.composite.CreateIncidentCommand;
 import com.ucab.cmcapp.logic.commands.Incident.composite.DeleteIncidentCommand;
 import com.ucab.cmcapp.logic.commands.Incident.composite.GetAllIncidentCommand;
 import com.ucab.cmcapp.logic.commands.administrator.atomic.GetAdministratorByEmailCommand;
+import com.ucab.cmcapp.logic.commands.administrator.atomic.GetAdministratorByUsernameCommand;
 import com.ucab.cmcapp.logic.commands.administrator.atomic.GetAllAdministratorListCommand;
 import com.ucab.cmcapp.logic.commands.administrator.composite.GetAllAdministratorCommand;
 import com.ucab.cmcapp.logic.commands.attacker.atomic.AddAttackerCommand;
@@ -348,8 +349,8 @@ public class CommandFactory {
     }
 
     // ------------------( getAdministratorByUsername )-------------------
-    /*public static GetAdministratorByUsernameCommand createGetAdministratorByUsernameCommand(Administrator administrator) {
+    public static GetAdministratorByUsernameCommand createGetAdministratorByUsernameCommand(Administrator administrator) {
         return new GetAdministratorByUsernameCommand(administrator);
-    }*/
+    }
 
 }

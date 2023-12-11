@@ -50,4 +50,23 @@ public class AdministratorDao extends BaseDao<Administrator> {
         return result;
     }
 
+    public Administrator getAdministratorByUsername(String username) {
+        Administrator result = EntityFactory.createAdministrator();
+        try {
+            CriteriaQuery<Administrator> query = _builder.createQuery(Administrator.class);
+            Root<Administrator> root = query.from(Administrator.class);
+
+            query.select(root);
+            query.where(_builder.equal(root.get("_username"), username));
+
+            result = _em.createQuery(query).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        } catch (Exception e) {
+            throw new CupraException(e.getMessage());
+        }
+
+        return result;
+    }
+
 }

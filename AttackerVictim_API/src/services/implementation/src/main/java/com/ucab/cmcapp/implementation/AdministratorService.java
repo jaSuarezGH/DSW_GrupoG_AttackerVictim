@@ -5,8 +5,10 @@ import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.common.util.CustomResponse;
 import com.ucab.cmcapp.logic.commands.CommandFactory;
 import com.ucab.cmcapp.logic.commands.administrator.atomic.GetAdministratorByEmailCommand;
+import com.ucab.cmcapp.logic.commands.administrator.atomic.GetAdministratorByUsernameCommand;
 import com.ucab.cmcapp.logic.commands.administrator.composite.GetAllAdministratorCommand;
 import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByEmailCommand;
+import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByUsernameCommand;
 import com.ucab.cmcapp.logic.commands.user.composite.GetAllUserCommand;
 import com.ucab.cmcapp.logic.dtos.AdministratorDto;
 import com.ucab.cmcapp.logic.dtos.UserDto;
@@ -75,6 +77,32 @@ public class AdministratorService extends BaseService {
         }
 
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found administrator with email: " + administratorEmail)).build();
+    }
+
+    @GET
+    @Path("username/{username}")
+    public Response getAdministratorByUsername(@PathParam("username") String username) {
+        Administrator entity;
+        AdministratorDto responseDTO = null;
+        GetAdministratorByUsernameCommand command = null;
+
+        try {
+            entity = AdministratorMapper.mapDtoToEntityUsername(username);
+            command = CommandFactory.createGetAdministratorByUsernameCommand(entity);
+            command.execute();
+
+            if (command.getReturnParam() != null)
+                responseDTO = AdministratorMapper.mapEntityToDto(command.getReturnParam());
+            else
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>("[OK EMPTY RESPONSE] No administrator found for username: " + username)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method getAdministratorByUsername: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found administrator with username: " + username)).build();
     }
 
 }
