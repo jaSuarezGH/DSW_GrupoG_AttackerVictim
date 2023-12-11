@@ -34,4 +34,8 @@ public class DaoFactory {
         return new CoordinateDao(handler);
     }
 
+    public static AdministratorDao createAdministrator(DBHandler handler) {
+        return new AdministratorDao(handler);
+    }
+
 }

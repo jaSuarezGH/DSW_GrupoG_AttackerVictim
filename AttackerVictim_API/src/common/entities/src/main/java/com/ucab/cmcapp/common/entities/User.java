@@ -19,6 +19,7 @@ public class User {
         _email = user._email;
         _mac_address = user._mac_address;
         _active = user._active;
+        _password = user._password;
     }
 
     public User(long id) {

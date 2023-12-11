@@ -72,4 +72,14 @@ public class EntityFactory {
         return new Coordinate(id);
     }
 
+    // --------------------
+
+    public static Administrator createAdministrator(){
+        return new Administrator();
+    }
+
+    public static Administrator createAdministrator(long id){
+        return new Administrator(id);
+    }
+
 }
