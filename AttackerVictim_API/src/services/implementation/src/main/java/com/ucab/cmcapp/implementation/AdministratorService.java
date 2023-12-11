@@ -6,9 +6,11 @@ import com.ucab.cmcapp.common.util.CustomResponse;
 import com.ucab.cmcapp.logic.commands.CommandFactory;
 import com.ucab.cmcapp.logic.commands.administrator.atomic.GetAdministratorByEmailCommand;
 import com.ucab.cmcapp.logic.commands.administrator.atomic.GetAdministratorByUsernameCommand;
+import com.ucab.cmcapp.logic.commands.administrator.composite.CreateAdministratorCommand;
 import com.ucab.cmcapp.logic.commands.administrator.composite.GetAllAdministratorCommand;
 import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByEmailCommand;
 import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByUsernameCommand;
+import com.ucab.cmcapp.logic.commands.user.composite.CreateUserCommand;
 import com.ucab.cmcapp.logic.commands.user.composite.GetAllUserCommand;
 import com.ucab.cmcapp.logic.dtos.AdministratorDto;
 import com.ucab.cmcapp.logic.dtos.UserDto;
@@ -103,6 +105,27 @@ public class AdministratorService extends BaseService {
         }
 
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found administrator with username: " + username)).build();
+    }
+
+    @POST
+    public Response addAdministrator(AdministratorDto administratorDto) {
+        Administrator entity;
+        AdministratorDto responseDTO = null;
+        CreateAdministratorCommand command = null;
+
+        try {
+            entity = AdministratorMapper.mapDtoToEntity(administratorDto);
+            command = CommandFactory.createCreateAdministratorCommand(entity);
+            command.execute();
+            responseDTO = AdministratorMapper.mapEntityToDto(command.getReturnParam());
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method addAdministrator, administrator could not be added: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] administrator created successfully")).build();
     }
 
 }
