@@ -5,6 +5,8 @@ import com.ucab.cmcapp.logic.commands.Incident.atomic.*;
 import com.ucab.cmcapp.logic.commands.Incident.composite.CreateIncidentCommand;
 import com.ucab.cmcapp.logic.commands.Incident.composite.DeleteIncidentCommand;
 import com.ucab.cmcapp.logic.commands.Incident.composite.GetAllIncidentCommand;
+import com.ucab.cmcapp.logic.commands.administrator.atomic.GetAllAdministratorListCommand;
+import com.ucab.cmcapp.logic.commands.administrator.composite.GetAllAdministratorCommand;
 import com.ucab.cmcapp.logic.commands.attacker.atomic.AddAttackerCommand;
 import com.ucab.cmcapp.logic.commands.attacker.atomic.EraseAttackerCommand;
 import com.ucab.cmcapp.logic.commands.attacker.atomic.GetAllAttackerListCommand;
@@ -325,6 +327,18 @@ public class CommandFactory {
 
     public static AddCoordinateCommand createAddCoordinateCommand(Coordinate coordinate, DBHandler handler) {
         return new AddCoordinateCommand(coordinate, handler);
+    }
+
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    // ------------------( getAllAdministrators )-------------------
+    public static GetAllAdministratorCommand createGetAllAdministratorCommand() {
+        return new GetAllAdministratorCommand();
+    }
+
+    public static GetAllAdministratorListCommand createGetAllAdministratorListCommand(DBHandler handler) {
+        return new GetAllAdministratorListCommand(handler);
     }
 
 }
