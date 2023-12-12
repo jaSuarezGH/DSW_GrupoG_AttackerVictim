@@ -1,29 +1,35 @@
 import { apiClient } from "../api/ApiService";
 
-export const getDataUsuario = async () => {
-    try {
-      const response = await apiClient.get('/recuperar');
-      if (response !== undefined) {
-        if (response.status === 200) { //Condicion del tipo de status que se recibio
-          return response;
-        } 
-      }
-    } catch (error) {
-      return error.response;
+export const getDataUsuarioGmail = async (gmail) => {
+  try {
+    const solicitud = await apiClient.get('/users/email/'+gmail+'');
+    if (solicitud !== undefined) {
+      if (solicitud.status === 200) { //Condicion del tipo de status que se recibio
+        if (solicitud.data.response !== null) {
+          return solicitud;
+        } else {
+          throw new Error(solicitud.data.description);
+        }
+      } 
     }
+  } catch (error) {
+    throw error;
+  }
 };
 
-// Función `postDataUsuario()`
-export const postDataUsuario = async (usuario) => {
-    try {
-      const response = await apiClient.post('/validar', usuario);
-      if (response !== undefined) {
-        if (response.status === 202) { //Condicion del tipo de status que se recibio
-          return response;
-        } 
-      }
-    } catch (error) {
-      return error.response;
+export const getDataUsuarioUserName = async (userName) => {
+  try {
+    const solicitud = await apiClient.get('/users/username/'+userName+'');
+    if (solicitud !== undefined) {
+      if (solicitud.status === 200) { //Condicion del tipo de status que se recibio
+        if (solicitud.data.response !== null) {
+          return solicitud;
+        } else {
+          throw new Error(solicitud.data.description);
+        }
+      } 
     }
+  } catch (error) {
+    throw error;
+  }
 };
-  

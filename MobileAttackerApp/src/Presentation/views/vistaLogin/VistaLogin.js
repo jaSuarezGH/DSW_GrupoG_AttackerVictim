@@ -5,11 +5,8 @@ import { loginViewModel } from './VistaLoginViewModel';
 
 export const VistaLoginScreen = () => {
     
-  const { user, handleInputChange,obtenerDatoUsuario,verificarDatos} = loginViewModel();
+  const { user, handleInputChange,verificarDatos,navegarVistaRecuperacionDatos} = loginViewModel();
 
-  const handlePress =() =>{
-    verificarDatos(user.email,user.password);
-  };
 
   return(
         <View style = {styles.container}>
@@ -30,8 +27,8 @@ export const VistaLoginScreen = () => {
                 
                 <TextInput 
                   style={styles.textInputForm} 
-                  keyboardType='email-address'
-                  placeholder='Ingrese su correo electronico'
+                  keyboardType='default'
+                  placeholder='Ingrese su usuario'
                   onChangeText={text => handleInputChange('email', text)}
                   value={user.email}
                   />
@@ -55,7 +52,7 @@ export const VistaLoginScreen = () => {
               <View style = {{marginTop:30}}>
                 <RoundedButtonLogin 
                  text = 'Ingresar' 
-                 onPress={handlePress} 
+                 onPress={() => verificarDatos(user.email,user.password)} 
                 />
               </View>
 
@@ -63,7 +60,7 @@ export const VistaLoginScreen = () => {
                 <Text>No te acuerdas de tus datos? </Text>
                 
                 <TouchableOpacity
-                  onPress={obtenerDatoUsuario}
+                  onPress={navegarVistaRecuperacionDatos}
                   >
                   <Text style={styles.formRequestText}>Solicitar</Text>
                 </TouchableOpacity>
@@ -110,7 +107,7 @@ const styles = StyleSheet.create({
       },
       formRegister:{
         flexDirection:'row',
-        marginTop: 50,
+        marginTop: 40,
         justifyContent:'center'
       },
       formRequestText:{

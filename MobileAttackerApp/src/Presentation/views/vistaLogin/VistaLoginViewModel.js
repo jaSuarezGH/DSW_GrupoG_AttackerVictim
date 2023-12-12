@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import {UserModel} from '../../../Domain/entities/User';
-import { PostUserData } from "../../../Domain/useCases/VerificarUsuario";
-import { getDataUsuario } from '../../../Data/local/repositories/AutenticationRepo';
+import { obtenerDatosPorNombreUsuario } from '../../../Domain/useCases/RecuperarDatosPorUsuario';
 import { useNavigation } from '@react-navigation/native';
 
 export const loginViewModel = () => {
     const [user, setUser] = useState(UserModel);
+    const [userID, setUserID] = useState(0);
     const navigation = useNavigation();
   
     const handleInputChange = (name, text) => {
@@ -17,49 +17,35 @@ export const loginViewModel = () => {
         setUser(UserModel);
     };
 
-    const verificarDatos = async (email, passwordUser) => {
-        const usuarioLogin = {
-          usuarioDatos: email,
-          password: passwordUser,
-        };
-        try {
-          const statusLogin = await PostUserData(usuarioLogin);
-          // Verificar si la respuesta de la API es exitosa
-            if (statusLogin.status === 202) {
-                // Mostrar un mensaje de éxito al usuario
-                navigation.navigate('VistaPrincipal');
-                return true;
-            }else if(statusLogin.status === 401) {
-                Alert.alert(' El nombre de usuario o la contraseña es invalida.');
-                clearInputs();
-                return false;
-            }
-        } catch (error) {
-          // Mostrar un mensaje de error al usuario
-          clearInputs();
-          Alert.alert('Ocurrió un error al iniciar sesión. Por favor inténtalo nuevamente');
-          return false;
-        }
-    };
-
-    const obtenerDatoUsuario = async() =>{
-        try {
-            const dataUser = await getDataUsuario();
+    const verificarDatos = async (usuarioLogin, passwordUser) => { /////////////////////////// Acomodar
+        if (usuarioLogin.trim() || passwordUser.trim()) {
+          try {
+            const datosUsuario = await obtenerDatosPorNombreUsuario(usuarioLogin);
             // Verificar si la respuesta de la API es exitosa
-              if (dataUser.status === 200) {
-                Alert.alert(
-                    'Los datos de la cuenta son:',
-                    'Email: ' + JSON.stringify(dataUser.data.email) + '\n' +
-                    'Password: ' + JSON.stringify(dataUser.data.password)
-                  );
-              }else if(dataUser.status === 400) {
-                  Alert.alert('Error al solicitar los datos de la cuenta');
+              if (datosUsuario.data.response !== null) {
+                  if (usuarioLogin === datosUsuario.data.response._username && passwordUser === datosUsuario.data.response._password) {
+                    setUserID(datosUsuario.data.response.id);
+                    navigation.navigate('VistaPrincipal');
+                  }else{
+                    clearInputs();
+                    Alert.alert('Nombre de usuario o contraseña incorrecta,por favor intentelo nuevamente.');
+                  }
+              }else {
                   clearInputs();
               }
           } catch (error) {
-            Alert.alert('Ocurrió un error inesperado. Por favor inténtalo nuevamente', error);
+            // Mostrar un mensaje de error al usuario
+            clearInputs();
+            Alert.alert('El usuario ingresado no se encuentra registrado en el sistema.',error.message);
           }
+        } else {
+          Alert.alert('Por favor ingresa un nombre de usuario y una contraseña');
+        }
     };
 
-    return { user, handleInputChange, verificarDatos,obtenerDatoUsuario};
+    const navegarVistaRecuperacionDatos = () =>{
+      navigation.navigate('VistaRecuperacionDatos');
+    }
+
+    return { user, handleInputChange, verificarDatos,navegarVistaRecuperacionDatos};
 };

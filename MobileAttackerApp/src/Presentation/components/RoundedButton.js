@@ -11,7 +11,8 @@ export const RoundedButton = ({text,onPress}) =>{
             onPress = {onPress}
          >
             <Text
-                style={styles.textButton}>{text}</Text>
+                style={styles.textButton}>{text}
+            </Text>
         </TouchableOpacity> 
     )
 }

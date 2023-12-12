@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { HomeScreen } from './src/Presentation/views/home/Home';
 import { VistaLoginScreen } from './src/Presentation/views/vistaLogin/VistaLogin';
 import { VistaPrincipalScreen } from './src/Presentation/views/vistaPrincipal/VistaPrincipal';
+import { VistaRecuperacionScreen } from './src/Presentation/views/vistaRecuperacionDatos/VistaRecuperacionDatos';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +16,16 @@ const App = () => {
           }}>
 
             <Stack.Screen
+              name ="VistaLogin"
+              component={VistaLoginScreen}
+            />
+
+            <Stack.Screen
+              name ="VistaRecuperacionDatos"
+              component={VistaRecuperacionScreen}
+            />
+
+            <Stack.Screen
               name ="Home"
               component={HomeScreen}
             />
@@ -22,11 +33,6 @@ const App = () => {
             <Stack.Screen
               name ="VistaPrincipal"
               component={VistaPrincipalScreen}
-            />
-
-            <Stack.Screen
-              name ="VistaLogin"
-              component={VistaLoginScreen}
             />
 
         </Stack.Navigator>

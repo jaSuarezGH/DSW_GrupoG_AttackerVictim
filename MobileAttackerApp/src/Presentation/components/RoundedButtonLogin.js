@@ -23,7 +23,7 @@ const styles= StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
         borderRadius: 15,
-        marginTop: 15,
+        marginTop: 20,
     },
     textButton:{
         color:'white',
