@@ -1,6 +1,8 @@
 import { DivResponseUser } from "@/components/Div/DivResponseUser/DivResponseUser";
 import { endGetUserByEmail } from "@/app/models/endpoint.model";
 import { UsersFetch } from "../../../fetch/UsersFetch";
+import { InformacionPage } from "@/components/InformationPage/InformationPage";
+import { Routes } from "@/app/models/routes.model";
 
 export default async function getVictimaEmailPage({ params }) {
   
@@ -8,7 +10,7 @@ export default async function getVictimaEmailPage({ params }) {
   
   if (user === null) {
     
-    const description = `Lo siento, el usuario a consultar poseedor de la Cedula: ${params.cedula} no se encuentra registrado.`
+    const description = `Lo siento, el usuario a consultar poseedor del Email: "${params.email}" no se encuentra registrado.`
     return (
       <InformacionPage
       title="Usuario NO Encontrado"
@@ -24,8 +26,8 @@ export default async function getVictimaEmailPage({ params }) {
     <DivResponseUser
       user={user}
       title="Consultar Usuario por Correo Electronico"
-      description={`Todos los datos del usuario a consultar poseedor del email: ${user.correo}.`}
-      tags={[user.tipo]}
+      description={`Todos los datos del usuario a consultar poseedor del email: ${user._email}.`}
+      tags={[]}
     ></DivResponseUser>
   );
 }

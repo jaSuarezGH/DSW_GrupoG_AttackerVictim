@@ -9,7 +9,6 @@ import { useState } from "react";
 import { Routes } from "@/app/models/routes.model";
 import { optionsConsult } from "./models/optionsConsult.model";
 
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -20,11 +19,10 @@ export default function getVictimaPage() {
 
   const router = useRouter();
 
-  const onSubmit = async (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
 
     switch (selected) {
-
       case "Username":
         router.push(`${Routes.GET_USER_USERNAME}${valor}`);
         break;
@@ -34,16 +32,37 @@ export default function getVictimaPage() {
         break;
 
       case "Cedula de Identidad":
-        router.push(`${Routes.GET_USER_CEDULA}${valor}`);
+        function formatearNumero(numero) {
+          // Convierte el string a un número
+          const numeroEntero = parseInt(numero);
+
+          // Verifica si el número es un número válido
+          if (isNaN(numeroEntero)) {
+            return "Formato inválido";
+          }
+
+          // Aplica el formato específico
+          const numeroFormateado = numeroEntero.toLocaleString("es-VE", {
+            style: "currency",
+            currency: "VES",
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
+          });
+
+          // Elimina el símbolo de la moneda y cualquier espacio en blanco
+          const numeroFinal = numeroFormateado.replace(/^Bs.S/, "").trim();
+
+          // Agrega el prefijo "V-" y retorna el resultado final
+          return `V-${numeroFinal}`;
+        }
+        const valor2 = formatearNumero(valor);
+        router.push(`${Routes.GET_USER_CEDULA}${valor2}`);
         break;
 
       case "Direccion MAC":
         router.push(`${Routes.GET_USER_MAC}${valor}`);
         break;
-
     }
-
-    
   };
 
   return (

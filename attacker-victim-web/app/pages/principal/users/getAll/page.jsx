@@ -10,7 +10,7 @@ import { endGetAllUsers } from "@/app/models/endpoint.model";
 export default async function UsersPage() {
 
   const users = await UsersFetch(endGetAllUsers);
-
+  
   return (
     <>
       <Navigation number={0}></Navigation>

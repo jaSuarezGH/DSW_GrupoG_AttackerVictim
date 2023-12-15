@@ -10,7 +10,7 @@ export default async function getVictimaCedulaPage({ params }) {
   
   if (user === null) {
     
-    const description = `Lo siento, el usuario a consultar poseedor de la Cedula: ${params.cedula} no se encuentra registrado.`
+    const description = `Lo siento, el usuario a consultar poseedor de la Cedula: "${params.cedula}" no se encuentra registrado.`
     return (
       <InformacionPage
       title="Usuario NO Encontrado"
@@ -27,8 +27,8 @@ export default async function getVictimaCedulaPage({ params }) {
     <DivResponseUser
       user={user}
       title="Consultar Usuario por Cedula"
-      description={`Todos los datos del usuario a consultar poseedor de la cedula: ${user.cedula}.`}
-      tags={[user.tipo]}
+      description={`Todos los datos del usuario a consultar poseedor de la cedula: ${user._personal_id}.`}
+      tags={[]}
     ></DivResponseUser>
   );
 }

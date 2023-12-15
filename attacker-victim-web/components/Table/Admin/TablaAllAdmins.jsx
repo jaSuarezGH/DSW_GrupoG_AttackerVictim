@@ -1,6 +1,6 @@
-import FillTableVictimAttacker from "./FillTableVictimAttacker";
+import FillTableAllAdmins from "./FillTableAllAdmins";
 
-function TablaAllVictimsAttackers({ users }) {
+function TablaAllAdmins({ users }) {
   return (
     <div class="items-center flex relative overflow-x-auto ring-2 ring-slate-300 rounded-md">
       <table class="w-full text-sm text-center text-gray-500">
@@ -13,31 +13,19 @@ function TablaAllVictimsAttackers({ users }) {
               Contraseña
             </th>
             <th scope="col" class="px-6 py-3">
-              Nombres
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Apellidos
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Cedula
-            </th>
-            <th scope="col" class="px-6 py-3">
               Correo
             </th>
             <th scope="col" class="px-6 py-3">
-              MAC
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Estado
+              ID
             </th>
           </tr>
         </thead>
         <tbody>
-          <FillTableVictimAttacker users={users}></FillTableVictimAttacker>
+          <FillTableAllAdmins users={users}></FillTableAllAdmins>
         </tbody>
       </table>
     </div>
   );
 }
 
-export default TablaAllVictimsAttackers;
+export default TablaAllAdmins;

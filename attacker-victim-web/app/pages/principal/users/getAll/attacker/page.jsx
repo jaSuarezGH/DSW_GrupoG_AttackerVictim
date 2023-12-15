@@ -2,12 +2,12 @@
 import { UsersFetch } from '../../fetch/UsersFetch';
 import { Navigation } from '@/components/Navigation';
 import { DivHeader } from '@/components/Div';
-import { TablaVictimAttacker } from '@/components/Table/VictimAttacker/TablaVictimAttacker';
-import { endGetAllUsers } from '@/app/models/endpoint.model';
+import { endGetAllAttackers } from '@/app/models/endpoint.model';
+import TablaAllVictimsAttackers from '@/components/Table/VictimAttacker/TablaVictimAttacker';
 
-export default async function getAllVictimasPage() {
+export default async function getAllAttackersPage() {
 
-    const users = await UsersFetch(endGetAllUsers);
+    const users = await UsersFetch(endGetAllAttackers);
 
   return <>
   <Navigation number={2}></Navigation>
@@ -16,7 +16,7 @@ export default async function getAllVictimasPage() {
       <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-12 px-6 lg:px-8 ">
         <DivHeader title='Usuarios Atacante en el Sistema' description='Usuarios de tipo Atacante registrados en el sistema.' tags={[3]}></DivHeader>
         
-        <TablaVictimAttacker users={users} tipo={3}></TablaVictimAttacker>
+        <TablaAllVictimsAttackers users={users}></TablaAllVictimsAttackers>
         
       </div>
     </div>

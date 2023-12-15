@@ -1,11 +1,11 @@
 import { Navigation } from "@/components/Navigation";
 import { DivHeader } from "@/components/Div";
-import { TablaVictimAttacker } from "@/components/Table/VictimAttacker/TablaVictimAttacker";
 import { UsersFetch } from "../../fetch/UsersFetch";
-import { endGetAllUsers } from "@/app/models/endpoint.model";
+import { endGetAllVictims } from "@/app/models/endpoint.model";
+import TablaAllVictimsAttackers from "@/components/Table/VictimAttacker/TablaVictimAttacker";
 
 export default async function getAllVictimasPage() {
-  const users = await UsersFetch(endGetAllUsers);
+  const users = await UsersFetch(endGetAllVictims);
 
   return (
     <>
@@ -19,7 +19,7 @@ export default async function getAllVictimasPage() {
             tags={[2]}
           ></DivHeader>
 
-          <TablaVictimAttacker users={users} tipo={2}></TablaVictimAttacker>
+          <TablaAllVictimsAttackers users={users}></TablaAllVictimsAttackers>
         </div>
       </div>
     </>

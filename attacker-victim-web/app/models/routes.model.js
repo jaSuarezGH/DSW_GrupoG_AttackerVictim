@@ -4,13 +4,13 @@ export const Routes = {
 
     //SECCIONES
     PRINCIPAL: '/pages/principal',
-    PRINCIPAL_VICTIM: '',
-    PRINCIPAL_ATTACKER: '',
-    USER_CONFIG: '',
+    PRINCIPAL_VICTIM: '/pages/principal/seccionVictim',
+    PRINCIPAL_ATTACKER: '/pages/principal/seccionAttacker',
 
     //Funcionalidades:
     GETALL_USERS: '/pages/principal/users/getAll',
     GET_NOTIFICATIONS: '',
+    GETALL_ADMINS: '/pages/principal/users/getAll/admin',
     GETALL_VICTIMS: '/pages/principal/users/getAll/victim',
     GETALL_ATTACKERS: '/pages/principal/users/getAll/attacker',
     GET_USER: '/pages/principal/users/get',
@@ -21,7 +21,7 @@ export const Routes = {
     UPDATE_ZS: '',
     UPDATE_RELATION: '',
     GET_LOCATION: '',
-    CREATE_USER: '/pages/principal/users/registro',
+    CREATE_USER: '/pages/principal/users/createUsers',
     UPDATE_VICTIM: '',
     UPDATE_ATTACKER: '',
     DELETE_USERS: '',
