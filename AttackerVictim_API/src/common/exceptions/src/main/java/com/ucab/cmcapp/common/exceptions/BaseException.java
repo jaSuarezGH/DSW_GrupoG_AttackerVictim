@@ -17,5 +17,4 @@ public class BaseException extends RuntimeException {
         super(e);
     }
 
-
 }
