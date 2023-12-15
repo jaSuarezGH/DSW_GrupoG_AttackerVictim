@@ -20,20 +20,23 @@ export const VistaPrincipalScreen = () => {
                 style={styles.imageLogoLogin} />
 
               <Text style={styles.logoText}>Victim App</Text>
+              
             </View>
             
             <MapView 
                 style={styles.map} 
                 provider={MapView.PROVIDER_GOOGLE} 
+                key = 'AIzaSyDzncrVcssunh1W8avgQlixEYOSVqM6V4A'
                 showsUserLocation={true} 
                 initialRegion={{ 
-                    latitude: location.coords.latitude , 
-                    longitude: location.coords.longitude , 
-                    latitudeDelta: 0.0922, 
-                    longitudeDelta: 0.0421, 
-                }} 
+                    latitude: 10.46361826840536 , 
+                    longitude: -66.97800712163459,
+                    latitudeDelta: 0.001472, 
+                    longitudeDelta: 0.000768, 
+                }}
+                locationUpdateInterval={1000}
             /> 
-             
+            
         </View>
     );
 }
@@ -73,7 +76,6 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
     },
     map:{
-
         height: '40%',
         width: '100%',
     },

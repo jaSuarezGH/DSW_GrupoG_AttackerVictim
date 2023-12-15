@@ -64,9 +64,9 @@ export const principalViewModel = () => {
                     setInactive(0);
                   }
                   if (inactive >= 4) {
-                    global.gyroStatus = 'INMOBILE';
+                    gyroStatus = 'INMOBILE';
                   } else{
-                    global.gyroStatus = 'MOBILE'; 
+                    gyroStatus = 'MOBILE'; 
                   }
                   Gyroscope.removeAllListeners();
                 });
@@ -106,7 +106,7 @@ export const principalViewModel = () => {
                   };
                   
                   try{
-                    enviarCoordenadas(generarCoordenada(locationTelefono,global.gyroStatus));
+                    enviarCoordenadas(generarCoordenada(locationTelefono,gyroStatus));
                   }catch(error){
                     console.error(error);
                   }

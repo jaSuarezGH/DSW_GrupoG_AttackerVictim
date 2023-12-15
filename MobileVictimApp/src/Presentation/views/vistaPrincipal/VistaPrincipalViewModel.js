@@ -10,14 +10,16 @@ import { PostUsuarioCoordenadas } from '../../../Domain/useCases/EnviarCoordenad
 import { Gyroscope } from 'expo-sensors';//////
 
 export const principalViewModel = () => {
-    global.gyroStatus = 'MOBILE';
+    global.gyroStatus = 'MOBILE';///////////////////////
+   // global.latitudeMapa = 0;///////////////////////Acomodar
+   // global.longitudeMapa = 0;////////////////////////Acomodar
 
     const enviarCoordenadas = async (coordenadas) => {
       try {
         const response = await PostUsuarioCoordenadas(coordenadas);
         if (response.status === 200) {
           console.log('Ubicación enviada con éxito');
-        }else if(response.status === 401) {
+        }else if(response.status === 500) {
           Alert.alert('Ocurrió un error al enviar la ubicación');
         }
       } catch (error) {
@@ -41,15 +43,25 @@ export const principalViewModel = () => {
       return coordenadas;
     }
 
-    const useLocation = async () => { 
-      let { status } = await Location.requestForegroundPermissionsAsync(); 
-      if (status !== 'granted') { 
-        console.log('Permiso para acceder a la ubicación fue denegado'); 
-        eturn; 
-      } 
+    function useLocation() { 
+      const [location, setLocation] = useState(null); 
      
-      let location = await Location.getCurrentPositionAsync({});  
-      
+      useEffect(() => { 
+        (async () => { 
+          let { status } = await Location.requestForegroundPermissionsAsync(); 
+          if (status !== 'granted') { 
+            console.log('Permiso para acceder a la ubicación fue denegado'); 
+            return; 
+          } 
+     
+          let location = await Location.getCurrentPositionAsync({}); 
+          /*latitudeMapa = location.coords.latitude;//////////////////////////////////////Acomodar
+          longitudeMapa = location.coords.longitude;//////////////////////////////////////Acomodar*/
+
+          //console.log(`Ubicación 1 : Latitud - ${location.coords.latitude}, Longitud - ${location.coords.longitude}`);/////////////
+          setLocation(location); 
+        })(); 
+      }, [location]); 
       return location; 
     }
 
@@ -76,9 +88,9 @@ export const principalViewModel = () => {
                     setInactive(0);
                   }
                   if (inactive >= 4) {
-                    global.gyroStatus = 'INMOBILE';
+                    gyroStatus = 'INMOBILE';
                   } else{
-                    global.gyroStatus = 'MOBILE'; 
+                    gyroStatus = 'MOBILE'; 
                   }
                   Gyroscope.removeAllListeners();
                 });
@@ -99,7 +111,7 @@ export const principalViewModel = () => {
                         } 
                       };
                       try {
-                        console.log(`Ubicación: Latitud - ${location.latitude}, Longitud - ${location.longitude}, Fecha - ${location.fecha}`);/////////////
+                        //console.log(`Ubicación: Latitud - ${location.latitude}, Longitud - ${location.longitude}, Fecha - ${location.fecha}`);/////////////
                         enviarCoordenadas(coordenadas);
                       } catch (error) {
                         Alert.alert('Error al enviar las ubicaciones:', error);
@@ -116,9 +128,8 @@ export const principalViewModel = () => {
                         Alert.alert('Ocurrió un error al eliminar la ubicación:', error);
                       });
                   };
-                  
                   try{
-                    enviarCoordenadas(generarCoordenada(locationTelefono,global.gyroStatus));
+                    //enviarCoordenadas(generarCoordenada(locationTelefono,gyroStatus));
                   }catch(error){
                     console.error(error);
                   }
@@ -142,6 +153,7 @@ export const principalViewModel = () => {
         
         useEffect(() => {
             const unsubscribe = NetInfo.addEventListener(state => {
+              console.log('Is connected?', state.isConnected);
               setIsConnected(state.isConnected);
             });
             return () => {
