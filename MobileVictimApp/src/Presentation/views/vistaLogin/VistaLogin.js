@@ -1,16 +1,21 @@
 import React from 'react';
 import { View,Text,StyleSheet,TextInput, TouchableOpacity,Image } from 'react-native';
 import { RoundedButtonLogin } from '../../components/RoundedButtonLogin';
+import { loginViewModel } from './VistaLoginViewModel';
 
 export const VistaLoginScreen = () => {
-    return(
+    
+  const { user, handleInputChange,verificarDatos,navegarVistaRecuperacionDatos} = loginViewModel();
+
+
+  return(
         <View style = {styles.container}>
             
             <View style={styles.logoContainer}>
               <Image 
-                source={require('../../../../assets/logoLogin.png')} 
+                source={require('../../../../assets/LogoAVapp.png')} 
                 style={styles.imageLogoLogin} />
-              <Text style={styles.logoText}>Inicio de sesion</Text>
+              <Text style={styles.logoText}>Victim App</Text>
             </View>
             
             <View style={styles.form}>
@@ -22,8 +27,10 @@ export const VistaLoginScreen = () => {
                 
                 <TextInput 
                   style={styles.textInputForm} 
-                  keyboardType='email-address'
-                  placeholder='Ingrese su correo electronico'
+                  keyboardType='default'
+                  placeholder='Ingrese su usuario'
+                  onChangeText={text => handleInputChange('email', text)}
+                  value={user.email}
                   />
               </View>
 
@@ -37,18 +44,24 @@ export const VistaLoginScreen = () => {
                   placeholder='Ingrese su contraseña'
                   keyboardType='default'
                   secureTextEntry={true}
+                  onChangeText={text => handleInputChange('password', text)}
+                  value={user.password}
                 />
               </View>
 
               <View style = {{marginTop:30}}>
-                <RoundedButtonLogin text = 'Ingresar'   //Enviar un props a una constante 
+                <RoundedButtonLogin 
+                 text = 'Ingresar' 
+                 onPress={() => verificarDatos(user.email,user.password)} 
                 />
               </View>
 
               <View style = {styles.formRegister}>
                 <Text>No te acuerdas de tus datos? </Text>
                 
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={navegarVistaRecuperacionDatos}
+                  >
                   <Text style={styles.formRequestText}>Solicitar</Text>
                 </TouchableOpacity>
                 
@@ -62,7 +75,7 @@ export const VistaLoginScreen = () => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#F74F51',
+      backgroundColor: '#25334A',
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -94,14 +107,14 @@ const styles = StyleSheet.create({
       },
       formRegister:{
         flexDirection:'row',
-        marginTop: 50,
+        marginTop: 40,
         justifyContent:'center'
       },
       formRequestText:{
         fontStyle:'italic',
-        color:'orange',
+        color:'#3A84FF',
         borderBottomWidth: 2,
-        borderBottomColor:'orange',
+        borderBottomColor:'#3A84FF',
         fontWeight:'bold',
       },
       imageLogo:{
@@ -115,7 +128,7 @@ const styles = StyleSheet.create({
       },
       logoContainer:{
         position:'absolute',
-        alignSelf:'center',
+        alignItems:'center',
         top:'11%',
       },
       logoText:{
