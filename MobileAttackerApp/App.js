@@ -16,16 +16,6 @@ const App = () => {
           }}>
 
             <Stack.Screen
-              name ="VistaLogin"
-              component={VistaLoginScreen}
-            />
-
-            <Stack.Screen
-              name ="VistaRecuperacionDatos"
-              component={VistaRecuperacionScreen}
-            />
-
-            <Stack.Screen
               name ="Home"
               component={HomeScreen}
             />
@@ -33,6 +23,16 @@ const App = () => {
             <Stack.Screen
               name ="VistaPrincipal"
               component={VistaPrincipalScreen}
+            />
+
+            <Stack.Screen
+              name ="VistaLogin"
+              component={VistaLoginScreen}
+            />
+
+            <Stack.Screen
+              name ="VistaRecuperacionDatos"
+              component={VistaRecuperacionScreen}
             />
 
         </Stack.Navigator>

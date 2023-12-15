@@ -1,19 +1,20 @@
 import * as Location from 'expo-location';
 import NetInfo from "@react-native-community/netinfo";
 import { setupDatabase } from '../../../Data/local/SQLite/sqlite';
-import { postCoordenadas } from '../../../Data/local/repositories/AutenticationRepo';
 import { GuardarCoordenadasSQL } from '../../../Domain/useCases/GuardarCoordenadas';
-import {ObtenerCoordenadasSQL} from '../../../Domain/useCases/ObtenerCoordenadasGuardadas';
+import { ObtenerCoordenadasSQL } from '../../../Domain/useCases/ObtenerCoordenadasGuardadas';
 import { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 import { EliminarUsuarioCoordenadas } from '../../../Domain/useCases/EliminarCoordenadasGuardadas';
-
+import { PostUsuarioCoordenadas } from '../../../Domain/useCases/EnviarCoordenadas';
+import { Gyroscope } from 'expo-sensors';//////
 
 export const principalViewModel = () => {
-    
+    global.gyroStatus = 'MOBILE';
+
     const enviarCoordenadas = async (coordenadas) => {
       try {
-        const response = await postCoordenadas(coordenadas);
+        const response = await PostUsuarioCoordenadas(coordenadas);
         if (response.status === 200) {
           console.log('Ubicación enviada con éxito');
         }else if(response.status === 401) {
@@ -24,8 +25,25 @@ export const principalViewModel = () => {
       }      
     };
 
+    const generarCoordenada = (location, status) =>{
+      var fecha = new Date();
+      var milisegundos = Date.parse(fecha);
+
+      const coordenadas = { 
+        _full_date: milisegundos, 
+        _status: status, 
+        _latitude: location.coords.latitude,
+        _longitude: location.coords.longitude,
+        _user: {
+          id: userID,
+        }
+      };  
+      return coordenadas;
+    }
+
     const useLocationSync = () => {
         const [isConnected, setIsConnected] = useState(false);
+        const [inactive, setInactive] = useState(0);
 
             useEffect(() => {
               setupDatabase();
@@ -37,36 +55,47 @@ export const principalViewModel = () => {
                   return;
                 }
           
-                let location = await Location.getCurrentPositionAsync({});
+                let locationTelefono = await Location.getCurrentPositionAsync({});
 
-                const coordenadas = { 
-                  latitude: location.coords.latitude, 
-                  longitude: location.coords.longitude, 
-                  idUser: 1 
-                };
-          
+                const statusGiroscopio = Gyroscope.addListener(({ x, y, z }) => {
+                  if (Math.abs(x) < 0.009 && Math.abs(y) < 0.009 && Math.abs(z) < 0.009) {
+                    setInactive(inactive + 1);
+                  } else {
+                    setInactive(0);
+                  }
+                  if (inactive >= 4) {
+                    global.gyroStatus = 'INMOBILE';
+                  } else{
+                    global.gyroStatus = 'MOBILE'; 
+                  }
+                  Gyroscope.removeAllListeners();
+                });
+
                 if (isConnected) {
 
-                  enviarCoordenadas(coordenadas);
-
                   const locationSQL = await ObtenerCoordenadasSQL();
+                  //Si hay datos en la base de datos procedemos a enviarlos a la api 
                   if (locationSQL.length > 0){
                     for (let location of locationSQL) {
                       const coordenadas = { 
-                        latitude: location.latitude, 
-                        longitude: location.longitude, 
-                        idUser: location.idUser 
+                        _full_date: location.fecha, 
+                        _status: 'OFFLINE', 
+                        _latitude: location.latitude,
+                        _longitude: location.longitude,
+                        _user: {
+                          id: userID,
+                        } 
                       };
                       try {
-                      // console.log(`Ubicación: Latitud - ${location.latitude}, Longitud - ${location.longitude}, ID de usuario - ${location.idUser}`);/////////////
+                        console.log(`Ubicación: Latitud - ${location.latitude}, Longitud - ${location.longitude}, Fecha - ${location.fecha}`);/////////////
                         enviarCoordenadas(coordenadas);
                       } catch (error) {
                         Alert.alert('Error al enviar las ubicaciones:', error);
                       }
-                    }
+                    };
 
                     EliminarUsuarioCoordenadas()
-                      .then((deleted ) => {
+                      .then((deleted) => {
                         if (!deleted) {
                           Alert.alert('No se lograron eliminar las ubicaciones.');
                         }
@@ -74,9 +103,16 @@ export const principalViewModel = () => {
                       .catch((error) => {
                         Alert.alert('Ocurrió un error al eliminar la ubicación:', error);
                       });
+                  };
+                  
+                  try{
+                    enviarCoordenadas(generarCoordenada(locationTelefono,global.gyroStatus));
+                  }catch(error){
+                    console.error(error);
                   }
+
                 } else {
-                  GuardarCoordenadasSQL(coordenadas)
+                  GuardarCoordenadasSQL(generarCoordenada(locationTelefono,'OFFLINE'))
                   .then((wasSuccessful) => {
                     if (!wasSuccessful) {
                       Alert.alert('No se pudo guardar la ubicación.');
@@ -90,7 +126,7 @@ export const principalViewModel = () => {
               return () => {
                 clearInterval(interval);
               };
-            }, [isConnected]);
+            }, [inactive,isConnected]);
         
         useEffect(() => {
             const unsubscribe = NetInfo.addEventListener(state => {

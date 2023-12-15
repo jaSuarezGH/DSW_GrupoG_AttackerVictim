@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export const loginViewModel = () => {
     const [user, setUser] = useState(UserModel);
-    const [userID, setUserID] = useState(0);
+    //const [userID, setUserID] = useState(0);
     const navigation = useNavigation();
   
     const handleInputChange = (name, text) => {
@@ -24,7 +24,7 @@ export const loginViewModel = () => {
             // Verificar si la respuesta de la API es exitosa
               if (datosUsuario.data.response !== null) {
                   if (usuarioLogin === datosUsuario.data.response._username && passwordUser === datosUsuario.data.response._password) {
-                    setUserID(datosUsuario.data.response.id);
+                    global.userID = datosUsuario.data.response.id;
                     navigation.navigate('VistaPrincipal');
                   }else{
                     clearInputs();

@@ -2,11 +2,12 @@ import React from 'react';
 import { View,Text,StyleSheet,Image } from 'react-native';
 import { principalViewModel } from '../../../../src/Presentation/views/vistaPrincipal/VistaPrincipalViewModel';
 
+
 export const VistaPrincipalScreen = () => {
 
     const { useLocationSync } = principalViewModel();
     const isConnected = useLocationSync();
-    
+
     return(
         
         <View style = {styles.container}>
@@ -23,7 +24,6 @@ export const VistaPrincipalScreen = () => {
         </View>
     );
 }
-
 
 const styles = StyleSheet.create({
     container: {
