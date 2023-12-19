@@ -29,6 +29,7 @@ import com.ucab.cmcapp.logic.commands.history.atomic.GetAllHistoryListCommand;
 import com.ucab.cmcapp.logic.commands.history.composite.CreateHistoryCommand;
 import com.ucab.cmcapp.logic.commands.history.composite.DeleteHistoryCommand;
 import com.ucab.cmcapp.logic.commands.history.composite.GetAllHistoryCommand;
+import com.ucab.cmcapp.logic.commands.operation.atomic.GetSeparationDistanceByIncidentIdCommand;
 import com.ucab.cmcapp.logic.commands.safeZone.atomic.*;
 import com.ucab.cmcapp.logic.commands.safeZone.composite.CreateSafeZoneCommand;
 import com.ucab.cmcapp.logic.commands.safeZone.composite.DeleteSafeZoneCommand;
@@ -369,6 +370,14 @@ public class CommandFactory {
 
     public static EraseAdministratorCommand createEraseAdministratorCommand(Administrator administrator, DBHandler handler) {
         return new EraseAdministratorCommand(administrator, handler);
+    }
+
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    // ------------------( getSeparationDistanceByIncidentId )---------------
+    public static GetSeparationDistanceByIncidentIdCommand createGetSeparationDistanceByIncidentIdCommand(Incident incident) {
+        return new GetSeparationDistanceByIncidentIdCommand(incident);
     }
 
 }
