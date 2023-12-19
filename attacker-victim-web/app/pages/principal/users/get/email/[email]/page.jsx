@@ -1,12 +1,12 @@
 import { DivResponseUser } from "@/components/Div/DivResponseUser/DivResponseUser";
 import { endGetUserByEmail } from "@/app/models/endpoint.model";
-import { UsersFetch } from "../../../fetch/UsersFetch";
+import { fetchGetDelete } from "../../../fetch/fetchGetDelete";
 import { InformacionPage } from "@/components/InformationPage/InformationPage";
 import { Routes } from "@/app/models/routes.model";
 
 export default async function getVictimaEmailPage({ params }) {
   
-  const user = await UsersFetch (endGetUserByEmail, params.email);
+  const user = await fetchGetDelete(endGetUserByEmail, params.email);
   
   if (user === null) {
     

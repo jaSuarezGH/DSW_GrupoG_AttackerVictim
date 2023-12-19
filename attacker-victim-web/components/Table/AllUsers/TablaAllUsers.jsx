@@ -27,6 +27,9 @@ function TablaAllUsers({ users }) {
             <th scope="col" class="px-6 py-3">
               MAC
             </th>
+            <th scope="col" class="px-6 py-3">
+              Estado
+            </th>
           </tr>
         </thead>
         <tbody>

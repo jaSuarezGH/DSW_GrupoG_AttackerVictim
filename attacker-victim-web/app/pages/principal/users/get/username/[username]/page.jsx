@@ -1,12 +1,12 @@
 import { DivResponseUser } from "@/components/Div/DivResponseUser/DivResponseUser";
 import { endGetUserByUsername } from "@/app/models/endpoint.model";
-import { UsersFetch } from "../../../fetch/UsersFetch";
+import { fetchGetDelete } from "../../../fetch/fetchGetDelete";
 import { InformacionPage } from "@/components/InformationPage/InformationPage";
 import { Routes } from "@/app/models/routes.model";
 
 export default async function getUserUsernamePage({ params }) {
   
-  const user = await UsersFetch (endGetUserByUsername, params.username);
+  const user = await fetchGetDelete(endGetUserByUsername, params.username);
 
   if (user === null) {
     

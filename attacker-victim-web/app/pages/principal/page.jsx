@@ -24,7 +24,7 @@ export default function PrincipalPage() {
           {/* CONSULTAR UN USUARIO */}
           <Card
             title="Consultar un Usuario"
-            description='Consultar a un usuario de tipo "Victima" registrado en el sistema.'
+            description='Consultar a un unico usuario (de cualquier tipo) registrado en el sistema.'
             link={Routes.GET_USER}
             tags={[1, 2, 3]}
           ></Card>

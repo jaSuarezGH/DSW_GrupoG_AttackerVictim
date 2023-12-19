@@ -1,12 +1,12 @@
 import { DivResponseUser } from "@/components/Div/DivResponseUser/DivResponseUser";
 import { endGetUserByCedula } from "@/app/models/endpoint.model";
-import { UsersFetch } from "../../../fetch/UsersFetch";
+import { fetchGetDelete } from "../../../fetch/fetchGetDelete";
 import { InformacionPage } from "@/components/InformationPage/InformationPage";
 import { Routes } from "@/app/models/routes.model";
 
 export default async function getVictimaCedulaPage({ params }) {
   
-  const user = await UsersFetch (endGetUserByCedula, params.cedula);
+  const user = await fetchGetDelete(endGetUserByCedula, params.cedula);
   
   if (user === null) {
     

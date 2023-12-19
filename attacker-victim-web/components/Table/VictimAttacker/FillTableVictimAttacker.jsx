@@ -15,7 +15,7 @@ function FillTableVictimAttacker({ users }) {
           <td class="px-6 py-4">{person._user._personal_id}</td>
           <td class="px-6 py-4">{person._user._email}</td>
           <td class="px-6 py-4">{person._user._mac_address}</td>
-          <td class="px-6 py-4">{person._user._active ? "Activo" : "Desactivado"}</td>
+          <td class="px-6 py-4">{person._user._active ? "Activo" : "Inactivo"}</td>
         </tr>
       </>
     );

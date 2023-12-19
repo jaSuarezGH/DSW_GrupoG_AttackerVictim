@@ -1,11 +1,11 @@
 import { Navigation } from "@/components/Navigation";
 import { DivHeader } from "@/components/Div";
-import { UsersFetch } from "../../fetch/UsersFetch";
+import { fetchGetDelete } from "../../fetch/fetchGetDelete";
 import { endGetAllVictims } from "@/app/models/endpoint.model";
 import TablaAllVictimsAttackers from "@/components/Table/VictimAttacker/TablaVictimAttacker";
 
 export default async function getAllVictimasPage() {
-  const users = await UsersFetch(endGetAllVictims);
+  const users = await fetchGetDelete(endGetAllVictims);
 
   return (
     <>

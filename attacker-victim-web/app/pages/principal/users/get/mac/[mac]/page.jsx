@@ -1,12 +1,12 @@
 import { DivResponseUser } from "@/components/Div/DivResponseUser/DivResponseUser";
 import { endGetUserByMAC } from "@/app/models/endpoint.model";
-import { UsersFetch } from "../../../fetch/UsersFetch";
+import { fetchGetDelete } from "../../../fetch/fetchGetDelete";
 import { InformacionPage } from "@/components/InformationPage/InformationPage";
 import { Routes } from "@/app/models/routes.model";
 
 export default async function getVictimaMACPage({ params }) {
   
-  const user = await UsersFetch (endGetUserByMAC, params.mac);
+  const user = await fetchGetDelete(endGetUserByMAC, params.mac);
   
   if (user === null) {
     
