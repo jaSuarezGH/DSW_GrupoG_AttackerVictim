@@ -10,6 +10,7 @@ import com.ucab.cmcapp.logic.dtos.HistoryDto;
 import com.ucab.cmcapp.logic.dtos.IncidentDto;
 import com.ucab.cmcapp.logic.mappers.HistoryMapper;
 import com.ucab.cmcapp.logic.mappers.IncidentMapper;
+import com.ucab.cmcapp.logic.utilities.DistanceManager;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -27,15 +28,17 @@ public class OperationService extends BaseService {
         Incident entity;
         List<HistoryDto> responseDTO = null;
         GetSeparationDistanceByIncidentIdCommand command = null;
+        double separationDistance;
 
         try {
             entity = IncidentMapper.mapDtoToEntity(incidentId);
             command = CommandFactory.createGetSeparationDistanceByIncidentIdCommand(entity);
             command.execute();
 
-            if (command.getReturnParam() != null)
+            if (command.getReturnParam() != null) {
                 responseDTO = HistoryMapper.mapEntityListToDtoList(command.getReturnParam());
-            else
+                separationDistance = new DistanceManager().calculateSeparationDistance(responseDTO.get(0), responseDTO.get(1));
+            } else
                 return Response.status(Response.Status.OK).entity(new CustomResponse<>("[GENERAL EXCEPTION] Could not calculate the separation distance with incident id: " + incidentId)).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method getSeparationDistanceByIncidentId: " + e.getMessage())).build();
@@ -44,15 +47,7 @@ public class OperationService extends BaseService {
                 command.closeHandlerSession();
         }
 
-        // crear operation dtoy mover las cosas de lugar
-
-        // CLASE QUE CALCULA
-
-        // CALCULAR PASANDOLE LOS DTO...
-
-        // DEVOLVER DISTANCIA DE SEPARACION EN CUSTOM DTO
-
-        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully calculated separation distance with incident id: " + incidentId)).build();
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(separationDistance, "[OK NORMAL RESPONSE] Successfully calculated separation distance in meters with incident id: " + incidentId)).build();
     }
 
 }
