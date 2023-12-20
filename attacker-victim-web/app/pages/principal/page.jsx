@@ -112,7 +112,7 @@ export default function PrincipalPage() {
             title="Eliminar Usuario Victima y Atacante"
             description='Eliminar un usuario de tipo "Victima" y su respectivo usuario
             "Atacante" relacionado.'
-            link={Routes.CREATE_USER}
+            link={Routes.DELETE_USER}
             tags={[2, 3]}
           ></Card>
 

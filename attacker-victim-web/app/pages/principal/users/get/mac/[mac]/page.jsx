@@ -1,6 +1,6 @@
 import { DivResponseUser } from "@/components/Div/DivResponseUser/DivResponseUser";
 import { endGetUserByMAC } from "@/app/models/endpoint.model";
-import { fetchGetDelete } from "../../../fetch/fetchGetDelete";
+import { fetchGetDelete } from "@/app/pages/principal/fetch/fetchGetDelete";
 import { InformacionPage } from "@/components/InformationPage/InformationPage";
 import { Routes } from "@/app/models/routes.model";
 
@@ -26,7 +26,7 @@ export default async function getVictimaMACPage({ params }) {
     <DivResponseUser
       user={user}
       title="Consultar Usuario por Direccion MAC"
-      description={`Todos los datos del usuario a consultar poseedor de la Direccion MAC: ${user.mac}.`}
+      description={`Todos los datos del usuario a consultar poseedor de la Direccion MAC: ${params.mac}.`}
       tags={[]}
     ></DivResponseUser>
   );

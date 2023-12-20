@@ -9,7 +9,6 @@ import { DivSubHeader } from "@/components/Div/Header/DivSubHeader/DivSubHeader"
 import { Navigation } from "@/components/Navigation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { fetchGetDelete } from "../fetch/fetchGetDelete";
 import {
   endAddAttacker,
   endAddIncident,
@@ -21,7 +20,8 @@ import {
   endGetUserByUsername,
 } from "@/app/models/endpoint.model";
 import AlertError from "@/components/Alert/alertError";
-import { fetchPostPut } from "../fetch/fetchPostPut/fetchPostPut";
+import { fetchGetDelete } from "../../fetch/fetchGetDelete";
+import { fetchPostPut } from "../../fetch/fetchPostPut/fetchPostPut";
 
 export default function RegistrarVictimaPage() {
   const router = useRouter();

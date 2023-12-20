@@ -1,6 +1,6 @@
 import { DivResponseUser } from "@/components/Div/DivResponseUser/DivResponseUser";
 import { endGetUserByUsername } from "@/app/models/endpoint.model";
-import { fetchGetDelete } from "../../../fetch/fetchGetDelete";
+import { fetchGetDelete } from "@/app/pages/principal/fetch/fetchGetDelete";
 import { InformacionPage } from "@/components/InformationPage/InformationPage";
 import { Routes } from "@/app/models/routes.model";
 

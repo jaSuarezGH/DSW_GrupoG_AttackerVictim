@@ -1,10 +1,10 @@
 import { Navigation } from "@/components/Navigation";
 
 export const metadata = {
-  title: "Consultar un Usuario - AttackVictim",
+  title: "Eliminar Victima/Atacante - AttackVictim",
 };
 
-export default function PrincipalLayout({ children }) {
+export default function deleteUsersLayout({ children }) {
   return (
     <html>
       <body>

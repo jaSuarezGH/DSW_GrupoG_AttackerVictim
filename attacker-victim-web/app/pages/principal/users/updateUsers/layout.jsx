@@ -4,7 +4,7 @@ export const metadata = {
   title: "Modificar Victima/Atacante - AttackVictim",
 };
 
-export default function PrincipalLayout({ children }) {
+export default function UpdateUsersLayout({ children }) {
   return (
     <html>
       <body>

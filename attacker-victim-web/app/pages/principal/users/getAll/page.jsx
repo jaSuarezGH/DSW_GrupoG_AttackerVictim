@@ -1,6 +1,6 @@
 import { DivHeader } from "@/components/Div";
 import { Navigation } from "@/components/Navigation";
-import { fetchGetDelete } from "@/app/pages/principal/users/fetch/fetchGetDelete";
+import { fetchGetDelete } from "@/app/pages/principal/fetch/fetchGetDelete";
 import TablaAllUsers from "@/components/Table/AllUsers/TablaAllUsers";
 import { endGetAllUsers } from "@/app/models/endpoint.model";
 import { Suspense } from "react";

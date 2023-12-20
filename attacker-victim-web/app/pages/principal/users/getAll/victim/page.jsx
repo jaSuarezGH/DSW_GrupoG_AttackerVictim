@@ -1,6 +1,6 @@
 import { Navigation } from "@/components/Navigation";
 import { DivHeader } from "@/components/Div";
-import { fetchGetDelete } from "../../fetch/fetchGetDelete";
+import { fetchGetDelete } from "@/app/pages/principal/fetch/fetchGetDelete";
 import { endGetAllVictims } from "@/app/models/endpoint.model";
 import TablaAllVictimsAttackers from "@/components/Table/VictimAttacker/TablaVictimAttacker";
 

@@ -7,7 +7,7 @@ import {
   endGetUserByUsername,
   endPutUser,
 } from "@/app/models/endpoint.model";
-import { fetchGetDelete } from "../../../fetch/fetchGetDelete";
+import { fetchGetDelete } from "@/app/pages/principal/fetch/fetchGetDelete";
 import { InformacionPage } from "@/components/InformationPage/InformationPage";
 import { Routes } from "@/app/models/routes.model";
 import { DivForm } from "@/components/Div/DivForm/DivForm";
@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 import { ButtonSubmit } from "@/components/Button/ButtonSubmit";
 import AlertError from "@/components/Alert/AlertError";
 import { DivHeader } from "@/components/Div";
-import { fetchPostPut } from "../../../fetch/fetchPostPut/fetchPostPut";
+import { fetchPostPut } from "@/app/pages/principal/fetch/fetchPostPut/fetchPostPut";
 
 export default function UpdateEmailPage({ params }) {
   

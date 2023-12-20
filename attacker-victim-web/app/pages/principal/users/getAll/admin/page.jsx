@@ -1,4 +1,4 @@
-import { fetchGetDelete } from "../../fetch/fetchGetDelete";
+import { fetchGetDelete } from "@/app/pages/principal/fetch/fetchGetDelete";
 import { Navigation } from "@/components/Navigation";
 import { DivHeader } from "@/components/Div";
 import { endGetAllAdmins } from "@/app/models/endpoint.model";

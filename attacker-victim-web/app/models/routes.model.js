@@ -29,7 +29,11 @@ export const Routes = {
     UPDATE_USER_USERNAME: '/pages/principal/users/updateUsers/username/',
     UPDATE_USER_MAC: '/pages/principal/users/updateUsers/mac/',
     
-    DELETE_USER: '',
+    DELETE_USER: '/pages/principal/users/deleteUsers',
+    DELETE_USER_CEDULA: '/pages/principal/users/deleteUsers/cedula/',
+    DELETE_USER_EMAIL: '/pages/principal/users/deleteUsers/email/',
+    DELETE_USER_USERNAME: '/pages/principal/users/deleteUsers/username/',
+    DELETE_USER_MAC: '/pages/principal/users/deleteUsers/mac/',
 
     //Login
     SIGN_OFF: '/pages/login',
