@@ -9,13 +9,13 @@ import com.ucab.cmcapp.persistence.dao.IncidentDao;
 
 import java.util.List;
 
-public class GetSeparationDistanceByIncidentIdCommand extends Command<Incident> {
+public class GetLastPositionsByIncidentIdCommand extends Command<Incident> {
 
     private Incident _incident;
     private IncidentDao _dao;
     private List<History> _result;
 
-    public GetSeparationDistanceByIncidentIdCommand(Incident incident) {
+    public GetLastPositionsByIncidentIdCommand(Incident incident) {
         _incident = incident;
         setHandler(new DBHandler());
         _dao = DaoFactory.createIncidentDao(getHandler());

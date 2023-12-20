@@ -1,13 +1,10 @@
 package com.ucab.cmcapp.implementation;
 
-import com.ucab.cmcapp.common.entities.History;
 import com.ucab.cmcapp.common.entities.Incident;
 import com.ucab.cmcapp.common.util.CustomResponse;
 import com.ucab.cmcapp.logic.commands.CommandFactory;
-import com.ucab.cmcapp.logic.commands.Incident.atomic.GetIncidentByVictimIdCommand;
-import com.ucab.cmcapp.logic.commands.operation.atomic.GetSeparationDistanceByIncidentIdCommand;
+import com.ucab.cmcapp.logic.commands.operation.atomic.GetLastPositionsByIncidentIdCommand;
 import com.ucab.cmcapp.logic.dtos.HistoryDto;
-import com.ucab.cmcapp.logic.dtos.IncidentDto;
 import com.ucab.cmcapp.logic.mappers.HistoryMapper;
 import com.ucab.cmcapp.logic.mappers.IncidentMapper;
 import com.ucab.cmcapp.logic.utilities.DistanceManager;
@@ -27,12 +24,12 @@ public class OperationService extends BaseService {
     public Response getSeparationDistanceByIncidentId(@PathParam("incident_id") long incidentId) {
         Incident entity;
         List<HistoryDto> responseDTO = null;
-        GetSeparationDistanceByIncidentIdCommand command = null;
+        GetLastPositionsByIncidentIdCommand command = null;
         double separationDistance;
 
         try {
             entity = IncidentMapper.mapDtoToEntity(incidentId);
-            command = CommandFactory.createGetSeparationDistanceByIncidentIdCommand(entity);
+            command = CommandFactory.createGetLastPositionsByIncidentIdCommand(entity);
             command.execute();
 
             if (command.getReturnParam() != null) {
