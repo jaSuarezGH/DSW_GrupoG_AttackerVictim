@@ -1,12 +1,16 @@
 package com.ucab.cmcapp.implementation;
 
 import com.ucab.cmcapp.common.entities.Incident;
+import com.ucab.cmcapp.common.entities.SafeZone;
 import com.ucab.cmcapp.common.util.CustomResponse;
 import com.ucab.cmcapp.logic.commands.CommandFactory;
 import com.ucab.cmcapp.logic.commands.operation.atomic.GetLastPositionsByIncidentIdCommand;
+import com.ucab.cmcapp.logic.commands.safeZone.atomic.GetAllSafeZoneByUserIdCommand;
 import com.ucab.cmcapp.logic.dtos.HistoryDto;
+import com.ucab.cmcapp.logic.dtos.SafeZoneDto;
 import com.ucab.cmcapp.logic.mappers.HistoryMapper;
 import com.ucab.cmcapp.logic.mappers.IncidentMapper;
+import com.ucab.cmcapp.logic.mappers.SafeZoneMapper;
 import com.ucab.cmcapp.logic.utilities.DistanceManager;
 
 import javax.ws.rs.*;
@@ -46,5 +50,31 @@ public class OperationService extends BaseService {
 
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(separationDistance, "[OK NORMAL RESPONSE] Successfully calculated separation distance in meters with incident id: " + incidentId)).build();
     }
+
+    /*@GET
+    @Path("/{user_id}")
+    public Response getVerifyAttackerInSafeZone(@PathParam("user_id") long userId) {
+        SafeZone entity;
+        List<SafeZoneDto> responseZonesDTO = null;
+        GetAllSafeZoneByUserIdCommand command = null;
+
+        try {
+            entity = SafeZoneMapper.mapDtoToEntityUserId(userId);
+            command = CommandFactory.createGetAllSafeZoneByUserIdCommand(entity);
+            command.execute();
+
+            if (command.getReturnParam() != null)
+                responseZonesDTO = SafeZoneMapper.mapEntityListToDtoList(command.getReturnParam());
+            else
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>("[OK EMPTY RESPONSE] No safe zones found for user_id: " + userId)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method getAllSafeZonesByUserId: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseZonesDTO, "[OK NORMAL RESPONSE] Successfully found all histories with user_id: " + userId)).build();
+    }*/
 
 }
