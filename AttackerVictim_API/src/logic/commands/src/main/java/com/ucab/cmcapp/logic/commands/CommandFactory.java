@@ -5,6 +5,7 @@ import com.ucab.cmcapp.logic.commands.Incident.atomic.*;
 import com.ucab.cmcapp.logic.commands.Incident.composite.CreateIncidentCommand;
 import com.ucab.cmcapp.logic.commands.Incident.composite.DeleteIncidentCommand;
 import com.ucab.cmcapp.logic.commands.Incident.composite.GetAllIncidentCommand;
+import com.ucab.cmcapp.logic.commands.Incident.composite.GetIncidentCommand;
 import com.ucab.cmcapp.logic.commands.administrator.atomic.*;
 import com.ucab.cmcapp.logic.commands.administrator.composite.CreateAdministratorCommand;
 import com.ucab.cmcapp.logic.commands.administrator.composite.DeleteAdministratorCommand;
@@ -185,6 +186,15 @@ public class CommandFactory {
 
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    // ------------------( getIncidentById )---------------------
+    public static GetIncidentCommand createGetIncidentCommand(Incident incident) {
+        return new GetIncidentCommand(incident);
+    }
+
+    public static GetIncidentByIdCommand createGetIncidentByIdCommand(DBHandler handler, long incidentId) {
+        return new GetIncidentByIdCommand(handler, incidentId);
+    }
 
     // ------------------( getAllIncidents )---------------------
     public static GetAllIncidentCommand createGetAllIncidentCommand() {

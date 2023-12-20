@@ -1,6 +1,7 @@
 package com.ucab.cmcapp.implementation;
 
 import com.ucab.cmcapp.common.entities.Incident;
+import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.common.util.CustomResponse;
 import com.ucab.cmcapp.logic.commands.CommandFactory;
 import com.ucab.cmcapp.logic.commands.Incident.atomic.GetIncidentByAttackerIdCommand;
@@ -8,8 +9,12 @@ import com.ucab.cmcapp.logic.commands.Incident.atomic.GetIncidentByVictimIdComma
 import com.ucab.cmcapp.logic.commands.Incident.composite.CreateIncidentCommand;
 import com.ucab.cmcapp.logic.commands.Incident.composite.DeleteIncidentCommand;
 import com.ucab.cmcapp.logic.commands.Incident.composite.GetAllIncidentCommand;
+import com.ucab.cmcapp.logic.commands.Incident.composite.GetIncidentCommand;
+import com.ucab.cmcapp.logic.commands.user.composite.GetUserCommand;
 import com.ucab.cmcapp.logic.dtos.IncidentDto;
+import com.ucab.cmcapp.logic.dtos.UserDto;
 import com.ucab.cmcapp.logic.mappers.IncidentMapper;
+import com.ucab.cmcapp.logic.mappers.UserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,6 +51,32 @@ public class IncidentService extends BaseService {
         }
 
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully listed all victim-attacker relationships")).build();
+    }
+
+    @GET
+    @Path("/{id}")
+    public Response getIncidentById(@PathParam("id") long incidentId) {
+        Incident entity;
+        IncidentDto responseDTO = null;
+        GetIncidentCommand command = null;
+
+        try {
+            entity = IncidentMapper.mapDtoToEntity(incidentId);
+            command = CommandFactory.createGetIncidentCommand(entity);
+            command.execute();
+
+            if (command.getReturnParam() != null)
+                responseDTO = IncidentMapper.mapEntityToDto(command.getReturnParam());
+            else
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>("[OK EMPTY RESPONSE] No victim-attacker relationships found for id: " + incidentId)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method getIncidentById: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found victim-attacker relationships with id: " + incidentId)).build();
     }
 
     @GET
