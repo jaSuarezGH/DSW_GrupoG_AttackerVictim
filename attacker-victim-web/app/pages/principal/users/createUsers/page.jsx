@@ -185,6 +185,7 @@ export default function RegistrarVictimaPage() {
                                           const aggIncident = await fetchPostPut(endAddIncident, 'POST', dataDistancia);
                                           if (aggIncident != null) {
                                             setErrorInfo(false);
+                                            router.push('/pages/principal/users/createUsers/response');
                                           } else {
                                             setDescriptionError(
                                               "Ha ocurrido un error inesperado al momento de registrar la relacion entre la Victima y el Atacante en el sistema, por favor intente nuevamente mas tarde."

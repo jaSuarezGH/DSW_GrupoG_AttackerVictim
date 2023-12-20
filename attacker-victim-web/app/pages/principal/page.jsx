@@ -23,10 +23,10 @@ export default function PrincipalPage() {
 
           {/* CONSULTAR UN USUARIO */}
           <Card
-            title="Consultar un Usuario"
-            description='Consultar a un unico usuario (de cualquier tipo) registrado en el sistema.'
+            title="Consultar un Usuario Victima/Atacante"
+            description='Consultar a un unico usuario de tipo Victima o Atacante registrados en el sistema.'
             link={Routes.GET_USER}
-            tags={[1, 2, 3]}
+            tags={[2, 3]}
           ></Card>
 
           {/* CONSULTAR TODOS LOS ADMINISTRADORES */}
@@ -55,7 +55,7 @@ export default function PrincipalPage() {
             tags={[3]}
           ></Card>
 
-          {/* Crear Usuario Victima y Atacante */}
+          {/* Crear Usuario Administrador */}
           <Card
             title="Crear Usuario Administrador"
             description='Crear usuarios de tipo "Administrador" y su respectivo usuario.'
@@ -74,10 +74,10 @@ export default function PrincipalPage() {
 
           {/* Modificar un Usuario */}
           <Card
-            title="Modificar Usuario"
-            description="Modificar a un usuario registrado en el sistema."
-            link={Routes.GET_USER}
-            tags={[1, 2, 3]}
+            title="Modificar Usuario Victima/Atacante"
+            description="Modificar a un usuario de tipo Victima o Atacante registrado en el sistema."
+            link={Routes.UPDATE_USER}
+            tags={[2, 3]}
           ></Card>
 
           {/* Modificar Relación Victima/Atacante */}

@@ -22,6 +22,10 @@ export const endAddAttacker= "/cmcapp-backend-1.0/api/attacker";
 
 export const endAddIncident= "/cmcapp-backend-1.0/api/incident";
 
+export const endPutUser= "/cmcapp-backend-1.0/api/users";
+
+
+
 
 
 

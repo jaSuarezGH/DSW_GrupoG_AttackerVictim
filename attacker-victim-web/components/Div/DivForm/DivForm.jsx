@@ -10,13 +10,21 @@ export function DivForm({
   onChangePassword,
   onChangePasswordConfirm,
   onChangeCedula,
-  onChangeBluetooth
+  onChangeBluetooth,
+  valueNombre = '',
+  valueApellido = '',
+  valueUsername = '',
+  valueEmail = '',
+  valuePassword = '',
+  valuePasswordConfirm = '',
+  valueCedula = '',
+  valueMAC = ''
 }) {
   return (
     <div className="space-y-12 mt-10">
       <DivSubHeader
         title={`Datos del Usuario ${user}`}
-        description={`Ingrese los datos correspondiente al Usuario tipo ${user}.`}
+        description={`Ingrese los datos correspondiente al Usuario ${user}.`}
       ></DivSubHeader>
 
       <div className="border-b border-gray-900/10 pb-12">
@@ -28,6 +36,7 @@ export function DivForm({
             id={`nombre${user}`}
             placeholder={`Ingrese el Nombre del usuario ${user} aqui`}
             onChange={onChangeNombre}
+            value={valueNombre}
           ></DivFormElement>
 
           <DivFormElement
@@ -37,6 +46,7 @@ export function DivForm({
             id={`apellido${user}`}
             placeholder={`Ingrese los Apellidos del usuario ${user} aqui`}
             onChange={onChangeApellido}
+            value={valueApellido}
           ></DivFormElement>
 
           <DivFormElement
@@ -44,8 +54,9 @@ export function DivForm({
             type="text"
             name={`username${user}`}
             id={`username${user}`}
-            placeholder={`Ingrese el Nombre de Usuario (user) del usuario ${user} aqui`}
+            placeholder={`Ingrese el Nombre de Usuario (username) del usuario ${user} aqui`}
             onChange={onChangeUsername}
+            value={valueUsername}
           ></DivFormElement>
 
           <DivFormElement
@@ -55,6 +66,7 @@ export function DivForm({
             id={`email${user}`}
             placeholder={`Ingrese el Correo Electronico del usuario ${user} aqui`}
             onChange={onChangeEmail}
+            value={valueEmail}
           ></DivFormElement>
 
           <DivFormElement
@@ -64,6 +76,7 @@ export function DivForm({
             id={`password${user}`}
             placeholder={`Ingrese la contraseña del usuario ${user} aqui`}
             onChange={onChangePassword}
+            value={valuePassword}
           ></DivFormElement>
 
           <DivFormElement
@@ -73,6 +86,7 @@ export function DivForm({
             id={`passwordConfirm${user}`}
             placeholder={`Ingrese la Contraseña nuevamente del usuario ${user} aqui`}
             onChange={onChangePasswordConfirm}
+            value={valuePasswordConfirm}
           ></DivFormElement>
 
           <DivFormElement
@@ -82,6 +96,7 @@ export function DivForm({
             id={`cedula${user}`}
             placeholder={`Ingrese el numero de Documento de Identificacion del usuario ${user} aqui`}
             onChange={onChangeCedula}
+            value={valueCedula}
           ></DivFormElement>
 
           <DivFormElement
@@ -91,6 +106,7 @@ export function DivForm({
             id={`bluetooth${user}`}
             placeholder={`Ingrese la Direccion Bluetooth (MAC) dispositivo movil del usuario ${user} aqui`}
             onChange={onChangeBluetooth}
+            value={valueMAC}
           ></DivFormElement>
         </div>
       </div>

@@ -1,15 +1,13 @@
 import { Routes } from "@/app/models/routes.model";
 import { InformacionPage } from "@/components/InformationPage/InformationPage";
-import { Navigation } from "@/components/Navigation";
 
-export default function ExitoPage() {
+export default function ExitoResponsePage() {
   return (
     <>
-      <Navigation number={0}></Navigation>
       <InformacionPage
-        title="Usuarios Registrados"
+        title="Usuario Modificado"
         encabezado="Completado"
-        description="Los Usuarios ingresados y su respectiva relacion se registraron correctamente."
+        description="El Usuario registrado en el sistema se ha modificado correctamente."
         link={Routes.PRINCIPAL}
         linkText="Volver al Inicio"
       ></InformacionPage>

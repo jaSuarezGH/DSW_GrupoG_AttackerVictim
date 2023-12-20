@@ -24,20 +24,19 @@ export default function getVictimaPage() {
 
     switch (selected) {
       case "Username":
-        router.push(`${Routes.GET_USER_USERNAME}${valor}`);
+        router.push(`${Routes.UPDATE_USER_USERNAME}${valor}`);
         break;
 
       case "Correo Electronico":
-        router.push(`${Routes.GET_USER_EMAIL}${valor}`);
+        router.push(`${Routes.UPDATE_USER_EMAIL}${valor}`);
         break;
 
       case "Cedula de Identidad":
-        
-        router.push(`${Routes.GET_USER_CEDULA}${valor}`);
+        router.push(`${Routes.UPDATE_USER_CEDULA}${valor}`);
         break;
 
       case "Direccion MAC":
-        router.push(`${Routes.GET_USER_MAC}${valor}`);
+        router.push(`${Routes.UPDATE_USER_MAC}${valor}`);
         break;
     }
   };
@@ -46,9 +45,9 @@ export default function getVictimaPage() {
     <>
       <div className="ring-1 ring-opacity-40 ring-zinc-300 rounded-xl shadow-md shadow-indigo-100 mt-6 flex min-h-full flex-1 flex-col justify-center align-middle px-6 py-6 lg:px-8 mx-auto max-w-7xl gap-x-8 gap-y-12">
         <DivHeader
-          title="Consultar un Usuario"
-          description="Consulta un usuario registrado en el sistema."
-          tags={[1, 2, 3]}
+          title="Modificar a un Usuario Victima/Atacante"
+          description="Modificar a un usuario de tipo Victima o Atacante registrado en el sistema."
+          tags={[2, 3]}
         ></DivHeader>
         <div className="ring-1 ring-opacity-70 ring-zinc-300 shadow-lg shadow-indigo-300 mb-6 rounded-lg p-9 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6 " onSubmit={onSubmit}>
@@ -80,7 +79,7 @@ export default function getVictimaPage() {
               </div>
             </div>
 
-            <ButtonSubmit text="Buscar Usuario"></ButtonSubmit>
+            <ButtonSubmit text="Buscar Usuario a Modificar"></ButtonSubmit>
           </form>
         </div>
       </div>

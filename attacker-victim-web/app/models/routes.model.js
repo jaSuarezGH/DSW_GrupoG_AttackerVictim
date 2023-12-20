@@ -22,9 +22,14 @@ export const Routes = {
     UPDATE_RELATION: '',
     GET_LOCATION: '',
     CREATE_USER: '/pages/principal/users/createUsers',
-    UPDATE_VICTIM: '',
-    UPDATE_ATTACKER: '',
-    DELETE_USERS: '',
+    
+    UPDATE_USER: '/pages/principal/users/updateUsers',
+    UPDATE_USER_CEDULA: '/pages/principal/users/updateUsers/cedula/',
+    UPDATE_USER_EMAIL: '/pages/principal/users/updateUsers/email/',
+    UPDATE_USER_USERNAME: '/pages/principal/users/updateUsers/username/',
+    UPDATE_USER_MAC: '/pages/principal/users/updateUsers/mac/',
+    
+    DELETE_USER: '',
 
     //Login
     SIGN_OFF: '/pages/login',
