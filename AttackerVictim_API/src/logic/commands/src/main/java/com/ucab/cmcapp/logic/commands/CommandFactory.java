@@ -5,6 +5,7 @@ import com.ucab.cmcapp.logic.commands.Incident.atomic.*;
 import com.ucab.cmcapp.logic.commands.Incident.composite.CreateIncidentCommand;
 import com.ucab.cmcapp.logic.commands.Incident.composite.DeleteIncidentCommand;
 import com.ucab.cmcapp.logic.commands.Incident.composite.GetAllIncidentCommand;
+import com.ucab.cmcapp.logic.commands.Incident.composite.GetIncidentCommand;
 import com.ucab.cmcapp.logic.commands.administrator.atomic.*;
 import com.ucab.cmcapp.logic.commands.administrator.composite.CreateAdministratorCommand;
 import com.ucab.cmcapp.logic.commands.administrator.composite.DeleteAdministratorCommand;
@@ -29,6 +30,7 @@ import com.ucab.cmcapp.logic.commands.history.atomic.GetAllHistoryListCommand;
 import com.ucab.cmcapp.logic.commands.history.composite.CreateHistoryCommand;
 import com.ucab.cmcapp.logic.commands.history.composite.DeleteHistoryCommand;
 import com.ucab.cmcapp.logic.commands.history.composite.GetAllHistoryCommand;
+import com.ucab.cmcapp.logic.commands.operation.atomic.GetLastPositionsByIncidentIdCommand;
 import com.ucab.cmcapp.logic.commands.safeZone.atomic.*;
 import com.ucab.cmcapp.logic.commands.safeZone.composite.CreateSafeZoneCommand;
 import com.ucab.cmcapp.logic.commands.safeZone.composite.DeleteSafeZoneCommand;
@@ -184,6 +186,15 @@ public class CommandFactory {
 
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    // ------------------( getIncidentById )---------------------
+    public static GetIncidentCommand createGetIncidentCommand(Incident incident) {
+        return new GetIncidentCommand(incident);
+    }
+
+    public static GetIncidentByIdCommand createGetIncidentByIdCommand(DBHandler handler, long incidentId) {
+        return new GetIncidentByIdCommand(handler, incidentId);
+    }
 
     // ------------------( getAllIncidents )---------------------
     public static GetAllIncidentCommand createGetAllIncidentCommand() {
@@ -369,6 +380,14 @@ public class CommandFactory {
 
     public static EraseAdministratorCommand createEraseAdministratorCommand(Administrator administrator, DBHandler handler) {
         return new EraseAdministratorCommand(administrator, handler);
+    }
+
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    // ------------------( getSeparationDistanceByIncidentId )---------------
+    public static GetLastPositionsByIncidentIdCommand createGetLastPositionsByIncidentIdCommand(Incident incident) {
+        return new GetLastPositionsByIncidentIdCommand(incident);
     }
 
 }
