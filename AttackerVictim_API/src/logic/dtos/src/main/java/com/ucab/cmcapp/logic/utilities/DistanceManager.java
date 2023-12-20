@@ -16,6 +16,7 @@ public class DistanceManager {
     public double calculateSeparationDistance(HistoryDto firstLocation, HistoryDto secondLocation) {
 
         // Haversine´s formula
+        // ChatGPT
         double startLat = firstLocation.get_latitude();
         double startLong = firstLocation.get_longitude();
         double endLat = secondLocation.get_latitude();
@@ -32,6 +33,7 @@ public class DistanceManager {
 
         /*
         // Vincenty’s Formula
+        // https://www.baeldung.com/java-find-distance-between-points
         double latitude1 = firstLocation.get_latitude();
         double longitude1 = firstLocation.get_longitude();
         double latitude2 = secondLocation.get_latitude();
