@@ -8,6 +8,7 @@ import com.ucab.cmcapp.logic.commands.Incident.composite.GetIncidentCommand;
 import com.ucab.cmcapp.logic.commands.operation.atomic.GetAttackerLastPositionByIncidentIdCommand;
 import com.ucab.cmcapp.logic.commands.operation.atomic.GetLastPositionsByIncidentIdCommand;
 import com.ucab.cmcapp.logic.commands.safeZone.atomic.GetAllSafeZoneByUserIdCommand;
+import com.ucab.cmcapp.logic.dtos.AttackerInSafeZoneDto;
 import com.ucab.cmcapp.logic.dtos.HistoryDto;
 import com.ucab.cmcapp.logic.dtos.IncidentDto;
 import com.ucab.cmcapp.logic.dtos.SafeZoneDto;
@@ -77,6 +78,7 @@ public class OperationService extends BaseService {
         //+++++++++++++++
 
         List<CustomResponse> tempOut;
+        AttackerInSafeZoneDto resultDto = new AttackerInSafeZoneDto();
 
         try {
             incidentEntity = IncidentMapper.mapDtoToEntity(incidentId);
@@ -113,14 +115,15 @@ public class OperationService extends BaseService {
 
             //--------------------------------------
 
-            tempOut = new ArrayList<>();
+            //tempOut = new ArrayList<>();
+            //tempOut.add(new CustomResponse<>(incidentDto, "INCIDENTE"));
+            //tempOut.add(new CustomResponse<>(safeZoneDto, "VICTIMS SAFE ZONES"));
+            //tempOut.add(new CustomResponse<>(historyDto, "ATTACKER LAST POSITION"));
 
-            tempOut.add(new CustomResponse<>(incidentDto, "INCIDENTE"));
-            tempOut.add(new CustomResponse<>(safeZoneDto, "VICTIMS SAFE ZONES"));
-            tempOut.add(new CustomResponse<>(historyDto, "ATTACKER LAST POSITION"));
+            resultDto = new DistanceManager().verifyAttackerInSafeZone(historyDto, safeZoneDto);
 
         } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method getIncidentById: " + e.getMessage())).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at this awful method: " + e.getMessage())).build();
         } finally {
             if (incidentCommand != null)
                 incidentCommand.closeHandlerSession();
@@ -130,7 +133,7 @@ public class OperationService extends BaseService {
                 attackerPositionCommand.closeHandlerSession();
         }
 
-        return Response.status(Response.Status.OK).entity(new CustomResponse<>(tempOut, "[OK NORMAL RESPONSE] Successfully found victim-attacker relationships with id: " + incidentId)).build();
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(resultDto, "[OK NORMAL RESPONSE] Successfully calculated with incident id: " + incidentId)).build();
     }
 
 }
