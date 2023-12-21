@@ -19,7 +19,6 @@ export const Routes = {
     GET_USER_USERNAME: '/pages/principal/users/get/username/',
     GET_USER_MAC: '/pages/principal/users/get/mac/',
     UPDATE_ZS: '',
-    UPDATE_RELATION: '',
     GET_LOCATION: '',
     CREATE_USER: '/pages/principal/users/createUsers',
     
@@ -34,6 +33,15 @@ export const Routes = {
     DELETE_USER_EMAIL: '/pages/principal/users/deleteUsers/email/',
     DELETE_USER_USERNAME: '/pages/principal/users/deleteUsers/username/',
     DELETE_USER_MAC: '/pages/principal/users/deleteUsers/mac/',
+
+    GET_RELATION: '/pages/principal/incident/get/',
+    GET_RELATION_VICTIM: '/pages/principal/incident/get/victim/',
+    GET_RELATION_ATTACKER: '/pages/principal/incident/get/attacker/',
+
+    UPDATE_RELATION: '/pages/principal/incident/updateIncident/',
+    UPDATE_RELATION_VICTIM: '/pages/principal/incident/updateIncident/victim/',
+    UPDATE_RELATION_ATTACKER: '/pages/principal/incident/updateIncident/attacker/',
+
 
     //Login
     SIGN_OFF: '/pages/login',

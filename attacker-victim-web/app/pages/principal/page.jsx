@@ -80,6 +80,15 @@ export default function PrincipalPage() {
             tags={[2, 3]}
           ></Card>
 
+          {/* Consultar la Relación Victima/Atacante */}
+          <Card
+            title="Consultar Relación Victima/Atacante"
+            description='Consultar la relacion entre un usuario "Victima" y un usuario
+            "Atacante".'
+            link={Routes.GET_RELATION}
+            tags={[2, 3]}
+          ></Card>
+          
           {/* Modificar Relación Victima/Atacante */}
           <Card
             title="Modificar Relación Victima/Atacante"
