@@ -23,6 +23,8 @@ export const endAddAttacker= "/cmcapp-backend-1.0/api/attacker";
 
 export const endPutUser= "/cmcapp-backend-1.0/api/users";
 
+export const endPutIncident= "/cmcapp-backend-1.0/api/incident";
+
 export const endGetAllIncidents= "/cmcapp-backend-1.0/api/incident/all";
 
 export const endGetIncidentByVictim= "/cmcapp-backend-1.0/api/incident/victimRegistry/";

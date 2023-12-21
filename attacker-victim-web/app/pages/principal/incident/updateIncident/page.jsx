@@ -39,14 +39,14 @@ export default function getIncidentPage() {
         <DivHeader
           title="Consultar la Relacion entre Victima/Atacante"
           description="Consultar la relacion registrada en el sistema entre un usuario Victima y Atacante."
-          tags={[1, 2, 3]}
+          tags={[2, 3]}
         ></DivHeader>
         <div className="ring-1 ring-opacity-70 ring-zinc-300 shadow-lg shadow-indigo-300 mb-6 rounded-lg p-9 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6 " onSubmit={onSubmit}>
             <ListBoxGet
               selected={selected}
               onChange={setSelected}
-              options={optionsConsult}
+              options={optionsConsultIncident}
               classNames={classNames}
             ></ListBoxGet>
 

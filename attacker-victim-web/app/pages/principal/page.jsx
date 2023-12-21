@@ -94,7 +94,7 @@ export default function PrincipalPage() {
             title="Modificar Relación Victima/Atacante"
             description='Modificar la relacion entre un usuario "Victima" y un usuario
             "Atacante".'
-            link={Routes.GET_USER}
+            link={Routes.UPDATE_RELATION}
             tags={[2, 3]}
           ></Card>
 
