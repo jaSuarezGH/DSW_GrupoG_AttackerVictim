@@ -53,7 +53,7 @@ public class User {
     private String _password;
 
     @Basic(optional = false)
-    @Column(name = "active", insertable = false, updatable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
+    @Column(name = "active", columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean _active;
 
     /*@Basic(optional = false)

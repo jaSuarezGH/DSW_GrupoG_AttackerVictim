@@ -57,14 +57,14 @@ public class UserDao extends BaseDao<User> {
         return result;
     }
 
-    public User getUserByUsername(String email) {
+    public User getUserByUsername(String username) {
         User result = EntityFactory.createUser();
         try {
             CriteriaQuery<User> query = _builder.createQuery(User.class);
             Root<User> root = query.from(User.class);
 
             query.select(root);
-            query.where(_builder.equal(root.get("_username"), email));
+            query.where(_builder.equal(root.get("_username"), username));
 
             result = _em.createQuery(query).getSingleResult();
         } catch (NoResultException e) {
