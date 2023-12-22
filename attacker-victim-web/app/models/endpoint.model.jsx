@@ -16,6 +16,9 @@ export const endGetUserByCedula = "/cmcapp-backend-1.0/api/users/personal_id/";
 export const endGetUserByEmail = "/cmcapp-backend-1.0/api/users/email/";
 export const endGetUserByMAC = "/cmcapp-backend-1.0/api/users/mac/";
 
+export const endGetAdminByEmail = "/cmcapp-backend-1.0/api/administrator/email/";
+
+
 export const endAddUser = "/cmcapp-backend-1.0/api/users";
 export const endAddVictim= "/cmcapp-backend-1.0/api/victim";
 export const endAddAttacker= "/cmcapp-backend-1.0/api/attacker";
