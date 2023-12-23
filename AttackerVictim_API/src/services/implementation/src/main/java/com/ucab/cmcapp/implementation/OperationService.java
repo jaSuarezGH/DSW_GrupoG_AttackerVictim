@@ -7,6 +7,7 @@ import com.ucab.cmcapp.logic.commands.CommandFactory;
 import com.ucab.cmcapp.logic.commands.Incident.composite.GetIncidentCommand;
 import com.ucab.cmcapp.logic.commands.operation.atomic.GetAttackerLastPositionByIncidentIdCommand;
 import com.ucab.cmcapp.logic.commands.operation.atomic.GetLastPositionsByIncidentIdCommand;
+import com.ucab.cmcapp.logic.commands.operation.atomic.GetVictimLastPositionByIncidentIdCommand;
 import com.ucab.cmcapp.logic.commands.safeZone.atomic.GetAllSafeZoneByUserIdCommand;
 import com.ucab.cmcapp.logic.dtos.AttackerInSafeZoneDto;
 import com.ucab.cmcapp.logic.dtos.HistoryDto;
@@ -45,7 +46,7 @@ public class OperationService extends BaseService {
                 responseDTO = HistoryMapper.mapEntityListToDtoList(command.getReturnParam());
                 separationDistance = new DistanceManager().calculateSeparationDistance(responseDTO.get(0), responseDTO.get(1));
             } else
-                return Response.status(Response.Status.OK).entity(new CustomResponse<>("[GENERAL EXCEPTION] Could not calculate the separation distance with incident id: " + incidentId)).build();
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>("[OK EMPTY RESPONSE] Could not calculate the separation distance with incident id: " + incidentId)).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method getSeparationDistanceByIncidentId: " + e.getMessage())).build();
         } finally {
@@ -54,6 +55,84 @@ public class OperationService extends BaseService {
         }
 
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(separationDistance, "[OK NORMAL RESPONSE] Successfully calculated separation distance in meters with incident id: " + incidentId)).build();
+    }
+
+    @GET
+    @Path("attacker-victim-last-position/{incident_id}")
+    public Response getAttackerVictimLastPositionsByIncidentId(@PathParam("incident_id") long incidentId) {
+        Incident entity;
+        List<HistoryDto> responseDTO = null;
+        GetLastPositionsByIncidentIdCommand command = null;
+
+        try {
+            entity = IncidentMapper.mapDtoToEntity(incidentId);
+            command = CommandFactory.createGetLastPositionsByIncidentIdCommand(entity);
+            command.execute();
+
+            if (command.getReturnParam() != null) {
+                responseDTO = HistoryMapper.mapEntityListToDtoList(command.getReturnParam());
+            } else
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>("[OK EMPTY RESPONSE] Could not get the last positions for relationship attacker-victim with incident id: " + incidentId)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method getAttackerVictimLastPositionsByIncidentId: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully obtained last position for attacker and victim with incident id: " + incidentId)).build();
+    }
+
+    @GET
+    @Path("attacker-last-position/{incident_id}")
+    public Response getAttackerLastPositionsByIncidentId(@PathParam("incident_id") long incidentId) {
+        Incident entity;
+        HistoryDto responseDTO = null;
+        GetAttackerLastPositionByIncidentIdCommand command = null;
+
+        try {
+            entity = IncidentMapper.mapDtoToEntity(incidentId);
+            command = CommandFactory.createGetAttackerLastPositionsByIncidentIdCommand(entity);
+            command.execute();
+
+            if (command.getReturnParam() != null) {
+                responseDTO = HistoryMapper.mapEntityToDto(command.getReturnParam());
+            } else
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>("[OK EMPTY RESPONSE] Could not get the last positions for attacker with incident id: " + incidentId)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method getAttackerLastPositionsByIncidentId: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully obtained last position for attacker with incident id: " + incidentId)).build();
+    }
+
+    @GET
+    @Path("victim-last-position/{incident_id}")
+    public Response getVictimLastPositionsByIncidentId(@PathParam("incident_id") long incidentId) {
+        Incident entity;
+        HistoryDto responseDTO = null;
+        GetVictimLastPositionByIncidentIdCommand command = null;
+
+        try {
+            entity = IncidentMapper.mapDtoToEntity(incidentId);
+            command = CommandFactory.createGetVictimLastPositionByIncidentIdCommand(entity);
+            command.execute();
+
+            if (command.getReturnParam() != null) {
+                responseDTO = HistoryMapper.mapEntityToDto(command.getReturnParam());
+            } else
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>("[OK EMPTY RESPONSE] Could not get the last positions for victim with incident id: " + incidentId)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method getVictimLastPositionsByIncidentId: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully obtained last position for victim with incident id: " + incidentId)).build();
     }
 
     @GET

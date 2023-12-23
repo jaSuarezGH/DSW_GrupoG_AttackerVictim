@@ -127,4 +127,25 @@ public class IncidentDao extends BaseDao<Incident> {
         return results.get(0);
     }
 
+    public History getVictimLastPositionByIncidentId(Incident incidentId) {
+        List<History> results;
+        try {
+            String customSql = "(select * from history where (history.user IN (select victim.user from victim where victim.id IN (select incident.victim from incident where incident.id = " + incidentId.get_id() + "))) order by history.id desc limit 1)";
+            Query query = _em.createNativeQuery(customSql, History.class);
+
+            results = query.getResultList();
+
+            if (results.isEmpty()) // Retornar null en lugar de []
+                return null;
+
+        } catch (NoResultException e) {
+            //return Collections.emptyList();  // En caso de que quieras retornar []
+            return null;
+        } catch (Exception e) {
+            throw new CupraException(e.getMessage());
+        }
+
+        return results.get(0);
+    }
+
 }

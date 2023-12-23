@@ -30,6 +30,7 @@ import com.ucab.cmcapp.logic.commands.history.composite.DeleteHistoryCommand;
 import com.ucab.cmcapp.logic.commands.history.composite.GetAllHistoryCommand;
 import com.ucab.cmcapp.logic.commands.operation.atomic.GetAttackerLastPositionByIncidentIdCommand;
 import com.ucab.cmcapp.logic.commands.operation.atomic.GetLastPositionsByIncidentIdCommand;
+import com.ucab.cmcapp.logic.commands.operation.atomic.GetVictimLastPositionByIncidentIdCommand;
 import com.ucab.cmcapp.logic.commands.safeZone.atomic.*;
 import com.ucab.cmcapp.logic.commands.safeZone.composite.CreateSafeZoneCommand;
 import com.ucab.cmcapp.logic.commands.safeZone.composite.DeleteSafeZoneCommand;
@@ -407,9 +408,14 @@ public class CommandFactory {
         return new GetLastPositionsByIncidentIdCommand(incident);
     }
 
-    // ------------------( getSeparationDistanceByIncidentId )---------------
+    // ------------------( getAttackerLastPositionsByIncidentId )---------------
     public static GetAttackerLastPositionByIncidentIdCommand createGetAttackerLastPositionsByIncidentIdCommand(Incident incident) {
         return new GetAttackerLastPositionByIncidentIdCommand(incident);
+    }
+
+    // ------------------( getVictimLastPositionsByIncidentId )---------------
+    public static GetVictimLastPositionByIncidentIdCommand createGetVictimLastPositionByIncidentIdCommand(Incident incident) {
+        return new GetVictimLastPositionByIncidentIdCommand(incident);
     }
 
 }
