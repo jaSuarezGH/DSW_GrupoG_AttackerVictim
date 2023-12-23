@@ -142,18 +142,18 @@ public class OperationService extends BaseService {
         IncidentDto incidentDto = null;
         GetIncidentCommand incidentCommand = null;
 
-        //+++++++++++++++
+        //++++++++++++++++
 
         SafeZone safeZoneEntity;
         List<SafeZoneDto> safeZoneDto = null;
         GetAllSafeZoneByUserIdCommand safeZoneCommand = null;
 
-        //+++++++++++++++
+        //++++++++++++++++
 
         HistoryDto historyDto = null;
         GetAttackerLastPositionByIncidentIdCommand attackerPositionCommand = null;
 
-        //+++++++++++++++
+        //++++++++++++++++
 
         AttackerInSafeZoneDto resultDto;
 
