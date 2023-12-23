@@ -7,162 +7,124 @@ import { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 import { EliminarUsuarioCoordenadas } from '../../../Domain/useCases/EliminarCoordenadasGuardadas';
 import { PostUsuarioCoordenadas } from '../../../Domain/useCases/EnviarCoordenadas';
-import { Gyroscope } from 'expo-sensors';//////
+import { Gyroscope } from 'expo-sensors';
 
 export const principalViewModel = () => {
-    global.gyroStatus = 'MOBILE';///////////////////////
-   // global.latitudeMapa = 0;///////////////////////Acomodar
-   // global.longitudeMapa = 0;////////////////////////Acomodar
+    global.gyroStatus = 'MOBILE';
 
-    const enviarCoordenadas = async (coordenadas) => {
-      try {
-        const response = await PostUsuarioCoordenadas(coordenadas);
-        if (response.status === 200) {
-          console.log('Ubicación enviada con éxito');
-        }else if(response.status === 500) {
-          Alert.alert('Ocurrió un error al enviar la ubicación');
+    const funcionDemonio = () => {
+      const [conexionInternet, setConexionInternet] = useState(true);
+      const [inactive, setInactive] = useState(0);
+      setupDatabase();
+
+      useEffect(() => {
+        const intervalId = setInterval(verificarConexionInternet, 40000);
+    
+        return () => {
+          clearInterval(intervalId);
+        };
+      }, [conexionInternet,inactive]);
+
+      const obtenerLocalizacion = async () => {
+        try {
+          let { status } = await Location.requestForegroundPermissionsAsync();
+          if (status !== 'granted') {
+            console.log('Permiso denegado para acceder a la ubicación');
+            return;
+          }
+          localizacionActual = await Location.getCurrentPositionAsync({});
+          return localizacionActual;
+        } catch (error) {
+          console.log('Error al obtener la ubicación:', error);
         }
-      } catch (error) {
-        Alert.alert('Ocurrior un error inesperado:', error);
-      }      
-    };
+      };
 
-    const generarCoordenada = (location, status) =>{
-      var fecha = new Date();
-      var milisegundos = Date.parse(fecha);
+      const obtenerStatusGiroscopio = () => {
+        const listener = Gyroscope.addListener(({ x, y, z }) => {
+          if (Math.abs(x) < 0.009 && Math.abs(y) < 0.009 && Math.abs(z) < 0.009) {
+            setInactive(inactive + 1);
+          } else {
+            setInactive(0);
+          }
+          if (inactive >= 3) {
+            gyroStatus = 'INMOBILE';
+          } else {
+            gyroStatus = 'MOBILE';
+          }
+          Gyroscope.removeAllListeners();
+        });
+      };
 
-      const coordenadas = { 
-        _full_date: milisegundos, 
-        _status: status, 
-        _latitude: location.coords.latitude,
-        _longitude: location.coords.longitude,
-        _user: {
-          id: userID,
-        }
-      };  
-      return coordenadas;
-    }
+      const generarCoordenada = (latitud, longitud, status, fecha) =>{
+        const coordenadas = { 
+          _full_date: fecha, 
+          _status: status, 
+          _latitude: latitud,
+          _longitude: longitud,
+          _user: {
+            id: userID,
+          }
+        };  
+        return coordenadas;
+      }
 
-    function useLocation() { 
-      const [location, setLocation] = useState(null); 
-     
-      useEffect(() => { 
-        (async () => { 
-          let { status } = await Location.requestForegroundPermissionsAsync(); 
-          if (status !== 'granted') { 
-            console.log('Permiso para acceder a la ubicación fue denegado'); 
-            return; 
-          } 
-     
-          let location = await Location.getCurrentPositionAsync({}); 
-          /*latitudeMapa = location.coords.latitude;//////////////////////////////////////Acomodar
-          longitudeMapa = location.coords.longitude;//////////////////////////////////////Acomodar*/
+      const enviarCoordenadas = async (coordenadas) => {
+        try {
+          const response = await PostUsuarioCoordenadas(coordenadas);
+          if (response.status === 200) {
+            console.log('Ubicación enviada con éxito');
+          }else if(response.status === 500) {
+            Alert.alert('Ocurrió un error al enviar la ubicación');
+          }
+        } catch (error) {
+          Alert.alert('Ocurrior un error inesperado:', error);
+        }      
+      };
 
-          //console.log(`Ubicación 1 : Latitud - ${location.coords.latitude}, Longitud - ${location.coords.longitude}`);/////////////
-          setLocation(location); 
-        })(); 
-      }, [location]); 
-      return location; 
-    }
 
-    const useLocationSync = () => {
-        const [isConnected, setIsConnected] = useState(false);
-        const [inactive, setInactive] = useState(0);
+      const verificarConexionInternet = async () => {
+        const netInfo = await NetInfo.fetch();
+        const online = netInfo.isConnected && netInfo.isInternetReachable;
 
-            useEffect(() => {
-              setupDatabase();
-              const interval = setInterval(async () => {
-                let { status } = await Location.requestForegroundPermissionsAsync();
-                
-                if (status !== 'granted') {
-                  console.error('Permiso para acceder a la ubicación denegado');
-                  return;
-                }
-          
-                let locationTelefono = await Location.getCurrentPositionAsync({});
+        setConexionInternet(online);
 
-                const statusGiroscopio = Gyroscope.addListener(({ x, y, z }) => {
-                  if (Math.abs(x) < 0.009 && Math.abs(y) < 0.009 && Math.abs(z) < 0.009) {
-                    setInactive(inactive + 1);
-                  } else {
-                    setInactive(0);
-                  }
-                  if (inactive >= 4) {
-                    gyroStatus = 'INMOBILE';
-                  } else{
-                    gyroStatus = 'MOBILE'; 
-                  }
-                  Gyroscope.removeAllListeners();
-                });
+        obtenerStatusGiroscopio();
 
-                if (isConnected) {
+        let localizacionTelefono = await obtenerLocalizacion();
 
-                  const locationSQL = await ObtenerCoordenadasSQL();
-                  //Si hay datos en la base de datos procedemos a enviarlos a la api 
-                  if (locationSQL.length > 0){
-                    for (let location of locationSQL) {
-                      const coordenadas = { 
-                        _full_date: location.fecha, 
-                        _status: 'OFFLINE', 
-                        _latitude: location.latitude,
-                        _longitude: location.longitude,
-                        _user: {
-                          id: userID,
-                        } 
-                      };
-                      try {
-                        //console.log(`Ubicación: Latitud - ${location.latitude}, Longitud - ${location.longitude}, Fecha - ${location.fecha}`);/////////////
-                        enviarCoordenadas(coordenadas);
-                      } catch (error) {
-                        Alert.alert('Error al enviar las ubicaciones:', error);
-                      }
-                    };
-
-                    EliminarUsuarioCoordenadas()
-                      .then((deleted) => {
-                        if (!deleted) {
-                          Alert.alert('No se lograron eliminar las ubicaciones.');
-                        }
-                      })
-                      .catch((error) => {
-                        Alert.alert('Ocurrió un error al eliminar la ubicación:', error);
-                      });
-                  };
-                  try{
-                    //enviarCoordenadas(generarCoordenada(locationTelefono,gyroStatus));
-                  }catch(error){
-                    console.error(error);
-                  }
-
-                } else {
-                  GuardarCoordenadasSQL(generarCoordenada(locationTelefono,'OFFLINE'))
-                  .then((wasSuccessful) => {
-                    if (!wasSuccessful) {
-                      Alert.alert('No se pudo guardar la ubicación.');
-                    }
-                  })
-                  .catch((error) => {
-                    Alert.alert('Ocurrió un error al guardar la ubicación:', error);
-                  });
-                }
-              }, 30000);
-              return () => {
-                clearInterval(interval);
+        if (online) {
+          const locationSQL = await ObtenerCoordenadasSQL();
+            //Si hay datos en la base de datos procedemos a enviarlos a la api 
+            if (locationSQL.length > 0){
+              for (let location of locationSQL) {
+                await enviarCoordenadas(generarCoordenada(location.latitude,location.longitude,'OFFLINE',location.fecha));
               };
-            }, [inactive,isConnected]);
-        
-        useEffect(() => {
-            const unsubscribe = NetInfo.addEventListener(state => {
-              console.log('Is connected?', state.isConnected);
-              setIsConnected(state.isConnected);
-            });
-            return () => {
-              unsubscribe();
-            };
-        }, []);
-      
-      return isConnected;
+              EliminarUsuarioCoordenadas()
+                .then((deleted) => {
+                  if (!deleted) {
+                    console.log('No se lograron eliminar las ubicaciones.');
+                  }
+                })
+                .catch((error) => {
+                  Alert.alert('Ocurrió un error al eliminar las ubicaciones:', error);
+                });  
+            } else {
+              await enviarCoordenadas(generarCoordenada(localizacionTelefono.coords.latitude,localizacionTelefono.coords.longitude,gyroStatus,milisegundos));
+            }
+        } else {
+          GuardarCoordenadasSQL(generarCoordenada(localizacionTelefono.coords.latitude,localizacionTelefono.coords.longitude,'OFFLINE',milisegundos))
+          .then((wasSuccessful) => {
+            if (!wasSuccessful) {
+              console.log('No se pudo guardar la ubicación.');
+            }
+         })
+          .catch((error) => {
+            Alert.alert('Ocurrió un error al guardar la ubicación:', error);
+          });
+        };
+      };
+      return conexionInternet;
     };
 
-    return {useLocationSync,useLocation};
-};
+  return funcionDemonio;
+}

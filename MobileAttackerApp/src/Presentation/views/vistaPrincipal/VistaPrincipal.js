@@ -5,8 +5,8 @@ import { principalViewModel } from '../../../../src/Presentation/views/vistaPrin
 
 export const VistaPrincipalScreen = () => {
 
-    const { useLocationSync } = principalViewModel();
-    const isConnected = useLocationSync();
+    const { funcionDemonio } = principalViewModel();
+    const conexionInternet = funcionDemonio();
 
     return(
         
@@ -20,7 +20,7 @@ export const VistaPrincipalScreen = () => {
             
 
             <Text style ={styles.textForm}>Status: </Text>
-            <Text style={styles.textForm}>{isConnected ? 'Online' : 'Offline'}</Text>
+            <Text style={styles.textForm}>{conexionInternet ? 'Online' : 'Offline'}</Text>
         </View>
     );
 }

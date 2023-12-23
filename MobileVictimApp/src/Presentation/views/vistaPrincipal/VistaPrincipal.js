@@ -4,13 +4,7 @@ import { principalViewModel } from '../../../../src/Presentation/views/vistaPrin
 import MapView from 'react-native-maps'
 
 export const VistaPrincipalScreen = () => {
-
-    //const { useLocationSync } = principalViewModel();
-    //const isConnected = useLocationSync();
-
-    const { useLocation } = principalViewModel();
-    const location = useLocation();
-
+    
     return(
         
         <View style = {styles.container}>
