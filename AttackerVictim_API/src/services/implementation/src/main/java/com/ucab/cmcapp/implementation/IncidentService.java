@@ -174,7 +174,7 @@ public class IncidentService extends BaseService {
     }
 
     @PUT
-    public Response updateUser(IncidentDto incidentDto) {
+    public Response updateIncident(IncidentDto incidentDto) {
         Incident entity;
         IncidentDto responseDTO = null;
         UpdateIncidentCommand command = null;

@@ -7,6 +7,7 @@ import com.ucab.cmcapp.logic.commands.administrator.atomic.*;
 import com.ucab.cmcapp.logic.commands.administrator.composite.CreateAdministratorCommand;
 import com.ucab.cmcapp.logic.commands.administrator.composite.DeleteAdministratorCommand;
 import com.ucab.cmcapp.logic.commands.administrator.composite.GetAllAdministratorCommand;
+import com.ucab.cmcapp.logic.commands.administrator.composite.UpdateAdministratorCommand;
 import com.ucab.cmcapp.logic.commands.attacker.atomic.AddAttackerCommand;
 import com.ucab.cmcapp.logic.commands.attacker.atomic.EraseAttackerCommand;
 import com.ucab.cmcapp.logic.commands.attacker.atomic.GetAllAttackerListCommand;
@@ -387,6 +388,15 @@ public class CommandFactory {
 
     public static EraseAdministratorCommand createEraseAdministratorCommand(Administrator administrator, DBHandler handler) {
         return new EraseAdministratorCommand(administrator, handler);
+    }
+
+    // ------------------( updateAdministrator )-----------------
+    public static UpdateAdministratorCommand createUpdateAdministratorCommand(Administrator administrator) {
+        return new UpdateAdministratorCommand(administrator);
+    }
+
+    public static ModifyAdministratorCommand createModifyAdministratorCommand(Administrator administrator, DBHandler handler) {
+        return new ModifyAdministratorCommand(administrator, handler);
     }
 
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
