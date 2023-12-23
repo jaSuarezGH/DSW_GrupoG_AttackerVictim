@@ -1,20 +1,16 @@
 package com.ucab.cmcapp.logic.utilities;
 
+import com.ucab.cmcapp.logic.dtos.AttackerInSafeZoneDto;
 import com.ucab.cmcapp.logic.dtos.HistoryDto;
+import com.ucab.cmcapp.logic.dtos.IncidentDto;
+import com.ucab.cmcapp.logic.dtos.SafeZoneDto;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.awt.geom.Path2D;
+import java.util.*;
 
 public class DistanceManager {
 
-    int EARTH_RADIUS = 6371;
-    double SEMI_MAJOR_AXIS_MT = 6378137;
-    double SEMI_MINOR_AXIS_MT = 6356752.314245;
-    double FLATTENING = 1 / 298.257223563;
-    double ERROR_TOLERANCE = 1e-12;
-
     public double calculateSeparationDistance(HistoryDto firstLocation, HistoryDto secondLocation) {
-
         // Haversine´s formula
         // ChatGPT
         double startLat = firstLocation.get_latitude();
@@ -30,60 +26,80 @@ public class DistanceManager {
         double distance = 2 * Math.asin(Math.sqrt(a));
         double radius = 6371 * 1000; // Earth's radius in meters
         return distance * radius;
-
-        /*
-        // Vincenty’s Formula
-        // https://www.baeldung.com/java-find-distance-between-points
-        double latitude1 = firstLocation.get_latitude();
-        double longitude1 = firstLocation.get_longitude();
-        double latitude2 = secondLocation.get_latitude();
-        double longitude2 = secondLocation.get_longitude();
-        double U1 = Math.atan((1 - FLATTENING) * Math.tan(Math.toRadians(latitude1)));
-        double U2 = Math.atan((1 - FLATTENING) * Math.tan(Math.toRadians(latitude2)));
-
-        double sinU1 = Math.sin(U1);
-        double cosU1 = Math.cos(U1);
-        double sinU2 = Math.sin(U2);
-        double cosU2 = Math.cos(U2);
-
-        double longitudeDifference = Math.toRadians(longitude2 - longitude1);
-        double previousLongitudeDifference;
-
-        double sinSigma, cosSigma, sigma, sinAlpha, cosSqAlpha, cos2SigmaM;
-
-        do {
-            sinSigma = Math.sqrt(Math.pow(cosU2 * Math.sin(longitudeDifference), 2) +
-                    Math.pow(cosU1 * sinU2 - sinU1 * cosU2 * Math.cos(longitudeDifference), 2));
-            cosSigma = sinU1 * sinU2 + cosU1 * cosU2 * Math.cos(longitudeDifference);
-            sigma = Math.atan2(sinSigma, cosSigma);
-            sinAlpha = cosU1 * cosU2 * Math.sin(longitudeDifference) / sinSigma;
-            cosSqAlpha = 1 - Math.pow(sinAlpha, 2);
-            cos2SigmaM = cosSigma - 2 * sinU1 * sinU2 / cosSqAlpha;
-            if (Double.isNaN(cos2SigmaM)) {
-                cos2SigmaM = 0;
-            }
-            previousLongitudeDifference = longitudeDifference;
-            double C = FLATTENING / 16 * cosSqAlpha * (4 + FLATTENING * (4 - 3 * cosSqAlpha));
-            longitudeDifference = Math.toRadians(longitude2 - longitude1) + (1 - C) * FLATTENING * sinAlpha *
-                    (sigma + C * sinSigma * (cos2SigmaM + C * cosSigma * (-1 + 2 * Math.pow(cos2SigmaM, 2))));
-        } while (Math.abs(longitudeDifference - previousLongitudeDifference) > ERROR_TOLERANCE);
-
-        double uSq = cosSqAlpha * (Math.pow(SEMI_MAJOR_AXIS_MT, 2) - Math.pow(SEMI_MINOR_AXIS_MT, 2)) / Math.pow(SEMI_MINOR_AXIS_MT, 2);
-
-        double A = 1 + uSq / 16384 * (4096 + uSq * (-768 + uSq * (320 - 175 * uSq)));
-        double B = uSq / 1024 * (256 + uSq * (-128 + uSq * (74 - 47 * uSq)));
-
-        double deltaSigma = B * sinSigma * (cos2SigmaM + B / 4 * (cosSigma * (-1 + 2 * Math.pow(cos2SigmaM, 2))
-                - B / 6 * cos2SigmaM * (-3 + 4 * Math.pow(sinSigma, 2)) * (-3 + 4 * Math.pow(cos2SigmaM, 2))));
-
-        double distanceMt = SEMI_MINOR_AXIS_MT * A * (sigma - deltaSigma);
-        //return distanceMt / 1000;
-        return  distanceMt; // distance in metters
-        */
     }
 
     private double haversine(double val) {
         return Math.pow(Math.sin(val / 2), 2);
+    }
+
+    public AttackerInSafeZoneDto verifyAttackerInSafeZone(HistoryDto lastAttackerCoordinate, List<SafeZoneDto> posibleZones) {
+        AttackerInSafeZoneDto resultDto = new AttackerInSafeZoneDto();
+        Double attackerLatitude = lastAttackerCoordinate.get_latitude();
+        Double attackerLongitude = lastAttackerCoordinate.get_longitude();
+        Map<String, List<Double>> latitudesMap = new HashMap<>();
+        Map<String, List<Double>> longitudesMap = new HashMap<>();
+        List<Double> latitudes;
+        List<Double> longitudes;
+        List<String> zoneKeys = new ArrayList<>();
+
+        for (SafeZoneDto safeZone : posibleZones) {
+            if (!latitudesMap.containsKey(safeZone.get_name())) { // no se verifica longitudeMap por que ya empieza vacio tambien
+                latitudes = new ArrayList<>();
+                longitudes = new ArrayList<>();
+                latitudesMap.put(safeZone.get_name(), latitudes);
+                longitudesMap.put(safeZone.get_name(), longitudes);
+                zoneKeys.add(safeZone.get_name());
+            }
+            latitudesMap.get(safeZone.get_name()).add(safeZone.get_coordinate().get_latitude());
+            longitudesMap.get(safeZone.get_name()).add(safeZone.get_coordinate().get_longitude());
+        }
+
+        boolean insideSafeZone;
+        Double[] latitudeArray;
+        Double[] longitudeArray;
+        List<Double> auxLatList;
+        List<Double> auxLonList;
+
+        resultDto.set_inside(false); // Establecer en false por defecto
+
+        for (String zoneName : zoneKeys) {
+            auxLatList = latitudesMap.get(zoneName);
+            auxLonList = longitudesMap.get(zoneName);
+            latitudeArray = new Double[auxLatList.size()];
+            longitudeArray = new Double[auxLonList.size()];
+
+            for (int i = 0; i < auxLatList.size(); i++) {
+                latitudeArray[i] = auxLatList.get(i);
+            }
+
+            for (int i = 0; i < auxLonList.size(); i++) {
+                longitudeArray[i] = auxLonList.get(i);
+            }
+
+            insideSafeZone = calculateCoordinatesInArea(attackerLatitude, attackerLongitude, latitudeArray, longitudeArray);
+            if (insideSafeZone) {
+                resultDto.set_inside(insideSafeZone);
+                resultDto.get_zones().add(zoneName);
+                resultDto.set_latitude(attackerLatitude);
+                resultDto.set_longitude(attackerLongitude);
+            }
+
+        }
+
+        return resultDto;
+    }
+
+    public boolean calculateCoordinatesInArea(Double personLatitude, Double personLongitude, Double[] areaLatitudes, Double[] areaLongitudes) {
+        // Crear un objeto Path2D para representar el polígono de la zona
+        Path2D.Double zonaPoligono = new Path2D.Double();
+        zonaPoligono.moveTo(areaLongitudes[0], areaLatitudes[0]);
+        for (int i = 1; i < areaLatitudes.length; i++) {
+            zonaPoligono.lineTo(areaLongitudes[i], areaLatitudes[i]);
+        }
+        zonaPoligono.closePath();
+
+        // Comprobar si la persona se encuentra dentro de la zona determinada
+        return zonaPoligono.contains(personLongitude, personLatitude);
     }
 
 }
