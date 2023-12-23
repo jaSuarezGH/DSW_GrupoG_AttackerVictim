@@ -20,19 +20,31 @@ export const Routes = {
     GET_USER_MAC: '/pages/principal/users/get/mac/',
     UPDATE_ZS: '',
     GET_LOCATION: '',
+    
     CREATE_USER: '/pages/principal/users/createUsers',
+    CREATE_ADMIN: '/pages/principal/users/admin/createAdmin',
     
     UPDATE_USER: '/pages/principal/users/updateUsers',
     UPDATE_USER_CEDULA: '/pages/principal/users/updateUsers/cedula/',
     UPDATE_USER_EMAIL: '/pages/principal/users/updateUsers/email/',
     UPDATE_USER_USERNAME: '/pages/principal/users/updateUsers/username/',
     UPDATE_USER_MAC: '/pages/principal/users/updateUsers/mac/',
+
+    
+    UPDATE_ADMIN: '/pages/principal/users/admin/updateAdmin',
+    UPDATE_ADMIN_EMAIL: '/pages/principal/users/admin/updateAdmin/email/',
+    UPDATE_ADMIN_USERNAME: '/pages/principal/users/admin/updateAdmin/username/',
     
     DELETE_USER: '/pages/principal/users/deleteUsers',
     DELETE_USER_CEDULA: '/pages/principal/users/deleteUsers/cedula/',
     DELETE_USER_EMAIL: '/pages/principal/users/deleteUsers/email/',
     DELETE_USER_USERNAME: '/pages/principal/users/deleteUsers/username/',
     DELETE_USER_MAC: '/pages/principal/users/deleteUsers/mac/',
+
+    
+    DELETE_ADMIN: '/pages/principal/users/admin/deleteAdmin',
+    DELETE_ADMIN_EMAIL: '/pages/principal/users/admin/deleteAdmin/email/',
+    DELETE_ADMIN_USERNAME: '/pages/principal/users/admin/deleteAdmin/username/',
 
     GET_RELATION: '/pages/principal/incident/get/',
     GET_RELATION_VICTIM: '/pages/principal/incident/get/victim/',

@@ -1,12 +1,10 @@
 "use client";
 
-import { Routes } from "@/app/models/routes.model";
 import { ButtonSubmit } from "@/components/Button/ButtonSubmit";
 import { DivHeader } from "@/components/Div";
 import { DivForm } from "@/components/Div/DivForm/DivForm";
 import { DivFormElement } from "@/components/Div/DivFormElement/DivFormElement";
 import { DivSubHeader } from "@/components/Div/Header/DivSubHeader/DivSubHeader";
-import { Navigation } from "@/components/Navigation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import {
@@ -312,7 +310,6 @@ export default function RegistrarVictimaPage() {
 
   return (
     <>
-      <Navigation></Navigation>
       <div className="mt-8 mx-auto grid gap-x-8 gap-y-12 px-6 lg:px-8">
         <DivHeader
           title="Registrar Usuarios"

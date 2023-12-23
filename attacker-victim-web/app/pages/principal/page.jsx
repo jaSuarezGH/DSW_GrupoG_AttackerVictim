@@ -59,7 +59,7 @@ export default function PrincipalPage() {
           <Card
             title="Crear Usuario Administrador"
             description='Crear usuarios de tipo "Administrador" y su respectivo usuario.'
-            link={Routes.CREATE_USER}
+            link={Routes.CREATE_ADMIN}
             tags={[1]}
           ></Card>
 
@@ -78,6 +78,14 @@ export default function PrincipalPage() {
             description="Modificar a un usuario de tipo Victima o Atacante registrado en el sistema."
             link={Routes.UPDATE_USER}
             tags={[2, 3]}
+          ></Card>
+
+          {/* Modificar Administrador */}
+          <Card
+            title="Modificar Usuario Administrador"
+            description="Modificar a un usuario de tipo Administrador registrado en el sistema."
+            link={Routes.UPDATE_ADMIN}
+            tags={[1]}
           ></Card>
 
           {/* Consultar la Relación Victima/Atacante */}
@@ -123,6 +131,14 @@ export default function PrincipalPage() {
             "Atacante" relacionado.'
             link={Routes.DELETE_USER}
             tags={[2, 3]}
+          ></Card>
+
+          {/* Eliminar Usuario Administrador */}
+          <Card
+            title="Eliminar Usuario Administrador"
+            description='Eliminar un usuario de tipo "Administrador" registrado en el sistema.'
+            link={Routes.DELETE_ADMIN}
+            tags={[1]}
           ></Card>
 
           {/* HISTORIAL DE NOTIFICACIONES */}

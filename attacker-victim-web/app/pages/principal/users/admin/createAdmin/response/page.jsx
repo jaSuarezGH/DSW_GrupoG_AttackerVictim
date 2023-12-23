@@ -1,13 +1,13 @@
 import { Routes } from "@/app/models/routes.model";
 import { InformacionPage } from "@/components/InformationPage/InformationPage";
 
-export default function ExitoPage() {
+export default function ExitoAddAdminPage() {
   return (
     <>
       <InformacionPage
-        title="Usuarios Registrados"
+        title="Administrador Registrado"
         encabezado="Completado"
-        description="Los Usuarios ingresados y su respectiva relacion se registraron correctamente."
+        description="El usuario tipo Administrador se ha registrado correctamente en el sistema."
         link={Routes.PRINCIPAL}
         linkText="Volver al Inicio"
       ></InformacionPage>

@@ -1,13 +1,13 @@
 import { Routes } from "@/app/models/routes.model";
 import { InformacionPage } from "@/components/InformationPage/InformationPage";
 
-export default function ExitoPage() {
+export default function ExitoAddAdminPage() {
   return (
     <>
       <InformacionPage
-        title="Usuarios Registrados"
+        title="Administrador Eliminado"
         encabezado="Completado"
-        description="Los Usuarios ingresados y su respectiva relacion se registraron correctamente."
+        description="El usuario tipo Administrador se ha eliminado correctamente del sistema."
         link={Routes.PRINCIPAL}
         linkText="Volver al Inicio"
       ></InformacionPage>

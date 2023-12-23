@@ -17,14 +17,20 @@ export const endGetUserByEmail = "/cmcapp-backend-1.0/api/users/email/";
 export const endGetUserByMAC = "/cmcapp-backend-1.0/api/users/mac/";
 
 export const endGetAdminByEmail = "/cmcapp-backend-1.0/api/administrator/email/";
+export const endGetAdminByUsername = "/cmcapp-backend-1.0/api/administrator/username/";
+
+export const endDeleteAdmin = "/cmcapp-backend-1.0/api/administrator/";
 
 
 export const endAddUser = "/cmcapp-backend-1.0/api/users";
 export const endAddVictim= "/cmcapp-backend-1.0/api/victim";
 export const endAddAttacker= "/cmcapp-backend-1.0/api/attacker";
+export const endAddAdmin= "/cmcapp-backend-1.0/api/administrator";
 
 
 export const endPutUser= "/cmcapp-backend-1.0/api/users";
+
+export const endPutAdmin= "";
 
 export const endPutIncident= "/cmcapp-backend-1.0/api/incident";
 
