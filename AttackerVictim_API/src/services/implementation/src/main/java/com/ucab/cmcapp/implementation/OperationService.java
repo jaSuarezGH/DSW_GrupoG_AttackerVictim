@@ -150,14 +150,12 @@ public class OperationService extends BaseService {
 
         //+++++++++++++++
 
-        //incidentEntity
         HistoryDto historyDto = null;
         GetAttackerLastPositionByIncidentIdCommand attackerPositionCommand = null;
 
         //+++++++++++++++
 
-        List<CustomResponse> tempOut;
-        AttackerInSafeZoneDto resultDto = new AttackerInSafeZoneDto();
+        AttackerInSafeZoneDto resultDto;
 
         try {
             incidentEntity = IncidentMapper.mapDtoToEntity(incidentId);
@@ -187,17 +185,10 @@ public class OperationService extends BaseService {
 
             if (attackerPositionCommand.getReturnParam() != null) {
                 historyDto = HistoryMapper.mapEntityToDto(attackerPositionCommand.getReturnParam());
-                //separationDistance = new DistanceManager().calculateSeparationDistance(responseDTO.get(0), responseDTO.get(1));
             } else
                 return Response.status(Response.Status.OK).entity(new CustomResponse<>("[GENERAL EXCEPTION] Could not calculate the separation distance with incident id: " + incidentId)).build();
 
-
             //--------------------------------------
-
-            //tempOut = new ArrayList<>();
-            //tempOut.add(new CustomResponse<>(incidentDto, "INCIDENTE"));
-            //tempOut.add(new CustomResponse<>(safeZoneDto, "VICTIMS SAFE ZONES"));
-            //tempOut.add(new CustomResponse<>(historyDto, "ATTACKER LAST POSITION"));
 
             resultDto = new DistanceManager().verifyAttackerInSafeZone(historyDto, safeZoneDto);
 

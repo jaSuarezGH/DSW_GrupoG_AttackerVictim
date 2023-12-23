@@ -33,9 +33,7 @@ public class DistanceManager {
     }
 
     public AttackerInSafeZoneDto verifyAttackerInSafeZone(HistoryDto lastAttackerCoordinate, List<SafeZoneDto> posibleZones) {
-        //public AttackerInSafeZoneDto verifyAttackerInSafeZone(HistoryDto lastAttackerCoordinate) {
         AttackerInSafeZoneDto resultDto = new AttackerInSafeZoneDto();
-
         Double attackerLatitude = lastAttackerCoordinate.get_latitude();
         Double attackerLongitude = lastAttackerCoordinate.get_longitude();
         Map<String, List<Double>> latitudesMap = new HashMap<>();
@@ -55,24 +53,6 @@ public class DistanceManager {
             latitudesMap.get(safeZone.get_name()).add(safeZone.get_coordinate().get_latitude());
             longitudesMap.get(safeZone.get_name()).add(safeZone.get_coordinate().get_longitude());
         }
-
-        System.out.println("******************************************************");
-        for (Map.Entry<String, List<Double>> entry : latitudesMap.entrySet()) {
-            String clave = entry.getKey();
-            List<Double> list = entry.getValue();
-            System.out.println("Clave: " + clave + ", Valor: " + list);
-        }
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        for (Map.Entry<String, List<Double>> entry : longitudesMap.entrySet()) {
-            String clave = entry.getKey();
-            List<Double> list = entry.getValue();
-            System.out.println("Clave: " + clave + ", Valor: " + list);
-        }
-        System.out.println("******************************************************");
-
-
-        //auxList = latitudesMap.get("CINE");
-        //Double[] latitudeArray = new Double[auxList.size()];
 
         boolean insideSafeZone;
         Double[] latitudeArray;
@@ -106,15 +86,6 @@ public class DistanceManager {
 
         }
 
-        /*resultDto.set_inside(estaEnZona);
-        resultDto.set_latitude(personaLatitud);
-        resultDto.set_longitude(personaLongitud);*/
-
-
-        /*if (estaEnZona) {
-            System.out.println("La persona se encuentra en la zona determinada.");
-        } else {
-            System.out.println("La persona NO se encuentra en la zona determinada.");*/
         return resultDto;
     }
 

@@ -404,16 +404,17 @@ public class CommandFactory {
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     // ------------------( getSeparationDistanceByIncidentId )---------------
+    // ------------------( getAttackerVictimLastPositionsByIncidentId )------
     public static GetLastPositionsByIncidentIdCommand createGetLastPositionsByIncidentIdCommand(Incident incident) {
         return new GetLastPositionsByIncidentIdCommand(incident);
     }
 
-    // ------------------( getAttackerLastPositionsByIncidentId )---------------
+    // ------------------( getAttackerLastPositionsByIncidentId )------------
     public static GetAttackerLastPositionByIncidentIdCommand createGetAttackerLastPositionsByIncidentIdCommand(Incident incident) {
         return new GetAttackerLastPositionByIncidentIdCommand(incident);
     }
 
-    // ------------------( getVictimLastPositionsByIncidentId )---------------
+    // ------------------( getVictimLastPositionsByIncidentId )--------------
     public static GetVictimLastPositionByIncidentIdCommand createGetVictimLastPositionByIncidentIdCommand(Incident incident) {
         return new GetVictimLastPositionByIncidentIdCommand(incident);
     }
