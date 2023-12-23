@@ -5,7 +5,6 @@ import { Navigation } from "@/components/Navigation";
 export default function ExitoPage() {
   return (
     <>
-      <Navigation number={0}></Navigation>
       <InformacionPage
         title="Relacion Modificada"
         encabezado="Completado"

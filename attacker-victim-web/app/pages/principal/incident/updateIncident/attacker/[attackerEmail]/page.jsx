@@ -79,15 +79,22 @@ export default function getIncidentByAttackerEmailPage({ params }) {
     e.preventDefault();
 
     if (distanciaAlejamiento > 0) {
-        const updateIncident = await fetchPostPut(endPutIncident, "PUT", incident );
-        if (updateIncident != null){
-            router.push('/pages/principal/users/updateIncident/response');
-          } else {
-            setDescriptionError(
-              "Ha ocurrido un error inesperado al realizar la operacion de Modificacion de Incidente. Por favor intente nuevamente mas tarde."
-            );
-            setErrorInfo(true);
-          }
+      incident._separation_distance = distanciaAlejamiento;
+
+      const updateIncident = await fetchPostPut(
+        endPutIncident,
+        "PUT",
+        incident
+      );
+      if (updateIncident != null) {
+        setErrorInfo(false);
+        router.push("/pages/principal/incident/updateIncident/response");
+      } else {
+        setDescriptionError(
+          "Ha ocurrido un error inesperado al realizar la operacion de Modificacion de Incidente. Por favor intente nuevamente mas tarde."
+        );
+        setErrorInfo(true);
+      }
     } else {
       setDescriptionError(
         "La Distancia de Alejamiento entre la Victima y el Atacante debe ser un numero positivo (mayor a 0)."
@@ -98,53 +105,53 @@ export default function getIncidentByAttackerEmailPage({ params }) {
 
   return (
     <>
-    <div className="mt-8 mx-auto grid gap-x-8 gap-y-12 px-6 lg:px-8">
+      <div className="mt-8 mx-auto grid gap-x-8 gap-y-12 px-6 lg:px-8">
         <DivHeader
           title="Modificar Relacion Victima/Atacante"
           description="Ingrese los nuevos datos correspondiente a la Relacion (Incidente) entre los usuarios Victima/Atacante."
           tags={[2, 3]}
         ></DivHeader>
       </div>
-    <form className="m-10 mb-6" onSubmit={onSubmit}>
-      {/* DATOS DE LA RELACION VIC/ATA */}
-      <div className="space-y-12 mt-10">
-        <DivSubHeader
-          title="Datos de la relacion entre la Victima y el Atacante"
-          description="Ingrese los datos correspondiente de la relacion entre la Victima
+      <form className="m-10 mb-6" onSubmit={onSubmit}>
+        {/* DATOS DE LA RELACION VIC/ATA */}
+        <div className="space-y-12 mt-10">
+          <DivSubHeader
+            title="Datos de la relacion entre la Victima y el Atacante"
+            description="Ingrese los datos correspondiente de la relacion entre la Victima
             y el Atacante ingresados previamente."
-        ></DivSubHeader>
+          ></DivSubHeader>
 
-        <div className="border-b border-gray-900/10 pb-12">
-          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-            <DivFormElement
-              textLabel="Distancia de Alejamiento (en metros)"
-              type="number"
-              id="alejamiento"
-              name="alejamiento"
-              placeholder="Ingrese la distancia en metros de alejamiento minimo entre los usuarios aqui"
-              onChange={(e) => {
-                setDistanciaAlejamiento(e.target.value);
-              }}
-              value={distanciaAlejamiento}
-            ></DivFormElement>
+          <div className="border-b border-gray-900/10 pb-12">
+            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+              <DivFormElement
+                textLabel="Distancia de Alejamiento (en metros)"
+                type="number"
+                id="alejamiento"
+                name="alejamiento"
+                placeholder="Ingrese la distancia en metros de alejamiento minimo entre los usuarios aqui"
+                onChange={(e) => {
+                  setDistanciaAlejamiento(e.target.value);
+                }}
+                value={distanciaAlejamiento}
+              ></DivFormElement>
+            </div>
           </div>
         </div>
-      </div>
-      {errorInfo && (
-        <div className="mt-8">
-          <AlertError description={descriptionError}></AlertError>
+        {errorInfo && (
+          <div className="mt-8">
+            <AlertError description={descriptionError}></AlertError>
+          </div>
+        )}
+        {/* Boton Submit */}
+        <div className="mb-8 mt-12 flex items-center justify-end gap-x-6 pr-6">
+          <div className="w-1/6">
+            <ButtonSubmit
+              text="Modificar Relacion"
+              styles="px-3 py-3 text-lg"
+            ></ButtonSubmit>
+          </div>
         </div>
-      )}
-      {/* Boton Submit */}
-      <div className="mb-8 mt-12 flex items-center justify-end gap-x-6 pr-6">
-        <div className="w-1/6">
-          <ButtonSubmit
-            text="Modificar Relacion"
-            styles="px-3 py-3 text-lg"
-          ></ButtonSubmit>
-        </div>
-      </div>
-    </form>
+      </form>
     </>
   );
 }

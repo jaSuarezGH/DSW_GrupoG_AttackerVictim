@@ -49,6 +49,7 @@ export default function RootPage() {
                   type="url"
                   placeholder="http://ejemplo.com"
                   onChange={(evento) => setUrl(evento.target.value)}
+                  value={url}
                 ></Input>
               </div>
             </div>
