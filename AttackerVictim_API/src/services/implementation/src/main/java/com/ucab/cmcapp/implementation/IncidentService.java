@@ -6,11 +6,9 @@ import com.ucab.cmcapp.common.util.CustomResponse;
 import com.ucab.cmcapp.logic.commands.CommandFactory;
 import com.ucab.cmcapp.logic.commands.Incident.atomic.GetIncidentByAttackerIdCommand;
 import com.ucab.cmcapp.logic.commands.Incident.atomic.GetIncidentByVictimIdCommand;
-import com.ucab.cmcapp.logic.commands.Incident.composite.CreateIncidentCommand;
-import com.ucab.cmcapp.logic.commands.Incident.composite.DeleteIncidentCommand;
-import com.ucab.cmcapp.logic.commands.Incident.composite.GetAllIncidentCommand;
-import com.ucab.cmcapp.logic.commands.Incident.composite.GetIncidentCommand;
+import com.ucab.cmcapp.logic.commands.Incident.composite.*;
 import com.ucab.cmcapp.logic.commands.user.composite.GetUserCommand;
+import com.ucab.cmcapp.logic.commands.user.composite.UpdateUserCommand;
 import com.ucab.cmcapp.logic.dtos.IncidentDto;
 import com.ucab.cmcapp.logic.dtos.UserDto;
 import com.ucab.cmcapp.logic.mappers.IncidentMapper;
@@ -173,6 +171,25 @@ public class IncidentService extends BaseService {
         }
 
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully deleted relationship attacker-victim registry with id: " + incidentId)).build();
+    }
+
+    @PUT
+    public Response updateUser(IncidentDto incidentDto) {
+        Incident entity;
+        IncidentDto responseDTO = null;
+        UpdateIncidentCommand command = null;
+        try {
+            entity = IncidentMapper.mapDtoToEntity(incidentDto);
+            command = CommandFactory.createUpdateIncidentCommand(entity);
+            command.execute();
+            responseDTO = IncidentMapper.mapEntityToDto(command.getReturnParam());
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method updateIncident, relationship attacker-victim could not be updated: " + e.getMessage())).build();
+        } finally {
+            if (command != null)
+                command.closeHandlerSession();
+        }
+        return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully modified relationship attacker-victim with id: " + incidentDto.getId())).build();
     }
 
 }

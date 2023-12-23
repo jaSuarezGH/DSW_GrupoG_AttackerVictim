@@ -2,10 +2,7 @@ package com.ucab.cmcapp.logic.commands;
 
 import com.ucab.cmcapp.common.entities.*;
 import com.ucab.cmcapp.logic.commands.Incident.atomic.*;
-import com.ucab.cmcapp.logic.commands.Incident.composite.CreateIncidentCommand;
-import com.ucab.cmcapp.logic.commands.Incident.composite.DeleteIncidentCommand;
-import com.ucab.cmcapp.logic.commands.Incident.composite.GetAllIncidentCommand;
-import com.ucab.cmcapp.logic.commands.Incident.composite.GetIncidentCommand;
+import com.ucab.cmcapp.logic.commands.Incident.composite.*;
 import com.ucab.cmcapp.logic.commands.administrator.atomic.*;
 import com.ucab.cmcapp.logic.commands.administrator.composite.CreateAdministratorCommand;
 import com.ucab.cmcapp.logic.commands.administrator.composite.DeleteAdministratorCommand;
@@ -232,6 +229,15 @@ public class CommandFactory {
 
     public static EraseIncidentCommand createEraseIncidentCommand(Incident incident, DBHandler handler) {
         return new EraseIncidentCommand(incident, handler);
+    }
+
+    // ------------------( updateIncident )----------------------
+    public static UpdateIncidentCommand createUpdateIncidentCommand(Incident incident) {
+        return new UpdateIncidentCommand(incident);
+    }
+
+    public static ModifyIncidentCommand createModifyIncidentCommand(Incident incident, DBHandler handler) {
+        return new ModifyIncidentCommand(incident, handler);
     }
 
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
