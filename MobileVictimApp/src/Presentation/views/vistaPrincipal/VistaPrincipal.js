@@ -1,12 +1,39 @@
-import React from 'react';
-import { View,Text,StyleSheet,Image } from 'react-native';
+
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { principalViewModel } from '../../../../src/Presentation/views/vistaPrincipal/VistaPrincipalViewModel';
-import MapView from 'react-native-maps'
+import MapView from 'react-native-maps';
+import * as Location from 'expo-location';
 
 export const VistaPrincipalScreen = () => {
+
+    const [location, setLocation] = useState(null);
+
+    useEffect(() => {
+        (async () => {
+          let { status } = await Location.requestForegroundPermissionsAsync();
+          if (status !== 'granted') {
+            alert('Permiso de acceso a la ubicación denegado');
+            return;
+          }
     
+          let locationSubscription = await Location.watchPositionAsync({
+            accuracy: Location.Accuracy.High,
+            timeInterval: 1000,
+            distanceInterval: 1,
+          }, (newLocation) => {
+            setLocation(newLocation);
+          });
+    
+          return () => {
+            if (locationSubscription) {
+              locationSubscription.remove();
+            }
+          };
+        })();
+      }, []);
+
     return(
-        
         <View style = {styles.container}>
             <View style={styles.logoContainer}>
               <Image 
@@ -20,17 +47,16 @@ export const VistaPrincipalScreen = () => {
             <MapView 
                 style={styles.map} 
                 provider={MapView.PROVIDER_GOOGLE} 
-                key = 'AIzaSyDzncrVcssunh1W8avgQlixEYOSVqM6V4A'
+                //key = 'AIzaSyDzncrVcssunh1W8avgQlixEYOSVqM6V4A'
                 showsUserLocation={true} 
-                initialRegion={{ 
-                    latitude: 10.46361826840536 , 
-                    longitude: -66.97800712163459,
+                region={{ 
+                    latitude: location ? location.coords.latitude : 0,
+                    longitude: location ? location.coords.longitude : 0,
                     latitudeDelta: 0.001472, 
                     longitudeDelta: 0.000768, 
                 }}
                 locationUpdateInterval={1000}
-            /> 
-            
+            />   
         </View>
     );
 }

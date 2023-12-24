@@ -2,7 +2,10 @@ import React from 'react';
 import { View,Text,StyleSheet,TextInput, TouchableOpacity,Image } from 'react-native';
 import { RoundedButtonLogin } from '../../components/RoundedButtonLogin';
 import {recuperarViewModel} from './VistaRecuperacionViewModel';
+import { Dimensions } from 'react-native';
 
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 export const VistaRecuperacionScreen = () => {
 
@@ -51,32 +54,31 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     form:{
-        width:'80%',
-        height:'35%',
-        position:'absolute',
-        backgroundColor:'white',
-        bottom:'35%',
-        borderTopRightRadius:25,
-        borderTopLeftRadius:25,
-        borderBottomLeftRadius:25,
-        borderBottomRightRadius:25,
-        padding: 30,
-      },
-      textForm:{
-        fontWeight:'bold',
-        fontSize:16,
-        marginBottom: 20,
-      },
-      textInputForm:{
-        flex:1,
-        borderBottomWidth:1,
-        borderBottomColor:'#EBEBEB',
-        fontSize:16,
-      },
-      inputForm:{
-        flexDirection:'row',
-        marginTop:5,
-      },
+      width: windowWidth * 0.8,
+      height: windowHeight * 0.5,
+      position:'absolute',
+      backgroundColor:'white',
+      bottom: windowHeight * 0.15,
+      borderTopRightRadius:25,
+      borderTopLeftRadius:25,
+      borderBottomLeftRadius:25,
+      borderBottomRightRadius:25,
+      padding: 30,
+  },
+  textForm:{
+      fontWeight:'bold',
+      fontSize: 20 * (windowWidth / 390),
+  },
+  inputForm:{
+      flexDirection:'row',
+      marginTop:35 * (windowHeight / 835),
+  },
+  textInputForm:{
+      flex:1,
+      borderBottomWidth:1,
+      borderBottomColor:'#EBEBEB',
+      fontSize:14 * (windowWidth / 390),
+  },
       imageLogo:{
         width:30,
         height:30,

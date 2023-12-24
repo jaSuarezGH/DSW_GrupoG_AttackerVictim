@@ -1,6 +1,9 @@
 import React from "react";
 import { TouchableOpacity,Text,StyleSheet } from "react-native";
+import { Dimensions } from 'react-native';
 
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 export const RoundedButtonLogin = ({text,onPress}) =>{
     
@@ -17,17 +20,18 @@ export const RoundedButtonLogin = ({text,onPress}) =>{
 
 const styles= StyleSheet.create({
     roundeButton:{
-        with:'100%',
-        height: 50,
+        with: windowWidth * 1.0,
+        height: windowHeight * 0.07,
         backgroundColor: '#3A84FF',
         alignItems:'center',
         justifyContent:'center',
         borderRadius: 15,
-        marginTop: 20,
+        marginTop: 17 * (windowHeight / 820),
     },
     textButton:{
         color:'white',
-        fontWeight:'bold'
+        fontWeight:'bold',
+        fontSize: 18 * (windowWidth / 390)
     }
 
 })
