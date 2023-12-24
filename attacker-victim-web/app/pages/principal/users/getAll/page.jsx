@@ -1,14 +1,13 @@
-
 import { DivHeader } from "@/components/Div";
 import { Navigation } from "@/components/Navigation";
-import {UsersFetch} from ".";
+import { fetchGetDelete } from "@/app/pages/principal/fetch/fetchGetDelete";
 import TablaAllUsers from "@/components/Table/AllUsers/TablaAllUsers";
-
-
+import { endGetAllUsers } from "@/app/models/endpoint.model";
+import { Suspense } from "react";
+import  Loading  from "@/components/Loading/Loading";
 
 export default async function UsersPage() {
-
-  const users = await UsersFetch();
+  const users = await fetchGetDelete(endGetAllUsers);
 
   return (
     <>
@@ -22,11 +21,11 @@ export default async function UsersPage() {
             sistema."
             tags={[1, 2, 3]}
           ></DivHeader>
-
-          <TablaAllUsers users={users}></TablaAllUsers>
+          <Suspense fallback={<Loading />}>
+            <TablaAllUsers users={users}></TablaAllUsers>
+          </Suspense>
         </div>
       </div>
     </>
   );
 }
-

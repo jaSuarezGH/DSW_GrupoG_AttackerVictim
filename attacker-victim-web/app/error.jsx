@@ -1,7 +1,7 @@
 "use client";
 
 import { InformacionPage } from "@/components/InformationPage/InformationPage";
-import { Routes } from "./models";
+import { Routes } from "@/app/models/routes.model";
 
 export default function ErrorRoot() {
   return (

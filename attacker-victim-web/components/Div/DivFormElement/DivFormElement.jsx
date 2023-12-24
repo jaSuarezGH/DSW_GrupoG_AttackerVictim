@@ -2,7 +2,7 @@ import { Input } from "@/components/Input/Input";
 import { Label } from "@/components/Label/Label";
 
 
-export function DivFormElement({ textLabel, type, name, id, placeholder = '' }) {
+export function DivFormElement({ textLabel, type, name, id, placeholder = '', onChange, value = '' }) {
 
     return (
         <div className="sm:col-span-3">
@@ -13,6 +13,8 @@ export function DivFormElement({ textLabel, type, name, id, placeholder = '' }) 
             name={name}
             id={id}
             placeholder={placeholder}
+            onChange={onChange}
+            value={value}
           ></Input>
         </div>
       </div>

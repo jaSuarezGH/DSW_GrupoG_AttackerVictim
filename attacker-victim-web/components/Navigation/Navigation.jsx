@@ -1,19 +1,11 @@
 "use client";
 
-import { Routes } from "@/app/models";
+import { Routes } from "@/app/models/routes.model";
 import { Disclosure } from "@headlessui/react";
-import {
-  Bars3Icon,
-  Cog6ToothIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
-
-const userNavigation = [
-  { name: "Configuracion", href: Routes.USER_CONFIG },
-  { name: "Cerrar Sesion", href: Routes.SIGN_OFF },
-];
+const userNavigation = [{ name: "Cerrar Sesion", href: Routes.SIGN_OFF }];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -23,7 +15,11 @@ const navigation = [
   { name: "Funcionalidades", href: Routes.PRINCIPAL, current: true },
   { name: "Victima", href: Routes.PRINCIPAL_VICTIM, current: false },
   { name: "Atacante", href: Routes.PRINCIPAL_ATTACKER, current: false },
-  { name: "Consultar Posicionamiento", href: Routes.GET_LOCATION, current: false },
+  {
+    name: "Consultar Posicionamiento",
+    href: Routes.GET_LOCATION,
+    current: false,
+  },
   { name: "Notificaciones", href: Routes.GET_NOTIFICATIONS, current: false },
 ];
 
@@ -34,9 +30,6 @@ export function Navigation({ number = 0 }) {
   });
 
   navigation[number].current = true;
-
-
-
 
   return (
     <>
@@ -76,15 +69,6 @@ export function Navigation({ number = 0 }) {
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-4 flex items-center md:ml-6">
-                      <button
-                        type="button"
-                        className=" mr-7 relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                      >
-                        <span className="absolute -inset-1.5" />
-                        <span className="sr-only">Configuracion</span>
-                        <Cog6ToothIcon className="h-6 w-6" aria-hidden="true" />
-                      </button>
-
                       <Link
                         href={Routes.SIGN_OFF}
                         className="bg-rose-700 text-white rounded-md px-3 py-2 text-sm font-medium"
@@ -156,17 +140,3 @@ export function Navigation({ number = 0 }) {
     </>
   );
 }
-
-/* Parte del codigo opcional para mostrar un titulo (header) relacionado con la barra de Navegacion: */
-/* 
-<header className="border-b-2 bg-white shadow">
-<div className="mx-auto max-w-full px-4 py-6 sm:px-6 lg:px-8">
-  {navigation.map((item) => (
-      <h1 
-        key={item.name} 
-        className="ml-3 text-3xl font-bold tracking-tight text-gray-900">
-          {item.current ? item.name : null}
-      </h1>
-  ))}
-</div>
-</header> */

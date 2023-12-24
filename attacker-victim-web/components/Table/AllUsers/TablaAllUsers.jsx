@@ -1,4 +1,4 @@
-import FillTable from "./FillTableAllUsers";
+import FillTableAllUsers from "./FillTableAllUsers";
 
 function TablaAllUsers({ users }) {
   return (
@@ -6,9 +6,6 @@ function TablaAllUsers({ users }) {
       <table class="w-full text-sm text-center text-gray-500">
         <thead class="text-xs text-gray-700 uppercase bg-indigo-100 border-b-2 border-slate-300">
           <tr>
-            <th scope="col" class="px-6 py-3">
-              Tipo
-            </th>
             <th scope="col" class="px-6 py-3">
               Usuario
             </th>
@@ -30,10 +27,13 @@ function TablaAllUsers({ users }) {
             <th scope="col" class="px-6 py-3">
               MAC
             </th>
+            <th scope="col" class="px-6 py-3">
+              Estado
+            </th>
           </tr>
         </thead>
         <tbody>
-          <FillTable users={users}></FillTable>
+          <FillTableAllUsers users={users}></FillTableAllUsers>
         </tbody>
       </table>
     </div>
