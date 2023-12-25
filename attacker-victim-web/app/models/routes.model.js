@@ -19,7 +19,10 @@ export const Routes = {
     GET_USER_USERNAME: '/pages/principal/users/get/username/',
     GET_USER_MAC: '/pages/principal/users/get/mac/',
     UPDATE_ZS: '',
-    GET_LOCATION: '',
+
+
+    GET_LOCATION_HOME: '/pages/principal/coordinates/consultPosicionamiento',
+    GET_LOCATION_USER: '/pages/principal/coordinates/consultPosicionamiento/position/',
     
     CREATE_USER: '/pages/principal/users/createUsers',
     CREATE_ADMIN: '/pages/principal/users/admin/createAdmin',
@@ -53,6 +56,9 @@ export const Routes = {
     UPDATE_RELATION: '/pages/principal/incident/updateIncident/',
     UPDATE_RELATION_VICTIM: '/pages/principal/incident/updateIncident/victim/',
     UPDATE_RELATION_ATTACKER: '/pages/principal/incident/updateIncident/attacker/',
+
+
+
 
 
     //Login

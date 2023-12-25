@@ -17,7 +17,7 @@ const navigation = [
   { name: "Atacante", href: Routes.PRINCIPAL_ATTACKER, current: false },
   {
     name: "Consultar Posicionamiento",
-    href: Routes.GET_LOCATION,
+    href: Routes.GET_LOCATION_HOME,
     current: false,
   },
   { name: "Notificaciones", href: Routes.GET_NOTIFICATIONS, current: false },

@@ -106,21 +106,13 @@ export default function PrincipalPage() {
             tags={[2, 3]}
           ></Card>
 
-          {/* Modificar Zonas Seguras de Victima. */}
-          <Card
-            title="Modificar Zonas Seguras de Victima"
-            description='Modificar las Zonas Seguras relacionadas a un usuario de tipo
-            "Victima" registrado en el sistema.'
-            link={Routes.GET_USER}
-            tags={[2]}
-          ></Card>
 
           {/* Posicionamiento de Victima/Atacante */}
           <Card
             title="Posicionamiento de Victima/Atacante"
             description='Consultar el ultimo posicionamiento de un usuario tipo "Victima" o
             un usuario "Atacante".'
-            link={Routes.GET_USER}
+            link={Routes.GET_LOCATION_HOME}
             tags={[2, 3]}
           ></Card>
 
