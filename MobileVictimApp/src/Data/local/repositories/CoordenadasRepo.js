@@ -14,3 +14,20 @@ export const postCoordenadas = async (coordenadas) => {
       throw error;
     }
 };
+
+export const getZonasSeguras = async (id) => {
+  try {
+    const solicitud = await apiClient.get('/safezone/'+id+'');
+    if (solicitud !== undefined) {
+      if (solicitud.status === 200) { //Condicion del tipo de status que se recibio
+        if (solicitud.data.response !== null) {
+          return solicitud;
+        } else {
+          throw new Error(solicitud.data.description);
+        }
+      } 
+    }
+  } catch (error) {
+    throw error;
+  }
+};

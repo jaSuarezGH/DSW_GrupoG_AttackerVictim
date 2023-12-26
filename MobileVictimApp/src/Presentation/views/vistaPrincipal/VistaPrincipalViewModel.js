@@ -8,9 +8,34 @@ import { Alert } from 'react-native';
 import { EliminarUsuarioCoordenadas } from '../../../Domain/useCases/EliminarCoordenadasGuardadas';
 import { PostUsuarioCoordenadas } from '../../../Domain/useCases/EnviarCoordenadas';
 import { Gyroscope } from 'expo-sensors';
+import {ObtenerZonasSegurasID} from '../../../Domain/useCases/ObtenerZonasSeguras';
 
 export const principalViewModel = () => {
     global.gyroStatus = 'MOBILE';
+
+    const gestionarZonasSeguras = async () => {
+      let zonasSeguras = [];
+      try {
+        const zonas = await ObtenerZonasSegurasID(userID);
+        if (zonas.status === 200){
+          let nombreZona = zonas.data.response[0]._name;
+          let coordenadasZonaSegura = [];
+          for (let datosApi of zonas.data.response) {
+            if (nombreZona === datosApi._name){
+              coordenadasZonaSegura.push({latitude: datosApi._coordinate._latitude, longitude: datosApi._coordinate._longitude});
+            } else {
+              zonasSeguras.push({_name: nombreZona, _coordinates: coordenadasZonaSegura});
+              nombreZona = datosApi._name;
+              coordenadasZonaSegura = [{latitude: datosApi._coordinate._latitude, longitude: datosApi._coordinate._longitude}];
+            }
+          }      
+          zonasSeguras.push({_name: nombreZona, _coordinates: coordenadasZonaSegura}); // para la última zona
+        };
+        return zonasSeguras;
+      } catch (error){
+        Alert.alert('Error al obtener las zonas seguras',JSON.stringify(error));
+      }
+    };
 
     const funcionDemonio = () => {
       const [conexionInternet, setConexionInternet] = useState(true);
@@ -126,5 +151,5 @@ export const principalViewModel = () => {
       return conexionInternet;
     };
 
-  return funcionDemonio;
+  return {funcionDemonio, gestionarZonasSeguras};
 }

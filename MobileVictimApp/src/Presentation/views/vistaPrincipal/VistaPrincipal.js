@@ -1,30 +1,45 @@
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image,Button } from 'react-native';
 import { principalViewModel } from '../../../../src/Presentation/views/vistaPrincipal/VistaPrincipalViewModel';
-import MapView from 'react-native-maps';
+import MapView, {Polygon} from 'react-native-maps';
 import * as Location from 'expo-location';
 
 export const VistaPrincipalScreen = () => {
+    const [initialLocation, setInitialLocation] = useState(null);
+    const [currentLocation, setCurrentLocation] = useState(null);
+    const [zonasSeguras,setZonasSeguras] = useState([]);
 
-    const [location, setLocation] = useState(null);
+    const {gestionarZonasSeguras} = principalViewModel();
 
     useEffect(() => {
+        (async () => {
+          const zonas = await gestionarZonasSeguras();
+          setZonasSeguras(zonas);
+          console.log('----------------------------------')
+          console.log(Array.isArray(zonas));
+        })();
+      }, []);
+      
+      useEffect(() => {
         (async () => {
           let { status } = await Location.requestForegroundPermissionsAsync();
           if (status !== 'granted') {
             alert('Permiso de acceso a la ubicación denegado');
             return;
           }
-    
+      
           let locationSubscription = await Location.watchPositionAsync({
             accuracy: Location.Accuracy.High,
             timeInterval: 1000,
             distanceInterval: 1,
           }, (newLocation) => {
-            setLocation(newLocation);
+            if (!initialLocation) {
+              setInitialLocation(newLocation);
+            }
+            setCurrentLocation(newLocation);
           });
-    
+      
           return () => {
             if (locationSubscription) {
               locationSubscription.remove();
@@ -32,6 +47,10 @@ export const VistaPrincipalScreen = () => {
           };
         })();
       }, []);
+
+    const centerMapOnUser = () => {
+        setInitialLocation(currentLocation);
+    };
 
     return(
         <View style = {styles.container}>
@@ -47,22 +66,29 @@ export const VistaPrincipalScreen = () => {
             <MapView 
                 style={styles.map} 
                 provider={MapView.PROVIDER_GOOGLE} 
-                //key = 'AIzaSyDzncrVcssunh1W8avgQlixEYOSVqM6V4A'
                 showsUserLocation={true} 
                 region={{ 
-                    latitude: location ? location.coords.latitude : 0,
-                    longitude: location ? location.coords.longitude : 0,
+                    latitude: 10.48752/*initialLocation ? initialLocation.coords.latitude : 0*/,
+                    longitude: -66.93866/*initialLocation ? initialLocation.coords.longitude : 0*/,
                     latitudeDelta: 0.001472, 
                     longitudeDelta: 0.000768, 
                 }}
-                locationUpdateInterval={1000}
-            />   
+                locationUpdateInterval={3000}
+                >
+                {zonasSeguras.map((zona, index) => (
+                    <Polygon
+                    key={index}
+                    coordinates={zona._coordinates}
+                    strokeColor="#000" // borde
+                    fillColor="rgba(255,0,0,0.5)" // relleno
+                    strokeWidth={1}
+                    />  
+                ))}
+            </MapView>
+
         </View>
     );
 }
-//<Text style={styles.textForm}>{isConnected ? 'Online' : 'Offline'}</Text>
-//<Text style ={styles.textForm}>Status: </Text>
-
 const styles = StyleSheet.create({
     container: {
       flex: 1,
