@@ -1,5 +1,6 @@
 package com.ucab.cmcapp.persistence;
 
+import com.ucab.cmcapp.common.entities.Notification;
 import com.ucab.cmcapp.persistence.dao.*;
 
 public class DaoFactory {
@@ -36,6 +37,10 @@ public class DaoFactory {
 
     public static AdministratorDao createAdministratorDao(DBHandler handler) {
         return new AdministratorDao(handler);
+    }
+
+    public static NotificationDao createAdministrationDao(DBHandler handler) {
+        return new NotificationDao(handler);
     }
 
 }
