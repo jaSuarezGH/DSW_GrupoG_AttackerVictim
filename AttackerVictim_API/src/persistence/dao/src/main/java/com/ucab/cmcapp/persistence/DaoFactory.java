@@ -39,7 +39,7 @@ public class DaoFactory {
         return new AdministratorDao(handler);
     }
 
-    public static NotificationDao createAdministrationDao(DBHandler handler) {
+    public static NotificationDao createNotificationDao(DBHandler handler) {
         return new NotificationDao(handler);
     }
 

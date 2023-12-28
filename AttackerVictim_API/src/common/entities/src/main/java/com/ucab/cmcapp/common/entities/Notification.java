@@ -26,6 +26,7 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long _id;
 
+    //@Basic(optional = false)
     @Column(name = "full_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false)
     private Date _full_date;
 
