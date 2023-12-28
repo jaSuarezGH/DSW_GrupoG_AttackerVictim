@@ -133,6 +133,32 @@ export default function PrincipalPage() {
             tags={[1]}
           ></Card>
 
+
+          {/* Crear Zona Segura */}
+          <Card
+            title="Crear Zona Segura"
+            description='Crear Zona Segura para un usuario de tipo "Victima" registrado en el sistema.'
+            link={Routes.CREATE_ZS}
+            tags={[2]}
+          ></Card>
+
+          {/* Consultar Zona Segura */}
+          <Card
+            title="Consultar Zona Segura"
+            description='Consultar Zona Segura de un usuario de tipo "Victima" registrado en el sistema.'
+            link={Routes.CONSULT_ZS}
+            tags={[2]}
+          ></Card>
+
+          {/* Eliminar Zona Segura */}
+          <Card
+            title="Eliminar Zona Segura"
+            description='Eliminar Zona Segura de un usuario de tipo "Victima" registrado en el sistema.'
+            link={Routes.DELETE_ZS}
+            tags={[2]}
+          ></Card>
+
+
           {/* HISTORIAL DE NOTIFICACIONES */}
           <Card
             title="Historial de Notificaciones"

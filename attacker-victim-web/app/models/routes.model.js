@@ -18,7 +18,6 @@ export const Routes = {
     GET_USER_EMAIL: '/pages/principal/users/get/email/',
     GET_USER_USERNAME: '/pages/principal/users/get/username/',
     GET_USER_MAC: '/pages/principal/users/get/mac/',
-    UPDATE_ZS: '',
 
 
     GET_LOCATION_HOME: '/pages/principal/coordinates/consultPosicionamiento',
@@ -57,7 +56,10 @@ export const Routes = {
     UPDATE_RELATION_VICTIM: '/pages/principal/incident/updateIncident/victim/',
     UPDATE_RELATION_ATTACKER: '/pages/principal/incident/updateIncident/attacker/',
 
-
+    CONSULT_ZS: '/pages/principal/coordinates/safeZone/consultSafeZone',
+    CONSULT_ZS_EMAIL: '/pages/principal/coordinates/safeZone/consultSafeZone/email/',
+    CREATE_ZS: '/pages/principal/coordinates/safeZone/createSafeZone/',
+    DELETE_ZS: '/pages/principal/coordinates/safeZone/deleteSafeZone/',
 
 
 

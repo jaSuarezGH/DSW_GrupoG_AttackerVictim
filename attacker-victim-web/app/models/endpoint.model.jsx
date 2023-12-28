@@ -3,6 +3,7 @@
 // el enlace del servidor donde corre nuestra API.
 // Ademas de todos los endpoint del sistema web.
 
+// https://big-famous-raccoon.ngrok-free.app
 export const enlaceAPI = "http://127.0.0.1:8080";
 
 export const endGetAllUsers = `/cmcapp-backend-1.0/api/users/all`;
@@ -48,6 +49,7 @@ export const endGetPositionByVictim= "/cmcapp-backend-1.0/api/operation/victim-l
 export const endGetPositionByAttacker= "/cmcapp-backend-1.0/api/operation/attacker-last-position/";
 
 
+export const endGetSafeZonesByUser= "/cmcapp-backend-1.0/api/safezone/";
 
 
 
