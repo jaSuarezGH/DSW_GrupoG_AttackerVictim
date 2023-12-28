@@ -50,6 +50,7 @@ export const endGetPositionByAttacker= "/cmcapp-backend-1.0/api/operation/attack
 
 
 export const endGetSafeZonesByUser= "/cmcapp-backend-1.0/api/safezone/";
+export const endDeleteSafeZoneById= "/cmcapp-backend-1.0/api/safezone/";
 
 
 

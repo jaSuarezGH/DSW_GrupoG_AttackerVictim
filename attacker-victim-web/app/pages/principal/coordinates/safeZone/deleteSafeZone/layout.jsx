@@ -1,18 +1,16 @@
-
-import './../../styles/globals.css'
-
+import { Navigation } from "@/components/Navigation";
 
 export const metadata = {
-  title: 'Eliminar Zona Segura | AttackVictim',
-}
+  title: "Eliminar Zona Segura - AttackVictim",
+};
 
-export default function DeleteZSLayout({ children }) {
+export default function deleteZSLayout({ children }) {
   return (
-    <html lang="es">
-      <body >
-      
+    <html>
+      <body>
+        <Navigation number={1}></Navigation>
         {children}
-        </body>
+      </body>
     </html>
   );
 }
