@@ -29,6 +29,7 @@ import com.ucab.cmcapp.logic.commands.history.composite.CreateHistoryCommand;
 import com.ucab.cmcapp.logic.commands.history.composite.DeleteHistoryCommand;
 import com.ucab.cmcapp.logic.commands.history.composite.GetAllHistoryCommand;
 import com.ucab.cmcapp.logic.commands.notification.atomic.AddNotificationCommand;
+import com.ucab.cmcapp.logic.commands.notification.atomic.GetAllNotificationByUserIdCommand;
 import com.ucab.cmcapp.logic.commands.notification.atomic.GetAllNotificationListCommand;
 import com.ucab.cmcapp.logic.commands.notification.composite.CreateNotificationCommand;
 import com.ucab.cmcapp.logic.commands.notification.composite.GetAllNotificationCommand;
@@ -433,6 +434,11 @@ public class CommandFactory {
 
     public static GetAllNotificationListCommand createGetAllNotificationListCommand(DBHandler handler) {
         return new GetAllNotificationListCommand(handler);
+    }
+
+    // ------------------( getAllNotificationByUserId )----------
+    public static GetAllNotificationByUserIdCommand createGetAllNotificationByUserIdCommand(Notification notification) {
+        return new GetAllNotificationByUserIdCommand(notification);
     }
 
     // ------------------( addNotification )---------------------
