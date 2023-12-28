@@ -28,6 +28,11 @@ import com.ucab.cmcapp.logic.commands.history.atomic.GetAllHistoryListCommand;
 import com.ucab.cmcapp.logic.commands.history.composite.CreateHistoryCommand;
 import com.ucab.cmcapp.logic.commands.history.composite.DeleteHistoryCommand;
 import com.ucab.cmcapp.logic.commands.history.composite.GetAllHistoryCommand;
+import com.ucab.cmcapp.logic.commands.notification.atomic.AddNotificationCommand;
+import com.ucab.cmcapp.logic.commands.notification.atomic.GetAllNotificationByUserIdCommand;
+import com.ucab.cmcapp.logic.commands.notification.atomic.GetAllNotificationListCommand;
+import com.ucab.cmcapp.logic.commands.notification.composite.CreateNotificationCommand;
+import com.ucab.cmcapp.logic.commands.notification.composite.GetAllNotificationCommand;
 import com.ucab.cmcapp.logic.commands.operation.atomic.GetAttackerLastPositionByIncidentIdCommand;
 import com.ucab.cmcapp.logic.commands.operation.atomic.GetLastPositionsByIncidentIdCommand;
 import com.ucab.cmcapp.logic.commands.operation.atomic.GetVictimLastPositionByIncidentIdCommand;
@@ -410,13 +415,39 @@ public class CommandFactory {
     }
 
     // ------------------( getAttackerLastPositionsByIncidentId )------------
-    public static GetAttackerLastPositionByIncidentIdCommand createGetAttackerLastPositionsByIncidentIdCommand(Incident incident) {
+    public static GetAttackerLastPositionByIncidentIdCommand createGetAttackerLastPositionByIncidentIdCommand(Incident incident) {
         return new GetAttackerLastPositionByIncidentIdCommand(incident);
     }
 
     // ------------------( getVictimLastPositionsByIncidentId )--------------
     public static GetVictimLastPositionByIncidentIdCommand createGetVictimLastPositionByIncidentIdCommand(Incident incident) {
         return new GetVictimLastPositionByIncidentIdCommand(incident);
+    }
+
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    // ------------------( getAllNotifications )-----------------
+    public static GetAllNotificationCommand createGetAllNotificationCommand() {
+        return new GetAllNotificationCommand();
+    }
+
+    public static GetAllNotificationListCommand createGetAllNotificationListCommand(DBHandler handler) {
+        return new GetAllNotificationListCommand(handler);
+    }
+
+    // ------------------( getAllNotificationByUserId )----------
+    public static GetAllNotificationByUserIdCommand createGetAllNotificationByUserIdCommand(Notification notification) {
+        return new GetAllNotificationByUserIdCommand(notification);
+    }
+
+    // ------------------( addNotification )---------------------
+    public static CreateNotificationCommand createCreateNotificationCommand(Notification notification) {
+        return new CreateNotificationCommand(notification);
+    }
+
+    public static AddNotificationCommand createAddNotificationCommand(Notification notification, DBHandler handler) {
+        return new AddNotificationCommand(notification, handler);
     }
 
 }

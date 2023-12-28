@@ -82,4 +82,14 @@ public class EntityFactory {
         return new Administrator(id);
     }
 
+    // --------------------
+
+    public static Notification createNotification(){
+        return new Notification();
+    }
+
+    public static Notification createNotification(long id){
+        return new Notification();
+    }
+
 }

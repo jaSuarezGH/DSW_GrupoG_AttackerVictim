@@ -21,7 +21,6 @@ import com.ucab.cmcapp.logic.utilities.DistanceManager;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
 import java.util.List;
 
 @Path("/operation")
@@ -92,7 +91,7 @@ public class OperationService extends BaseService {
 
         try {
             entity = IncidentMapper.mapDtoToEntity(incidentId);
-            command = CommandFactory.createGetAttackerLastPositionsByIncidentIdCommand(entity);
+            command = CommandFactory.createGetAttackerLastPositionByIncidentIdCommand(entity);
             command.execute();
 
             if (command.getReturnParam() != null) {
@@ -180,7 +179,7 @@ public class OperationService extends BaseService {
 
             //--------------------------------------
 
-            attackerPositionCommand = CommandFactory.createGetAttackerLastPositionsByIncidentIdCommand(incidentEntity);
+            attackerPositionCommand = CommandFactory.createGetAttackerLastPositionByIncidentIdCommand(incidentEntity);
             attackerPositionCommand.execute();
 
             if (attackerPositionCommand.getReturnParam() != null) {
