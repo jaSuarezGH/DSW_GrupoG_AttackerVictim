@@ -14,6 +14,8 @@ export const principalViewModel = () => {
     global.gyroStatus = 'MOBILE';
 
     const gestionarZonasSeguras = async () => {
+      const netInfo = await NetInfo.fetch();
+      const online = netInfo.isConnected && netInfo.isInternetReachable;
       let zonasSeguras = [];
       try {
         const zonas = await ObtenerZonasSegurasID(userID);
@@ -36,6 +38,40 @@ export const principalViewModel = () => {
         Alert.alert('Error al obtener las zonas seguras',JSON.stringify(error));
       }
     };
+
+    const obtenerLocalizacionMapa = () => {
+      const [initialLocation, setInitialLocation] = useState(null);
+      const [currentLocation, setCurrentLocation] = useState(null);
+  
+      useEffect(() => {
+          (async () => {
+              let { status } = await Location.requestForegroundPermissionsAsync();
+              if (status !== 'granted') {
+                  alert('Permiso de acceso a la ubicación denegado');
+                  return;
+              }
+  
+              let locationSubscription = await Location.watchPositionAsync({
+                  accuracy: Location.Accuracy.High,
+                  timeInterval: 120000,
+                  distanceInterval: 8,
+              }, (newLocation) => {
+                  if (!initialLocation) {
+                      setInitialLocation(newLocation);
+                  }
+                  setCurrentLocation(newLocation);
+              });
+  
+              return () => {
+                  if (locationSubscription) {
+                      locationSubscription.remove();
+                  }
+              };
+          })();
+      }, []);
+  
+      return { initialLocation, currentLocation, setInitialLocation };
+  };
 
     const funcionDemonio = () => {
       const [conexionInternet, setConexionInternet] = useState(true);
@@ -108,8 +144,11 @@ export const principalViewModel = () => {
 
 
       const verificarConexionInternet = async () => {
+        var fecha = new Date();
+        var milisegundos = Date.parse(fecha);
+
         const netInfo = await NetInfo.fetch();
-        const online = netInfo.isConnected && netInfo.isInternetReachable;
+        let online = netInfo.isConnected && netInfo.isInternetReachable;
 
         setConexionInternet(online);
 
@@ -151,5 +190,5 @@ export const principalViewModel = () => {
       return conexionInternet;
     };
 
-  return {funcionDemonio, gestionarZonasSeguras};
+  return {funcionDemonio, gestionarZonasSeguras,obtenerLocalizacionMapa};
 }

@@ -3,55 +3,22 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image,Button } from 'react-native';
 import { principalViewModel } from '../../../../src/Presentation/views/vistaPrincipal/VistaPrincipalViewModel';
 import MapView, {Polygon} from 'react-native-maps';
-import * as Location from 'expo-location';
 
 export const VistaPrincipalScreen = () => {
-    const [initialLocation, setInitialLocation] = useState(null);
-    const [currentLocation, setCurrentLocation] = useState(null);
     const [zonasSeguras,setZonasSeguras] = useState([]);
 
-    const {gestionarZonasSeguras} = principalViewModel();
+    const {gestionarZonasSeguras,obtenerLocalizacionMapa} = principalViewModel();
+
+    let {initialLocation} = obtenerLocalizacionMapa();
 
     useEffect(() => {
         (async () => {
+          console.log('Se renderizo.');
           const zonas = await gestionarZonasSeguras();
           setZonasSeguras(zonas);
-          console.log('----------------------------------')
-          console.log(Array.isArray(zonas));
         })();
-      }, []);
+    }, []);
       
-      useEffect(() => {
-        (async () => {
-          let { status } = await Location.requestForegroundPermissionsAsync();
-          if (status !== 'granted') {
-            alert('Permiso de acceso a la ubicación denegado');
-            return;
-          }
-      
-          let locationSubscription = await Location.watchPositionAsync({
-            accuracy: Location.Accuracy.High,
-            timeInterval: 1000,
-            distanceInterval: 1,
-          }, (newLocation) => {
-            if (!initialLocation) {
-              setInitialLocation(newLocation);
-            }
-            setCurrentLocation(newLocation);
-          });
-      
-          return () => {
-            if (locationSubscription) {
-              locationSubscription.remove();
-            }
-          };
-        })();
-      }, []);
-
-    const centerMapOnUser = () => {
-        setInitialLocation(currentLocation);
-    };
-
     return(
         <View style = {styles.container}>
             <View style={styles.logoContainer}>
@@ -68,12 +35,11 @@ export const VistaPrincipalScreen = () => {
                 provider={MapView.PROVIDER_GOOGLE} 
                 showsUserLocation={true} 
                 region={{ 
-                    latitude: 10.48752/*initialLocation ? initialLocation.coords.latitude : 0*/,
-                    longitude: -66.93866/*initialLocation ? initialLocation.coords.longitude : 0*/,
-                    latitudeDelta: 0.001472, 
-                    longitudeDelta: 0.000768, 
+                    latitude: initialLocation ? initialLocation.coords.latitude : 0,
+                    longitude: initialLocation ? initialLocation.coords.longitude : 0,
+                    latitudeDelta: 0.01472, 
+                    longitudeDelta: 0.00768, 
                 }}
-                locationUpdateInterval={3000}
                 >
                 {zonasSeguras.map((zona, index) => (
                     <Polygon

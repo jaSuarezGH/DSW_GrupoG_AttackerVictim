@@ -88,7 +88,7 @@ export const principalViewModel = () => {
 
         //Verificamos si hay conexión a internet
         const netInfo = await NetInfo.fetch();
-        const online = netInfo.isConnected && netInfo.isInternetReachable;
+        let online = netInfo.isConnected && netInfo.isInternetReachable;
         
         //En la primera consulta de red devuelve null por eso asigno true si es null
         if (online === null){

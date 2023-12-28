@@ -10,8 +10,8 @@ export const getDataUsuarioGmail = async (gmail) => {
         } else {
           throw new Error(solicitud.data.description);
         }
-      } 
-    }
+      }; 
+    };
   } catch (error) {
     throw error;
   }

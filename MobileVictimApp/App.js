@@ -5,6 +5,7 @@ import { HomeScreen } from './src/Presentation/views/home/Home';
 import { VistaLoginScreen } from './src/Presentation/views/vistaLogin/VistaLogin';
 import { VistaPrincipalScreen } from './src/Presentation/views/vistaPrincipal/VistaPrincipal';
 import { VistaRecuperacionScreen } from './src/Presentation/views/vistaRecuperacionDatos/VistaRecuperacionDatos';
+import { VistaPuntoControlScreen } from './src/Presentation/views/vistaPuntoControl/VistaPuntoControl';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,6 +15,11 @@ const App = () => {
         <Stack.Navigator screenOptions={{
           headerShown: false
           }}>
+
+            <Stack.Screen
+              name ="VistaPuntoControl"
+              component={VistaPuntoControlScreen}
+            />
 
             <Stack.Screen
               name ="Home"
