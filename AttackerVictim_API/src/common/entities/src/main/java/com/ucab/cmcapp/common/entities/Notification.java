@@ -7,10 +7,10 @@ import java.util.Date;
 @Table(name = "notification")
 public class Notification {
 
-    public Notification(){
+    public Notification() {
     }
 
-    public Notification(Notification notification){
+    public Notification(Notification notification) {
         _id = notification._id;
         _full_date = notification._full_date;
         _status = notification._status;

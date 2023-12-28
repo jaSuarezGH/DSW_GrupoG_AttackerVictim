@@ -8,7 +8,7 @@ public class NotificationDto extends BaseDto {
     private String _status;
     private UserDto _user;
 
-    public NotificationDto(){
+    public NotificationDto() {
     }
 
     public Date get_full_date() {
