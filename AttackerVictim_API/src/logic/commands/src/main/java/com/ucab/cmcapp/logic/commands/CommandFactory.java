@@ -415,7 +415,7 @@ public class CommandFactory {
     }
 
     // ------------------( getAttackerLastPositionsByIncidentId )------------
-    public static GetAttackerLastPositionByIncidentIdCommand createGetAttackerLastPositionsByIncidentIdCommand(Incident incident) {
+    public static GetAttackerLastPositionByIncidentIdCommand createGetAttackerLastPositionByIncidentIdCommand(Incident incident) {
         return new GetAttackerLastPositionByIncidentIdCommand(incident);
     }
 
