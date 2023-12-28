@@ -1,12 +1,10 @@
 package com.ucab.cmcapp.logic.commands.history.atomic;
 
 import com.ucab.cmcapp.common.entities.History;
-import com.ucab.cmcapp.common.entities.Incident;
 import com.ucab.cmcapp.logic.commands.Command;
 import com.ucab.cmcapp.persistence.DBHandler;
 import com.ucab.cmcapp.persistence.DaoFactory;
 import com.ucab.cmcapp.persistence.dao.HistoryDao;
-import com.ucab.cmcapp.persistence.dao.IncidentDao;
 
 import java.util.List;
 
@@ -24,7 +22,7 @@ public class GetAllHistoryByUserIdCommand extends Command<History> {
 
     @Override
     public void execute() {
-        _result = _dao.getAllHitoryByUserId(_history.get_user());
+        _result = _dao.getAllHistoryByUserId(_history.get_user());
     }
 
     @Override

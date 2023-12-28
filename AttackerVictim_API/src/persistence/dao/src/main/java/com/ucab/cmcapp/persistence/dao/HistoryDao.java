@@ -12,7 +12,6 @@ import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.util.Collections;
 import java.util.List;
 
 public class HistoryDao extends BaseDao<History> {
@@ -31,7 +30,7 @@ public class HistoryDao extends BaseDao<History> {
         _builder = _em.getCriteriaBuilder();
     }
 
-    public List<History> getAllHitoryByUserId(User userId) {
+    public List<History> getAllHistoryByUserId(User userId) {
         List<History> results;
         try {
             CriteriaQuery<History> query = _builder.createQuery(History.class);
