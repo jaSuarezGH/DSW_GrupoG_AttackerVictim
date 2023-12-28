@@ -1,6 +1,7 @@
 package com.ucab.cmcapp.persistence.dao;
 
 import com.ucab.cmcapp.common.entities.History;
+import com.ucab.cmcapp.common.entities.Notification;
 import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.common.exceptions.CupraException;
 import com.ucab.cmcapp.persistence.DBHandler;
@@ -14,27 +15,27 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-public class HistoryDao extends BaseDao<History> {
+public class NotificationDao extends BaseDao<Notification> {
 
-    private static Logger _logger = LoggerFactory.getLogger(HistoryDao.class);
+    private static Logger _logger = LoggerFactory.getLogger(NotificationDao.class);
     private EntityManager _em;
     private CriteriaBuilder _builder;
 
-    public HistoryDao() {
+    public NotificationDao() {
         super();
     }
 
-    public HistoryDao(DBHandler handler) {
+    public NotificationDao(DBHandler handler) {
         super(handler);
         _em = getDBHandler().getSession();
         _builder = _em.getCriteriaBuilder();
     }
 
-    public List<History> getAllHistoryByUserId(User userId) {
-        List<History> results;
+    public List<Notification> getAllNotificationByUserId(User userId) {
+        List<Notification> results;
         try {
-            CriteriaQuery<History> query = _builder.createQuery(History.class);
-            Root<History> root = query.from(History.class);
+            CriteriaQuery<Notification> query = _builder.createQuery(Notification.class);
+            Root<Notification> root = query.from(Notification.class);
 
             query.select(root);
             query.where(_builder.equal(root.get("_user"), userId));
