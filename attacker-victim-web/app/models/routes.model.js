@@ -59,6 +59,8 @@ export const Routes = {
     CONSULT_ZS: '/pages/principal/coordinates/safeZone/consultSafeZone',
     CONSULT_ZS_EMAIL: '/pages/principal/coordinates/safeZone/consultSafeZone/email/',
     CREATE_ZS: '/pages/principal/coordinates/safeZone/createSafeZone/',
+    CREATE_ZS_EMAIL: '/pages/principal/coordinates/safeZone/createSafeZone/email/',
+    CREATE_ZS_RESPONSE: '/pages/principal/coordinates/safeZone/createSafeZone/response',
     DELETE_ZS: '/pages/principal/coordinates/safeZone/deleteSafeZone/',
     DELETE_ZS_EMAIL: '/pages/principal/coordinates/safeZone/deleteSafeZone/email/',
     DELETE_ZS_RESPONSE: '/pages/principal/coordinates/safeZone/deleteSafeZone/response',

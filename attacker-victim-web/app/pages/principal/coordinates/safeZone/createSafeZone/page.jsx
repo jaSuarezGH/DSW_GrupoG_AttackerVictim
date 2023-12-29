@@ -1,112 +1,59 @@
 "use client";
 
+import { ButtonSubmit } from "@/components/Button/ButtonSubmit";
 import { DivHeader } from "@/components/Div";
-import { DivFormElement } from "@/components/Div/DivFormElement/DivFormElement";
-import { GoogleMap, LoadScript, PolygonF } from "@react-google-maps/api";
-import { useEffect, useState } from "react";
 
-function pageCreateSafeZone({ params }) {
-  const containerStyle = {
-    width: "100%",
-    height: "30rem",
-  };
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Routes } from "@/app/models/routes.model";
 
-  const coordinates = [
-    { lat: 33.774, lng: -130.419 },
-    { lat: 37.774, lng: -124.43 },
-    { lat: 31.774, lng: -120.43 },
-  ];
+export default function createSafeZonePage() {
+  const [valor, setValor] = useState("");
 
-  const [user, setUser] = useState(null);
-
-  const [safeZoneID, setSafeZoneID] = useState("");
-
-  const [center, setCenter] = useState({ lat: 33.774, lng: -130.419 });
-  const [control, setControl] = useState(false);
-
-  useEffect(() => {
-    const fetchConsult = async () => {
-      /* navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setCenter({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          });
-        },
-        (error) => console.log(error),
-        { enableHighAccuracy: true }
-      ); */
-      //Variable que se encarga de indicar cuando se podria mostrar el error
-      setControl(true);
-    };
-
-    fetchConsult();
-  }, []);
-
-  /*  if ((user === null || user._user._active == false) && control) {
-    const description = `Lo siento, el usuario a consultar el posicionamiento poseedor del Correo Electronico (Email): "${params.position}" no esta registrado o activo.`;
-    return (
-      <InformacionPage
-        title="Usuario NO Encontrado"
-        description={description}
-        encabezado="Not Found"
-        link={Routes.GET_LOCATION_HOME}
-        linkText="Volver a Buscar"
-      ></InformacionPage>
-    );
-  } */
+  const router = useRouter();
 
   const onSubmit = (e) => {
-    e.PreventDefault();
+    e.preventDefault();
+  router.push(`${Routes.CREATE_ZS_EMAIL}${valor}`);
+        
   };
 
-  if (control)
-    return (
-      <div className="max-w-6xl mb-6 ring-1 ring-opacity-50 ring-zinc-300 rounded-xl shadow-lg shadow-indigo-300 mt-6 flex min-h-full flex-1 flex-col justify-center align-middle px-6 py-6 lg:px-8 mx-auto gap-x-8 gap-y-12">
+  return (
+    <>
+      <div className="ring-1 ring-opacity-40 ring-zinc-300 rounded-xl shadow-md shadow-indigo-100 mt-6 flex min-h-full flex-1 flex-col justify-center align-middle px-6 py-6 lg:px-8 mx-auto max-w-7xl gap-x-8 gap-y-12">
         <DivHeader
-          title={`Crear Zona Segura de la Victima`}
-          description={`Indique un Nombre identificador y el area en el mapa para establecer la Zona Segura del usuario victima a consultar poseedor del Email: "${params.position}".`}
+          title="Crear una Zona Segura a un Usuario Victima"
+          description="Crear una Zona Segura para un usuario tipo Victima registrado en el sistema."
           tags={[2]}
         ></DivHeader>
-        <form className="mb-6" onSubmit={onSubmit}>
-          <DivFormElement
-            id="safeZoneID"
-            name="safeZoneID"
-            textLabel="Nombre Identificador de la Zona Segura"
-            type="text"
-            placeholder="Ingrese aqui el nombre identificador de la Zona Segura"
-            value={safeZoneID}
-            onChange={(e) => {
-              setSafeZoneID(e.target.value);
-            }}
-          ></DivFormElement>
-          <div
-            className={`mt-8 border-4 border-green-200 hover:border-green-400`}
-          >
-            <LoadScript googleMapsApiKey="AIzaSyAVCv2edVHkkor2XENUBSsamIXFgMFn8UM">
-              <GoogleMap
-                mapContainerStyle={containerStyle}
-                center={center}
-                zoom={5}
-              >
-                <PolygonF
-                  paths={coordinates}
-                  options={{
-                    draggable: true,
-                    strokeColor: "#FF0000",
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fill: true,
-                    fillColor: "#FF0000",
-                    fillOpacity: 0.35,
-                  }}
-                />
-              </GoogleMap>
-            </LoadScript>
-          </div>
-        </form>
-      </div>
-    );
-}
+        <div className="ring-1 ring-opacity-70 ring-zinc-300 shadow-lg shadow-indigo-300 mb-6 rounded-lg p-9 sm:mx-auto sm:w-full sm:max-w-sm">
+          <form className="space-y-6 " onSubmit={onSubmit}>
 
-export default pageCreateSafeZone;
+            <div>
+              <div className="flex items-center justify-between mt-4">
+                <label className="block text-sm font-medium leading-6 text-gray-900">
+                  Correo Electronico de la Victima (Email):
+                </label>
+              </div>
+              <div className="mt-2">
+                <input
+                  id="valorConsulta"
+                  name="valorConsulta"
+                  type="text"
+                  required
+                  placeholder="Ingrese aqui el Correo Electronico (Email)"
+                  onChange={(e) => {
+                    setValor(e.target.value);
+                  }}
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <ButtonSubmit text="Buscar Usuario"></ButtonSubmit>
+          </form>
+        </div>
+      </div>
+    </>
+  );
+}

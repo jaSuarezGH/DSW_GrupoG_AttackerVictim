@@ -29,6 +29,7 @@ export const endAddAttacker= "/cmcapp-backend-1.0/api/attacker";
 export const endAddAdmin= "/cmcapp-backend-1.0/api/administrator";
 
 
+
 export const endPutUser= "/cmcapp-backend-1.0/api/users";
 
 export const endPutAdmin= "/cmcapp-backend-1.0/api/administrator";
@@ -49,7 +50,10 @@ export const endGetPositionByVictim= "/cmcapp-backend-1.0/api/operation/victim-l
 export const endGetPositionByAttacker= "/cmcapp-backend-1.0/api/operation/attacker-last-position/";
 
 
+export const endAddCoordinate= "/cmcapp-backend-1.0/api/coordinate";
+
 export const endGetSafeZonesByUser= "/cmcapp-backend-1.0/api/safezone/";
+export const endAddSafeZone= "/cmcapp-backend-1.0/api/safezone";
 export const endDeleteSafeZoneById= "/cmcapp-backend-1.0/api/safezone/";
 
 
