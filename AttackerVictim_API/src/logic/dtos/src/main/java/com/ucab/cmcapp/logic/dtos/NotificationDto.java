@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class NotificationDto extends BaseDto {
 
-    private Date _full_date;
+    private Date _full_date = new Date();
     private String _status;
     private UserDto _user;
 

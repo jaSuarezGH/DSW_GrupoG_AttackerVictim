@@ -27,7 +27,7 @@ public class Notification {
     private long _id;
 
     //@Basic(optional = false)
-    @Column(name = "full_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false)
+    @Column(name = "full_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date _full_date;
 
     @Column(name = "status", nullable = false)
