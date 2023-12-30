@@ -3,6 +3,7 @@
 // el enlace del servidor donde corre nuestra API.
 // Ademas de todos los endpoint del sistema web.
 
+// https://big-famous-raccoon.ngrok-free.app
 export const enlaceAPI = "http://127.0.0.1:8080";
 
 export const endGetAllUsers = `/cmcapp-backend-1.0/api/users/all`;
@@ -28,9 +29,10 @@ export const endAddAttacker= "/cmcapp-backend-1.0/api/attacker";
 export const endAddAdmin= "/cmcapp-backend-1.0/api/administrator";
 
 
+
 export const endPutUser= "/cmcapp-backend-1.0/api/users";
 
-export const endPutAdmin= "";
+export const endPutAdmin= "/cmcapp-backend-1.0/api/administrator";
 
 export const endPutIncident= "/cmcapp-backend-1.0/api/incident";
 
@@ -44,7 +46,15 @@ export const endAddIncident= "/cmcapp-backend-1.0/api/incident";
 export const endGetVictimById= "/cmcapp-backend-1.0/api/victim/";
 export const endGetAttackerById= "/cmcapp-backend-1.0/api/attacker/";
 
+export const endGetPositionByVictim= "/cmcapp-backend-1.0/api/operation/victim-last-position/";
+export const endGetPositionByAttacker= "/cmcapp-backend-1.0/api/operation/attacker-last-position/";
 
+
+export const endAddCoordinate= "/cmcapp-backend-1.0/api/coordinate";
+
+export const endGetSafeZonesByUser= "/cmcapp-backend-1.0/api/safezone/";
+export const endAddSafeZone= "/cmcapp-backend-1.0/api/safezone";
+export const endDeleteSafeZoneById= "/cmcapp-backend-1.0/api/safezone/";
 
 
 
