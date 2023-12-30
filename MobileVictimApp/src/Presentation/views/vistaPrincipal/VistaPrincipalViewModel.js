@@ -14,8 +14,8 @@ export const principalViewModel = () => {
     global.gyroStatus = 'MOBILE';
 
     const gestionarZonasSeguras = async () => {
-      const netInfo = await NetInfo.fetch();
-      const online = netInfo.isConnected && netInfo.isInternetReachable;
+      //const netInfo = await NetInfo.fetch();
+      //const online = netInfo.isConnected && netInfo.isInternetReachable;
       let zonasSeguras = [];
       try {
         const zonas = await ObtenerZonasSegurasID(userID);

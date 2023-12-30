@@ -1,27 +1,35 @@
 import { useState, useEffect } from 'react';
+import { PostUsuarioNotificacion } from '../../../Domain/useCases/EnviarNotificacion';
+import { Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Vibration } from 'react-native';
 
 export const puntosControlViewModel = ()  => {
 
-    const contadorPuntoControl = (initialSeconds = 0) => {
-      const [time, setTime] = useState(initialSeconds);
+  const navigation = useNavigation();
 
-      useEffect(() => {
-        let interval = null;
-        if (time > 0) {
-          interval = setInterval(() => {
-            setTime(time => time - 1);
-          }, 1000);
-        } else {
-          Alert.alert('Se ha notificado a las autoridades de su situacion');
-          clearInterval(interval);
-        }
-        return () => clearInterval(interval);
-      }, [time]);
-    
-      return time;
+    const enviarNotificacionContador = async() => {
+
+      try{
+        const notificacion = {
+        "_status": "TIMER STOPPED",
+        "_user": {
+            "id": 1
+          }
+        };
+        const solicitud = await PostUsuarioNotificacion(notificacion);
+        Alert.alert('Se ha notificado a las autoridades su situacion actual.');
+        Vibration.vibrate();
+        volverlVistaPrincipal(); 
+      }catch(error){
+        Alert.alert(error);
+      }
     };
 
+    const volverlVistaPrincipal = () => {
+      navigation.navigate('VistaPrincipal');
+    };
 
- return contadorPuntoControl;
+ return {enviarNotificacionContador,volverlVistaPrincipal};
 }
 

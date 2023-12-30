@@ -9,6 +9,8 @@ const windowHeight = Dimensions.get('window').height;
 
 export const VistaPuntoControlScreen = () => {
 
+  const {enviarNotificacionContador, volverlVistaPrincipal} = puntosControlViewModel();
+
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
@@ -21,11 +23,6 @@ export const VistaPuntoControlScreen = () => {
       const totalSeconds = Number(hours) * 3600 + Number(minutes) * 60 + Number(seconds);
       setTime(totalSeconds);
     }
-  };
-
-  const reset = () => {
-    setTime(0);
-    setIsActive(false);
   };
 
   const formatTime = (time) => {
@@ -43,9 +40,10 @@ export const VistaPuntoControlScreen = () => {
       }, 1000);
     } else if (!isActive && time !== 0) {
       clearInterval(interval);
+      //volverlVistaPrincipal();
     }else if (time === 0 && isActive) {
-      reset();
-      Alert.alert('Tiempo agotado');
+      clearInterval(interval);
+      enviarNotificacionContador();
     }
     return () => clearInterval(interval);
   }, [isActive, time]);
@@ -94,8 +92,8 @@ export const VistaPuntoControlScreen = () => {
                   onPress={toggle} 
               />
               <RoundedButtonLogin 
-                  text='Reiniciar' 
-                onPress={reset} 
+                  text='Regresar' 
+                onPress={volverlVistaPrincipal} 
               />
 
               <Text style={styles.textAdvise}> Aviso: Si no se detiene el contador , se le notificara a las autoridades que se encuentra en peligro. Por favor sea conciente al momento de iniciar la cuenta atras y detenerla en caso de que salga de una zona privada.</Text>

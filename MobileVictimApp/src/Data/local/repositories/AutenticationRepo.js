@@ -11,7 +11,7 @@ export const getDataUsuarioGmail = async (gmail) => {
           throw new Error(solicitud.data.description);
         }
       }; 
-    };
+    }
   } catch (error) {
     throw error;
   }
