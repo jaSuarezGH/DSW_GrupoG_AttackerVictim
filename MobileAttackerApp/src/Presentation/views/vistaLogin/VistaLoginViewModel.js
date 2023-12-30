@@ -23,10 +23,11 @@ export const loginViewModel = () => {
             const datosUsuario = await obtenerDatosPorNombreUsuario(usuarioLogin);
             // Verificar si la respuesta de la API es exitosa
               if (datosUsuario.data.response !== null) {
-                await obtenerDatosPorIdAtacante(datosUsuario.data.response.id);
+                const datosAtacante = await obtenerDatosPorIdAtacante(datosUsuario.data.response.id);
                   if (datosUsuario.data.response._username === usuarioLogin && datosUsuario.data.response._password === passwordUser ) {
                       if (datosUsuario.data.response._active === true){
                         global.userID = datosUsuario.data.response.id;
+                        global.attackerID = datosAtacante.data.response.id;
                         navigation.navigate('VistaPrincipal');
                       }else{
                         clearInputs();

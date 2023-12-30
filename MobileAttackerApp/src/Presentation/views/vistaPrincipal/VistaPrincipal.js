@@ -1,12 +1,22 @@
 import React from 'react';
 import { View,Text,StyleSheet,Image } from 'react-native';
 import { principalViewModel } from '../../../../src/Presentation/views/vistaPrincipal/VistaPrincipalViewModel';
-
+import { useEffect, useState } from 'react';
 
 export const VistaPrincipalScreen = () => {
 
     const { funcionDemonio } = principalViewModel();
-    const conexionInternet = funcionDemonio();
+    const { verificarConexionInternet } = funcionDemonio();
+    const [conexionInternet, setConexionInternet] = useState(true);
+    const [inactive, setInactive] = useState(0);
+
+    useEffect(() => {
+        const intervalId = setInterval(() => verificarConexionInternet(setConexionInternet,setInactive,inactive), 40000);
+    
+        return () => {
+          clearInterval(intervalId);
+        };
+    }, []);
 
     return(
         
@@ -15,7 +25,7 @@ export const VistaPrincipalScreen = () => {
               <Image 
                 source={require('../../../../assets/LogoAVapp.png')} 
                 style={styles.imageLogoLogin} />
-              <Text style={styles.logoText}>Attacker App</Text>
+              <Text style={styles.logoText}>Attacker App / Home</Text>
             </View>
             
 

@@ -17,13 +17,13 @@ const App = () => {
           }}>
 
             <Stack.Screen
-              name ="VistaPuntoControl"
-              component={VistaPuntoControlScreen}
+              name ="Home"
+              component={HomeScreen}
             />
 
             <Stack.Screen
-              name ="Home"
-              component={HomeScreen}
+              name ="VistaPuntoControl"
+              component={VistaPuntoControlScreen}
             />
 
             <Stack.Screen

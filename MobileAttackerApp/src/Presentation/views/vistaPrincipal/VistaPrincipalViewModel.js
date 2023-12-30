@@ -3,7 +3,6 @@ import NetInfo from "@react-native-community/netinfo";
 import { setupDatabase } from '../../../Data/local/SQLite/sqlite';
 import { GuardarCoordenadasSQL } from '../../../Domain/useCases/GuardarCoordenadas';
 import { ObtenerCoordenadasSQL } from '../../../Domain/useCases/ObtenerCoordenadasGuardadas';
-import { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 import { EliminarUsuarioCoordenadas } from '../../../Domain/useCases/EliminarCoordenadasGuardadas';
 import { PostUsuarioCoordenadas } from '../../../Domain/useCases/EnviarCoordenadas';
@@ -13,17 +12,7 @@ export const principalViewModel = () => {
     global.gyroStatus = 'MOBILE';
 
     const funcionDemonio = () => {
-      const [conexionInternet, setConexionInternet] = useState(true);
-      const [inactive, setInactive] = useState(0);
       setupDatabase();
-
-      useEffect(() => {
-        const intervalId = setInterval(verificarConexionInternet, 40000);
-    
-        return () => {
-          clearInterval(intervalId);
-        };
-      }, [conexionInternet,inactive]);
 
       const obtenerLocalizacion = async () => {
         try {
@@ -39,7 +28,7 @@ export const principalViewModel = () => {
         }
       };
 
-      const obtenerStatusGiroscopio = () => {
+      const obtenerStatusGiroscopio = (setInactive,inactive) => {
         const listener = Gyroscope.addListener(({ x, y, z }) => {
           if (Math.abs(x) < 0.009 && Math.abs(y) < 0.009 && Math.abs(z) < 0.009) {
             setInactive(inactive + 1);
@@ -81,7 +70,7 @@ export const principalViewModel = () => {
         }      
       };
 
-      const verificarConexionInternet = async () => {
+      const verificarConexionInternet = async (setConexionInternet,setInactive,inactive) => {
         //Obtenemos la fecha actual en milisegundos
         var fecha = new Date();
         var milisegundos = Date.parse(fecha);
@@ -97,7 +86,7 @@ export const principalViewModel = () => {
 
         setConexionInternet(online);
 
-        obtenerStatusGiroscopio();
+        obtenerStatusGiroscopio(setInactive,inactive);
 
         let localizacionTelefono = await obtenerLocalizacion();
 
@@ -132,7 +121,7 @@ export const principalViewModel = () => {
           });
         };
       };
-      return conexionInternet;
+      return {verificarConexionInternet};
     }
     return {funcionDemonio};
 };

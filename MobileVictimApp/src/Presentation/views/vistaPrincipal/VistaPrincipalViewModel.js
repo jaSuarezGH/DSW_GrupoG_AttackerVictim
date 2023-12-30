@@ -14,8 +14,6 @@ export const principalViewModel = () => {
     global.gyroStatus = 'MOBILE';
 
     const gestionarZonasSeguras = async () => {
-      //const netInfo = await NetInfo.fetch();
-      //const online = netInfo.isConnected && netInfo.isInternetReachable;
       let zonasSeguras = [];
       try {
         const zonas = await ObtenerZonasSegurasID(userID);
@@ -29,8 +27,8 @@ export const principalViewModel = () => {
               zonasSeguras.push({_name: nombreZona, _coordinates: coordenadasZonaSegura});
               nombreZona = datosApi._name;
               coordenadasZonaSegura = [{latitude: datosApi._coordinate._latitude, longitude: datosApi._coordinate._longitude}];
-            }
-          }      
+            };
+          };      
           zonasSeguras.push({_name: nombreZona, _coordinates: coordenadasZonaSegura}); // para la última zona
         };
         return zonasSeguras;
@@ -71,20 +69,10 @@ export const principalViewModel = () => {
       }, []);
   
       return { initialLocation, currentLocation, setInitialLocation };
-  };
+    };
 
     const funcionDemonio = () => {
-      const [conexionInternet, setConexionInternet] = useState(true);
-      const [inactive, setInactive] = useState(0);
       setupDatabase();
-
-      useEffect(() => {
-        const intervalId = setInterval(verificarConexionInternet, 40000);
-    
-        return () => {
-          clearInterval(intervalId);
-        };
-      }, [conexionInternet,inactive]);
 
       const obtenerLocalizacion = async () => {
         try {
@@ -100,7 +88,7 @@ export const principalViewModel = () => {
         }
       };
 
-      const obtenerStatusGiroscopio = () => {
+      const obtenerStatusGiroscopio = (setInactive,inactive) => {
         const listener = Gyroscope.addListener(({ x, y, z }) => {
           if (Math.abs(x) < 0.009 && Math.abs(y) < 0.009 && Math.abs(z) < 0.009) {
             setInactive(inactive + 1);
@@ -139,20 +127,26 @@ export const principalViewModel = () => {
           }
         } catch (error) {
           Alert.alert('Ocurrior un error inesperado:', error);
-        }      
+        };      
       };
 
-
-      const verificarConexionInternet = async () => {
+      const verificarConexionInternet = async (setConexionInternet,setInactive,inactive) => {
+        //Obtenemos la fecha actual en milisegundos
         var fecha = new Date();
         var milisegundos = Date.parse(fecha);
 
+        //Verificamos si hay conexión a internet
         const netInfo = await NetInfo.fetch();
         let online = netInfo.isConnected && netInfo.isInternetReachable;
+        
+        //En la primera consulta de red devuelve null por eso asigno true si es null
+        if (online === null){
+          online = true;
+        }
 
         setConexionInternet(online);
 
-        obtenerStatusGiroscopio();
+        obtenerStatusGiroscopio(setInactive,inactive);
 
         let localizacionTelefono = await obtenerLocalizacion();
 
@@ -187,8 +181,7 @@ export const principalViewModel = () => {
           });
         };
       };
-      return conexionInternet;
+      return {verificarConexionInternet};
     };
-
-  return {funcionDemonio, gestionarZonasSeguras,obtenerLocalizacionMapa};
+    return {funcionDemonio,gestionarZonasSeguras,obtenerLocalizacionMapa};
 }

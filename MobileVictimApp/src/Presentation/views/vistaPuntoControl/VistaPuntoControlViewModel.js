@@ -12,9 +12,9 @@ export const puntosControlViewModel = ()  => {
 
       try{
         const notificacion = {
-        "_status": "TIMER STOPPED",
-        "_user": {
-            "id": 1
+          "_status": "TIMER STOPPED",
+          "_user": {
+            "id": userID
           }
         };
         const solicitud = await PostUsuarioNotificacion(notificacion);

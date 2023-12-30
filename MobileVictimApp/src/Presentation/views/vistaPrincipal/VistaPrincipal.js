@@ -3,21 +3,36 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image,Button } from 'react-native';
 import { principalViewModel } from '../../../../src/Presentation/views/vistaPrincipal/VistaPrincipalViewModel';
 import MapView, {Polygon} from 'react-native-maps';
+import { RoundedButtonLogin } from '../../components/RoundedButtonLogin';
 
 export const VistaPrincipalScreen = () => {
     const [zonasSeguras,setZonasSeguras] = useState([]);
-
-    const {gestionarZonasSeguras,obtenerLocalizacionMapa} = principalViewModel();
+    const { funcionDemonio,gestionarZonasSeguras,obtenerLocalizacionMapa } = principalViewModel();
+    const { verificarConexionInternet } = funcionDemonio();
+    const [conexionInternet, setConexionInternet] = useState(true);
+    const [inactive, setInactive] = useState(0);
 
     let {initialLocation} = obtenerLocalizacionMapa();
 
     useEffect(() => {
-        (async () => {
-          console.log('Se renderizo.');
-          const zonas = await gestionarZonasSeguras();
-          setZonasSeguras(zonas);
-        })();
+        const intervalId = setInterval(() => verificarConexionInternet(setConexionInternet,setInactive,inactive), 40000);
+        return () => {
+          clearInterval(intervalId);
+        };
     }, []);
+
+    useEffect(() => {
+        (async () => {
+          if (zonasSeguras.length === 0){
+            try {
+                const zonas = await gestionarZonasSeguras();
+                setZonasSeguras(zonas);
+            } catch (error) {
+                console.error('Hubo un error al obtener las zonas seguras:', error);
+            }
+          };
+        })();
+    },[]);
       
     return(
         <View style = {styles.container}>
@@ -26,7 +41,7 @@ export const VistaPrincipalScreen = () => {
                 source={require('../../../../assets/LogoAVapp.png')} 
                 style={styles.imageLogoLogin} />
 
-              <Text style={styles.logoText}>Victim App</Text>
+              <Text style={styles.logoText}>Victim App / Home</Text>
               
             </View>
             
@@ -52,6 +67,30 @@ export const VistaPrincipalScreen = () => {
                 ))}
             </MapView>
 
+            <View style={styles.opcionContainer}>
+                
+                <View style={styles.buttonContainer}>
+                    <RoundedButtonLogin 
+                        text = ' Punto de control ' 
+                        //onPress={} 
+                    /> 
+                </View>
+
+                <View style={styles.buttonContainer}>
+                    <RoundedButtonLogin 
+                        text = 'SOS' 
+                        //onPress={} 
+                    />
+                </View>
+
+                <View style={styles.buttonContainer}>
+                    <RoundedButtonLogin 
+                        text = 'SOS' 
+                        //onPress={} 
+                    />
+                </View>
+
+            </View>
         </View>
     );
 }
@@ -88,12 +127,19 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
     },
     map:{
-        height: '40%',
+        height: '50%',
         width: '100%',
     },
-    botonContainer:{
+    opcionContainer:{
         position:'absolute',
         alignSelf:'center',
-        height:'30%',
-      },
+        height:'20%',
+        bottom:'0%',
+        flexDirection:'row',
+        justifyContent:'space-between',
+    },
+    buttonContainer: {
+        flex: 1,
+        margin: 10,
+    },
 });
