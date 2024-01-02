@@ -5,16 +5,22 @@ import { useEffect, useState } from 'react';
 
 export const VistaPrincipalScreen = () => {
 
-    const { funcionDemonio } = principalViewModel();
+    const { funcionDemonio,obtenerIncidenciaAtacante } = principalViewModel();
     const { verificarConexionInternet } = funcionDemonio();
     const [conexionInternet, setConexionInternet] = useState(true);
     const [inactive, setInactive] = useState(0);
+    const [IdIncidencia, setIdIncidencia] = useState(null);
 
     useEffect(() => {
-        const intervalId = setInterval(() => verificarConexionInternet(setConexionInternet,setInactive,inactive), 40000);
-    
+        let intervalId;
+        (async () => {
+             await obtenerIncidenciaAtacante(IdIncidencia,setIdIncidencia);
+             intervalId = setInterval(() => verificarConexionInternet(setConexionInternet,setInactive,inactive,IdIncidencia)
+             ,45000);
+          })();
+
         return () => {
-          clearInterval(intervalId);
+            clearInterval(intervalId);
         };
     }, []);
 

@@ -8,7 +8,11 @@ import { Alert } from 'react-native';
 import { EliminarUsuarioCoordenadas } from '../../../Domain/useCases/EliminarCoordenadasGuardadas';
 import { PostUsuarioCoordenadas } from '../../../Domain/useCases/EnviarCoordenadas';
 import { Gyroscope } from 'expo-sensors';
-import {ObtenerZonasSegurasID} from '../../../Domain/useCases/ObtenerZonasSeguras';
+import { ObtenerZonasSegurasID } from '../../../Domain/useCases/ObtenerZonasSeguras';
+import { ObtenerIncidenteVictima } from '../../../Domain/useCases/ObtenerIncidenciaVictima';
+import { ObtenerDistanciaVictimaAgresor } from '../../../Domain/useCases/ObtenerDistanciaVictimaAgresor';
+import { ObtenerAtacanteZonaSegura } from '../../../Domain/useCases/ObtenerAtacanteZonaSegura';
+import { PostUsuarioNotificacion } from '../../../Domain/useCases/EnviarNotificacion';
 
 export const principalViewModel = () => {
     global.gyroStatus = 'MOBILE';
@@ -33,7 +37,20 @@ export const principalViewModel = () => {
         };
         return zonasSeguras;
       } catch (error){
-        Alert.alert('Error al obtener las zonas seguras',JSON.stringify(error));
+        Alert.alert('Error al obtener las zonas seguras',error.message);
+      }
+    };
+
+    const obtenerIncidenciaVictima = async (incidente,setIncidente) => {
+      if (incidente === null){
+        try {
+          const incidenteVictima = await ObtenerIncidenteVictima(victimID);
+          if (incidenteVictima.status === 200){
+             setIncidente(incidenteVictima);
+          };
+        } catch (error){
+          Alert.alert('Error al obtener las zonas seguras',error.message);
+        };
       }
     };
 
@@ -84,11 +101,24 @@ export const principalViewModel = () => {
           localizacionActual = await Location.getCurrentPositionAsync({});
           return localizacionActual;
         } catch (error) {
-          console.log('Error al obtener la ubicación:', error);
+          console.log('Error al obtener la ubicación:', error.message);
         }
       };
 
-      const obtenerStatusGiroscopio = (setInactive,inactive) => {
+      const enviarNotificaciones = async(tipoNotificacion) => {
+        try{
+          const notificacion = {
+            "_status": tipoNotificacion,
+            "_user": {
+              "id": userID
+            }
+          };
+          const solicitud = await PostUsuarioNotificacion(notificacion); 
+          Alert.alert(error.message);
+        }
+      };
+
+      const obtenerStatusGiroscopio = async (setInactive,inactive) => {
         const listener = Gyroscope.addListener(({ x, y, z }) => {
           if (Math.abs(x) < 0.009 && Math.abs(y) < 0.009 && Math.abs(z) < 0.009) {
             setInactive(inactive + 1);
@@ -102,6 +132,9 @@ export const principalViewModel = () => {
           }
           Gyroscope.removeAllListeners();
         });
+        if (gyroStatus === 'INMOBILE'){
+          await enviarNotificaciones('Victima Inmovil');
+        }
       };
 
       const generarCoordenada = (latitud, longitud, status, fecha) =>{
@@ -126,11 +159,42 @@ export const principalViewModel = () => {
             Alert.alert('Ocurrió un error al enviar la ubicación');
           }
         } catch (error) {
-          Alert.alert('Ocurrior un error inesperado:', error);
+          Alert.alert('Ocurrior un error inesperado:', error.message);
         };      
       };
 
-      const verificarConexionInternet = async (setConexionInternet,setInactive,inactive) => {
+      const verificarDistancia = async (incidente) => {
+        try {
+          const distancia = await ObtenerDistanciaVictimaAgresor(incidente.data.response.id);
+          if (distancia.status === 200){
+            if (distancia.data.response <= incidente.data.response._separation_distance){
+              //Apartado de alertas es necesario acomodar/////////////////////////////////////////////////////////////////////////////////////////////////
+              //Enviar notificación
+              Alert.alert('El agresor se encuentra a menos de '+incidente.data.response._separation_distance+' metros de distancia'); 
+              await enviarNotificaciones('Atacante a una Distancia Menor a la Permitida.');
+            };
+          };
+        } catch (error){
+          Alert.alert('Error al obtener la distancia entre la victima y el agresor.',error.message);
+        };
+      };
+
+      const verificarAtacanteZonaSegura = async (incidente) => {
+        try {
+          const atacanteZona = await ObtenerAtacanteZonaSegura(incidente.data.response.id);
+          if (atacanteZona.status === 200){
+            if (atacanteZona.data.response._inside === true){
+              //Apartado de alertas es necesario acomodar/////////////////////////////////////////////////////////////////////////////////////////////////
+              //Enviar notificación
+              Alert.alert('El agresor se encuentra dentro de una zona segura.Por favor tenga cuidado.');
+            };
+          };
+        } catch (error){
+          Alert.alert('Error al obtener si el atacante se encuentra en una zona segura',error.message);
+        };
+      };
+
+      const verificarConexionInternet = async (setConexionInternet,setInactive,inactive,incidencia) => {
         //Obtenemos la fecha actual en milisegundos
         var fecha = new Date();
         var milisegundos = Date.parse(fecha);
@@ -146,7 +210,7 @@ export const principalViewModel = () => {
 
         setConexionInternet(online);
 
-        obtenerStatusGiroscopio(setInactive,inactive);
+        await obtenerStatusGiroscopio(setInactive,inactive);
 
         let localizacionTelefono = await obtenerLocalizacion();
 
@@ -168,7 +232,9 @@ export const principalViewModel = () => {
                 });  
             } else {
               await enviarCoordenadas(generarCoordenada(localizacionTelefono.coords.latitude,localizacionTelefono.coords.longitude,gyroStatus,milisegundos));
-            }
+              await verificarDistancia(incidencia);
+              await verificarAtacanteZonaSegura(incidencia);
+            };
         } else {
           GuardarCoordenadasSQL(generarCoordenada(localizacionTelefono.coords.latitude,localizacionTelefono.coords.longitude,'OFFLINE',milisegundos))
           .then((wasSuccessful) => {
@@ -183,5 +249,5 @@ export const principalViewModel = () => {
       };
       return {verificarConexionInternet};
     };
-    return {funcionDemonio,gestionarZonasSeguras,obtenerLocalizacionMapa};
+    return {funcionDemonio,gestionarZonasSeguras,obtenerLocalizacionMapa,obtenerIncidenciaVictima};
 }

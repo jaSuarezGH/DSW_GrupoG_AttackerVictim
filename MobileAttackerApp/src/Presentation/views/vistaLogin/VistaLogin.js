@@ -19,7 +19,7 @@ export const VistaLoginScreen = () => {
               <Image 
                 source={require('../../../../assets/LogoAVapp.png')} 
                 style={styles.imageLogoLogin} />
-              <Text style={styles.logoText}>Attacker App</Text>
+              <Text style={styles.logoText}>Login Attacker</Text>
             </View>
             
             <View style={styles.form}>

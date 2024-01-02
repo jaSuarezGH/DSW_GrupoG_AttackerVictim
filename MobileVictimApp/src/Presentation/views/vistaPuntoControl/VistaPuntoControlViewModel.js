@@ -9,7 +9,6 @@ export const puntosControlViewModel = ()  => {
   const navigation = useNavigation();
 
     const enviarNotificacionContador = async() => {
-
       try{
         const notificacion = {
           "_status": "TIMER STOPPED",

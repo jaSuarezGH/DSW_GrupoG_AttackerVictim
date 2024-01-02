@@ -7,17 +7,23 @@ import { RoundedButtonLogin } from '../../components/RoundedButtonLogin';
 
 export const VistaPrincipalScreen = () => {
     const [zonasSeguras,setZonasSeguras] = useState([]);
-    const { funcionDemonio,gestionarZonasSeguras,obtenerLocalizacionMapa } = principalViewModel();
+    const { funcionDemonio,gestionarZonasSeguras,obtenerLocalizacionMapa,obtenerIncidenciaVictima } = principalViewModel();
     const { verificarConexionInternet } = funcionDemonio();
     const [conexionInternet, setConexionInternet] = useState(true);
     const [inactive, setInactive] = useState(0);
+    const [IdIncidencia, setIdIncidencia] = useState(null);
 
     let {initialLocation} = obtenerLocalizacionMapa();
 
     useEffect(() => {
-        const intervalId = setInterval(() => verificarConexionInternet(setConexionInternet,setInactive,inactive), 40000);
+        let intervalId;
+        (async () => {
+            await obtenerIncidenciaVictima(IdIncidencia,setIdIncidencia);
+            /*intervalId = setInterval(() => verificarConexionInternet(setConexionInternet,setInactive,inactive,IdIncidencia)
+            ,45000);*/
+        })();
         return () => {
-          clearInterval(intervalId);
+            clearInterval(intervalId);
         };
     }, []);
 
