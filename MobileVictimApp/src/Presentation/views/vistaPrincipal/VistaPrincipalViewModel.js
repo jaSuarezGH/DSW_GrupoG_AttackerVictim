@@ -114,6 +114,7 @@ export const principalViewModel = () => {
             }
           };
           const solicitud = await PostUsuarioNotificacion(notificacion); 
+        }catch(error){
           Alert.alert(error.message);
         }
       };
