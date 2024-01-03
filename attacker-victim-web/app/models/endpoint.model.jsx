@@ -56,7 +56,9 @@ export const endGetSafeZonesByUser= "/cmcapp-backend-1.0/api/safezone/";
 export const endAddSafeZone= "/cmcapp-backend-1.0/api/safezone";
 export const endDeleteSafeZoneById= "/cmcapp-backend-1.0/api/safezone/";
 
-
+export const endGetAllNotifications = '/cmcapp-backend-1.0/api/notification/all';
+export const endAddNotification = '/cmcapp-backend-1.0/api/notification/';
+export const endGetNotificationByUserId = '/cmcapp-backend-1.0/api/notification/';
 
 
 

@@ -3,16 +3,34 @@ import { Routes } from "@/app/models/routes.model";
 import Card from "@/components/Card/Card";
 import HeaderPrincipal from "@/components/Header/HeaderPrincipal";
 import { Navigation } from "@/components/Navigation";
+import { fetchGetDelete } from "./fetch/fetchGetDelete";
+import { endGetAllNotifications } from "@/app/models/endpoint.model";
+import TablaAllNotifications from "@/components/Table/Notifications/TablaAllNotification";
 
-export default function PrincipalPage() {
+export default async function PrincipalPage() {
+  const fetchNotifications = await fetchGetDelete(endGetAllNotifications);
+  // Ordenar las notificaciones por fecha descendente.
+  fetchNotifications.sort((a, b) => b._full_date - a._full_date);
+  // Limitar solo a 5 notificaciones.
+  const notifications = fetchNotifications.slice(0, 5);
   return (
     <>
       <Navigation></Navigation>
+      <HeaderPrincipal texto="Historial de Notificaciones"></HeaderPrincipal>
+      <section className="px-6 mx-auto max-w-8xl pt-4 pb-10">
+        <div className="bg-white py-2 sm:py-10 ">
+          <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-12 px-6 lg:px-8 ">
+            <TablaAllNotifications
+              notifications={notifications}
+            ></TablaAllNotifications>
+          </div>
+        </div>
+      </section>
 
-      <HeaderPrincipal texto="Inicio"></HeaderPrincipal>
+      <HeaderPrincipal texto="Funcionalidades"></HeaderPrincipal>
 
-      <section class="px-6 py-20 mx-auto max-w-8xl pt-10">
-        <div class=" mx-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-16 lg:gap-x-20 gap-y-18">
+      <section className="px-6 mx-auto max-w-8xl pt-10">
+        <div className=" mx-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-16 lg:gap-x-20 gap-y-18">
           {/* CONSULTAR TODOS LOS USUARIOS */}
           <Card
             title="Consultar Usuarios"
@@ -24,7 +42,7 @@ export default function PrincipalPage() {
           {/* CONSULTAR UN USUARIO */}
           <Card
             title="Consultar un Usuario Victima/Atacante"
-            description='Consultar a un unico usuario de tipo Victima o Atacante registrados en el sistema.'
+            description="Consultar a un unico usuario de tipo Victima o Atacante registrados en el sistema."
             link={Routes.GET_USER}
             tags={[2, 3]}
           ></Card>
@@ -96,7 +114,7 @@ export default function PrincipalPage() {
             link={Routes.GET_RELATION}
             tags={[2, 3]}
           ></Card>
-          
+
           {/* Modificar Relación Victima/Atacante */}
           <Card
             title="Modificar Relación Victima/Atacante"
@@ -105,7 +123,6 @@ export default function PrincipalPage() {
             link={Routes.UPDATE_RELATION}
             tags={[2, 3]}
           ></Card>
-
 
           {/* Posicionamiento de Victima/Atacante */}
           <Card
@@ -133,7 +150,6 @@ export default function PrincipalPage() {
             tags={[1]}
           ></Card>
 
-
           {/* Crear Zona Segura */}
           <Card
             title="Crear Zona Segura"
@@ -158,12 +174,11 @@ export default function PrincipalPage() {
             tags={[2]}
           ></Card>
 
-
           {/* HISTORIAL DE NOTIFICACIONES */}
           <Card
             title="Historial de Notificaciones"
             description="Ver un historial de todas las distintas notificaciones o alertas recibidas."
-            link={Routes.HOME}
+            link={Routes.GET_ALL_NOTIFICATIONS}
             tags={[1]}
           ></Card>
         </div>

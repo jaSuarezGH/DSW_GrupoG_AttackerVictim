@@ -9,7 +9,6 @@ export const Routes = {
 
     //Funcionalidades:
     GETALL_USERS: '/pages/principal/users/getAll',
-    GET_NOTIFICATIONS: '',
     GETALL_ADMINS: '/pages/principal/users/getAll/admin',
     GETALL_VICTIMS: '/pages/principal/users/getAll/victim',
     GETALL_ATTACKERS: '/pages/principal/users/getAll/attacker',
@@ -65,6 +64,7 @@ export const Routes = {
     DELETE_ZS_EMAIL: '/pages/principal/coordinates/safeZone/deleteSafeZone/email/',
     DELETE_ZS_RESPONSE: '/pages/principal/coordinates/safeZone/deleteSafeZone/response',
 
+    GET_ALL_NOTIFICATIONS: '/pages/principal/notification',
 
 
     //Login
