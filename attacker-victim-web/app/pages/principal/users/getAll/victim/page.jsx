@@ -12,7 +12,7 @@ export default async function getAllVictimasPage() {
       <Navigation number={1}></Navigation>
 
       <div className="bg-white py-2 sm:py-10 ">
-        <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-12 px-6 lg:px-8 ">
+        <div className="mx-auto grid max-w-full gap-x-8 gap-y-12 px-6 lg:px-8 ">
           <DivHeader
             title="Usuarios Victima en el Sistema"
             description="Usuarios de tipo Victima registrados en el sistema."

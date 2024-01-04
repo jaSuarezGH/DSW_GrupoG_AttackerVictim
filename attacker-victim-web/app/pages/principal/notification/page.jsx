@@ -29,12 +29,13 @@ export default function notificationPage() {
       if (control) {
         const users = await fetchGetDelete(endGetAllUsers);
 
-        if (!users) {
+        if (users) {
         // Recorrer cada usuario.
         for (const user of users) {
           // Solo interesan los usuarios que esten activos
 
           if (user._active) {
+            setError(false);
             // Buscar en la tabla Historial todos los registros del usuario dado.
             const historiales = await fetchGetDelete(
               endGetHistoryByUserId,
@@ -48,7 +49,7 @@ export default function notificationPage() {
             // Los tiempos estan expresados en milisegundos.
             // Si no hay actualizacion del posicionamiento en mas de un 1min.
             // Se crea una notificacion de OFFLINE.
-              if (Date.now() - tiempoRef.current > 60000) {
+              if (Date.now() - tiempoRef.current > 80000) {
               const bodyNotification = {
                 _full_date: Date.now(),
                 _status: "USUARIO OFFLINE",

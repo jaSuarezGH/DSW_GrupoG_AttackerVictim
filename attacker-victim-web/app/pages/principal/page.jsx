@@ -16,7 +16,7 @@ export default async function PrincipalPage() {
   return (
     <>
       <Navigation></Navigation>
-      <HeaderPrincipal texto="Historial de Notificaciones"></HeaderPrincipal>
+      <HeaderPrincipal texto="Resumen de Notificaciones"></HeaderPrincipal>
       <section className="px-6 mx-auto max-w-8xl pt-4 pb-10">
         <div className="bg-white py-2 sm:py-10 ">
           <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-12 px-6 lg:px-8 ">
@@ -33,10 +33,10 @@ export default async function PrincipalPage() {
         <div className=" mx-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-16 lg:gap-x-20 gap-y-18">
           {/* CONSULTAR TODOS LOS USUARIOS */}
           <Card
-            title="Consultar Usuarios"
-            description="Consultar a todos los usuarios registrados en el sistema."
+            title="Consultar todos los Victima/Atacante"
+            description="Consultar a todos los usuarios tipo Victima o Atacante registrados en el sistema."
             link={Routes.GETALL_USERS}
-            tags={[1, 2, 3]}
+            tags={[2, 3]}
           ></Card>
 
           {/* CONSULTAR UN USUARIO */}
