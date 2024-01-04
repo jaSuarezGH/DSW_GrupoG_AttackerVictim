@@ -68,6 +68,7 @@ export const Routes = {
 
 
     //Login
+    SIGN_IN: '/pages/login',
     SIGN_OFF: '/pages/login',
     FORGOT_PASS: '/pages/login/recuperarClave',
 

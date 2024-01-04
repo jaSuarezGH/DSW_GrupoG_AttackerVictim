@@ -1,31 +1,14 @@
-import { Routes } from "@/app/models/routes.model";
 
+import { Routes } from "@/app/models/routes.model";
 import Card from "@/components/Card/Card";
 import HeaderPrincipal from "@/components/Header/HeaderPrincipal";
 import { Navigation } from "@/components/Navigation";
-import { fetchGetDelete } from "./fetch/fetchGetDelete";
-import { endGetAllNotifications } from "@/app/models/endpoint.model";
-import TablaAllNotifications from "@/components/Table/Notifications/TablaAllNotification";
 
 export default async function PrincipalPage() {
-  const fetchNotifications = await fetchGetDelete(endGetAllNotifications);
-  // Ordenar las notificaciones por fecha descendente.
-  fetchNotifications.sort((a, b) => b._full_date - a._full_date);
-  // Limitar solo a 5 notificaciones.
-  const notifications = fetchNotifications.slice(0, 5);
+
   return (
     <>
       <Navigation></Navigation>
-      <HeaderPrincipal texto="Resumen de Notificaciones"></HeaderPrincipal>
-      <section className="px-6 mx-auto max-w-8xl pt-4 pb-10">
-        <div className="bg-white py-2 sm:py-10 ">
-          <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-12 px-6 lg:px-8 ">
-            <TablaAllNotifications
-              notifications={notifications}
-            ></TablaAllNotifications>
-          </div>
-        </div>
-      </section>
 
       <HeaderPrincipal texto="Funcionalidades"></HeaderPrincipal>
 

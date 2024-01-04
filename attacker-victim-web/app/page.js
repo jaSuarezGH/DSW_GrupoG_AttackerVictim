@@ -22,7 +22,7 @@ export default function RootPage() {
             className="space-y-6"
             onSubmit={(evento) => {
               evento.preventDefault();
-              router.push(Routes.PRINCIPAL);
+              router.push(Routes.SIGN_IN);
             }}
           >
 
