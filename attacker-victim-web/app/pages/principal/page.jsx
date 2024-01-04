@@ -31,6 +31,92 @@ export default async function PrincipalPage() {
 
       <section className="px-6 mx-auto max-w-8xl pt-10">
         <div className=" mx-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-16 lg:gap-x-20 gap-y-18">
+          
+          {/* CONSULTAR TODOS LOS ADMINISTRADORES */}
+          <Card
+            title="Consultar Administradores"
+            description="Consultar a todos los usuarios de tipo Administrador registrados en el sistema."
+            link={Routes.GETALL_ADMINS}
+            tags={[1]}
+          ></Card>
+
+          
+          {/* Crear Usuario Administrador */}
+          <Card
+            title="Crear Usuario Administrador"
+            description='Crear usuarios de tipo "Administrador" y su respectivo usuario.'
+            link={Routes.CREATE_ADMIN}
+            tags={[1]}
+          ></Card>
+
+          {/* Modificar Administrador */}
+          <Card
+            title="Modificar Usuario Administrador"
+            description="Modificar a un usuario de tipo Administrador registrado en el sistema."
+            link={Routes.UPDATE_ADMIN}
+            tags={[1]}
+          ></Card>
+
+          {/* Eliminar Usuario Administrador */}
+          <Card
+            title="Eliminar Usuario Administrador"
+            description='Eliminar un usuario de tipo "Administrador" registrado en el sistema.'
+            link={Routes.DELETE_ADMIN}
+            tags={[1]}
+          ></Card>
+
+          {/* HISTORIAL DE NOTIFICACIONES */}
+          <Card
+            title="Historial de Notificaciones"
+            description="Ver un historial de todas las distintas notificaciones o alertas recibidas."
+            link={Routes.GET_ALL_NOTIFICATIONS}
+            tags={[1]}
+          ></Card>
+
+
+          {/* CONSULTAR VICTIMAS */}
+          <Card
+            title="Consultar Victimas"
+            description='Consultar a todos los usuarios de tipo "Victima" registrados en el
+            sistema.'
+            link={Routes.GETALL_VICTIMS}
+            tags={[2]}
+          ></Card>
+
+
+          {/* Crear Zona Segura */}
+          <Card
+            title="Crear Zona Segura"
+            description='Crear Zona Segura para un usuario de tipo "Victima" registrado en el sistema.'
+            link={Routes.CREATE_ZS}
+            tags={[2]}
+          ></Card>
+
+          {/* Consultar Zona Segura */}
+          <Card
+            title="Consultar Zona Segura"
+            description='Consultar Zona Segura de un usuario de tipo "Victima" registrado en el sistema.'
+            link={Routes.CONSULT_ZS}
+            tags={[2]}
+          ></Card>
+
+          {/* Eliminar Zona Segura */}
+          <Card
+            title="Eliminar Zona Segura"
+            description='Eliminar Zona Segura de un usuario de tipo "Victima" registrado en el sistema.'
+            link={Routes.DELETE_ZS}
+            tags={[2]}
+          ></Card>
+
+          {/* CONSULTAR ATACANTES */}
+          <Card
+            title="Consultar Atacantes"
+            description='Consultar a todos los usuarios de tipo "Atacante" registrados en
+            el sistema.'
+            link={Routes.GETALL_ATTACKERS}
+            tags={[3]}
+          ></Card>
+
           {/* CONSULTAR TODOS LOS USUARIOS */}
           <Card
             title="Consultar todos los Victima/Atacante"
@@ -45,40 +131,6 @@ export default async function PrincipalPage() {
             description="Consultar a un unico usuario de tipo Victima o Atacante registrados en el sistema."
             link={Routes.GET_USER}
             tags={[2, 3]}
-          ></Card>
-
-          {/* CONSULTAR TODOS LOS ADMINISTRADORES */}
-          <Card
-            title="Consultar Administradores"
-            description="Consultar a todos los usuarios de tipo Administrador registrados en el sistema."
-            link={Routes.GETALL_ADMINS}
-            tags={[1]}
-          ></Card>
-
-          {/* CONSULTAR VICTIMAS */}
-          <Card
-            title="Consultar Victimas"
-            description='Consultar a todos los usuarios de tipo "Victima" registrados en el
-            sistema.'
-            link={Routes.GETALL_VICTIMS}
-            tags={[2]}
-          ></Card>
-
-          {/* CONSULTAR ATACANTES */}
-          <Card
-            title="Consultar Atacantes"
-            description='Consultar a todos los usuarios de tipo "Atacante" registrados en
-            el sistema.'
-            link={Routes.GETALL_ATTACKERS}
-            tags={[3]}
-          ></Card>
-
-          {/* Crear Usuario Administrador */}
-          <Card
-            title="Crear Usuario Administrador"
-            description='Crear usuarios de tipo "Administrador" y su respectivo usuario.'
-            link={Routes.CREATE_ADMIN}
-            tags={[1]}
           ></Card>
 
           {/* Crear Usuario Victima y Atacante */}
@@ -98,13 +150,6 @@ export default async function PrincipalPage() {
             tags={[2, 3]}
           ></Card>
 
-          {/* Modificar Administrador */}
-          <Card
-            title="Modificar Usuario Administrador"
-            description="Modificar a un usuario de tipo Administrador registrado en el sistema."
-            link={Routes.UPDATE_ADMIN}
-            tags={[1]}
-          ></Card>
 
           {/* Consultar la Relación Victima/Atacante */}
           <Card
@@ -142,45 +187,7 @@ export default async function PrincipalPage() {
             tags={[2, 3]}
           ></Card>
 
-          {/* Eliminar Usuario Administrador */}
-          <Card
-            title="Eliminar Usuario Administrador"
-            description='Eliminar un usuario de tipo "Administrador" registrado en el sistema.'
-            link={Routes.DELETE_ADMIN}
-            tags={[1]}
-          ></Card>
 
-          {/* Crear Zona Segura */}
-          <Card
-            title="Crear Zona Segura"
-            description='Crear Zona Segura para un usuario de tipo "Victima" registrado en el sistema.'
-            link={Routes.CREATE_ZS}
-            tags={[2]}
-          ></Card>
-
-          {/* Consultar Zona Segura */}
-          <Card
-            title="Consultar Zona Segura"
-            description='Consultar Zona Segura de un usuario de tipo "Victima" registrado en el sistema.'
-            link={Routes.CONSULT_ZS}
-            tags={[2]}
-          ></Card>
-
-          {/* Eliminar Zona Segura */}
-          <Card
-            title="Eliminar Zona Segura"
-            description='Eliminar Zona Segura de un usuario de tipo "Victima" registrado en el sistema.'
-            link={Routes.DELETE_ZS}
-            tags={[2]}
-          ></Card>
-
-          {/* HISTORIAL DE NOTIFICACIONES */}
-          <Card
-            title="Historial de Notificaciones"
-            description="Ver un historial de todas las distintas notificaciones o alertas recibidas."
-            link={Routes.GET_ALL_NOTIFICATIONS}
-            tags={[1]}
-          ></Card>
         </div>
       </section>
     </>
