@@ -10,18 +10,76 @@ import { Gyroscope } from 'expo-sensors';
 import { ObtenerAtacanteZonaSegura } from '../../../Domain/useCases/ObtenerAtacanteZonaSegura';
 import { ObtenerIncidenteAtacante } from '../../../Domain/useCases/ObtenerIncidenciaAtacante';
 import { PostUsuarioNotificacion } from '../../../Domain/useCases/EnviarNotificacion';
+import * as Notifications from 'expo-notifications';
 
-//Variable global attackerID
+//Variable global attackerID proveniente de viewLogin
+
 
 export const principalViewModel = () => {
-    global.gyroStatus = 'MOBILE';
+    let gyroStatus = 'MOBILE';
+    let statusInmovil = 0;
+    let incidente = null;
 
-    const obtenerIncidenciaAtacante = async (incidente,setIncidente) => {
+    const manejoNotificaciones = () => {
+
+      Notifications.setNotificationHandler({
+        handleNotification: async () => ({
+          shouldShowAlert: true,
+          shouldPlaySound: true,
+          shouldSetBadge: false,
+        }),
+      });
+  
+      const registroDeNotificaciones = async () => {
+        let token;
+          const { status: existingStatus } = await Notifications.getPermissionsAsync();
+          let finalStatus = existingStatus;
+          if (existingStatus !== 'granted') {
+            const { status } = await Notifications.requestPermissionsAsync();
+            finalStatus = status;
+          }
+          if (finalStatus !== 'granted') {
+            alert('Failed to get push token for push notification!');
+            return;
+          }
+          token = (await Notifications.getExpoPushTokenAsync({ projectId: 'a7c0421e-bec5-4aab-92c2-a4cadf0110e1' })).data;
+        return token;
+      };
+
+      const inicializarNotificaciones = async (setNotification,notificationListener,responseListener) => {
+        notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+          setNotification(notification);
+        });
+    
+        responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+          console.log(response);
+        });
+      };
+
+      const finalizarNotificaciones = async (notificationListener,responseListener) => {
+        Notifications.removeNotificationSubscription(notificationListener.current);
+        Notifications.removeNotificationSubscription(responseListener.current);
+      }; 
+  
+      async function mandarNotificacion(titulo, cuerpo) {
+        await Notifications.scheduleNotificationAsync({
+          content: {
+            title: titulo,
+            body: cuerpo,
+          },
+          trigger: { seconds: 2 },
+        });
+      };
+
+      return {registroDeNotificaciones,inicializarNotificaciones,finalizarNotificaciones,mandarNotificacion};
+    };
+
+    const obtenerIncidenciaAtacante = async () => {
       if (incidente === null){
         try {
           const incidenteAtacante = await ObtenerIncidenteAtacante(attackerID);
           if (incidenteAtacante.status === 200){
-             setIncidente(incidenteAtacante);
+             incidente = incidenteAtacante;
           };
         } catch (error){
           Alert.alert('Error al obtener la incidencia del atacante.',error.message);
@@ -30,7 +88,7 @@ export const principalViewModel = () => {
     };
     
     
-    const funcionDemonio = () => {
+    const funcionDemonio = (mandarNotificacion) => {
       setupDatabase();
 
       const obtenerLocalizacion = async () => {
@@ -44,8 +102,9 @@ export const principalViewModel = () => {
           return localizacionActual;
         } catch (error) {
           console.log('Error al obtener la ubicación:', error);
-        }
+        };
       };
+
 
       const enviarNotificaciones = async(tipoNotificacion) => {
         try{
@@ -61,14 +120,14 @@ export const principalViewModel = () => {
         }
       };
 
-      const obtenerStatusGiroscopio = async (setInactive,inactive) => {
+      const obtenerStatusGiroscopio = async () => {
         const listener = Gyroscope.addListener(({ x, y, z }) => {
           if (Math.abs(x) < 0.009 && Math.abs(y) < 0.009 && Math.abs(z) < 0.009) {
-            setInactive(inactive + 1);
+            statusInmovil = statusInmovil + 1;
           } else {
-            setInactive(0);
+            statusInmovil = 0;
           }
-          if (inactive >= 3) {
+          if (statusInmovil >= 3) {
             gyroStatus = 'INMOBILE';
           } else {
             gyroStatus = 'MOBILE';
@@ -80,19 +139,17 @@ export const principalViewModel = () => {
         }
       };
 
-      const verificarAtacanteZonaSegura = async (incidente) => {
+      const verificarAtacanteZonaSegura = async () => {
         try {
           const atacanteZona = await ObtenerAtacanteZonaSegura(incidente.data.response.id);
           if (atacanteZona.status === 200){
             if (atacanteZona.data.response._inside === true){
-              //Apartado de alertas es necesario acomodar/////////////////////////////////////////////////////////////////////////////////////////////////
-              //Enviar notificación
-              Alert.alert('Te encuentras en una zona segura. Por favor salga inmediatamente.');
+              mandarNotificacion('INGRESO A ZONA SEGURA','Por favor salga inmediatamente o se le notificara a las autoridades.')
               await enviarNotificaciones('Atacante en una Zona Segura.');
             };
           };
         } catch (error){
-          Alert.alert('Error al obtener si el atacante se encuentra en una zona segura',error.message);
+          Alert.alert('Error al obtener si el atacante se encuentra en una zona segura: ',error.message);
         };
       };
 
@@ -122,7 +179,7 @@ export const principalViewModel = () => {
         }      
       };
 
-      const verificarConexionInternet = async (setConexionInternet,setInactive,inactive,incidente) => {
+      const verificarConexionInternet = async (setConexionInternet) => {
         //Obtenemos la fecha actual en milisegundos
         var fecha = new Date();
         var milisegundos = Date.parse(fecha);
@@ -138,7 +195,7 @@ export const principalViewModel = () => {
 
         setConexionInternet(online);
 
-        await obtenerStatusGiroscopio(setInactive,inactive);
+        await obtenerStatusGiroscopio();
 
         let localizacionTelefono = await obtenerLocalizacion();
 
@@ -161,7 +218,6 @@ export const principalViewModel = () => {
             } else {
               await enviarCoordenadas(generarCoordenada(localizacionTelefono.coords.latitude,localizacionTelefono.coords.longitude,gyroStatus,milisegundos));
               await verificarAtacanteZonaSegura(incidente);
-              console.log('Termino');
             }
         } else {
           GuardarCoordenadasSQL(generarCoordenada(localizacionTelefono.coords.latitude,localizacionTelefono.coords.longitude,'OFFLINE',milisegundos))
@@ -176,6 +232,8 @@ export const principalViewModel = () => {
         };
       };
       return {verificarConexionInternet};
-    }
-    return {funcionDemonio,obtenerIncidenciaAtacante};
+    };
+
+    return {funcionDemonio,obtenerIncidenciaAtacante,manejoNotificaciones};
 };
+

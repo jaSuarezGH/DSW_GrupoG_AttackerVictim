@@ -10,12 +10,75 @@ import { PostUsuarioCoordenadas } from '../../../Domain/useCases/EnviarCoordenad
 import { Gyroscope } from 'expo-sensors';
 import { ObtenerZonasSegurasID } from '../../../Domain/useCases/ObtenerZonasSeguras';
 import { ObtenerIncidenteVictima } from '../../../Domain/useCases/ObtenerIncidenciaVictima';
-import { ObtenerDistanciaVictimaAgresor } from '../../../Domain/useCases/ObtenerDistanciaVictimaAgresor';
-import { ObtenerAtacanteZonaSegura } from '../../../Domain/useCases/ObtenerAtacanteZonaSegura';
+import { obtenerDistanciaVictimaAgresor } from '../../../Domain/useCases/ObtenerDistanciaVictimaAgresor';
+import { obtenerAtacanteZonaSegura } from '../../../Domain/useCases/ObtenerAtacanteZonaSegura';
 import { PostUsuarioNotificacion } from '../../../Domain/useCases/EnviarNotificacion';
+import * as Notifications from 'expo-notifications';
+import { Linking } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Vibration } from 'react-native';
+import { Audio } from 'expo-av';
 
 export const principalViewModel = () => {
-    global.gyroStatus = 'MOBILE';
+    let gyroStatus = 'MOBILE';
+    let statusInactive = 0;
+    let incidente = null;
+    const navigation = useNavigation();
+
+
+
+    const manejoNotificaciones = () => {
+
+      Notifications.setNotificationHandler({
+        handleNotification: async () => ({
+          shouldShowAlert: true,
+          shouldPlaySound: true,
+          shouldSetBadge: false,
+        }),
+      });
+  
+      const registroDeNotificaciones = async () => {
+        let token;
+          const { status: existingStatus } = await Notifications.getPermissionsAsync();
+          let finalStatus = existingStatus;
+          if (existingStatus !== 'granted') {
+            const { status } = await Notifications.requestPermissionsAsync();
+            finalStatus = status;
+          }
+          if (finalStatus !== 'granted') {
+            alert('Failed to get push token for push notification!');
+            return;
+          }
+          token = (await Notifications.getExpoPushTokenAsync({ projectId: '4c457148-9e65-449e-bb37-c46509153175' })).data;
+        return token;
+      };
+
+      const inicializarNotificaciones = async (setNotification,notificationListener,responseListener) => {
+        notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+          setNotification(notification);
+        });
+    
+        responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+          console.log(response);
+        });
+      };
+
+      const finalizarNotificaciones = async (notificationListener,responseListener) => {
+        Notifications.removeNotificationSubscription(notificationListener.current);
+        Notifications.removeNotificationSubscription(responseListener.current);
+      }; 
+  
+      async function mandarNotificacion(titulo, cuerpo) {
+        await Notifications.scheduleNotificationAsync({
+          content: {
+            title: titulo,
+            body: cuerpo,
+          },
+          trigger: { seconds: 2 },
+        });
+      };
+      return {registroDeNotificaciones,inicializarNotificaciones,finalizarNotificaciones,mandarNotificacion};
+    };
 
     const gestionarZonasSeguras = async () => {
       let zonasSeguras = [];
@@ -41,17 +104,28 @@ export const principalViewModel = () => {
       }
     };
 
-    const obtenerIncidenciaVictima = async (incidente,setIncidente) => {
+    const navegarVistaPuntoControl = () =>{
+      navigation.navigate('VistaPuntoControl');
+    }
+
+    const obtenerIncidenciaVictima = async () => {
       if (incidente === null){
         try {
           const incidenteVictima = await ObtenerIncidenteVictima(victimID);
           if (incidenteVictima.status === 200){
-             setIncidente(incidenteVictima);
+             incidente = incidenteVictima;
           };
         } catch (error){
           Alert.alert('Error al obtener las zonas seguras',error.message);
         };
       }
+    };
+
+    async function sonarAlerta() {
+      const { sound } = await Audio.Sound.createAsync(
+          require('../../../../assets/red-alert.mp3')
+      );
+      await sound.playAsync();
     };
 
     const obtenerLocalizacionMapa = () => {
@@ -84,11 +158,31 @@ export const principalViewModel = () => {
               };
           })();
       }, []);
-  
       return { initialLocation, currentLocation, setInitialLocation };
     };
 
-    const funcionDemonio = () => {
+    const llamadaSOS = () => {
+        let numeroTelefono = '911'; 
+
+        // Asegúrate de incluir el prefijo 'tel:' antes del número de teléfono
+        let urlTelefono = `tel:${numeroTelefono}`;
+
+        // Comprueba si la aplicación puede manejar la URL del teléfono
+        Linking.canOpenURL(urlTelefono)
+            .then(supported => {
+                if (!supported) {
+                    console.log('No se puede llamar a ' + urlTelefono);
+                } else {
+                    return Linking.openURL(urlTelefono);
+                }
+            })
+            .catch(err => console.error('Ocurrió un error', err));
+    };
+
+
+
+
+    const funcionDemonio = (mandarNotificacion) => {
       setupDatabase();
 
       const obtenerLocalizacion = async () => {
@@ -119,14 +213,14 @@ export const principalViewModel = () => {
         }
       };
 
-      const obtenerStatusGiroscopio = async (setInactive,inactive) => {
+      const obtenerStatusGiroscopio = async () => {
         const listener = Gyroscope.addListener(({ x, y, z }) => {
           if (Math.abs(x) < 0.009 && Math.abs(y) < 0.009 && Math.abs(z) < 0.009) {
-            setInactive(inactive + 1);
+            statusInactive = statusInactive + 1;
           } else {
-            setInactive(0);
+            statusInactive = 0;
           }
-          if (inactive >= 3) {
+          if (statusInactive >= 3) {
             gyroStatus = 'INMOBILE';
           } else {
             gyroStatus = 'MOBILE';
@@ -160,19 +254,19 @@ export const principalViewModel = () => {
             Alert.alert('Ocurrió un error al enviar la ubicación');
           }
         } catch (error) {
-          Alert.alert('Ocurrior un error inesperado:', error.message);
+          Alert.alert('Ocurrio un error inesperado:', error.message);
         };      
       };
 
-      const verificarDistancia = async (incidente) => {
+      const verificarDistancia = async () => {
         try {
-          const distancia = await ObtenerDistanciaVictimaAgresor(incidente.data.response.id);
+          const distancia = await obtenerDistanciaVictimaAgresor(incidente.data.response.id);
           if (distancia.status === 200){
             if (distancia.data.response <= incidente.data.response._separation_distance){
-              //Apartado de alertas es necesario acomodar/////////////////////////////////////////////////////////////////////////////////////////////////
-              //Enviar notificación
-              Alert.alert('El agresor se encuentra a menos de '+incidente.data.response._separation_distance+' metros de distancia'); 
+              mandarNotificacion('ATACANTE CERCA DE USTED','Se encuentra a una distancia de '+distancia.data.response+' metros de usted'); 
               await enviarNotificaciones('Atacante a una Distancia Menor a la Permitida.');
+              Vibration.vibrate(5000);
+              await sonarAlerta();
             };
           };
         } catch (error){
@@ -180,14 +274,13 @@ export const principalViewModel = () => {
         };
       };
 
-      const verificarAtacanteZonaSegura = async (incidente) => {
+      const verificarAtacanteZonaSegura = async () => {
         try {
-          const atacanteZona = await ObtenerAtacanteZonaSegura(incidente.data.response.id);
+          const atacanteZona = await obtenerAtacanteZonaSegura(incidente.data.response.id);
           if (atacanteZona.status === 200){
             if (atacanteZona.data.response._inside === true){
-              //Apartado de alertas es necesario acomodar/////////////////////////////////////////////////////////////////////////////////////////////////
-              //Enviar notificación
-              Alert.alert('El agresor se encuentra dentro de una zona segura.Por favor tenga cuidado.');
+              mandarNotificacion('ATACANTE EN ZONA SEGURA','Por favor tenga cuidado al ingresar a una zona segura.'); 
+              Vibration.vibrate(4000);
             };
           };
         } catch (error){
@@ -195,7 +288,7 @@ export const principalViewModel = () => {
         };
       };
 
-      const verificarConexionInternet = async (setConexionInternet,setInactive,inactive,incidencia) => {
+      const verificarConexionInternet = async (setConexionInternet) => {
         //Obtenemos la fecha actual en milisegundos
         var fecha = new Date();
         var milisegundos = Date.parse(fecha);
@@ -211,7 +304,7 @@ export const principalViewModel = () => {
 
         setConexionInternet(online);
 
-        await obtenerStatusGiroscopio(setInactive,inactive);
+        await obtenerStatusGiroscopio();
 
         let localizacionTelefono = await obtenerLocalizacion();
 
@@ -232,9 +325,9 @@ export const principalViewModel = () => {
                   Alert.alert('Ocurrió un error al eliminar las ubicaciones:', error);
                 });  
             } else {
+              await verificarDistancia();
+              await verificarAtacanteZonaSegura();
               await enviarCoordenadas(generarCoordenada(localizacionTelefono.coords.latitude,localizacionTelefono.coords.longitude,gyroStatus,milisegundos));
-              await verificarDistancia(incidencia);
-              await verificarAtacanteZonaSegura(incidencia);
             };
         } else {
           GuardarCoordenadasSQL(generarCoordenada(localizacionTelefono.coords.latitude,localizacionTelefono.coords.longitude,'OFFLINE',milisegundos))
@@ -250,5 +343,5 @@ export const principalViewModel = () => {
       };
       return {verificarConexionInternet};
     };
-    return {funcionDemonio,gestionarZonasSeguras,obtenerLocalizacionMapa,obtenerIncidenciaVictima};
+    return {funcionDemonio,gestionarZonasSeguras,obtenerLocalizacionMapa,obtenerIncidenciaVictima,manejoNotificaciones,navegarVistaPuntoControl,llamadaSOS};
 }

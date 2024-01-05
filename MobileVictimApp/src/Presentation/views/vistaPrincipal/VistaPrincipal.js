@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, Image,Button } from 'react-native';
 import { principalViewModel } from '../../../../src/Presentation/views/vistaPrincipal/VistaPrincipalViewModel';
 import MapView, {Polygon} from 'react-native-maps';
@@ -7,20 +7,36 @@ import { RoundedButtonLogin } from '../../components/RoundedButtonLogin';
 
 export const VistaPrincipalScreen = () => {
     const [zonasSeguras,setZonasSeguras] = useState([]);
-    const { funcionDemonio,gestionarZonasSeguras,obtenerLocalizacionMapa,obtenerIncidenciaVictima } = principalViewModel();
-    const { verificarConexionInternet } = funcionDemonio();
+    const { funcionDemonio,gestionarZonasSeguras,obtenerLocalizacionMapa,obtenerIncidenciaVictima,manejoNotificaciones,navegarVistaPuntoControl,llamadaSOS } = principalViewModel();
+    const { registroDeNotificaciones,inicializarNotificaciones,finalizarNotificaciones,mandarNotificacion} = manejoNotificaciones();
+    const { verificarConexionInternet } = funcionDemonio(mandarNotificacion);
+
     const [conexionInternet, setConexionInternet] = useState(true);
-    const [inactive, setInactive] = useState(0);
-    const [IdIncidencia, setIdIncidencia] = useState(null);
 
     let {initialLocation} = obtenerLocalizacionMapa();
+
+    const [expoPushToken, setExpoPushToken] = useState('');
+    const [notification, setNotification] = useState(false);
+    const notificationListener = useRef();
+    const responseListener = useRef();
+
+
+    useEffect(() => {
+        registroDeNotificaciones().then(token => setExpoPushToken(token));
+        inicializarNotificaciones(setNotification,notificationListener,responseListener);
+        
+        return () => {
+        finalizarNotificaciones(notificationListener,responseListener);
+        };
+    }, []);
+
 
     useEffect(() => {
         let intervalId;
         (async () => {
-            await obtenerIncidenciaVictima(IdIncidencia,setIdIncidencia);
-            /*intervalId = setInterval(() => verificarConexionInternet(setConexionInternet,setInactive,inactive,IdIncidencia)
-            ,45000);*/
+            await obtenerIncidenciaVictima();
+            intervalId = setInterval(() => verificarConexionInternet(setConexionInternet)
+            ,45000);
         })();
         return () => {
             clearInterval(intervalId);
@@ -78,20 +94,20 @@ export const VistaPrincipalScreen = () => {
                 <View style={styles.buttonContainer}>
                     <RoundedButtonLogin 
                         text = ' Punto de control ' 
-                        //onPress={} 
+                        onPress={navegarVistaPuntoControl} 
                     /> 
                 </View>
 
                 <View style={styles.buttonContainer}>
                     <RoundedButtonLogin 
                         text = 'SOS' 
-                        //onPress={} 
+                        onPress={llamadaSOS} 
                     />
                 </View>
 
                 <View style={styles.buttonContainer}>
                     <RoundedButtonLogin 
-                        text = 'SOS' 
+                        text = 'Mensajes' 
                         //onPress={} 
                     />
                 </View>
@@ -141,11 +157,12 @@ const styles = StyleSheet.create({
         alignSelf:'center',
         height:'20%',
         bottom:'0%',
+        right:'23%',
         flexDirection:'row',
         justifyContent:'space-between',
     },
     buttonContainer: {
-        flex: 1,
-        margin: 10,
+        width: '38%',
+        margin: 5,
     },
 });

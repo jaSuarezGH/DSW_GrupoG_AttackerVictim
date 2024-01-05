@@ -1,21 +1,34 @@
 import React from 'react';
 import { View,Text,StyleSheet,Image } from 'react-native';
 import { principalViewModel } from '../../../../src/Presentation/views/vistaPrincipal/VistaPrincipalViewModel';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 export const VistaPrincipalScreen = () => {
 
-    const { funcionDemonio,obtenerIncidenciaAtacante } = principalViewModel();
-    const { verificarConexionInternet } = funcionDemonio();
+    const { funcionDemonio,obtenerIncidenciaAtacante,manejoNotificaciones } = principalViewModel();
+    const { registroDeNotificaciones,inicializarNotificaciones,finalizarNotificaciones,mandarNotificacion} = manejoNotificaciones();
+    const { verificarConexionInternet } = funcionDemonio(mandarNotificacion);
+
     const [conexionInternet, setConexionInternet] = useState(true);
-    const [inactive, setInactive] = useState(0);
-    const [IdIncidencia, setIdIncidencia] = useState(null);
+    
+    const [expoPushToken, setExpoPushToken] = useState('');
+    const [notification, setNotification] = useState(false);
+    const notificationListener = useRef();
+    const responseListener = useRef();
+
+    useEffect(() => {
+        registroDeNotificaciones().then(token => setExpoPushToken(token));
+        inicializarNotificaciones(setNotification,notificationListener,responseListener);
+        return () => {
+        finalizarNotificaciones(notificationListener,responseListener);
+        };
+    }, []);
 
     useEffect(() => {
         let intervalId;
         (async () => {
-             await obtenerIncidenciaAtacante(IdIncidencia,setIdIncidencia);
-             intervalId = setInterval(() => verificarConexionInternet(setConexionInternet,setInactive,inactive,IdIncidencia)
+             await obtenerIncidenciaAtacante();
+             intervalId = setInterval(() => verificarConexionInternet(setConexionInternet)
              ,45000);
           })();
 

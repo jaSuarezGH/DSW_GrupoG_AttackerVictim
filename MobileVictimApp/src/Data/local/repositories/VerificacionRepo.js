@@ -19,7 +19,7 @@ export const getIncidenteVictima = async (id) => {
 
 export const getDistanciaVictimaAgresor = async (idIncidente) => {
     try {
-      const solicitud = await apiClient.get('/incident/victimRegistry/'+idIncidente+'');
+      const solicitud = await apiClient.get('/operation/separation-distance/'+idIncidente+'');
       if (solicitud !== undefined) {
         if (solicitud.status === 200) { //Condicion del tipo de status que se recibio
           if (solicitud.data.response !== null) {
