@@ -89,7 +89,7 @@ public class EntityFactory {
     }
 
     public static Notification createNotification(long id){
-        return new Notification();
+        return new Notification(id);
     }
 
 }

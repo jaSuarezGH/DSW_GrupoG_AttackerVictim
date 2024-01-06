@@ -10,6 +10,7 @@ public class Administrator {
     }
 
     public Administrator(Administrator administrator) {
+        _id = administrator._id;
         _username = administrator._username;
         _email = administrator._email;
         _password = administrator._password;
