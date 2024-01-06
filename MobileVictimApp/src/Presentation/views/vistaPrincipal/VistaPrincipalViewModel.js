@@ -179,9 +179,6 @@ export const principalViewModel = () => {
             .catch(err => console.error('Ocurrió un error', err));
     };
 
-
-
-
     const funcionDemonio = (mandarNotificacion) => {
       setupDatabase();
 
@@ -296,7 +293,6 @@ export const principalViewModel = () => {
         //Verificamos si hay conexión a internet
         const netInfo = await NetInfo.fetch();
         let online = netInfo.isConnected && netInfo.isInternetReachable;
-        
         //En la primera consulta de red devuelve null por eso asigno true si es null
         if (online === null){
           online = true;
