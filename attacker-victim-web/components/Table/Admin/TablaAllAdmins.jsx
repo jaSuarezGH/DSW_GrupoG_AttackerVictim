@@ -18,6 +18,9 @@ function TablaAllAdmins({ users }) {
             <th scope="col" class="px-6 py-3">
               ID
             </th>
+            <th scope="col" class="px-6 py-3">
+              Accion
+            </th>
           </tr>
         </thead>
         <tbody>

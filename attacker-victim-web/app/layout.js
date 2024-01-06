@@ -8,10 +8,12 @@ export const metadata = {
   description: 'Sistema Web de AttackVictim',
 }
 
+// Aplicae en el className para ponerle la fuente: ${montserrat.className} antialiased
+
 export default function RootLayout({ children }) {
   return (
     <html lang="es" className=" bg-white">
-      <body className={`${montserrat.className} antialiased`} class="h-full">
+      <body className={`h-full`}>
         {children}
         </body>
     </html>

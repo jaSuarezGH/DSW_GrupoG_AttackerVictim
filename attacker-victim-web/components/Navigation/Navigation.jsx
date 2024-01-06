@@ -20,7 +20,7 @@ const navigation = [
     href: Routes.GET_LOCATION_HOME,
     current: false,
   },
-  { name: "Notificaciones", href: Routes.GET_NOTIFICATIONS, current: false },
+  { name: "Notificaciones", href: Routes.GET_ALL_NOTIFICATIONS, current: false },
 ];
 
 export function Navigation({ number = 0 }) {

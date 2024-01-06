@@ -1,46 +1,35 @@
-import FillTableVictimAttacker from "./FillTableVictimAttacker";
+import FillTableAllNotification from "./FillTableAllNotification";
 
-function TablaAllVictimsAttackers({ users }) {
+function TablaAllNotifications({ notifications }) {
+  
   return (
     <div class="items-center flex relative overflow-x-auto ring-2 ring-slate-300 rounded-md">
       <table class="w-full text-sm text-center text-gray-500">
         <thead class="text-xs text-gray-700 uppercase bg-indigo-100 border-b-2 border-slate-300">
           <tr>
             <th scope="col" class="px-6 py-3">
-              Usuario
+              Tipo de Notificacion
             </th>
             <th scope="col" class="px-6 py-3">
-              Contraseña
+              Correo del Usuario
             </th>
             <th scope="col" class="px-6 py-3">
-              Nombres
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Apellidos
+              Username
             </th>
             <th scope="col" class="px-6 py-3">
               Cedula
             </th>
             <th scope="col" class="px-6 py-3">
-              Correo
-            </th>
-            <th scope="col" class="px-6 py-3">
-              MAC
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Estado
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Accion
+              Fecha
             </th>
           </tr>
         </thead>
         <tbody>
-          <FillTableVictimAttacker users={users}></FillTableVictimAttacker>
+          <FillTableAllNotification notifications={notifications}></FillTableAllNotification>
         </tbody>
       </table>
     </div>
   );
 }
 
-export default TablaAllVictimsAttackers;
+export default TablaAllNotifications;
