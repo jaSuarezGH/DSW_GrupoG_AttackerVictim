@@ -3,8 +3,12 @@
 // el enlace del servidor donde corre nuestra API.
 // Ademas de todos los endpoint del sistema web.
 
-// https://big-famous-raccoon.ngrok-free.app
-export const enlaceAPI = "http://127.0.0.1:8080";
+
+// https://attackervictim.ngrok.app
+
+// http://127.0.0.1:8080
+
+export const enlaceAPI = "https://attackervictim.ngrok.app";
 
 export const endGetAllUsers = `/cmcapp-backend-1.0/api/users/all`;
 
