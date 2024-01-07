@@ -1,13 +1,11 @@
 import React, {useState} from 'react'
 import { StyleSheet, Text, View,Image,TextInput,Button } from 'react-native';
 import { RoundedButton } from '../../components/RoundedButton';
-import {useHomeViewModel} from './HomeViewModel';
-
-
+import {homeViewModel} from './HomeViewModel';
 
 export const HomeScreen = () => {
 
-    const {url,setUrl} = useHomeViewModel();
+    const { continuarNavigation,exitApp } = homeViewModel();
 
       return (
         <View style={styles.container}>
@@ -17,24 +15,13 @@ export const HomeScreen = () => {
               style={styles.imageLogo} />
             <Text style={styles.logoText}>Attacker App</Text>
           </View>
-          <View style={styles.form}>
-              <Text style={styles.textForm}>Establezca conexion con la api</Text>
-              <View style={styles.inputForm}>
-                <TextInput 
-                  style={styles.textInputForm} 
-                  placeholder='Ingrese la url de la api'
-                  value = {url}
-                  onChangeText= {setUrl}/>
-              </View>
-    
-              <View style = {{marginTop:30}}>
-                <RoundedButton text = 'Conectar' urlApi={url}   //Enviar un props a una constante 
-                />
-              </View>
+          <View style={styles.botonContainer}>   
+            <RoundedButton text = 'Iniciar' onPress={continuarNavigation}/>
+            <RoundedButton text = 'Salir' onPress={exitApp}/>
           </View>
         </View>
       );
-    }
+}
     
     const styles = StyleSheet.create({
       container: {
@@ -47,22 +34,10 @@ export const HomeScreen = () => {
         width:134,
         height:127,
       },
-      form:{
-        width:'80%',
-        height:'32%',
-        position:'absolute',
-        backgroundColor:'white',
-        bottom:'30%',
-        borderTopRightRadius:25,
-        borderTopLeftRadius:25,
-        borderBottomLeftRadius:25,
-        borderBottomRightRadius:25,
-        padding: 30,
-      },
       logoContainer:{
         position:'absolute',
         alignSelf:'center',
-        top:'13%',
+        top:'11%',
       },
       logoText:{
         color:'white',
@@ -71,21 +46,12 @@ export const HomeScreen = () => {
         marginTop:20,
         fontWeight:'bold',
       },
-      textForm:{
-        fontWeight:'bold',
-        fontSize:16,
+      botonContainer:{
+        position:'absolute',
+        alignSelf:'center',
+        top:'40%',
+        width:'80%',
       },
-      inputForm:{
-        flexDirection:'row',
-        marginTop:40,
-      },
-      textInputForm:{
-        flex:1,
-        borderBottomWidth:1,
-        borderBottomColor:'#EBEBEB',
-        fontSize:16,
-      },
-    
     });
     
 
