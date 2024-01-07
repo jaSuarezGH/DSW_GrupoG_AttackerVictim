@@ -2,14 +2,15 @@ import React from 'react';
 import { View,Text,StyleSheet,TextInput, TouchableOpacity,Image } from 'react-native';
 import { RoundedButtonLogin } from '../../components/RoundedButtonLogin';
 import { loginViewModel } from './VistaLoginViewModel';
+import { Dimensions } from 'react-native';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 export const VistaLoginScreen = () => {
     
-  const { user, handleInputChange,obtenerDatoUsuario,verificarDatos} = loginViewModel();
+  const { user, handleInputChange,verificarDatos,navegarVistaRecuperacionDatos} = loginViewModel();
 
-  const handlePress =() =>{
-    verificarDatos(user.email,user.password);
-  };
 
   return(
         <View style = {styles.container}>
@@ -18,7 +19,7 @@ export const VistaLoginScreen = () => {
               <Image 
                 source={require('../../../../assets/LogoAVapp.png')} 
                 style={styles.imageLogoLogin} />
-              <Text style={styles.logoText}>Attacker App</Text>
+              <Text style={styles.logoText}>Login Attacker</Text>
             </View>
             
             <View style={styles.form}>
@@ -30,8 +31,8 @@ export const VistaLoginScreen = () => {
                 
                 <TextInput 
                   style={styles.textInputForm} 
-                  keyboardType='email-address'
-                  placeholder='Ingrese su correo electronico'
+                  keyboardType='default'
+                  placeholder='Ingrese su usuario'
                   onChangeText={text => handleInputChange('email', text)}
                   value={user.email}
                   />
@@ -55,7 +56,7 @@ export const VistaLoginScreen = () => {
               <View style = {{marginTop:30}}>
                 <RoundedButtonLogin 
                  text = 'Ingresar' 
-                 onPress={handlePress} 
+                 onPress={() => verificarDatos(user.email,user.password)} 
                 />
               </View>
 
@@ -63,7 +64,7 @@ export const VistaLoginScreen = () => {
                 <Text>No te acuerdas de tus datos? </Text>
                 
                 <TouchableOpacity
-                  onPress={obtenerDatoUsuario}
+                  onPress={navegarVistaRecuperacionDatos}
                   >
                   <Text style={styles.formRequestText}>Solicitar</Text>
                 </TouchableOpacity>
@@ -76,71 +77,75 @@ export const VistaLoginScreen = () => {
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#25334A',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    form:{
-        width:'80%',
-        height:'40%',
-        position:'absolute',
-        backgroundColor:'white',
-        bottom:'25%',
-        borderTopRightRadius:25,
-        borderTopLeftRadius:25,
-        borderBottomLeftRadius:25,
-        borderBottomRightRadius:25,
-        padding: 30,
-      },
-      textForm:{
-        fontWeight:'bold',
-        fontSize:16,
-      },
-      inputForm:{
-        flexDirection:'row',
-        marginTop:35,
-      },
-      textInputForm:{
-        flex:1,
-        borderBottomWidth:1,
-        borderBottomColor:'#EBEBEB',
-        fontSize:16,
-      },
-      formRegister:{
-        flexDirection:'row',
-        marginTop: 50,
-        justifyContent:'center'
-      },
-      formRequestText:{
-        fontStyle:'italic',
-        color:'#3A84FF',
-        borderBottomWidth: 2,
-        borderBottomColor:'#3A84FF',
-        fontWeight:'bold',
-      },
-      imageLogo:{
-        width:30,
-        height:30,
-        marginRight:7,
-      },
-      imageLogoLogin:{
-        width:134,
-        height:127,
-      },
-      logoContainer:{
-        position:'absolute',
-        alignItems:'center',
-        top:'11%',
-      },
-      logoText:{
-        color:'white',
-        textAlign:'center',
-        fontSize:20,
-        marginTop:20,
-        fontWeight:'bold',
-      },
+  container: {
+    flex: 1,
+    backgroundColor: '#25334A',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  form:{
+      width: windowWidth * 0.8,
+      height: windowHeight * 0.5,
+      position:'absolute',
+      backgroundColor:'white',
+      bottom: windowHeight * 0.15,
+      borderTopRightRadius:25,
+      borderTopLeftRadius:25,
+      borderBottomLeftRadius:25,
+      borderBottomRightRadius:25,
+      padding: 30,
+  },
+  textForm:{
+      fontWeight:'bold',
+      fontSize: 20 * (windowWidth / 390),
+  },
+  inputForm:{
+      flexDirection:'row',
+      marginTop:35 * (windowHeight / 835),
+  },
+  textInputForm:{
+      flex:1,
+      borderBottomWidth:1,
+      borderBottomColor:'#EBEBEB',
+      fontSize:16 * (windowWidth / 390),
+  },
+  formRegister:{
+      flexDirection:'row',
+      marginTop: 24 * (windowHeight / 835),
+      justifyContent:'center'
+  },
+  formRequestText:{
+      fontStyle:'italic',
+      color:'#3A84FF',
+      fontSize: 15 * (windowHeight / 835),
+      borderBottomWidth: 2,
+      borderBottomColor:'#3A84FF',
+      fontWeight:'bold',
+  },
+  imageLogo:{
+      width:30 * (windowWidth / 390),
+      height:30 * (windowHeight / 835),
+      marginRight:7,
+  },
+  imageLogoLogin:{
+      width:130 * (windowWidth / 390),
+      height:125 * (windowHeight / 799),
+  },
+  logoContainer:{
+      position:'absolute',
+      alignItems:'center',
+      top: windowHeight * 0.11,
+  },
+  logoText:{
+      color:'white',
+      textAlign:'center',
+      fontSize:20 * (windowWidth / 390),
+      marginTop:20 * (windowHeight / 835),
+      fontWeight:'bold',
+  },
+  textDatos:{
+    fontSize: 17 * (windowHeight / 835),
+  },
 });
 
 

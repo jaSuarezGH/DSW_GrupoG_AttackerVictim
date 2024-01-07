@@ -1,23 +1,21 @@
-import React, { useState } from 'react';
-//import {connect} from '../../../Domain/entities/ApiService'
-import { Alert } from 'react-native';
-import { GetStatusConnection } from '../../../Domain/useCases/ConectionApi';
 
-export const useHomeViewModel = () => {
-    const [url, setUrl] = useState('');
-    return {
-        url,
-        setUrl,
+import { useNavigation } from '@react-navigation/native';
+import { BackHandler,Alert } from 'react-native';
+
+export const homeViewModel = () => { 
+    const navigation = useNavigation();
+
+    const continuarNavigation = () => {
+        navigation.navigate('VistaLogin');
     };
-};
 
-export const homeViewModelConnection = async (urlApi) => { 
-    const conexionRealizada = await GetStatusConnection(urlApi);
-    if (conexionRealizada){
-        Alert.alert('Conexión establecida con éxito');
-        return true;
-    }else{
-        Alert.alert('Error al establecer la conexión');
-        return false;
-    }
+    const exitApp = () => { ///Solo funciona en android
+        if (Platform.OS === 'ios') {
+            Alert.alert('Cerrar la aplicación', 'Por favor, cierra la aplicación manualmente', [{ text: 'OK' }]);
+        } else if (Platform.OS === 'android') {
+            BackHandler.exitApp();
+        }
+    };
+
+    return{continuarNavigation,exitApp}
 };
