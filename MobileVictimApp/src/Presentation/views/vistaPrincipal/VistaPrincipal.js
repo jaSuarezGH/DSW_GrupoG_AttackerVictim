@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, Image,Button } from 'react-native';
 import { principalViewModel } from '../../../../src/Presentation/views/vistaPrincipal/VistaPrincipalViewModel';
-import MapView, {Polygon} from 'react-native-maps';
+import MapView, {Polygon,PROVIDER_GOOGLE} from 'react-native-maps';
 import { RoundedButtonLogin } from '../../components/RoundedButtonLogin';
 
 export const VistaPrincipalScreen = () => {
@@ -69,8 +69,9 @@ export const VistaPrincipalScreen = () => {
             
             <MapView 
                 style={styles.map} 
-                provider={MapView.PROVIDER_GOOGLE} 
-                showsUserLocation={true} 
+                provider={PROVIDER_GOOGLE} 
+                showsUserLocation={true}
+                apiKey={'AIzaSyDvFuKD5faYdpCxUb5x4HUGFyyPUAQ4XCs'} 
                 region={{ 
                     latitude: initialLocation ? initialLocation.coords.latitude : 0,
                     longitude: initialLocation ? initialLocation.coords.longitude : 0,

@@ -25,8 +25,7 @@ export const principalViewModel = () => {
     let incidente = null;
     const navigation = useNavigation();
 
-
-
+    
     const manejoNotificaciones = () => {
 
       Notifications.setNotificationHandler({
