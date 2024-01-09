@@ -12,6 +12,7 @@ public class User {
     }
 
     public User(User user) {
+        _id = user._id;
         _firstname = user._firstname;
         _lastname = user._lastname;
         _username = user._username;
