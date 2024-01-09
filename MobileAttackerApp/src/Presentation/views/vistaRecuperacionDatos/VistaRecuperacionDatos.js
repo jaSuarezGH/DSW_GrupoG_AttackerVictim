@@ -30,7 +30,7 @@ export const VistaRecuperacionScreen = () => {
                     />
                 </View>
 
-              <View style = {{marginTop:30}}>
+              <View style = {{marginTop:52}}>
                 <RoundedButtonLogin 
                  text = 'Solicitar' 
                  onPress={() => recuperarDatoUsuario(user.email)} 
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     height: windowHeight * 0.5,
     position:'absolute',
     backgroundColor:'white',
-    bottom: windowHeight * 0.15,
+    bottom: windowHeight * 0.20,
     borderTopRightRadius:25,
     borderTopLeftRadius:25,
     borderBottomLeftRadius:25,
