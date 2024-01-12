@@ -27,7 +27,7 @@ public class BaseService extends Application {
      *
      * @param object parametro que fue enviado al servicio
      */
-    void verifyParams(Object object) {
+    public void verifyParams(Object object) {
         if (object == null)
             throwException(Response.Status.BAD_REQUEST);
     }
@@ -37,7 +37,7 @@ public class BaseService extends Application {
      *
      * @param status estado HTTP de error a informar
      */
-    void throwException(Response.Status status) {
+    public void throwException(Response.Status status) {
         throw new WebApplicationException(Response.status(status).build());
     }
 
@@ -47,7 +47,7 @@ public class BaseService extends Application {
      * @param status estado HTTP de error a  informar
      * @param e      Exception a mostrar
      */
-    void throwException(Exception e, Response.Status status) {
+    public void throwException(Exception e, Response.Status status) {
         _logger.error(e.getMessage(), e);
         throw new WebApplicationException(Response.status(status).entity(e).build());
     }
