@@ -25,7 +25,8 @@ export const principalViewModel = () => {
     let incidente = null;
     const navigation = useNavigation();
 
-    
+
+
     const manejoNotificaciones = () => {
 
       Notifications.setNotificationHandler({
@@ -320,9 +321,9 @@ export const principalViewModel = () => {
                   Alert.alert('Ocurrió un error al eliminar las ubicaciones:', error);
                 });  
             } else {
+              await enviarCoordenadas(generarCoordenada(localizacionTelefono.coords.latitude,localizacionTelefono.coords.longitude,gyroStatus,milisegundos));
               await verificarDistancia();
               await verificarAtacanteZonaSegura();
-              await enviarCoordenadas(generarCoordenada(localizacionTelefono.coords.latitude,localizacionTelefono.coords.longitude,gyroStatus,milisegundos));
             };
         } else {
           GuardarCoordenadasSQL(generarCoordenada(localizacionTelefono.coords.latitude,localizacionTelefono.coords.longitude,'OFFLINE',milisegundos))

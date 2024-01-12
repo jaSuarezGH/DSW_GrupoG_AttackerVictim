@@ -106,13 +106,6 @@ export const VistaPrincipalScreen = () => {
                     />
                 </View>
 
-                <View style={styles.buttonContainer}>
-                    <RoundedButtonLogin 
-                        text = 'Mensajes' 
-                        //onPress={} 
-                    />
-                </View>
-
             </View>
         </View>
     );
