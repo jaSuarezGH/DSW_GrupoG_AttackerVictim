@@ -117,8 +117,8 @@ export default function updateEmailAdminPage({ params }) {
     <>
       <div className="mt-8 mx-auto grid gap-x-8 gap-y-12 px-6 lg:px-8">
         <DivHeader
-          title="Eliminar Administrador"
-          description="Confirme si el siguiente usuario Administrador es el deseado a eliminar."
+          title="Modificar Administrador"
+          description="Ingrese los nuevos datos del administrador a modificar."
           tags={[1]}
         ></DivHeader>
       </div>
