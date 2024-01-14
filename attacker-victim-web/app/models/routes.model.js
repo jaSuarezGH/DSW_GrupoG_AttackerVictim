@@ -7,6 +7,9 @@ export const Routes = {
     PRINCIPAL_VICTIM: '/pages/principal/seccionVictim',
     PRINCIPAL_ATTACKER: '/pages/principal/seccionAttacker',
 
+    //FETCH
+    FETCH_ERROR: '/pages/principal/fetch/fetchError',
+
     //Funcionalidades:
     GETALL_USERS: '/pages/principal/users/getAll',
     GETALL_ADMINS: '/pages/principal/users/getAll/admin',
