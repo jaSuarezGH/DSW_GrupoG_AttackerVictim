@@ -16,11 +16,15 @@ import com.ucab.cmcapp.logic.commands.user.composite.DeleteUserCommand;
 import com.ucab.cmcapp.logic.commands.user.composite.GetAllUserCommand;
 import com.ucab.cmcapp.logic.commands.user.composite.GetUserCommand;
 import com.ucab.cmcapp.logic.dtos.AdministratorDto;
+import com.ucab.cmcapp.logic.dtos.AdministratorLoginDto;
 import com.ucab.cmcapp.logic.dtos.IncidentDto;
 import com.ucab.cmcapp.logic.dtos.UserDto;
+import com.ucab.cmcapp.logic.dtos.UserLoginDto;
 import com.ucab.cmcapp.logic.mappers.AdministratorMapper;
 import com.ucab.cmcapp.logic.mappers.IncidentMapper;
 import com.ucab.cmcapp.logic.mappers.UserMapper;
+import com.ucab.cmcapp.logic.utilities.LdapAdministratorManager;
+import com.ucab.cmcapp.logic.utilities.LdapUserManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,6 +39,20 @@ import java.util.List;
 public class AdministratorService extends BaseService {
 
     private static Logger _logger = LoggerFactory.getLogger(AdministratorService.class);
+
+    @POST
+    @Path("/auth")
+    public Response authUser(AdministratorLoginDto administratorLoginDto) {
+        try {
+            if (LdapAdministratorManager.authadministrator(administratorLoginDto.get_username(), administratorLoginDto.get_password())) {
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>(true, "[OK POSITIVE RESPONSE] administrator authenticated successfully")).build();
+            } else {
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>(false, "[OK NEGATIVE RESPONSE] administrator could not be authenticated")).build();
+            }
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method authAdministrator, administrator could not be authenticated: " + e.getMessage())).build();
+        }
+    }
 
     @GET
     @Path("/{id}")
@@ -143,12 +161,18 @@ public class AdministratorService extends BaseService {
         Administrator entity;
         AdministratorDto responseDTO = null;
         CreateAdministratorCommand command = null;
+        LdapAdministratorManager ldap = new LdapAdministratorManager();
 
         try {
             entity = AdministratorMapper.mapDtoToEntity(administratorDto);
             command = CommandFactory.createCreateAdministratorCommand(entity);
             command.execute();
             responseDTO = AdministratorMapper.mapEntityToDto(command.getReturnParam());
+
+            // Agregar usuario en LDAP
+            if (!LdapAdministratorManager.authadministrator(administratorDto.get_username(), administratorDto.get_password()))
+                ldap.addAdministrator(administratorDto.get_username(), administratorDto.get_password());
+
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method addAdministrator, administrator could not be added: " + e.getMessage())).build();
         } finally {
@@ -164,18 +188,37 @@ public class AdministratorService extends BaseService {
     public Response deleteAdministrator(@PathParam("id") long administratorId) {
         Administrator entity;
         AdministratorDto responseDTO = null;
-        DeleteAdministratorCommand command = null;
+        AdministratorDto ldapDto = null;
+        GetAdministratorCommand getCommand = null;
+        DeleteAdministratorCommand deleteCommand = null;
+        LdapAdministratorManager ldap = new LdapAdministratorManager();
 
         try {
             entity = AdministratorMapper.mapDtoToEntity(administratorId);
-            command = CommandFactory.createDeleteAdministratorCommand(entity);
-            command.execute();
-            responseDTO = AdministratorMapper.mapEntityToDto(command.getReturnParam());
+            getCommand = CommandFactory.createGetAdministratorCommand(entity);
+            getCommand.execute();
+
+            if (getCommand.getReturnParam() != null)
+                ldapDto = AdministratorMapper.mapEntityToDto(getCommand.getReturnParam());
+            else
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method deleteAdministrator, administrator with id " + administratorId + " could not be found")).build();
+
+            entity = AdministratorMapper.mapDtoToEntity(administratorId);
+            deleteCommand = CommandFactory.createDeleteAdministratorCommand(entity);
+            deleteCommand.execute();
+            responseDTO = AdministratorMapper.mapEntityToDto(deleteCommand.getReturnParam());
+
+            // Eliminar administrador de LDAP
+            if (LdapAdministratorManager.authadministrator(ldapDto.get_username(), ldapDto.get_password()))
+                ldap.deleteAdministrator(ldapDto.get_username());
+
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method deleteAdministrator, administrator could not be deleted: " + e.getMessage())).build();
         } finally {
-            if (command != null)
-                command.closeHandlerSession();
+            if (deleteCommand != null)
+                deleteCommand.closeHandlerSession();
+            if (getCommand != null)
+                getCommand.closeHandlerSession();
         }
 
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully deleted administrator with id: " + administratorId)).build();
@@ -185,17 +228,37 @@ public class AdministratorService extends BaseService {
     public Response updateAdministrator(AdministratorDto administratorDto) {
         Administrator entity;
         AdministratorDto responseDTO = null;
-        UpdateAdministratorCommand command = null;
+        AdministratorDto ldapDto = null;
+        UpdateAdministratorCommand updateCommand = null;
+        GetAdministratorCommand getCommand = null;
+        LdapAdministratorManager ldap = new LdapAdministratorManager();
+
         try {
+            entity = AdministratorMapper.mapDtoToEntity(administratorDto.getId());
+            getCommand = CommandFactory.createGetAdministratorCommand(entity);
+            getCommand.execute();
+
+            if (getCommand.getReturnParam() != null)
+                ldapDto = AdministratorMapper.mapEntityToDto(getCommand.getReturnParam());
+            else
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method updateAdministrator, administrator with id " + administratorDto.getId() + " could not be found")).build();
+
             entity = AdministratorMapper.mapDtoToEntity(administratorDto);
-            command = CommandFactory.createUpdateAdministratorCommand(entity);
-            command.execute();
-            responseDTO = AdministratorMapper.mapEntityToDto(command.getReturnParam());
+            updateCommand = CommandFactory.createUpdateAdministratorCommand(entity);
+            updateCommand.execute();
+            responseDTO = AdministratorMapper.mapEntityToDto(updateCommand.getReturnParam());
+
+            // Unicamente cambiar la contraseña en LDAP
+            if (LdapAdministratorManager.authadministrator(ldapDto.get_username(), ldapDto.get_password()))
+                ldap.updateadministratorPassword(ldapDto.get_username(), administratorDto.get_password());
+
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method updateAdministrator, administrator could not be updated: " + e.getMessage())).build();
         } finally {
-            if (command != null)
-                command.closeHandlerSession();
+            if (updateCommand != null)
+                updateCommand.closeHandlerSession();
+            if (getCommand != null)
+                getCommand.closeHandlerSession();
         }
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully modified administrator with id: " + administratorDto.getId())).build();
     }

@@ -36,7 +36,7 @@ public class UserService extends BaseService {
                 return Response.status(Response.Status.OK).entity(new CustomResponse<>(false, "[OK NEGATIVE RESPONSE] user could not be authenticated")).build();
             }
         } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method addUser, user could not be authenticated: " + e.getMessage())).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method authUser, user could not be authenticated: " + e.getMessage())).build();
         }
     }
 
@@ -280,7 +280,7 @@ public class UserService extends BaseService {
             if (getCommand.getReturnParam() != null)
                 ldapDto = UserMapper.mapEntityToDto(getCommand.getReturnParam());
             else
-                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method upateUser, user with id " + userDto.getId() + " could not be found")).build();
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method updateUser, user with id " + userDto.getId() + " could not be found")).build();
 
             entity = UserMapper.mapDtoToEntity(userDto);
             updateCommand = CommandFactory.createUpdateUserCommand(entity);
