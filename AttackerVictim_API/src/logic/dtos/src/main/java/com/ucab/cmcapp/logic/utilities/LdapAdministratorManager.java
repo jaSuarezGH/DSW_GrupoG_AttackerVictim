@@ -12,7 +12,7 @@ public class LdapAdministratorManager {
 
     private DirContext connection;
 
-    public LdapAdministratorManager(){
+    public LdapAdministratorManager() {
         newConnection();
     }
 
@@ -37,7 +37,7 @@ public class LdapAdministratorManager {
 
     public void getAllAdministrators() throws NamingException {
         String searchFilter = "(objectClass=inetOrgPerson)";
-        String[] reqAtt = { "cn", "sn" };
+        String[] reqAtt = {"cn", "sn"};
         SearchControls controls = new SearchControls();
         controls.setSearchScope(SearchControls.SUBTREE_SCOPE);
         controls.setReturningAttributes(reqAtt);
@@ -64,26 +64,26 @@ public class LdapAdministratorManager {
         attributes.put("sn", username);
         attributes.put("userPassword", password);
         try {
-            connection.createSubcontext("cn="+username+",ou=managers,ou=system", attributes);
+            connection.createSubcontext("cn=" + username + ",ou=managers,ou=system", attributes);
             System.out.println("Successfully added user: " + username);
         } catch (NamingException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            // e.printStackTrace();
         }
 
     }
 
     public void deleteAdministrator(String username) {
         try {
-            connection.destroySubcontext("cn="+username+",ou=managers,ou=system");
+            connection.destroySubcontext("cn=" + username + ",ou=managers,ou=system");
             System.out.println("Successfully deleted the user: " + username);
         } catch (NamingException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            // e.printStackTrace();
         }
     }
 
-    public static boolean authadministrator(String username, String password) {
+    public static boolean authAdministrator(String username, String password) {
         try {
             Properties env = new Properties();
             env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
@@ -95,20 +95,21 @@ public class LdapAdministratorManager {
             con.close();
             return true;
         } catch (Exception e) {
-            System.out.println("failed: " + e.getMessage());
+            System.out.println("Exception at authAdministrator: " + e.getMessage());
             return false;
         }
     }
 
-    public void updateadministratorPassword(String username, String password) {
+    public void updateAdministratorPassword(String username, String password) {
         try {
-            String dnBase=",ou=managers,ou=system";
-            ModificationItem[] mods= new ModificationItem[1];
-            mods[0] = new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("userPassword", password)); // if you want, then you can delete the old password and after that you can replace with new password
-            connection.modifyAttributes("cn="+username +dnBase, mods); //try to form DN dynamically
-            System.out.println("Successfully changed user "+username+" password");
-        }catch (Exception e) {
-            System.out.println("failed: "+e.getMessage());
+            String dnBase = ",ou=managers,ou=system";
+            ModificationItem[] mods = new ModificationItem[1];
+            // if you want, then you can delete the old password and after that you can replace with new password
+            mods[0] = new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("userPassword", password));
+            connection.modifyAttributes("cn=" + username + dnBase, mods); //try to form DN dynamically
+            System.out.println("Successfully changed user " + username + " password");
+        } catch (Exception e) {
+            System.out.println("Exception at updateAdministratorPassword: " + e.getMessage());
         }
     }
 

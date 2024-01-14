@@ -67,7 +67,7 @@ public class LdapUserManager {
             System.out.println("Successfully added user: " + username);
         } catch (NamingException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            // e.printStackTrace();
         }
 
     }
@@ -78,7 +78,7 @@ public class LdapUserManager {
             System.out.println("Successfully deleted the user: " + username);
         } catch (NamingException e) {
             // TODO Auto-generated catch block
-            System.out.println("failed: " + e.getMessage());
+            // System.out.println("failed: " + e.getMessage());
         }
     }
 
@@ -94,7 +94,7 @@ public class LdapUserManager {
             con.close();
             return true;
         } catch (Exception e) {
-            System.out.println("failed: " + e.getMessage());
+            System.out.println("Exception at authUser: " + e.getMessage());
             return false;
         }
     }
@@ -103,11 +103,12 @@ public class LdapUserManager {
         try {
             String dnBase = ",ou=users,ou=system";
             ModificationItem[] mods = new ModificationItem[1];
-            mods[0] = new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("userPassword", password)); // if you want, then you can delete the old password and after that you can replace with new password
+            // if you want, then you can delete the old password and after that you can replace with new password
+            mods[0] = new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("userPassword", password));
             connection.modifyAttributes("cn=" + username + dnBase, mods); //try to form DN dynamically
             System.out.println("Successfully changed user " + username + " password");
         } catch (Exception e) {
-            System.out.println("failed: " + e.getMessage());
+            System.out.println("Exception at updateUserPassword: " + e.getMessage());
         }
     }
 }

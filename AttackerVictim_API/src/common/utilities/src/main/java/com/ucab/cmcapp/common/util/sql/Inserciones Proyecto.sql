@@ -301,6 +301,6 @@ insert into history (full_date, latitude, longitude, status, user) values
 ---------------------( ADMINISTRATOR )-----------------------
 
 insert into administrator (username, email, password) values
-('joseAdmin', 'joseantonsr@gmail.com', 'uA2#bxfdx)usFd2'),
-('gaboAdmin', 'gadv1331@gmail.com', 'xA6{b%WxtwIRd?'),
-('mickelAdmin', 'arrozmickel@gmail.com', 'zZ2$T8D.yRFdua');
+('joseAdmin', 'joseantonsr@gmail.com', 'devjose'),
+('gaboAdmin', 'gadv1331@gmail.com', 'devgabo'),
+('mickelAdmin', 'arrozmickel@gmail.com', 'devmickel');

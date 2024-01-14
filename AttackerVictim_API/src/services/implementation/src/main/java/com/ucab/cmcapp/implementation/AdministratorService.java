@@ -1,30 +1,15 @@
 package com.ucab.cmcapp.implementation;
 
 import com.ucab.cmcapp.common.entities.Administrator;
-import com.ucab.cmcapp.common.entities.Incident;
-import com.ucab.cmcapp.common.entities.User;
 import com.ucab.cmcapp.common.util.CustomResponse;
 import com.ucab.cmcapp.logic.commands.CommandFactory;
-import com.ucab.cmcapp.logic.commands.Incident.composite.UpdateIncidentCommand;
 import com.ucab.cmcapp.logic.commands.administrator.atomic.GetAdministratorByEmailCommand;
 import com.ucab.cmcapp.logic.commands.administrator.atomic.GetAdministratorByUsernameCommand;
 import com.ucab.cmcapp.logic.commands.administrator.composite.*;
-import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByEmailCommand;
-import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByUsernameCommand;
-import com.ucab.cmcapp.logic.commands.user.composite.CreateUserCommand;
-import com.ucab.cmcapp.logic.commands.user.composite.DeleteUserCommand;
-import com.ucab.cmcapp.logic.commands.user.composite.GetAllUserCommand;
-import com.ucab.cmcapp.logic.commands.user.composite.GetUserCommand;
 import com.ucab.cmcapp.logic.dtos.AdministratorDto;
 import com.ucab.cmcapp.logic.dtos.AdministratorLoginDto;
-import com.ucab.cmcapp.logic.dtos.IncidentDto;
-import com.ucab.cmcapp.logic.dtos.UserDto;
-import com.ucab.cmcapp.logic.dtos.UserLoginDto;
 import com.ucab.cmcapp.logic.mappers.AdministratorMapper;
-import com.ucab.cmcapp.logic.mappers.IncidentMapper;
-import com.ucab.cmcapp.logic.mappers.UserMapper;
 import com.ucab.cmcapp.logic.utilities.LdapAdministratorManager;
-import com.ucab.cmcapp.logic.utilities.LdapUserManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,7 +29,7 @@ public class AdministratorService extends BaseService {
     @Path("/auth")
     public Response authUser(AdministratorLoginDto administratorLoginDto) {
         try {
-            if (LdapAdministratorManager.authadministrator(administratorLoginDto.get_username(), administratorLoginDto.get_password())) {
+            if (LdapAdministratorManager.authAdministrator(administratorLoginDto.get_username(), administratorLoginDto.get_password())) {
                 return Response.status(Response.Status.OK).entity(new CustomResponse<>(true, "[OK POSITIVE RESPONSE] administrator authenticated successfully")).build();
             } else {
                 return Response.status(Response.Status.OK).entity(new CustomResponse<>(false, "[OK NEGATIVE RESPONSE] administrator could not be authenticated")).build();
@@ -170,7 +155,7 @@ public class AdministratorService extends BaseService {
             responseDTO = AdministratorMapper.mapEntityToDto(command.getReturnParam());
 
             // Agregar usuario en LDAP
-            if (!LdapAdministratorManager.authadministrator(administratorDto.get_username(), administratorDto.get_password()))
+            if (!LdapAdministratorManager.authAdministrator(administratorDto.get_username(), administratorDto.get_password()))
                 ldap.addAdministrator(administratorDto.get_username(), administratorDto.get_password());
 
         } catch (Exception e) {
@@ -209,7 +194,7 @@ public class AdministratorService extends BaseService {
             responseDTO = AdministratorMapper.mapEntityToDto(deleteCommand.getReturnParam());
 
             // Eliminar administrador de LDAP
-            if (LdapAdministratorManager.authadministrator(ldapDto.get_username(), ldapDto.get_password()))
+            if (LdapAdministratorManager.authAdministrator(ldapDto.get_username(), ldapDto.get_password()))
                 ldap.deleteAdministrator(ldapDto.get_username());
 
         } catch (Exception e) {
@@ -249,8 +234,8 @@ public class AdministratorService extends BaseService {
             responseDTO = AdministratorMapper.mapEntityToDto(updateCommand.getReturnParam());
 
             // Unicamente cambiar la contraseña en LDAP
-            if (LdapAdministratorManager.authadministrator(ldapDto.get_username(), ldapDto.get_password()))
-                ldap.updateadministratorPassword(ldapDto.get_username(), administratorDto.get_password());
+            if (LdapAdministratorManager.authAdministrator(ldapDto.get_username(), ldapDto.get_password()))
+                ldap.updateAdministratorPassword(ldapDto.get_username(), administratorDto.get_password());
 
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method updateAdministrator, administrator could not be updated: " + e.getMessage())).build();
