@@ -4,10 +4,7 @@ import com.ucab.cmcapp.common.entities.*;
 import com.ucab.cmcapp.logic.commands.Incident.atomic.*;
 import com.ucab.cmcapp.logic.commands.Incident.composite.*;
 import com.ucab.cmcapp.logic.commands.administrator.atomic.*;
-import com.ucab.cmcapp.logic.commands.administrator.composite.CreateAdministratorCommand;
-import com.ucab.cmcapp.logic.commands.administrator.composite.DeleteAdministratorCommand;
-import com.ucab.cmcapp.logic.commands.administrator.composite.GetAllAdministratorCommand;
-import com.ucab.cmcapp.logic.commands.administrator.composite.UpdateAdministratorCommand;
+import com.ucab.cmcapp.logic.commands.administrator.composite.*;
 import com.ucab.cmcapp.logic.commands.attacker.atomic.AddAttackerCommand;
 import com.ucab.cmcapp.logic.commands.attacker.atomic.EraseAttackerCommand;
 import com.ucab.cmcapp.logic.commands.attacker.atomic.GetAllAttackerListCommand;
@@ -366,6 +363,15 @@ public class CommandFactory {
 
     public static GetAllAdministratorListCommand createGetAllAdministratorListCommand(DBHandler handler) {
         return new GetAllAdministratorListCommand(handler);
+    }
+
+    // ------------------( getAdministratorById )----------------
+    public static GetAdministratorCommand createGetAdministratorCommand(Administrator administrator) {
+        return new GetAdministratorCommand(administrator);
+    }
+
+    public static GetAdministratorByIdCommand createGetAdministratorByIdCommand(DBHandler handler, long administratorId) {
+        return new GetAdministratorByIdCommand(handler, administratorId);
     }
 
     // ------------------( getAdministratorByEmail )-------------
