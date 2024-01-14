@@ -9,7 +9,9 @@ import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByPersonalIdCommand;
 import com.ucab.cmcapp.logic.commands.user.atomic.GetUserByUsernameCommand;
 import com.ucab.cmcapp.logic.commands.user.composite.*;
 import com.ucab.cmcapp.logic.dtos.UserDto;
+import com.ucab.cmcapp.logic.dtos.UserLoginDto;
 import com.ucab.cmcapp.logic.mappers.UserMapper;
+import com.ucab.cmcapp.logic.utilities.LdapUserManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,6 +25,20 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserService extends BaseService {
     private static Logger _logger = LoggerFactory.getLogger(UserService.class);
+
+    @POST
+    @Path("/auth")
+    public Response authUser(UserLoginDto userLoginDto) {
+        try {
+            if (LdapUserManager.authUser(userLoginDto.get_username(), userLoginDto.get_password())) {
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>(true, "[OK POSITIVE RESPONSE] user authenticated successfully")).build();
+            } else {
+                return Response.status(Response.Status.OK).entity(new CustomResponse<>(false, "[OK NEGATIVE RESPONSE] user could not be authenticated")).build();
+            }
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method addUser, user could not be authenticated: " + e.getMessage())).build();
+        }
+    }
 
     @GET
     @Path("/all")
@@ -184,12 +200,18 @@ public class UserService extends BaseService {
         User entity;
         UserDto responseDTO = null;
         CreateUserCommand command = null;
+        LdapUserManager ldap = new LdapUserManager();
 
         try {
             entity = UserMapper.mapDtoToEntity(userDto);
             command = CommandFactory.createCreateUserCommand(entity);
             command.execute();
             responseDTO = UserMapper.mapEntityToDto(command.getReturnParam());
+
+            // Agregar usuario en LDAP
+            if (!LdapUserManager.authUser(userDto.get_username(), userDto.get_password()))
+                ldap.addUser(userDto.get_username(), userDto.get_password());
+
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method addUser, user could not be added: " + e.getMessage())).build();
         } finally {
@@ -205,18 +227,37 @@ public class UserService extends BaseService {
     public Response deleteUser(@PathParam("id") long userId) {
         User entity;
         UserDto responseDTO = null;
-        DeleteUserCommand command = null;
+        UserDto ldapDto = null;
+        DeleteUserCommand deleteCommand = null;
+        GetUserCommand getCommand = null;
+        LdapUserManager ldap = new LdapUserManager();
 
         try {
             entity = UserMapper.mapDtoToEntity(userId);
-            command = CommandFactory.createDeleteUserCommand(entity);
-            command.execute();
-            responseDTO = UserMapper.mapEntityToDto(command.getReturnParam());
+            getCommand = CommandFactory.createGetUserCommand(entity);
+            getCommand.execute();
+
+            if (getCommand.getReturnParam() != null)
+                ldapDto = UserMapper.mapEntityToDto(getCommand.getReturnParam());
+            else
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method deleteUser, user with id " + userId + " could not be found")).build();
+
+            entity = UserMapper.mapDtoToEntity(userId);
+            deleteCommand = CommandFactory.createDeleteUserCommand(entity);
+            deleteCommand.execute();
+            responseDTO = UserMapper.mapEntityToDto(deleteCommand.getReturnParam());
+
+            // Eliminar usuario de LDAP
+            if (LdapUserManager.authUser(ldapDto.get_username(), ldapDto.get_password()))
+                ldap.deleteUser(ldapDto.get_username());
+
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method deleteUser, user could not be deleted: " + e.getMessage())).build();
         } finally {
-            if (command != null)
-                command.closeHandlerSession();
+            if (deleteCommand != null)
+                deleteCommand.closeHandlerSession();
+            if (getCommand != null)
+                getCommand.closeHandlerSession();
         }
 
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully deleted user with id: " + userId)).build();
@@ -226,17 +267,37 @@ public class UserService extends BaseService {
     public Response updateUser(UserDto userDto) {
         User entity;
         UserDto responseDTO = null;
-        UpdateUserCommand command = null;
+        UserDto ldapDto = null;
+        UpdateUserCommand updateCommand = null;
+        GetUserCommand getCommand = null;
+        LdapUserManager ldap = new LdapUserManager();
+
         try {
+            entity = UserMapper.mapDtoToEntity(userDto.getId());
+            getCommand = CommandFactory.createGetUserCommand(entity);
+            getCommand.execute();
+
+            if (getCommand.getReturnParam() != null)
+                ldapDto = UserMapper.mapEntityToDto(getCommand.getReturnParam());
+            else
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method upateUser, user with id " + userDto.getId() + " could not be found")).build();
+
             entity = UserMapper.mapDtoToEntity(userDto);
-            command = CommandFactory.createUpdateUserCommand(entity);
-            command.execute();
-            responseDTO = UserMapper.mapEntityToDto(command.getReturnParam());
+            updateCommand = CommandFactory.createUpdateUserCommand(entity);
+            updateCommand.execute();
+            responseDTO = UserMapper.mapEntityToDto(updateCommand.getReturnParam());
+
+            // Unicamente cambiar la contraseña en LDAP
+            if (LdapUserManager.authUser(ldapDto.get_username(), ldapDto.get_password()))
+                ldap.updateUserPassword(ldapDto.get_username(), userDto.get_password());
+
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new CustomResponse<>("[GENERAL EXCEPTION] at method updateUser, user could not be updated: " + e.getMessage())).build();
         } finally {
-            if (command != null)
-                command.closeHandlerSession();
+            if (updateCommand != null)
+                updateCommand.closeHandlerSession();
+            if (getCommand != null)
+                getCommand.closeHandlerSession();
         }
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully modified the user with id: " + userDto.getId())).build();
     }
