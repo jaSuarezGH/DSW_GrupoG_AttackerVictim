@@ -10,7 +10,7 @@ import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
 
-
+import javax.ws.rs.core.Response;
 import java.util.Set;
 
 
@@ -46,4 +46,15 @@ public class BaseServiceTest {
 
         service.validateCredentials(invalidJWT); // Debería lanzar JWTVerifyException
     }
+
+    @Test
+    public void throwExceptionTest(){
+        BaseService baseService = new BaseService();
+        Assertions.assertThrows(RuntimeException.class, () -> {
+            Exception exception = new Exception();
+            baseService.throwException(exception, null);
+
+        });
+    }
+
 }

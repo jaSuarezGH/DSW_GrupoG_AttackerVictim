@@ -1,26 +1,26 @@
-import com.ucab.cmcapp.implementation.AttackerService;
-import com.ucab.cmcapp.logic.dtos.AttackerDto;
+import com.ucab.cmcapp.implementation.VictimService;
+import com.ucab.cmcapp.logic.dtos.VictimDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.ws.rs.core.Response;
 
-public class AttackerServiceTest {
+public class VictimServiceTest {
 
-    private AttackerService attackerService;
+    private VictimService victimService;
 
     @BeforeEach
     public void setUp(){
-        attackerService = new AttackerService();
+        victimService = new VictimService();
 
     }
 
     @Test
-    public void getAllAttackersTest(){
+    public void getAllVictimsTest(){
 
         Assertions.assertThrows(NoClassDefFoundError.class, () -> {
-            Response response = attackerService.getAllAttackers();
+            Response response = victimService.getAllVictims();
 
             Assertions.assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
         });
@@ -28,12 +28,12 @@ public class AttackerServiceTest {
 
 
     @Test
-    public void getAttackerByUserIdTest(){
+    public void getVictimByUserIdTest(){
 
         long userId = 1L;
 
         Assertions.assertThrows(NoClassDefFoundError.class, () -> {
-            Response response = attackerService.getAttackerByUserId(userId);
+            Response response = victimService.getVictimByUserId(userId);
 
             Assertions.assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
         });
@@ -41,24 +41,24 @@ public class AttackerServiceTest {
 
 
     @Test
-    public void addAttackerTest(){
+    public void addVictimTest(){
 
-        AttackerDto attackerDto = new AttackerDto();
+        VictimDto victimDto = new VictimDto();
 
         Assertions.assertThrows(RuntimeException.class, () -> {
-            Response response = attackerService.addAttacker(attackerDto);
+            Response response = victimService.addVictim(victimDto);
 
             Assertions.assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
         });
     }
 
     @Test
-    public void deleteAttackerTest(){
+    public void deleteVictimTest(){
 
         long userId = 1L;
 
         Assertions.assertThrows(NoClassDefFoundError.class, () -> {
-            Response response = attackerService.deleteAttacker(userId);
+            Response response = victimService.deleteVictim(userId);
 
             Assertions.assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
         });
