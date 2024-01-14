@@ -3,9 +3,21 @@ import { Navigation } from "@/components/Navigation";
 import { DivHeader } from "@/components/Div";
 import { endGetAllAdmins } from "@/app/models/endpoint.model";
 import TablaAllAdmins from "@/components/Table/Admin/TablaAllAdmins";
+import { InformacionPage } from "@/components/InformationPage/InformationPage";
+import { Routes } from "@/app/models/routes.model";
 
 export default async function getAllAdminsPage() {
   const users = await fetchGetDelete(endGetAllAdmins);
+
+  if (users === undefined) return (
+    <InformacionPage
+      title="Error de Conexion"
+      description="Lo siento, la conexion ha fallado o el servidor no se encuentra disponible."
+      encabezado="Error 404"
+      link={Routes.PRINCIPAL}
+      linkText="Volver al Inicio"
+    ></InformacionPage>
+  );
 
   return (
     <>
