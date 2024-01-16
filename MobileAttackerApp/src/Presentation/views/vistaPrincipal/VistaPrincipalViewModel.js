@@ -125,7 +125,6 @@ export const principalViewModel = () => {
           if (Math.abs(x) < 0.009 && Math.abs(y) < 0.009 && Math.abs(z) < 0.009) {
             statusInmovil = statusInmovil + 1;
             console.log(statusInmovil);
-            console.log(x,y,z);
           } else {
             statusInmovil = 0;
           }

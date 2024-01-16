@@ -25,8 +25,6 @@ export const principalViewModel = () => {
     let incidente = null;
     const navigation = useNavigation();
 
-
-
     const manejoNotificaciones = () => {
 
       Notifications.setNotificationHandler({
@@ -164,10 +162,8 @@ export const principalViewModel = () => {
     const llamadaSOS = () => {
         let numeroTelefono = '911'; 
 
-        // Asegúrate de incluir el prefijo 'tel:' antes del número de teléfono
         let urlTelefono = `tel:${numeroTelefono}`;
 
-        // Comprueba si la aplicación puede manejar la URL del teléfono
         Linking.canOpenURL(urlTelefono)
             .then(supported => {
                 if (!supported) {
@@ -240,7 +236,7 @@ export const principalViewModel = () => {
           }
         };  
         return coordenadas;
-      }
+      };
 
       const enviarCoordenadas = async (coordenadas) => {
         try {
@@ -296,7 +292,7 @@ export const principalViewModel = () => {
         //En la primera consulta de red devuelve null por eso asigno true si es null
         if (online === null){
           online = true;
-        }
+        };
 
         setConexionInternet(online);
 
