@@ -14,7 +14,6 @@ import * as Notifications from 'expo-notifications';
 
 //Variable global attackerID proveniente de viewLogin
 
-
 export const principalViewModel = () => {
     let gyroStatus = 'MOBILE';
     let statusInmovil = 0;
@@ -124,7 +123,6 @@ export const principalViewModel = () => {
         const listener = Gyroscope.addListener(({ x, y, z }) => {
           if (Math.abs(x) < 0.009 && Math.abs(y) < 0.009 && Math.abs(z) < 0.009) {
             statusInmovil = statusInmovil + 1;
-            console.log(statusInmovil);
           } else {
             statusInmovil = 0;
           }

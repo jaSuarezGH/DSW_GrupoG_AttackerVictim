@@ -63,8 +63,11 @@ export const VistaPrincipalScreen = () => {
                 source={require('../../../../assets/LogoAVapp.png')} 
                 style={styles.imageLogoLogin} />
 
+
               <Text style={styles.logoText}>Victim App / Home</Text>
-              
+              <Text style={styles.textStatus}>Status:</Text>
+              <Text style={styles.textConexion}>{conexionInternet ? 'Online' : 'Offline'}</Text>
+
             </View>
             
             <MapView 
@@ -83,8 +86,8 @@ export const VistaPrincipalScreen = () => {
                     <Polygon
                     key={index}
                     coordinates={zona._coordinates}
-                    strokeColor="#000" // borde
-                    fillColor="rgba(255,0,0,0.5)" // relleno
+                    strokeColor="#000" 
+                    fillColor="rgba(255,0,0,0.5)" 
                     strokeWidth={1}
                     />  
                 ))}
@@ -142,6 +145,20 @@ const styles = StyleSheet.create({
         marginLeft:8,
         fontWeight:'bold',
     },
+    textStatus:{
+        color:'white',
+        textAlign:'center',
+        fontSize:12,
+        marginLeft:18,
+        fontWeight:'bold',
+    },
+    textConexion:{
+        color:'white',
+        textAlign:'center',
+        fontSize:12,
+        marginLeft:5,
+        fontWeight:'bold',
+    },
     map:{
         height: '50%',
         width: '100%',
@@ -151,12 +168,12 @@ const styles = StyleSheet.create({
         alignSelf:'center',
         height:'20%',
         bottom:'0%',
-        right:'23%',
+        right:'41%',
         flexDirection:'row',
         justifyContent:'space-between',
     },
     buttonContainer: {
-        width: '38%',
-        margin: 5,
+        width: '75%',
+        margin: 10,
     },
 });
