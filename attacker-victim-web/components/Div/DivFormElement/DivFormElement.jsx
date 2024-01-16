@@ -2,7 +2,7 @@ import { Input } from "@/components/Input/Input";
 import { Label } from "@/components/Label/Label";
 
 
-export function DivFormElement({ textLabel, type, name, id, placeholder = '', onChange, value = '' }) {
+export function DivFormElement({ textLabel, type, name, id, placeholder = '', onChange, value = '', disabled = false }) {
 
     return (
         <div className="sm:col-span-3">
@@ -15,6 +15,7 @@ export function DivFormElement({ textLabel, type, name, id, placeholder = '', on
             placeholder={placeholder}
             onChange={onChange}
             value={value}
+            disabled = {disabled}
           ></Input>
         </div>
       </div>

@@ -9,6 +9,10 @@ export function DivFormAdmin({
   valueEmail = "",
   valuePassword = "",
   valuePasswordConfirm = "",
+  disableUsername = false,
+  disableEmail = false,
+  disablePassword = false,
+  disablePasswordConfirm = false
 }) {
   return (
     <div className="space-y-12 mt-10">
@@ -22,6 +26,7 @@ export function DivFormAdmin({
             placeholder="Ingrese el Nombre de Usuario (username) del usuario Administrador aqui"
             onChange={onChangeUsername}
             value={valueUsername}
+            disabled = {disableUsername}
           ></DivFormElement>
 
           <DivFormElement
@@ -32,6 +37,7 @@ export function DivFormAdmin({
             placeholder="Ingrese el Correo Electronico del usuario Administrador aqui"
             onChange={onChangeEmail}
             value={valueEmail}
+            disabled = {disableEmail}
           ></DivFormElement>
 
           <DivFormElement
@@ -42,6 +48,7 @@ export function DivFormAdmin({
             placeholder="Ingrese la contraseña del usuario Administrador aqui"
             onChange={onChangePassword}
             value={valuePassword}
+            disabled = {disablePassword}
           ></DivFormElement>
 
           <DivFormElement
@@ -52,6 +59,7 @@ export function DivFormAdmin({
             placeholder="Ingrese la Contraseña nuevamente del usuario Administrador aqui"
             onChange={onChangePasswordConfirm}
             value={valuePasswordConfirm}
+            disabled = {disablePasswordConfirm}
           ></DivFormElement>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { enlaceAPI } from "@/app/models/endpoint.model";
+import { Routes } from "@/app/models/routes.model";
 
 async function fetchBody(endpoint, method, body) {
   // Revalidate significa que comprueba la data cada x segundos, y la actualiza de ser el caso

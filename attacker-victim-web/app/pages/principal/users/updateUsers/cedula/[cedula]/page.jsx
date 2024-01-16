@@ -84,6 +84,7 @@ export default function UpdateCedulaPage({ params }) {
       user._firstname = nombre;
       user._lastname = apellido;
       user._password = password;
+      if (cedula > 0){
       const validateCedula = await fetchGetDelete(endGetUserByCedula, cedula);
       if (validateCedula == null || validateCedula.id == id) {
         user._personal_id = cedula;
@@ -141,11 +142,18 @@ export default function UpdateCedulaPage({ params }) {
       }
     } else {
       setDescriptionError(
+        "La Cedula ingresada del usuario debe ser un numero positivo mayor a 0, ingrese otra."
+      );
+      setErrorInfo(true);
+    }
+    } else {
+      setDescriptionError(
         "La Contraseña del usuario no es igual que la ingresada en el campo de confirmacion de contraseña."
       );
       setErrorInfo(true);
     }
   };
+
 
   return (
     <>
@@ -199,8 +207,8 @@ export default function UpdateCedulaPage({ params }) {
           valuePassword={password}
           valuePasswordConfirm={passwordConfirm}
           valueUsername={username}
+          disabledUsername={true}
         ></DivForm>
-
         {errorInfo && (
           <div className="mt-8">
             <AlertError description={descriptionError}></AlertError>

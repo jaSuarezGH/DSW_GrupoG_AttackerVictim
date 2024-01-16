@@ -122,9 +122,9 @@ export default function RegistrarAdminPage() {
               <DivFormElement
                 textLabel="Confirmar Contraseña"
                 type="password"
-                id="password"
-                name="password"
-                placeholder="Ingrese nuevamente la Contraseña del Administrador aqui"
+                id="passwordConfirm"
+                name="passwordConfirm"
+                placeholder="Ingrese nuevamente la Contraseña aqui"
                 value={passwordConfirmAdmin}
                 onChange={(e) => {
                   setPasswordConfirmAdmin(e.target.value);

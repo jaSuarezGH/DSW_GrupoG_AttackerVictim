@@ -16,6 +16,7 @@ import { ListConsultAdmin } from "@/components/List/ListConsultAdmin/ListConsult
 import AlertError from "@/components/Alert/AlertError";
 import { fetchPostPut } from "@/app/pages/principal/fetch/fetchPostPut/fetchPostPut";
 import { DivFormAdmin } from "@/components/Div/DivFormAdmin/DivFormAdmin";
+import AlertInformation from "@/components/Alert/AlertInformation";
 
 export default function updateEmailAdminPage({ params }) {
   const router = useRouter();
@@ -117,13 +118,18 @@ export default function updateEmailAdminPage({ params }) {
     <>
       <div className="mt-8 mx-auto grid gap-x-8 gap-y-12 px-6 lg:px-8">
         <DivHeader
-          title="Eliminar Administrador"
-          description="Confirme si el siguiente usuario Administrador es el deseado a eliminar."
+          title="Modificar Administrador"
+          description="Modifique la informacion del siguiente usuario Administrador."
           tags={[1]}
         ></DivHeader>
       </div>
 
       <form className="m-10 mb-2" onSubmit={onSubmit}>
+      <div className="mt-8">
+          <AlertInformation
+            description={"El campo Username no se puede modificar."}
+          ></AlertInformation>
+        </div>
         <DivFormAdmin
           onChangeUsername={(e) => {
             setUsername(e.target.value);
@@ -141,6 +147,7 @@ export default function updateEmailAdminPage({ params }) {
           valuePassword={password}
           valuePasswordConfirm={passwordConfirm}
           valueUsername={username}
+          disableUsername={true}
         ></DivFormAdmin>
 
         {errorInfo && (

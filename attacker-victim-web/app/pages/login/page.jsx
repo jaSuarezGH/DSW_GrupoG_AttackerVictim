@@ -9,73 +9,58 @@ import { Label } from "@/components/Label/Label";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { fetchGetDelete } from "../principal/fetch/fetchGetDelete";
-import { endGetAdminByEmail } from "@/app/models/endpoint.model";
+import { endPostAuthAdmin } from "@/app/models/endpoint.model";
 import AlertInformation from "@/components/Alert/AlertInformation";
+import { fetchPostPut } from "../principal/fetch/fetchPostPut/fetchPostPut";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [clave, setClave] = useState("");
 
   const [errorInfo, setErrorInfo] = useState(false);
   const [descriptionError, setDescriptionError] = useState("");
-  
+
   const [alertInfo, setAlertInfo] = useState(false);
   const [descriptionInfo, setDescriptionInfo] = useState("");
 
-  
-  
-
   const router = useRouter();
-
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const admin = await fetchGetDelete(endGetAdminByEmail, email);
-
+    const admin = await fetchPostPut(endPostAuthAdmin, "POST", {
+      _username: username,
+      _password: clave,
+    });
     if (admin) {
-      if (admin._password == clave){
-        setErrorInfo(false);
-        setDescriptionInfo("Inciando sesion ....");
-        setAlertInfo(true);
-        router.push("/pages/principal");
-      } else {
-        setAlertInfo(false);
-        setDescriptionError(
-          "La Contraseña es invalida, intente nuevamente."
-        );
-        setErrorInfo(true);
-      }
-      
+      setErrorInfo(false);
+      setDescriptionInfo("Inciando sesion ....");
+      setAlertInfo(true);
+      router.push("/pages/principal");
     } else {
       setDescriptionError(
-        "El Correo Electronico es invalido, intente nuevamente."
+        "El Username o contraseña es invalido, intente nuevamente."
       );
       setErrorInfo(true);
     }
-  }
+  };
 
   return (
     <div className="px-6 pb-8 pt-2 mt-10 mb-6 ring-1 ring-opacity-70 ring-zinc-300 shadow-lg shadow-indigo-300 rounded-lg sm:mx-auto sm:w-full sm:max-w-md">
-      <DivImageHeader
-        title="Inicia sesion en tu cuenta"
-      ></DivImageHeader>
+      <DivImageHeader title="Inicia sesion en tu cuenta"></DivImageHeader>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" method="POST"
-        onSubmit={onSubmit}
-        >
+        <form className="space-y-6" onSubmit={onSubmit}>
           <div>
-            <Label text="Correo Electronico"></Label>
+            <Label text="Nombre de Usuario"></Label>
             <div className="mt-2 mb-6">
               <Input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="Ingresa tu correo electronico aqui"
-                value={email}
+                id="username"
+                name="username"
+                type="text"
+                placeholder="Ingresa tu nombre de usuario (Username) aqui"
+                value={username}
                 onChange={(e) => {
-                  setEmail(e.target.value);
+                  setUsername(e.target.value);
                 }}
               ></Input>
             </div>
@@ -98,7 +83,7 @@ export default function LoginPage() {
                 id="password"
                 name="password"
                 type="password"
-                placeholder="Ingresa tu clave aqui"
+                placeholder="Ingresa tu contraseña aqui"
                 value={clave}
                 onChange={(e) => {
                   setClave(e.target.value);
@@ -106,21 +91,22 @@ export default function LoginPage() {
               ></Input>
             </div>
           </div>
-          
+
           <div>
-            <ButtonSubmit text='Iniciar Sesion'></ButtonSubmit>
+            <ButtonSubmit text="Iniciar Sesion"></ButtonSubmit>
           </div>
           {errorInfo && (
-          <div className="mt-8">
-            <AlertError description={descriptionError}></AlertError>
-          </div>
-        )}
+            <div className="mt-8">
+              <AlertError description={descriptionError}></AlertError>
+            </div>
+          )}
           {alertInfo && (
-          <div className="mt-8">
-            <AlertInformation description={descriptionInfo}></AlertInformation>
-          </div>
-        )}
-        
+            <div className="mt-8">
+              <AlertInformation
+                description={descriptionInfo}
+              ></AlertInformation>
+            </div>
+          )}
         </form>
       </div>
     </div>
