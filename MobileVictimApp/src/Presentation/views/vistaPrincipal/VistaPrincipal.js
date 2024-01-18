@@ -63,7 +63,6 @@ export const VistaPrincipalScreen = () => {
                 source={require('../../../../assets/LogoAVapp.png')} 
                 style={styles.imageLogoLogin} />
 
-
               <Text style={styles.logoText}>Victim App / Home</Text>
               <Text style={styles.textStatus}>Status:</Text>
               <Text style={styles.textConexion}>{conexionInternet ? 'Online' : 'Offline'}</Text>
@@ -74,6 +73,7 @@ export const VistaPrincipalScreen = () => {
                 style={styles.map} 
                 provider={PROVIDER_GOOGLE} 
                 showsUserLocation={true}
+                
                 apiKey={'AIzaSyDvFuKD5faYdpCxUb5x4HUGFyyPUAQ4XCs'} 
                 region={{ 
                     latitude: initialLocation ? initialLocation.coords.latitude : 0,
@@ -112,7 +112,8 @@ export const VistaPrincipalScreen = () => {
             </View>
         </View>
     );
-}
+};
+
 const styles = StyleSheet.create({
     container: {
       flex: 1,
