@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+
 import { PostUsuarioNotificacion } from '../../../Domain/useCases/EnviarNotificacion';
 import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';

@@ -1,5 +1,5 @@
-import {postDataUsuario} from "../../Data/local/repositories/AutenticationRepo"
+import {postVerificacionUsuario} from "../../Data/local/repositories/AutenticationRepo"
 
-export const PostUserData = async (usuario) => {
-    return await postDataUsuario(usuario);
+export const verficarCredencialesUsuario = async (userCredential) => {
+    return await postVerificacionUsuario(userCredential);
 }

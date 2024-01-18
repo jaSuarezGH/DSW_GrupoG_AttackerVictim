@@ -1,5 +1,5 @@
-import { getDataVictimaID } from "../../Data/local/repositories/AutenticationRepo";
+import { getAllDataVictimas } from "../../Data/local/repositories/AutenticationRepo";
 
-export const obtenerDatosVictima = async (id) => {
-    return await getDataVictimaID(id);
+export const obtenerDatosVictima = async () => {
+    return await getAllDataVictimas();
 };

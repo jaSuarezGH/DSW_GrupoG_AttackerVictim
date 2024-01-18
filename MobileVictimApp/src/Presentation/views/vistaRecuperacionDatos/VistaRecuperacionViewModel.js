@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Alert } from 'react-native';
-import {UserModel} from '../../../Domain/entities/User';
+import { UserModel} from '../../../Domain/entities/User';
 import { getUserDataGmail } from '../../../Domain/useCases/RecuperarDatosUsuarioGmail';
 import { useNavigation } from '@react-navigation/native';
 
