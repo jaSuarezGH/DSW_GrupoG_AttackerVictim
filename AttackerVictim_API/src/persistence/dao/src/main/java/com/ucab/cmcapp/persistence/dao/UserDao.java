@@ -15,7 +15,6 @@ import javax.persistence.criteria.Root;
 
 
 public class UserDao extends BaseDao<User> {
-    private static Logger _logger = LoggerFactory.getLogger(UserDao.class);
     private EntityManager _em;
     private CriteriaBuilder _builder;
 
@@ -39,7 +38,6 @@ public class UserDao extends BaseDao<User> {
      */
     public User getUserByEmail(String email) {
         User result = EntityFactory.createUser();
-        _logger.debug(String.format("Get in UserDao.getUserByEmail: parameter {%s}", email));
         try {
             CriteriaQuery<User> query = _builder.createQuery(User.class);
             Root<User> root = query.from(User.class);
@@ -49,16 +47,10 @@ public class UserDao extends BaseDao<User> {
 
             result = _em.createQuery(query).getSingleResult();
         } catch (NoResultException e) {
-            _logger.error(String.format("Error UserDao.getUserByEmail: No Result {%s}", e.getMessage()));
-            //throw new CupraException(e.getMessage());
             return null;
         } catch (Exception e) {
-            _logger.error(String.format("Error UserDao.getUserByEmail: {%s}", e.getMessage()));
             throw new CupraException(e.getMessage());
         }
-        //region Instrumentation
-        _logger.debug(String.format("Leavin UserDao.getUserByEmail: result {%s}", result));
-        //endregion
 
         return result;
     }

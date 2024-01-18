@@ -16,8 +16,6 @@ import java.util.List;
 
 public class IncidentMapper extends BaseMapper {
 
-    private static Logger _logger = LoggerFactory.getLogger(IncidentMapper.class);
-
     /**
      * Este metodo mapea IncidentDto a Incident
      *

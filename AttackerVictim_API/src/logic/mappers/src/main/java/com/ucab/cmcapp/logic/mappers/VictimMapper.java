@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VictimMapper extends BaseMapper {
-    private static Logger _logger = LoggerFactory.getLogger(VictimMapper.class);
 
     /**
      * Este metodo mapea una VictimDto a Victim

@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class UserMapper extends BaseMapper {
-    private static Logger _logger = LoggerFactory.getLogger(UserMapper.class);
 
     /**
      * Este metodo mapea un UserDto a User

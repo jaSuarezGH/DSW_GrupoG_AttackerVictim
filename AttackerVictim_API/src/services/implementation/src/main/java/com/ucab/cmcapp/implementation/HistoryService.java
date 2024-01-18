@@ -21,7 +21,6 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class HistoryService extends BaseService {
-    private static Logger _logger = LoggerFactory.getLogger(HistoryService.class);
 
     /**
      * Este endpoint devuelve todas las posiciones registradas

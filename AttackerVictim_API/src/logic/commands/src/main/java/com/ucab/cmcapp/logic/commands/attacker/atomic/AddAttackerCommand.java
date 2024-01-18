@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 
 public class AddAttackerCommand extends Command<Attacker> {
 
-    private static Logger _logger = LoggerFactory.getLogger(AddAttackerCommand.class);
     private Attacker _attacker;
     private AttackerDao _dao;
 

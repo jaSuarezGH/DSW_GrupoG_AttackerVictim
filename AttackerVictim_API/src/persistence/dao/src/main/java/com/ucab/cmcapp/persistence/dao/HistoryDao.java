@@ -15,8 +15,6 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class HistoryDao extends BaseDao<History> {
-
-    private static Logger _logger = LoggerFactory.getLogger(HistoryDao.class);
     private EntityManager _em;
     private CriteriaBuilder _builder;
 

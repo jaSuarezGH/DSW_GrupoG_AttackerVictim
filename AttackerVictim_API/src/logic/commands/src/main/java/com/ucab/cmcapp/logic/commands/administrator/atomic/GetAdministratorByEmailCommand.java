@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 
 public class GetAdministratorByEmailCommand extends Command<Administrator> {
 
-    private static Logger _logger = LoggerFactory.getLogger(GetAdministratorByEmailCommand.class);
     private Administrator _administrator;
     private AdministratorDao _dao;
 

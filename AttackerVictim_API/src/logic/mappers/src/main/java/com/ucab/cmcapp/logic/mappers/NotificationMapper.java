@@ -14,8 +14,6 @@ import java.util.List;
 
 public class NotificationMapper extends BaseMapper {
 
-    private static Logger _logger = LoggerFactory.getLogger(NotificationMapper.class);
-
     /**
      * Este metodo mapea NotificationDto a Notification
      *

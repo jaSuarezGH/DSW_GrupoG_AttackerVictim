@@ -16,7 +16,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 public class VictimDao extends BaseDao<Victim>{
-    private static Logger _logger = LoggerFactory.getLogger(VictimDao.class);
     private EntityManager _em;
     private CriteriaBuilder _builder;
 

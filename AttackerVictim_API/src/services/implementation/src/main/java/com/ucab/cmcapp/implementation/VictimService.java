@@ -22,8 +22,6 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 public class VictimService extends BaseService {
 
-    private static Logger _logger = LoggerFactory.getLogger(VictimService.class);
-
     /**
      * Este metodo consulta todas las victimas registradas
      *

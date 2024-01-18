@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 
 public class AddSafeZoneCommand extends Command<SafeZone> {
 
-    private static Logger _logger = LoggerFactory.getLogger(AddSafeZoneCommand.class);
     private SafeZone _safeZone;
     private SafeZoneDao _dao;
 

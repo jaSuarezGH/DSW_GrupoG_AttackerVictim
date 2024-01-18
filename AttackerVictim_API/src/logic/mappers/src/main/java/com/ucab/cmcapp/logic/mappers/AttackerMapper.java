@@ -16,8 +16,6 @@ import java.util.List;
 
 public class AttackerMapper extends BaseMapper {
 
-    private static Logger _logger = LoggerFactory.getLogger(AttackerMapper.class);
-
     /**
      * Este metodo mapea AttackerDto a Attacker
      *

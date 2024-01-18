@@ -30,8 +30,6 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 public class CoordinateService extends BaseService {
 
-    private static Logger _logger = LoggerFactory.getLogger(CoordinateService.class);
-
     /**
      * Este endpoint regresa todas las coordenadas que se usan o no en zonas seguras
      *

@@ -12,8 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class AddHistoryCommand extends Command<History> {
-
-    private static Logger _logger = LoggerFactory.getLogger(AddHistoryCommand.class);
     private History _history;
     private HistoryDao _dao;
 

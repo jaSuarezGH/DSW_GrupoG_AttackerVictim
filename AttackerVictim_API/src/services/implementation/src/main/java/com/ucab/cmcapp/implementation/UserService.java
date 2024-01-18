@@ -24,7 +24,6 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserService extends BaseService {
-    private static Logger _logger = LoggerFactory.getLogger(UserService.class);
 
     /**
      * Este endpoint realiza la autenticacion de usuarios usando LDAP

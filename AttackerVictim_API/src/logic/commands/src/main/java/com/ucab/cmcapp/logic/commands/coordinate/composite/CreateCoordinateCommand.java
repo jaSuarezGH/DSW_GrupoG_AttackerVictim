@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 
 public class CreateCoordinateCommand extends Command<Coordinate> {
 
-    private static Logger _logger = LoggerFactory.getLogger(CreateCoordinateCommand.class);
     private Coordinate _coordinate;
     private Coordinate _result;
     private AddCoordinateCommand _addCoordinateCommand;

@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 
 public class GetIncidentCommand extends Command<Incident> {
 
-    private static Logger _logger = LoggerFactory.getLogger(GetIncidentCommand.class);
     private Incident _incident;
     long _id;
     private GetIncidentByIdCommand _getIncidentByIdCommand;

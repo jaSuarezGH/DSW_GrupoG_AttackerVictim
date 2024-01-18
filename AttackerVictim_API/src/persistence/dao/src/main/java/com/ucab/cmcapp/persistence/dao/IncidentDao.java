@@ -15,8 +15,6 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class IncidentDao extends BaseDao<Incident> {
-
-    private static Logger _logger = LoggerFactory.getLogger(IncidentDao.class);
     private EntityManager _em;
     private CriteriaBuilder _builder;
 

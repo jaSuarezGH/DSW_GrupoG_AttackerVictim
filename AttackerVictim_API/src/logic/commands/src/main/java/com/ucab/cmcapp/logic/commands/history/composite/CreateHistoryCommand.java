@@ -12,8 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CreateHistoryCommand extends Command<History> {
-
-    private static Logger _logger = LoggerFactory.getLogger(CreateHistoryCommand.class);
     private History _history;
     private History _result;
     private AddHistoryCommand _addVictimCommand;
