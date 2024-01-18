@@ -49,7 +49,7 @@ public class AdministratorService extends BaseService {
      * Este endpoint devuelve un administrador por su id
      *
      * @param administratorId id del administrador a consultar
-     * @return CustomResponse con AdministratorDto o excepcion
+     * @return CustomResponse con AdministratorDto o null o excepcion
      */
     @GET
     @Path("/{id}")
@@ -80,7 +80,7 @@ public class AdministratorService extends BaseService {
     /**
      * Este endpoint devuelve todos los administradores
      *
-     * @return CustomResponse con lista de AdministratorDto o excepcion
+     * @return CustomResponse con lista de AdministratorDto o null o excepcion
      */
     @GET
     @Path("/all")
@@ -110,7 +110,7 @@ public class AdministratorService extends BaseService {
      * Este endpoint consulta un administrador por email
      *
      * @param administratorEmail email de administrador
-     * @return CustomResponse con AdministratorDto o excepcion
+     * @return CustomResponse con AdministratorDto o null o excepcion
      */
     @GET
     @Path("email/{email}")
@@ -142,7 +142,7 @@ public class AdministratorService extends BaseService {
      * Este endpoint consulta un administrador por username
      *
      * @param username username de administrador
-     * @return CustomResponse con AdministratorDto o excepcion
+     * @return CustomResponse con AdministratorDto o null o excepcion
      */
     @GET
     @Path("username/{username}")

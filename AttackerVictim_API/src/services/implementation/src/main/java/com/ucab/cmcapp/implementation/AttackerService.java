@@ -26,7 +26,7 @@ public class AttackerService extends BaseService {
     /**
      * Este metodo devuelve todos los atacantes registrados
      *
-     * @return CustomResponse con AttackerDto o excepcion
+     * @return CustomResponse con AttackerDto o null o excepcion
      */
     @GET
     @Path("/all")
@@ -56,7 +56,7 @@ public class AttackerService extends BaseService {
      * Este metodo devuelve un objeto atacante a partir de su id de usuario
      *
      * @param userId id de usuario
-     * @return CustomResponse con AttackerDto o excepcion
+     * @return CustomResponse con AttackerDto o null o excepcion
      */
     @GET
     @Path("/{user_id}")

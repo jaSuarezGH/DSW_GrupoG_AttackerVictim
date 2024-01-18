@@ -26,7 +26,7 @@ public class HistoryService extends BaseService {
     /**
      * Este endpoint devuelve todas las posiciones registradas
      *
-     * @return CustomResponse con lista de HistoryDto o excepcion
+     * @return CustomResponse con lista de HistoryDto o null o excepcion
      */
     @GET
     @Path("/all")
@@ -56,7 +56,7 @@ public class HistoryService extends BaseService {
      * Este endpoint devuelve todas las posiciones para un usuario
      *
      * @param userId id de usuario
-     * @return CustomResponse con HistoryDto o excepcion
+     * @return CustomResponse con HistoryDto o null o excepcion
      */
     @GET
     @Path("/{user_id}")

@@ -35,7 +35,7 @@ public class NotificationService extends BaseService {
     /**
      * Este endpoint consulta todas las notificaciones
      *
-     * @return CustomResponse con lista de NotificationDto o excepcion
+     * @return CustomResponse con lista de NotificationDto o null o excepcion
      */
     @GET
     @Path("/all")
@@ -65,7 +65,7 @@ public class NotificationService extends BaseService {
      * Este endpoint consulta todas las notificaciones segun un id de usuario
      *
      * @param userId id de usario a obtener notificaciones
-     * @return CustomResponse con lista de NotificationDto o excepcion
+     * @return CustomResponse con lista de NotificationDto o null o excepcion
      */
     @GET
     @Path("/{user_id}")

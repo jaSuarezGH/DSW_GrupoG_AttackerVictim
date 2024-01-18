@@ -33,7 +33,7 @@ public class OperationService extends BaseService {
      * entre una victima y su atacante segun el id de incidente
      *
      * @param incidentId id de incidente
-     * @return CustomResponse con distancia de separacion o excepcion
+     * @return CustomResponse con distancia de separacion o null o excepcion
      */
     @GET
     @Path("separation-distance/{incident_id}")
@@ -68,7 +68,7 @@ public class OperationService extends BaseService {
      * y su atacante segun el id de incidente
      *
      * @param incidentId id de incidente
-     * @return CustomResponse con HistoryDto que contiene las ultimas posiciones o excepcion
+     * @return CustomResponse con HistoryDto que contiene las ultimas posiciones o null o excepcion
      */
     @GET
     @Path("attacker-victim-last-position/{incident_id}")
@@ -101,7 +101,7 @@ public class OperationService extends BaseService {
      * segun el id de su incidente
      *
      * @param incidentId id de incidente
-     * @return CustomResponse con HistoryDto con la ultima posicion del atacante o excepcion
+     * @return CustomResponse con HistoryDto con la ultima posicion del atacante o null o excepcion
      */
     @GET
     @Path("attacker-last-position/{incident_id}")
@@ -134,7 +134,7 @@ public class OperationService extends BaseService {
      * segun el id de su incidente
      *
      * @param incidentId id de incidente
-     * @return CustomResponse con HistoryDto con la ultima posicion del atacante o excepcion
+     * @return CustomResponse con HistoryDto con la ultima posicion del atacante o null o excepcion
      */
     @GET
     @Path("victim-last-position/{incident_id}")

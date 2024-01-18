@@ -40,7 +40,7 @@ public class SafeZoneService extends BaseService {
     /**
      * Este endpoint consulta todas las zonas de seguridad registradas
      *
-     * @return CustomResponse con lista de todas las zonas seguras o excepcion
+     * @return CustomResponse con lista SafeZoneDto o null o excepcion
      */
     @GET
     @Path("/all")
@@ -70,7 +70,7 @@ public class SafeZoneService extends BaseService {
      * Este endpoint consulta todas las zonas de seguridad segun un id de usuario
      *
      * @param userId id de usuario a obtener todas sus zonas seguras
-     * @return CustomResponse con lista de todas las zonas seguras o excepcion
+     * @return CustomResponse con lista de SafeZoneDto o null o excepcion
      */
     @GET
     @Path("/{user_id}")
@@ -102,7 +102,7 @@ public class SafeZoneService extends BaseService {
      * Este endpoint agrega una (coordenada de una) zona segura
      *
      * @param safeZoneDto estructura de zona segura a agregar
-     * @return CustomResponse con estructura de zona segura agregada o excepcion
+     * @return CustomResponse con SafeZoneDto agregada o excepcion
      */
     @POST
     public Response addSafeZone(SafeZoneDto safeZoneDto) {
@@ -129,7 +129,7 @@ public class SafeZoneService extends BaseService {
      * Este endpoint elimina una zona segura
      *
      * @param safeZoneId id de zona segura a eliminar
-     * @return CustomResponse con estructura de zona segura eliminada o excepcion
+     * @return CustomResponse con SafeZoneDto eliminada o excepcion
      */
     @DELETE
     @Path("/{id}")
@@ -158,7 +158,7 @@ public class SafeZoneService extends BaseService {
      * Este endpoint actualiza (una coordenada de) una zona segura
      *
      * @param safeZoneDto estructura de zona segura a actualizar
-     * @return CustomResponse con estructura de zona segura actualizada o excepcion
+     * @return CustomResponse con SafeZoneDto actualizada o excepcion
      */
     @PUT
     public Response updateSafeZone(SafeZoneDto safeZoneDto) {

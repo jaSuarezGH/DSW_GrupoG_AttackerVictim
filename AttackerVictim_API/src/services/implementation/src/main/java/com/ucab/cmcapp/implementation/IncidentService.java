@@ -30,7 +30,7 @@ public class IncidentService extends BaseService {
     /**
      * Este endpoint devuelve todas las relaciones victima-atacante (incidente)
      *
-     * @return CustomResponse con lista de IncidentDto o exception
+     * @return CustomResponse con lista de IncidentDto o null o exception
      */
     @GET
     @Path("/all")
@@ -60,7 +60,7 @@ public class IncidentService extends BaseService {
      * Este endpoint consulta un incidente por su id
      *
      * @param incidentId id de incidente a consultar
-     * @return CustomResponse con IncidentDto cosnultado o excepcion
+     * @return CustomResponse con IncidentDto cosnultado o null o excepcion
      */
     @GET
     @Path("/{id}")
@@ -92,7 +92,7 @@ public class IncidentService extends BaseService {
      * Este endpoint consulta un incidente segun el id de victima
      *
      * @param victimId id de victima a obtener su incidente
-     * @return CustomResponse con IncidentDto o excepcion
+     * @return CustomResponse con IncidentDto o null o excepcion
      */
     @GET
     @Path("victimRegistry/{victim_id}")
@@ -124,7 +124,7 @@ public class IncidentService extends BaseService {
      * Este endpoint consulta un incidente por id de atacante
      *
      * @param attackerId id de atacante a obtener su id
-     * @return CustomResponse con IncidentDto o excepcion
+     * @return CustomResponse con IncidentDto o null o excepcion
      */
     @GET
     @Path("attackerRegistry/{attacker_id}")

@@ -49,7 +49,7 @@ public class UserService extends BaseService {
     /**
      * Este metodo consulta todos los usuarios
      *
-     * @return CustomResponse con lista de todos los usuarios
+     * @return CustomResponse con lista de UserDto o null o excepcion
      */
     @GET
     @Path("/all")
@@ -79,7 +79,7 @@ public class UserService extends BaseService {
      * Este metodo consulta un usuario por id
      *
      * @param userId id de usuario a consultar
-     * @return CustomResponse con estructura de usuario o excepcion
+     * @return CustomResponse con UserDto o null o excepcion
      */
     @GET
     @Path("/{id}")
@@ -111,7 +111,7 @@ public class UserService extends BaseService {
      * Este endpoint consulta un usuario por email
      *
      * @param userEmail email de usuario a consultar
-     * @return CustomResponse con estructura de usuario o excepcion
+     * @return CustomResponse con UserDto o null o excepcion
      */
     @GET
     @Path("email/{email}")
@@ -143,7 +143,7 @@ public class UserService extends BaseService {
      * Este endpoint consulta un usuario por username
      *
      * @param username username de usuario a consultar
-     * @return CustomResponse con estructura de usuario o excepcion
+     * @return CustomResponse con UserDto o null o excepcion
      */
     @GET
     @Path("username/{username}")
@@ -175,7 +175,7 @@ public class UserService extends BaseService {
      * Este endpoint consulta un usuario por cedula
      *
      * @param personal_id cedula de usuario a consultar
-     * @return CustomResponse con estructura de usuario o excepcion
+     * @return CustomResponse con UserDto o null o excepcion
      */
     @GET
     @Path("personal_id/{personal_id}")
@@ -207,7 +207,7 @@ public class UserService extends BaseService {
      * Este endpoint consulta un usuario por direccion MAC
      *
      * @param mac_address direccion MAC del usuario a consultar
-     * @return CustomResponse con estructura de usuario o excepcion
+     * @return CustomResponse con UserDto o null o excepcion
      */
     @GET
     @Path("mac/{mac_adress}")
@@ -239,7 +239,7 @@ public class UserService extends BaseService {
      * Este endpoint agrega un usuario
      *
      * @param userDto estructura de usuario a agregar
-     * @return CustomResponse con estructura de usuario agregado o excepcion
+     * @return CustomResponse con UserDto agregado o excepcion
      */
     @POST
     public Response addUser(UserDto userDto) {
@@ -272,7 +272,7 @@ public class UserService extends BaseService {
      * Este endpoint elimina un usuario por id
      *
      * @param userId id de usuario a eliminar
-     * @return CustomResponse con estructura de usuario eliminado o excepcion
+     * @return CustomResponse con UserDto eliminado o excepcion
      */
     @DELETE
     @Path("/{id}")
@@ -319,7 +319,7 @@ public class UserService extends BaseService {
      * Este endpoint actualiza un usuario
      *
      * @param userDto estructura de usuario a actualizar
-     * @return CustomResponse con estructura de usuario actualizado o excepcion
+     * @return CustomResponse con UserDto actualizado o excepcion
      */
     @PUT
     public Response updateUser(UserDto userDto) {

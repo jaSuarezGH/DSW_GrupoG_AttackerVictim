@@ -25,7 +25,9 @@ public class VictimService extends BaseService {
     private static Logger _logger = LoggerFactory.getLogger(VictimService.class);
 
     /**
-     * @return CustomResponse con Lista de todas las victimas o excepcion
+     * Este metodo consulta todas las victimas registradas
+     *
+     * @return CustomResponse con Lista de VictimDto o null o excepcion
      */
     @GET
     @Path("/all")
@@ -52,8 +54,10 @@ public class VictimService extends BaseService {
     }
 
     /**
-     * @param userId id de victima
-     * @return CustomResponse con Victima o excepcion
+     * Este metodo consulta una victima segun su id de User
+     *
+     * @param userId id de usuario de victima
+     * @return CustomResponse con Victima o null o excepcion
      */
     @GET
     @Path("/{user_id}")
@@ -82,6 +86,8 @@ public class VictimService extends BaseService {
     }
 
     /**
+     * Este metodo agrega una victima
+     *
      * @param victimDto estructura de victima a agregar
      * @return CustomResponse con victima agregada o excepcion
      */
@@ -107,6 +113,8 @@ public class VictimService extends BaseService {
     }
 
     /**
+     * Este metodo elimina una victima por id
+     *
      * @param victimId id de victima
      * @return CustomResponse con estructura de victima eliminada o excepcion
      */

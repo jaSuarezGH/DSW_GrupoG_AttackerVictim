@@ -35,7 +35,7 @@ public class CoordinateService extends BaseService {
     /**
      * Este endpoint regresa todas las coordenadas que se usan o no en zonas seguras
      *
-     * @return CustomResponse con lista de CoordinateDto o excepcion
+     * @return CustomResponse con lista de CoordinateDto o null o excepcion
      */
     @GET
     @Path("/all")
@@ -65,7 +65,7 @@ public class CoordinateService extends BaseService {
      * Este endpoint devuelve una coordenada por Id
      *
      * @param coordinateId id de coordenada a solicitar
-     * @return CustomResponse con CoordinateDto o excepcion
+     * @return CustomResponse con CoordinateDto o null o excepcion
      */
     @GET
     @Path("/{id}")
