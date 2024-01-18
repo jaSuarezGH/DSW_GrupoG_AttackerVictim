@@ -18,14 +18,14 @@ import { Linking } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Vibration } from 'react-native';
 import { Audio } from 'expo-av';
+import { obtenerVictimaPorID } from '../../../Domain/useCases/ObtenerVictimaID';
 
 export const principalViewModel = () => {
     let gyroStatus = 'MOBILE';
     let statusInactive = 0;
     let incidente = null;
+    let userStatus = null;
     const navigation = useNavigation();
-
-
 
     const manejoNotificaciones = () => {
 
@@ -164,10 +164,8 @@ export const principalViewModel = () => {
     const llamadaSOS = () => {
         let numeroTelefono = '911'; 
 
-        // Asegúrate de incluir el prefijo 'tel:' antes del número de teléfono
         let urlTelefono = `tel:${numeroTelefono}`;
 
-        // Comprueba si la aplicación puede manejar la URL del teléfono
         Linking.canOpenURL(urlTelefono)
             .then(supported => {
                 if (!supported) {
@@ -229,6 +227,23 @@ export const principalViewModel = () => {
         }
       };
 
+      const verificarStatusUsuario = async () =>{
+        try {
+          userStatus = await obtenerVictimaPorID(victimID);
+          if (userStatus !== null){
+            if (userStatus.data.response._active === false){
+              Alert.alert('Su cuenta ha sido desactivada por un administrador.');
+              return false;
+            } else{
+              console.log('Usuario activo');
+              return true;
+            }
+          };
+        } catch (error){ 
+          Alert.alert('Error al verificar el status del usuario.',error.message);
+        }
+      };
+
       const generarCoordenada = (latitud, longitud, status, fecha) =>{
         const coordenadas = { 
           _full_date: fecha, 
@@ -240,7 +255,7 @@ export const principalViewModel = () => {
           }
         };  
         return coordenadas;
-      }
+      };
 
       const enviarCoordenadas = async (coordenadas) => {
         try {
@@ -296,35 +311,40 @@ export const principalViewModel = () => {
         //En la primera consulta de red devuelve null por eso asigno true si es null
         if (online === null){
           online = true;
-        }
+        };
 
         setConexionInternet(online);
 
         await obtenerStatusGiroscopio();
-
+        
         let localizacionTelefono = await obtenerLocalizacion();
 
         if (online) {
-          const locationSQL = await ObtenerCoordenadasSQL();
-            //Si hay datos en la base de datos procedemos a enviarlos a la api 
-            if (locationSQL.length > 0){
-              for (let location of locationSQL) {
-                await enviarCoordenadas(generarCoordenada(location.latitude,location.longitude,'OFFLINE',location.fecha));
+          let resultado = await verificarStatusUsuario();
+          if (resultado){
+            const locationSQL = await ObtenerCoordenadasSQL();
+              //Si hay datos en la base de datos procedemos a enviarlos a la api 
+              if (locationSQL.length > 0){
+                for (let location of locationSQL) {
+                  await enviarCoordenadas(generarCoordenada(location.latitude,location.longitude,'OFFLINE',location.fecha));
+                };
+                EliminarUsuarioCoordenadas()
+                  .then((deleted) => {
+                    if (!deleted) {
+                      console.log('No se lograron eliminar las ubicaciones.');
+                    }
+                  })
+                  .catch((error) => {
+                    Alert.alert('Ocurrió un error al eliminar las ubicaciones:', error);
+                  });  
+              } else {
+                await enviarCoordenadas(generarCoordenada(localizacionTelefono.coords.latitude,localizacionTelefono.coords.longitude,gyroStatus,milisegundos));
+                await verificarDistancia();
+                await verificarAtacanteZonaSegura();
               };
-              EliminarUsuarioCoordenadas()
-                .then((deleted) => {
-                  if (!deleted) {
-                    console.log('No se lograron eliminar las ubicaciones.');
-                  }
-                })
-                .catch((error) => {
-                  Alert.alert('Ocurrió un error al eliminar las ubicaciones:', error);
-                });  
-            } else {
-              await verificarDistancia();
-              await verificarAtacanteZonaSegura();
-              await enviarCoordenadas(generarCoordenada(localizacionTelefono.coords.latitude,localizacionTelefono.coords.longitude,gyroStatus,milisegundos));
-            };
+          }else{
+            navigation.navigate('VistaLogin');
+          };
         } else {
           GuardarCoordenadasSQL(generarCoordenada(localizacionTelefono.coords.latitude,localizacionTelefono.coords.longitude,'OFFLINE',milisegundos))
           .then((wasSuccessful) => {

@@ -17,10 +17,9 @@ export const getDataUsuarioGmail = async (gmail) => {
   }
 };
 
-
-export const getDataAtacanteID = async (id) => {
+export const getDataUsuarioID = async (id) => {
   try {
-    const solicitud = await apiClient.get('/attacker/'+id+'');
+    const solicitud = await apiClient.get('/users/'+id+'');
     if (solicitud !== undefined) {
       if (solicitud.status === 200) { //Condicion del tipo de status que se recibio
         if (solicitud.data.response !== null) {
@@ -28,16 +27,31 @@ export const getDataAtacanteID = async (id) => {
         } else {
           throw new Error(solicitud.data.description);
         }
-      } 
+      }; 
     }
   } catch (error) {
     throw error;
   }
 };
 
-export const getDataUsuarioUserName = async (userName) => {
+export const postVerificacionUsuario = async (userCredential) => {
   try {
-    const solicitud = await apiClient.get('/users/username/'+userName+'');
+    const response = await apiClient.post('/users/auth',userCredential);
+    if (response !== undefined) {
+      if (response.status === 200) { //Condicion del tipo de status que se recibio
+        return response;
+      } else {
+        throw new Error('Error al verificar los datos del usuario. Por favor, intente nuevamente.');
+      }
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getAllDataAtacantes = async () => {
+  try {
+    const solicitud = await apiClient.get('/attacker/all');
     if (solicitud !== undefined) {
       if (solicitud.status === 200) { //Condicion del tipo de status que se recibio
         if (solicitud.data.response !== null) {

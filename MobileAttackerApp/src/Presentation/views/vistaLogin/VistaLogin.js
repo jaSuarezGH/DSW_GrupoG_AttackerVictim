@@ -19,7 +19,7 @@ export const VistaLoginScreen = () => {
               <Image 
                 source={require('../../../../assets/LogoAVapp.png')} 
                 style={styles.imageLogoLogin} />
-              <Text style={styles.logoText}>Login Attacker</Text>
+              <Text style={styles.logoText}>Login Attacker App</Text>
             </View>
             
             <View style={styles.form}>
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   },
   formRegister:{
       flexDirection:'row',
-      marginTop: 24 * (windowHeight / 835),
+      marginTop: 32 * (windowHeight / 835),
       justifyContent:'center'
   },
   formRequestText:{
@@ -123,18 +123,18 @@ const styles = StyleSheet.create({
       fontWeight:'bold',
   },
   imageLogo:{
-      width:30 * (windowWidth / 390),
-      height:30 * (windowHeight / 835),
+      width:25 * (windowWidth / 390),
+      height:30 * (windowHeight / 825),
       marginRight:7,
   },
   imageLogoLogin:{
-      width:130 * (windowWidth / 390),
+      width:120 * (windowWidth / 390),
       height:125 * (windowHeight / 799),
   },
   logoContainer:{
       position:'absolute',
       alignItems:'center',
-      top: windowHeight * 0.11,
+      top: windowHeight * 0.06,
   },
   logoText:{
       color:'white',

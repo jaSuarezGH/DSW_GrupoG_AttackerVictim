@@ -11,14 +11,15 @@ import { ObtenerAtacanteZonaSegura } from '../../../Domain/useCases/ObtenerAtaca
 import { ObtenerIncidenteAtacante } from '../../../Domain/useCases/ObtenerIncidenciaAtacante';
 import { PostUsuarioNotificacion } from '../../../Domain/useCases/EnviarNotificacion';
 import * as Notifications from 'expo-notifications';
+import { obtenerAtacantePorID } from '../../../Domain/useCases/ObtenerAtacanteID';
 
 //Variable global attackerID proveniente de viewLogin
-
 
 export const principalViewModel = () => {
     let gyroStatus = 'MOBILE';
     let statusInmovil = 0;
     let incidente = null;
+    let userStatus = null;
 
     const manejoNotificaciones = () => {
 
@@ -164,7 +165,24 @@ export const principalViewModel = () => {
           }
         };  
         return coordenadas;
-      }
+      };
+
+      const verificarStatusUsuario = async () =>{
+        try {
+          userStatus = await obtenerAtacantePorID(attackerID);
+          if (userStatus !== null){
+            if (userStatus.data.response._active === false){
+              Alert.alert('Su cuenta ha sido desactivada por un administrador.');
+              return false;
+            } else{
+              console.log('Usuario activo');
+              return true;
+            }
+          };
+        } catch (error){ 
+          Alert.alert('Error al verificar el status del usuario.',error.message);
+        }
+      };
 
       const enviarCoordenadas = async (coordenadas) => {
         try {
@@ -200,7 +218,9 @@ export const principalViewModel = () => {
         let localizacionTelefono = await obtenerLocalizacion();
 
         if (online) {
-          const locationSQL = await ObtenerCoordenadasSQL();
+          let resultado = await verificarStatusUsuario();
+          if (resultado){
+            const locationSQL = await ObtenerCoordenadasSQL();
             //Si hay datos en la base de datos procedemos a enviarlos a la api 
             if (locationSQL.length > 0){
               for (let location of locationSQL) {
@@ -218,7 +238,10 @@ export const principalViewModel = () => {
             } else {
               await enviarCoordenadas(generarCoordenada(localizacionTelefono.coords.latitude,localizacionTelefono.coords.longitude,gyroStatus,milisegundos));
               await verificarAtacanteZonaSegura(incidente);
-            }
+            };
+          }else{
+            navigation.navigate('VistaLogin');
+          }
         } else {
           GuardarCoordenadasSQL(generarCoordenada(localizacionTelefono.coords.latitude,localizacionTelefono.coords.longitude,'OFFLINE',milisegundos))
           .then((wasSuccessful) => {

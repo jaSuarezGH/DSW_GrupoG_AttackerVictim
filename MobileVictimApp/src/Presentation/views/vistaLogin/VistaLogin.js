@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
   logoContainer:{
       position:'absolute',
       alignItems:'center',
-      top: windowHeight * 0.11,
+      top: windowHeight * 0.07,
   },
   logoText:{
       color:'white',

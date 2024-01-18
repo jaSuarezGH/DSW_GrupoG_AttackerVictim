@@ -21,7 +21,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.gadv1331.MobileAttackerApp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
