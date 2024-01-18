@@ -30,6 +30,12 @@ public class HistoryDao extends BaseDao<History> {
         _builder = _em.getCriteriaBuilder();
     }
 
+    /**
+     * Este metodo consulta en DB todas las posiciones de un usuario
+     *
+     * @param userId id de usuario a consultar posiciones
+     * @return Lista de History o null o CupraException
+     */
     public List<History> getAllHistoryByUserId(User userId) {
         List<History> results;
         try {

@@ -31,6 +31,12 @@ public class UserDao extends BaseDao<User> {
         _builder = _em.getCriteriaBuilder();
     }
 
+    /**
+     * Este metodo consulta en DB un usuario por email
+     *
+     * @param email email a consultar
+     * @return User o null o CupraException
+     */
     public User getUserByEmail(String email) {
         User result = EntityFactory.createUser();
         _logger.debug(String.format("Get in UserDao.getUserByEmail: parameter {%s}", email));
@@ -57,6 +63,12 @@ public class UserDao extends BaseDao<User> {
         return result;
     }
 
+    /**
+     * Este metodo consulta en DB un usuario por username
+     *
+     * @param username username a consultar
+     * @return User o null o CupraException
+     */
     public User getUserByUsername(String username) {
         User result = EntityFactory.createUser();
         try {
@@ -76,6 +88,12 @@ public class UserDao extends BaseDao<User> {
         return result;
     }
 
+    /**
+     * Este metodo consulta en DB un usuario por cedula
+     *
+     * @param personal_id cedula de usuario
+     * @return User o null o CupraException
+     */
     public User getUserByPersonalId(String personal_id) {
         User result = EntityFactory.createUser();
         try {
@@ -95,6 +113,12 @@ public class UserDao extends BaseDao<User> {
         return result;
     }
 
+    /**
+     * Este metodo consulta en DB un usuario por MAC
+     *
+     * @param mac_address direccion MAC de usuario
+     * @return User o null o CupraException
+     */
     public User getUserByMacAddress(String mac_address) {
         User result = EntityFactory.createUser();
         try {

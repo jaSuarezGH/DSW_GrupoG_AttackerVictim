@@ -30,6 +30,12 @@ public class IncidentDao extends BaseDao<Incident> {
         _builder = _em.getCriteriaBuilder();
     }
 
+    /**
+     * Este metodo consulta en DB un incidente segun el id de victima
+     *
+     * @param victimId id de victima
+     * @return Incident o null o CupraException
+     */
     public Incident getIncidentByVictimId(Victim victimId) {
         Incident result;
         try {
@@ -49,6 +55,12 @@ public class IncidentDao extends BaseDao<Incident> {
         return result;
     }
 
+    /**
+     * Este metodo consulta en DB un incidente segun el id de atacante
+     *
+     * @param attackerId id de atacante
+     * @return Incident o null o CupraException
+     */
     public Incident getIncidentByAttackerId(Attacker attackerId) {
         Incident result;
         try {
@@ -68,20 +80,12 @@ public class IncidentDao extends BaseDao<Incident> {
         return result;
     }
 
-    /*public List<Incident>  getLastPositionsByIncidentId(Incident incidentId) {
-        try {
-            String customSql = "(select * from history where (history.user IN (select attacker.user from attacker where attacker.id IN (select incident.attacker from incident where incident.id = " + incidentId + "))) order by history.id desc limit 1)UNION(select * from history where (history.user IN (select victim.user from victim where victim.id IN (select incident.victim from incident where incident.id = " + incidentId + "))) order by history.id desc limit 1)";
-            Query query = _em.createNativeQuery(customSql);
-            //query.setParameter("parameter", parameter);
-            Object result = query.getResultList();
-            return result;
-        } catch (NoResultException e) {
-            return null;
-        } catch (Exception e) {
-            throw new CupraException(e.getMessage());
-        }
-    }*/
-
+    /**
+     * Este metodo consulta en DB las ultimas posiciones de una victima y atacante
+     *
+     * @param incidentId id del incidente asociado
+     * @return Lista de History o null o CupraException
+     */
     public List<History> getLastPositionsByIncidentId(Incident incidentId) {
         List<History> results;
         try {
@@ -106,6 +110,12 @@ public class IncidentDao extends BaseDao<Incident> {
         return results;
     }
 
+    /**
+     * Este metodo consulta en DB la ultima posicion de un atacante
+     *
+     * @param incidentId id de incidente asociado
+     * @return lista de History o CupraException
+     */
     public History getAttackerLastPositionByIncidentId(Incident incidentId) {
         List<History> results;
         try {
@@ -127,6 +137,12 @@ public class IncidentDao extends BaseDao<Incident> {
         return results.get(0);
     }
 
+    /**
+     * Este metodo consulta en DB la ultima posicion de una victima
+     *
+     * @param incidentId id de incidente asociado
+     * @return lista de History o CupraException
+     */
     public History getVictimLastPositionByIncidentId(Incident incidentId) {
         List<History> results;
         try {

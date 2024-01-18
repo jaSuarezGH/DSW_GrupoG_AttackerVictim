@@ -31,6 +31,12 @@ public class AdministratorDao extends BaseDao<Administrator> {
         _builder = _em.getCriteriaBuilder();
     }
 
+    /**
+     * Este metodo consulta en base de datos un administrador segun email
+     *
+     * @param email email de administrador a consultar
+     * @return Administrator o CupraException
+     */
     public Administrator getAdministratorByEmail(String email) {
         Administrator result = EntityFactory.createAdministrator();
         try {
@@ -50,6 +56,12 @@ public class AdministratorDao extends BaseDao<Administrator> {
         return result;
     }
 
+    /**
+     * Este metodo consulta en base de datos un administrador segun username
+     *
+     * @param username username de administrador a consultar
+     * @return Administrator o null o CupraException
+     */
     public Administrator getAdministratorByUsername(String username) {
         Administrator result = EntityFactory.createAdministrator();
         try {

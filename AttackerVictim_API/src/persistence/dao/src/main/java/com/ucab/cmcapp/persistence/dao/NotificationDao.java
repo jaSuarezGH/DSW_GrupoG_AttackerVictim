@@ -31,6 +31,12 @@ public class NotificationDao extends BaseDao<Notification> {
         _builder = _em.getCriteriaBuilder();
     }
 
+    /**
+     * Este metodo consulta en DB todas las notificaciones segun un usuario
+     *
+     * @param userId estructura User a consultar
+     * @return lista de Notification o null o CupraException
+     */
     public List<Notification> getAllNotificationByUserId(User userId) {
         List<Notification> results;
         try {
