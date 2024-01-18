@@ -105,7 +105,7 @@ export const VistaPrincipalScreen = () => {
                 <View style={styles.buttonContainer}>
                     <RoundedButtonLogin 
                         text = 'SOS' 
-                        onPress={llamadaSOS} 
+                        onPress={() => llamadaSOS()} 
                     />
                 </View>
 

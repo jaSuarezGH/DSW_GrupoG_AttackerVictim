@@ -30,6 +30,7 @@ export const loginViewModel = () => {
               let victima = datosVictimas.data.response.find(item => item._user._username === usuarioLogin && item._user._password === passwordUser);
               if (victima !== undefined) {
                 if (victima._user._active === true){
+                  //Declaracion de variables globales
                   global.userID = victima._user.id;
                   global.victimID = victima.id;
                   navigation.navigate('VistaPrincipal');

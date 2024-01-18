@@ -136,7 +136,7 @@ export const principalViewModel = () => {
           Gyroscope.removeAllListeners();
         });
         if (gyroStatus === 'INMOBILE'){
-          await enviarNotificaciones('Atacante Inmovil');
+          await enviarNotificaciones('ATACANTE INMOVIL');
         }
       };
 

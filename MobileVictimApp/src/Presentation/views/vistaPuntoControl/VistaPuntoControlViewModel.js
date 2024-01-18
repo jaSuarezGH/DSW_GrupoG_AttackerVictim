@@ -8,18 +8,20 @@ export const puntosControlViewModel = ()  => {
 
   const navigation = useNavigation();
 
-    const enviarNotificacionContador = async() => {
+    const enviarNotificacionContador = async(tipoNotification, TemporizadorAgotado) => {
       try{
         const notificacion = {
-          "_status": "TIMER STOPPED",
+          "_status": tipoNotification,
           "_user": {
             "id": userID
           }
         };
         const solicitud = await PostUsuarioNotificacion(notificacion);
-        Alert.alert('Se ha notificado a las autoridades su situacion actual.');
-        Vibration.vibrate();
-        volverlVistaPrincipal(); 
+        if (TemporizadorAgotado){
+          Alert.alert('Se ha notificado a las autoridades su situacion actual.');
+          Vibration.vibrate();
+          volverlVistaPrincipal(); 
+        };
       }catch(error){
         Alert.alert(error);
       }

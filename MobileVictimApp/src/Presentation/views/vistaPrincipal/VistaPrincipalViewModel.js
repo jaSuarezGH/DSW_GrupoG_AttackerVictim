@@ -161,11 +161,26 @@ export const principalViewModel = () => {
       return { initialLocation, currentLocation, setInitialLocation };
     };
 
-    const llamadaSOS = () => {
+    const enviarNotificaciones = async(tipoNotificacion) => {
+      try{
+        const notificacion = {
+          "_status": tipoNotificacion,
+          "_user": {
+            "id": userID
+          }
+        };
+        const solicitud = await PostUsuarioNotificacion(notificacion); 
+      }catch(error){
+        Alert.alert(error.message);
+      }
+    };
+
+    const llamadaSOS = async () => {
         let numeroTelefono = '911'; 
 
         let urlTelefono = `tel:${numeroTelefono}`;
 
+        await enviarNotificaciones('ALERTA SOS');
         Linking.canOpenURL(urlTelefono)
             .then(supported => {
                 if (!supported) {
@@ -194,20 +209,6 @@ export const principalViewModel = () => {
         }
       };
 
-      const enviarNotificaciones = async(tipoNotificacion) => {
-        try{
-          const notificacion = {
-            "_status": tipoNotificacion,
-            "_user": {
-              "id": userID
-            }
-          };
-          const solicitud = await PostUsuarioNotificacion(notificacion); 
-        }catch(error){
-          Alert.alert(error.message);
-        }
-      };
-
       const obtenerStatusGiroscopio = async () => {
         const listener = Gyroscope.addListener(({ x, y, z }) => {
           if (Math.abs(x) < 0.009 && Math.abs(y) < 0.009 && Math.abs(z) < 0.009) {
@@ -223,7 +224,7 @@ export const principalViewModel = () => {
           Gyroscope.removeAllListeners();
         });
         if (gyroStatus === 'INMOBILE'){
-          await enviarNotificaciones('Victima Inmovil');
+          await enviarNotificaciones('VICTIMA INMOVIL');
         }
       };
 
@@ -276,7 +277,7 @@ export const principalViewModel = () => {
           if (distancia.status === 200){
             if (distancia.data.response <= incidente.data.response._separation_distance){
               mandarNotificacion('ATACANTE CERCA DE USTED','Se encuentra a una distancia de '+distancia.data.response+' metros de usted'); 
-              await enviarNotificaciones('Atacante a una Distancia Menor a la Permitida.');
+              await enviarNotificaciones('ATACANTE EN CERCANIA');
               Vibration.vibrate(5000);
               await sonarAlerta();
             };

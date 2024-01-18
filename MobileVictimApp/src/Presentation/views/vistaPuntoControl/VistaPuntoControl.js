@@ -17,11 +17,12 @@ export const VistaPuntoControlScreen = () => {
   const [isActive, setIsActive] = useState(false);
   const [time, setTime] = useState(0);
 
-  const toggle = () => {
+  const toggle = async () => {
     setIsActive(!isActive);
     if (!isActive) {
       const totalSeconds = Number(hours) * 3600 + Number(minutes) * 60 + Number(seconds);
       setTime(totalSeconds);
+      await enviarNotificacionContador('TEMPORIZADOR INICIADO',false);
     }
   };
 
@@ -40,13 +41,19 @@ export const VistaPuntoControlScreen = () => {
       }, 1000);
     } else if (!isActive && time !== 0) {
       clearInterval(interval);
+      (async () => {
+        await enviarNotificacionContador('TEMPORIZADOR PAUSADO',false);
+      })();
       //volverlVistaPrincipal();
     }else if (time === 0 && isActive) {
       clearInterval(interval);
-      enviarNotificacionContador();
+      (async () => {
+        await enviarNotificacionContador('TEMPORIZADOR AGOTADO',true);
+      })();
     }
     return () => clearInterval(interval);
   }, [isActive, time]);
+
 
 
     return(
