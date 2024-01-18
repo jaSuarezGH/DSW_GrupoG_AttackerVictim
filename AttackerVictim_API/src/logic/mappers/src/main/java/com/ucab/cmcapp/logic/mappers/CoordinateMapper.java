@@ -15,6 +15,12 @@ public class CoordinateMapper extends BaseMapper {
 
     private static Logger _logger = LoggerFactory.getLogger(CoordinateMapper.class);
 
+    /**
+     * Este metodo mapea CoordinateDto a Coordinate
+     *
+     * @param dto CoordinateDto
+     * @return Coordinate
+     */
     public static Coordinate mapDtoToEntity(CoordinateDto dto) {
         Coordinate entity = EntityFactory.createCoordinate();
         entity.set_id(dto.getId());
@@ -23,6 +29,12 @@ public class CoordinateMapper extends BaseMapper {
         return entity;
     }
 
+    /**
+     * Este metodo mapea Coordinate a CoordinateDto
+     *
+     * @param entity Coordinate
+     * @return CoordinateDto
+     */
     public static CoordinateDto mapEntityToDto(Coordinate entity) {
         final CoordinateDto dto = new CoordinateDto();
         dto.setId(entity.get_id());
@@ -31,12 +43,24 @@ public class CoordinateMapper extends BaseMapper {
         return dto;
     }
 
+    /**
+     * Este metodo mapea Coordinate a partir de un id
+     *
+     * @param id id asociado
+     * @return Coordinate
+     */
     public static Coordinate mapDtoToEntity(long id) {
         Coordinate entity = EntityFactory.createCoordinate(id);
         entity.set_id(id);
         return entity;
     }
 
+    /**
+     * Este metodo mapea una lista de Coordinate a una lista de CoordinateDto
+     *
+     * @param entityList lista de Coordinate
+     * @return lista de CoordinateDto
+     */
     public static List<CoordinateDto> mapEntityListToDtoList(List<Coordinate> entityList) {
         List<CoordinateDto> dtoList = new ArrayList<>();
         CoordinateDto coordinateDto;

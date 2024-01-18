@@ -16,6 +16,12 @@ public class HistoryMapper extends BaseMapper {
 
     private static Logger _logger = LoggerFactory.getLogger(HistoryMapper.class);
 
+    /**
+     * Este metodo mapea HistoryDto a History
+     *
+     * @param dto HistoryDto
+     * @return History
+     */
     public static History mapDtoToEntity(HistoryDto dto) {
         History entity = EntityFactory.createHistory();
 
@@ -29,6 +35,12 @@ public class HistoryMapper extends BaseMapper {
         return entity;
     }
 
+    /**
+     * Este metodo mapea History a HistoryDto
+     *
+     * @param entity History
+     * @return HistoryDto
+     */
     public static HistoryDto mapEntityToDto(History entity) {
         final HistoryDto dto = new HistoryDto();
 
@@ -43,12 +55,24 @@ public class HistoryMapper extends BaseMapper {
         return dto;
     }
 
+    /**
+     * Este metodo mapea un History a partir de un id
+     *
+     * @param id id de History
+     * @return History
+     */
     public static History mapDtoToEntity(long id) {
         History entity = EntityFactory.createHistory(id);
         entity.set_id(id);
         return entity;
     }
 
+    /**
+     * Este metodo mapea una lista de History a una lista de HistoryDto
+     *
+     * @param entityList lista de History
+     * @return lista de HistoryDto
+     */
     public static List<HistoryDto> mapEntityListToDtoList(List<History> entityList) {
         List<HistoryDto> dtoList = new ArrayList<>();
         HistoryDto historyDto;
@@ -67,6 +91,12 @@ public class HistoryMapper extends BaseMapper {
         return dtoList;
     }
 
+    /**
+     * Este metodo mapea un History a partir de un User
+     *
+     * @param userId id del User de History
+     * @return History
+     */
     public static History mapDtoToEntityUserId(long userId) {
         UserDto userDto = new UserDto(userId);
         History entity = EntityFactory.createHistory();
