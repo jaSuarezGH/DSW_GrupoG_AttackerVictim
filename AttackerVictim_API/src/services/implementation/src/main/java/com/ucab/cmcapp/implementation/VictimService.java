@@ -24,6 +24,9 @@ public class VictimService extends BaseService {
 
     private static Logger _logger = LoggerFactory.getLogger(VictimService.class);
 
+    /**
+     * @return CustomResponse con Lista de todas las victimas o excepcion
+     */
     @GET
     @Path("/all")
     public Response getAllVictims() {
@@ -48,6 +51,10 @@ public class VictimService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully listed all victims")).build();
     }
 
+    /**
+     * @param userId id de victima
+     * @return CustomResponse con Victima o excepcion
+     */
     @GET
     @Path("/{user_id}")
     public Response getVictimByUserId(@PathParam("user_id") long userId) {
@@ -74,6 +81,10 @@ public class VictimService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found victim with user_id: " + userId)).build();
     }
 
+    /**
+     * @param victimDto estructura de victima a agregar
+     * @return CustomResponse con victima agregada o excepcion
+     */
     @POST
     public Response addVictim(VictimDto victimDto) {
         Victim entity;
@@ -95,6 +106,10 @@ public class VictimService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] victim created successfully")).build();
     }
 
+    /**
+     * @param victimId id de victima
+     * @return CustomResponse con estructura de victima eliminada o excepcion
+     */
     @DELETE
     @Path("/{id}")
     public Response deleteVictim(@PathParam("id") long victimId) {

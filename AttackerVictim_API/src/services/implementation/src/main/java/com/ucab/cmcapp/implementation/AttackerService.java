@@ -23,6 +23,11 @@ import java.util.List;
 public class AttackerService extends BaseService {
     private static Logger _logger = LoggerFactory.getLogger(AttackerService.class);
 
+    /**
+     * Este metodo devuelve todos los atacantes registrados
+     *
+     * @return CustomResponse con AttackerDto o excepcion
+     */
     @GET
     @Path("/all")
     public Response getAllAttackers() {
@@ -47,6 +52,12 @@ public class AttackerService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully listed all attackers")).build();
     }
 
+    /**
+     * Este metodo devuelve un objeto atacante a partir de su id de usuario
+     *
+     * @param userId id de usuario
+     * @return CustomResponse con AttackerDto o excepcion
+     */
     @GET
     @Path("/{user_id}")
     public Response getAttackerByUserId(@PathParam("user_id") long userId) {
@@ -73,6 +84,12 @@ public class AttackerService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found attacker with user_id: " + userId)).build();
     }
 
+    /**
+     * Este endpoint agrega un atacante
+     *
+     * @param attackerDto estrucutra de atacante a agregar
+     * @return CustomResponse con AttackerDto o excepcion
+     */
     @POST
     public Response addAttacker(AttackerDto attackerDto) {
         Attacker entity;
@@ -94,6 +111,12 @@ public class AttackerService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] attacker created successfully")).build();
     }
 
+    /**
+     * Este endpoint elimina un atacante
+     *
+     * @param attackerId id del atacante a eliminar
+     * @return CustomResponse con AttackerDto o excepcion
+     */
     @DELETE
     @Path("/{id}")
     public Response deleteAttacker(@PathParam("id") long attackerId) {

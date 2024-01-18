@@ -32,6 +32,11 @@ public class CoordinateService extends BaseService {
 
     private static Logger _logger = LoggerFactory.getLogger(CoordinateService.class);
 
+    /**
+     * Este endpoint regresa todas las coordenadas que se usan o no en zonas seguras
+     *
+     * @return CustomResponse con lista de CoordinateDto o excepcion
+     */
     @GET
     @Path("/all")
     public Response getAllCoordinates() {
@@ -56,6 +61,12 @@ public class CoordinateService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully listed all coordinates")).build();
     }
 
+    /**
+     * Este endpoint devuelve una coordenada por Id
+     *
+     * @param coordinateId id de coordenada a solicitar
+     * @return CustomResponse con CoordinateDto o excepcion
+     */
     @GET
     @Path("/{id}")
     public Response getCoordinateById(@PathParam("id") long coordinateId) {
@@ -82,6 +93,12 @@ public class CoordinateService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found coordinate with id: " + coordinateId)).build();
     }
 
+    /**
+     * Este endpoint agrega una coordenada
+     *
+     * @param coordinateDto estructura de la coordenada a agregar
+     * @return CustomResponse con CoordinateDto o excepcion
+     */
     @POST
     public Response addCoordinate(CoordinateDto coordinateDto) {
         Coordinate entity;

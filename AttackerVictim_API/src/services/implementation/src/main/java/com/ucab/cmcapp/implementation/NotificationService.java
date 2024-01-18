@@ -32,6 +32,11 @@ public class NotificationService extends BaseService {
 
     private static Logger _logger = LoggerFactory.getLogger(NotificationService.class);
 
+    /**
+     * Este endpoint consulta todas las notificaciones
+     *
+     * @return CustomResponse con lista de NotificationDto o excepcion
+     */
     @GET
     @Path("/all")
     public Response getAllNotifications() {
@@ -56,6 +61,12 @@ public class NotificationService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully listed all notifications")).build();
     }
 
+    /**
+     * Este endpoint consulta todas las notificaciones segun un id de usuario
+     *
+     * @param userId id de usario a obtener notificaciones
+     * @return CustomResponse con lista de NotificationDto o excepcion
+     */
     @GET
     @Path("/{user_id}")
     public Response getAllNotificationByUserId(@PathParam("user_id") long userId) {
@@ -82,6 +93,12 @@ public class NotificationService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found all notifications with user_id: " + userId)).build();
     }
 
+    /**
+     * Este endpoint agrega una notificacion
+     *
+     * @param notificationDto estructura de notificacion a agregar
+     * @return CustomResponse con NotificationDto agregada o excepcion
+     */
     @POST
     public Response addNotification(NotificationDto notificationDto) {
         Notification entity;

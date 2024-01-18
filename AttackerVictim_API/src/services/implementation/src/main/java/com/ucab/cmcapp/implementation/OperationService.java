@@ -28,6 +28,13 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 public class OperationService extends BaseService {
 
+    /**
+     * Este endpoint regresa la distancia de separacion
+     * entre una victima y su atacante segun el id de incidente
+     *
+     * @param incidentId id de incidente
+     * @return CustomResponse con distancia de separacion o excepcion
+     */
     @GET
     @Path("separation-distance/{incident_id}")
     public Response getSeparationDistanceByIncidentId(@PathParam("incident_id") long incidentId) {
@@ -56,6 +63,13 @@ public class OperationService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(separationDistance, "[OK NORMAL RESPONSE] Successfully calculated separation distance in meters with incident id: " + incidentId)).build();
     }
 
+    /**
+     * Este endpoint devuelve la ultima posicion de una victima
+     * y su atacante segun el id de incidente
+     *
+     * @param incidentId id de incidente
+     * @return CustomResponse con HistoryDto que contiene las ultimas posiciones o excepcion
+     */
     @GET
     @Path("attacker-victim-last-position/{incident_id}")
     public Response getAttackerVictimLastPositionsByIncidentId(@PathParam("incident_id") long incidentId) {
@@ -82,6 +96,13 @@ public class OperationService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully obtained last position for attacker and victim with incident id: " + incidentId)).build();
     }
 
+    /**
+     * Este endpoint devuelve la ultima posicion de un atacante
+     * segun el id de su incidente
+     *
+     * @param incidentId id de incidente
+     * @return CustomResponse con HistoryDto con la ultima posicion del atacante o excepcion
+     */
     @GET
     @Path("attacker-last-position/{incident_id}")
     public Response getAttackerLastPositionsByIncidentId(@PathParam("incident_id") long incidentId) {
@@ -108,6 +129,13 @@ public class OperationService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully obtained last position for attacker with incident id: " + incidentId)).build();
     }
 
+    /**
+     * Este endpoint devuelve la ultima posicion de una victima
+     * segun el id de su incidente
+     *
+     * @param incidentId id de incidente
+     * @return CustomResponse con HistoryDto con la ultima posicion del atacante o excepcion
+     */
     @GET
     @Path("victim-last-position/{incident_id}")
     public Response getVictimLastPositionsByIncidentId(@PathParam("incident_id") long incidentId) {
@@ -134,6 +162,15 @@ public class OperationService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully obtained last position for victim with incident id: " + incidentId)).build();
     }
 
+    /**
+     * Este endpoint devuelve un AttackerInSafeZoneDto que
+     * contiene la informacion para confirmar si un atacante
+     * esta en una o varias zonas seguras, a partir del id
+     * de incidente
+     *
+     * @param incidentId id del incidente
+     * @return CustomResponse con AttackerInSafeZoneDto o exception
+     */
     @GET
     @Path("attacker-in-safe-zone/{incident_id}")
     public Response getVerifyAttackerInSafeZone(@PathParam("incident_id") long incidentId) {
