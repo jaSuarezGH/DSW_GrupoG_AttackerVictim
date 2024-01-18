@@ -18,7 +18,6 @@ import com.ucab.cmcapp.logic.commands.victim.composite.GetAllVictimCommand;
 import com.ucab.cmcapp.logic.dtos.HistoryDto;
 import com.ucab.cmcapp.logic.dtos.SafeZoneDto;
 import com.ucab.cmcapp.logic.dtos.UserDto;
-import com.ucab.cmcapp.logic.dtos.VictimDto;
 import com.ucab.cmcapp.logic.mappers.HistoryMapper;
 import com.ucab.cmcapp.logic.mappers.SafeZoneMapper;
 import com.ucab.cmcapp.logic.mappers.UserMapper;
