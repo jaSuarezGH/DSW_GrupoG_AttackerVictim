@@ -16,7 +16,9 @@ public class LdapAdministratorManager {
         newConnection();
     }
 
-    /* create connection during object creation */
+    /**
+     * Este constuctor realiza la conexion con LDAP en general
+     */
     public void newConnection() {
         Properties env = new Properties();
         env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
@@ -35,6 +37,11 @@ public class LdapAdministratorManager {
         }
     }
 
+    /**
+     * Este metodo consulta en LDAP todos los miembros del grupo administradores
+     *
+     * @throws NamingException
+     */
     public void getAllAdministrators() throws NamingException {
         String searchFilter = "(objectClass=inetOrgPerson)";
         String[] reqAtt = {"cn", "sn"};
@@ -54,6 +61,12 @@ public class LdapAdministratorManager {
 
     }
 
+    /**
+     * Este metodo agrega en LDAP un administrador
+     *
+     * @param username username de administrador
+     * @param password clave de administrador
+     */
     public void addAdministrator(String username, String password) {
         Attributes attributes = new BasicAttributes();
         Attribute attribute = new BasicAttribute("objectClass");
@@ -73,6 +86,11 @@ public class LdapAdministratorManager {
 
     }
 
+    /**
+     * Este metodo elimina un administrador de LDAP
+     *
+     * @param username username de administrador
+     */
     public void deleteAdministrator(String username) {
         try {
             connection.destroySubcontext("cn=" + username + ",ou=managers,ou=system");
@@ -83,6 +101,13 @@ public class LdapAdministratorManager {
         }
     }
 
+    /**
+     * Este metodo intenta autenticar un administrador en LDAP
+     *
+     * @param username username para autenticar
+     * @param password clave para autenticar
+     * @return true o false
+     */
     public static boolean authAdministrator(String username, String password) {
         try {
             Properties env = new Properties();
@@ -100,6 +125,12 @@ public class LdapAdministratorManager {
         }
     }
 
+    /**
+     * Este metodo modifica la clave de un administrador en LDAP
+     *
+     * @param username username para consultar
+     * @param password clave nueva
+     */
     public void updateAdministratorPassword(String username, String password) {
         try {
             String dnBase = ",ou=managers,ou=system";

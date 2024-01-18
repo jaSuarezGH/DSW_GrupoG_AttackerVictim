@@ -15,7 +15,9 @@ public class LdapUserManager {
         newConnection();
     }
 
-    /* create connection during object creation */
+    /**
+     * Este constuctor realiza la conexion con LDAP en general
+     */
     public void newConnection() {
         Properties env = new Properties();
         env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
@@ -34,6 +36,11 @@ public class LdapUserManager {
         }
     }
 
+    /**
+     * Este metodo consulta todos los usuarios (victima o atacantes) en LDAP
+     *
+     * @throws NamingException
+     */
     public void getAllUsers() throws NamingException {
         String searchFilter = "(objectClass=inetOrgPerson)";
         String[] reqAtt = {"cn", "sn"};
@@ -53,6 +60,12 @@ public class LdapUserManager {
 
     }
 
+    /**
+     * Este metodo agrega un usuario en LDAP
+     *
+     * @param username username del usuario
+     * @param password clave del usuario
+     */
     public void addUser(String username, String password) {
         Attributes attributes = new BasicAttributes();
         Attribute attribute = new BasicAttribute("objectClass");
@@ -72,6 +85,11 @@ public class LdapUserManager {
 
     }
 
+    /**
+     * Este metodo elimina un usuario en LDAP
+     *
+     * @param username username para consultar
+     */
     public void deleteUser(String username) {
         try {
             connection.destroySubcontext("cn=" + username + ",ou=users,ou=system");
@@ -82,6 +100,13 @@ public class LdapUserManager {
         }
     }
 
+    /**
+     * Este metodo intenta autenticar un usuario en LDAP
+     *
+     * @param username username para autenticar
+     * @param password clave para autenticar
+     * @return true o false
+     */
     public static boolean authUser(String username, String password) {
         try {
             Properties env = new Properties();
@@ -99,6 +124,12 @@ public class LdapUserManager {
         }
     }
 
+    /**
+     * Este metodo modifica la clave de un usuario en LDAP
+     *
+     * @param username username para consultar
+     * @param password clave nueva
+     */
     public void updateUserPassword(String username, String password) {
         try {
             String dnBase = ",ou=users,ou=system";

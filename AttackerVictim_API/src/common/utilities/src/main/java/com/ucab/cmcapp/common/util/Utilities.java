@@ -10,6 +10,12 @@ public class Utilities {
 
     private static Logger _logger = LoggerFactory.getLogger(Utilities.class);
 
+    /**
+     * Este metodo parsea un String a JSONObject
+     *
+     * @param json String recibido
+     * @return JSONObject
+     */
     public JSONObject jsonToObject(String json) {
         _logger.debug("Get in Utilities.jsonToObject");
         JSONObject obj = null;

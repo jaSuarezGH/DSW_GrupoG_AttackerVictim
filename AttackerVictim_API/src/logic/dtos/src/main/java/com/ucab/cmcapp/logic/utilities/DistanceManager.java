@@ -10,6 +10,14 @@ import java.util.*;
 
 public class DistanceManager {
 
+    /**
+     * Este metodo usa la formula de Haservine para calcular la distancia
+     * de separacion de entre la victima y su atacante
+     *
+     * @param firstLocation primera ubicacion (indiferente si es victima o atacante)
+     * @param secondLocation segunda ubicacion (indiferente si es victima o atacante)
+     * @return Distancia de separacion en metros (double)
+     */
     public double calculateSeparationDistance(HistoryDto firstLocation, HistoryDto secondLocation) {
         // Haversine´s formula
         // ChatGPT
@@ -28,10 +36,26 @@ public class DistanceManager {
         return distance * radius;
     }
 
+    /**
+     * Este metodo complementa la formula de Haservine
+     * para la operacion matematica (sin(val/2)) elevado a 2
+     *
+     * @param val valor
+     * @return resultado
+     */
     private double haversine(double val) {
         return Math.pow(Math.sin(val / 2), 2);
     }
 
+    /**
+     * Este metodo se encarga de revisar todas las zonas seguras
+     * de una victima y corrobora si su atacante esta dentro de
+     * alguna de ellas, si es asi las almacena y las retorna
+     *
+     * @param lastAttackerCoordinate ultima coordenada registrada del atacante
+     * @param posibleZones zonas seguras de la victima
+     * @return AttackerInSafeZoneDto con toda la informacion de zonas y booleano de confirmacion
+     */
     public AttackerInSafeZoneDto verifyAttackerInSafeZone(HistoryDto lastAttackerCoordinate, List<SafeZoneDto> posibleZones) {
         AttackerInSafeZoneDto resultDto = new AttackerInSafeZoneDto();
         Double attackerLatitude = lastAttackerCoordinate.get_latitude();
@@ -89,6 +113,17 @@ public class DistanceManager {
         return resultDto;
     }
 
+    /**
+     * Este metodo recibe un conjunto de coordenadas  que
+     * representan un poligono y verificia si una coordenada
+     * dada se encuentra dentro del poligono
+     *
+     * @param personLatitude latitud de la persona
+     * @param personLongitude longitus de la persona
+     * @param areaLatitudes Arreglo con latitudes del poligono
+     * @param areaLongitudes Arreglo con longitudes del poligono
+     * @return true o false
+     */
     public boolean calculateCoordinatesInArea(Double personLatitude, Double personLongitude, Double[] areaLatitudes, Double[] areaLongitudes) {
         // Crear un objeto Path2D para representar el polígono de la zona
         Path2D.Double zonaPoligono = new Path2D.Double();
