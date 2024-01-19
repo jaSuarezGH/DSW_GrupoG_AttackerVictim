@@ -14,10 +14,10 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ButtonSubmit } from "@/components/Button/ButtonSubmit";
 import { DivHeader } from "@/components/Div";
-import AlertWarning from "@/components/Alert/AlertWarning";
 import { DivResponseUser } from "@/components/Div/DivResponseUser/DivResponseUser";
 import { fetchGetDelete } from "@/app/pages/principal/fetch/fetchGetDelete";
 import { fetchPostPut } from "@/app/pages/principal/fetch/fetchPostPut/fetchPostPut";
+import { AlertWarning } from "@/components/Alert/AlertWarning";
 
 export default function deleteCedulaPage({ params }) {
   const router = useRouter();

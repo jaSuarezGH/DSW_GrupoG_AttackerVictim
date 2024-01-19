@@ -1,17 +1,17 @@
 "use client";
 
 import { Routes } from "@/app/models/routes.model";
-import AlertError from "@/components/Alert/AlertError";
 import { ButtonSubmit } from "@/components/Button/ButtonSubmit";
 import { DivImageHeader } from "@/components/Div/Header/DivImageHeader/DivImageHeader";
 import { Input } from "@/components/Input/Input";
 import { Label } from "@/components/Label/Label";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { endPostAuthAdmin } from "@/app/models/endpoint.model";
-import AlertInformation from "@/components/Alert/AlertInformation";
 import { fetchPostPut } from "../principal/fetch/fetchPostPut/fetchPostPut";
+import { AlertInformation } from "@/components/Alert/AlertInformation";
+import { AlertError } from "@/components/Alert/AlertError";
+import Link from "next/link";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");

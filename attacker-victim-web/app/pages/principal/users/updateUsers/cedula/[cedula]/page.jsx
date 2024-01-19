@@ -14,9 +14,10 @@ import { DivForm } from "@/components/Div/DivForm/DivForm";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ButtonSubmit } from "@/components/Button/ButtonSubmit";
-import AlertError from "@/components/Alert/AlertError";
 import { DivHeader } from "@/components/Div";
 import { fetchPostPut } from "@/app/pages/principal/fetch/fetchPostPut/fetchPostPut";
+import { AlertError } from "@/components/Alert/AlertError";
+import { AlertInformation } from "@/components/Alert/AlertInformation";
 
 export default function UpdateCedulaPage({ params }) {
   
@@ -166,11 +167,11 @@ export default function UpdateCedulaPage({ params }) {
       </div>
 
       <form className="m-10 mb-6" onSubmit={onSubmit}>
-        {errorInfo && (
           <div className="mt-8">
-            <AlertError description={descriptionError}></AlertError>
+            <AlertInformation
+            description={"El campo Username no se puede modificar."}
+          ></AlertInformation>
           </div>
-        )}
 
         {/* DATOS DEL USUARIO */}
         <DivForm

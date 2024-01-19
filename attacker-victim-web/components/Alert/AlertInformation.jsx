@@ -1,5 +1,5 @@
 
-function AlertInformation({description}) {
+export function AlertInformation({description}) {
     return (
         <div class="relative items-center w-full">
           <div className="p-6 border-l-4 border-blue-500 rounded-r-xl bg-blue-50">
@@ -20,5 +20,4 @@ function AlertInformation({description}) {
     );
   }
   
-  export default AlertInformation;
   

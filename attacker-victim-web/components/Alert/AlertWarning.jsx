@@ -1,5 +1,4 @@
-
-function AlertWarning({description, title}) {
+export function AlertWarning({description, title}) {
     return (
         <div className="relative items-center w-full px-5 py-12 mx-auto md:px-12 lg:px-24 max-w-7xl">
           <div className="p-6 border-l-4 border-yellow-600 rounded-r-xl bg-yellow-50">
@@ -19,7 +18,4 @@ function AlertWarning({description, title}) {
           </div>
         </div>
     );
-  }
-  
-  export default AlertWarning;
-  
+  } 

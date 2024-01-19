@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { DivImageHeader } from "@/components/Div/Header/DivImageHeader/DivImageHeader";
 import { ButtonSubmit } from "@/components/Button/ButtonSubmit";
 import { Routes } from "./models/routes.model";
+import Link from "next/link";
 
 
 export default function RootPage() {
@@ -18,17 +19,11 @@ export default function RootPage() {
         ></DivImageHeader>
 
         <div className="mt-10  sm:mx-auto sm:w-full sm:max-w-sm">
-          <form
-            className="space-y-6"
-            onSubmit={(evento) => {
-              evento.preventDefault();
-              router.push(Routes.SIGN_IN);
-            }}
-          >
 
+              <Link href={Routes.SIGN_IN}>
               <ButtonSubmit text="Ingresar al Sistema"></ButtonSubmit>
+              </Link>
               
-          </form>
         </div>
       </div>
     </>

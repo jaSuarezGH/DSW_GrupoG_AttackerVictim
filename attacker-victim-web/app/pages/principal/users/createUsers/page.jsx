@@ -17,9 +17,9 @@ import {
   endGetUserByMAC,
   endGetUserByUsername,
 } from "@/app/models/endpoint.model";
-import AlertError from "@/components/Alert/alertError";
 import { fetchGetDelete } from "../../fetch/fetchGetDelete";
 import { fetchPostPut } from "../../fetch/fetchPostPut/fetchPostPut";
+import { AlertError } from "@/components/Alert/AlertError";
 
 export default function RegistrarVictimaPage() {
   const router = useRouter();

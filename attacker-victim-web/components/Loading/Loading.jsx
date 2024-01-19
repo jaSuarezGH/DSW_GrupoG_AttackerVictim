@@ -1,4 +1,4 @@
-function Loading() {
+export function Loading() {
   return (
     <div class="flex h-max items-center justify-center my-60">
       <div role="status">
@@ -23,5 +23,3 @@ function Loading() {
     </div>
   );
 }
-
-export default Loading;

@@ -9,5 +9,3 @@ export function HeaderPrincipal({texto}) {
     </header>
   );
 }
-
-export default HeaderPrincipal;

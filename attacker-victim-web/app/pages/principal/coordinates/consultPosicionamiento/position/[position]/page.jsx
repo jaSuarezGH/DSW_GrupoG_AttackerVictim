@@ -24,9 +24,13 @@ function pageConsultPosicionamiento({ params }) {
   };
 
   const [user, setUser] = useState(null);
-  const [typeUser, setTypeUser] = useState('');
+  const [typeUser, setTypeUser] = useState("");
   const [center, setCenter] = useState({});
   const [control, setControl] = useState(false);
+  const [title, setTitle] = useState(`Usuario NO Encontrado`);
+  const [description, setDescription] = useState(
+    `Lo siento, el usuario a consultar el posicionamiento poseedor del Correo Electronico (Email): "${params.position}" no esta registrado o activo.`
+  );
 
   useEffect(() => {
     const fetchConsult = async () => {
@@ -57,7 +61,12 @@ function pageConsultPosicionamiento({ params }) {
                 lat: lastPositionVictim._latitude,
                 lng: lastPositionVictim._longitude,
               });
-            }
+            } else {
+              setTitle("Usuario sin Posicionamiento");
+              setDescription(
+                `Lo siento, el usuario a consultar el posicionamiento poseedor del Correo Electronico (Email): "${params.position}" no posee un ultimo posicionamiento aun.`
+              );
+            }s
           }
         } else {
           const buscarUserInAttacker = await fetchGetDelete(
@@ -80,6 +89,11 @@ function pageConsultPosicionamiento({ params }) {
                 lat: lastPositionAttacker._latitude,
                 lng: lastPositionAttacker._longitude,
               });
+            } else {
+              setTitle("Usuario sin Posicionamiento");
+              setDescription(
+                `Lo siento, el usuario a consultar el posicionamiento poseedor del Correo Electronico (Email): "${params.position}" no posee un ultimo posicionamiento aun.`
+              );
             }
           }
         }
@@ -92,10 +106,9 @@ function pageConsultPosicionamiento({ params }) {
   }, []);
 
   if ((user === null || user._user._active == false) && control) {
-    const description = `Lo siento, el usuario a consultar el posicionamiento poseedor del Correo Electronico (Email): "${params.position}" no esta registrado o activo.`;
     return (
       <InformacionPage
-        title="Usuario NO Encontrado"
+        title={title}
         description={description}
         encabezado="Not Found"
         link={Routes.GET_LOCATION_HOME}
@@ -109,12 +122,18 @@ function pageConsultPosicionamiento({ params }) {
         <DivHeader
           title={`Datos y Ultimo Posicionamiento del Usuario ${typeUser}`}
           description={`Todos los datos del usuario ${typeUser} a consultar poseedor del Email: "${params.position}" junto con su ultimo posicionamiento.`}
-          tags={typeUser == 'Victima' ? [2] : [3]}
+          tags={typeUser == "Victima" ? [2] : [3]}
         ></DivHeader>
 
         <ListConsultaUser user={user._user}></ListConsultaUser>
 
-        <div className={typeUser == 'Victima' ? `border-4 border-green-200 hover:border-green-400` : `border-4 border-red-200 hover:border-red-400`}>
+        <div
+          className={
+            typeUser == "Victima"
+              ? `border-4 border-green-200 hover:border-green-400`
+              : `border-4 border-red-200 hover:border-red-400`
+          }
+        >
           <LoadScript googleMapsApiKey="AIzaSyAVCv2edVHkkor2XENUBSsamIXFgMFn8UM">
             <GoogleMap
               mapContainerStyle={containerStyle}

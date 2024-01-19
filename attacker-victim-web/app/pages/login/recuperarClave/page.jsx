@@ -1,7 +1,5 @@
 "use client";
 
-import AlertConfirm from "@/components/Alert/AlertConfirm";
-import AlertError from "@/components/Alert/AlertError";
 import { ButtonSubmit } from "@/components/Button/ButtonSubmit";
 import { DivImageHeader } from "@/components/Div/Header/DivImageHeader/DivImageHeader";
 import { Input } from "@/components/Input/Input";
@@ -9,6 +7,8 @@ import { Label } from "@/components/Label/Label";
 import { useState } from "react";
 import { fetchGetDelete } from "../../principal/fetch/fetchGetDelete";
 import { endGetAdminByUsername } from "@/app/models/endpoint.model";
+import { AlertConfirm } from "@/components/Alert/AlertConfirm";
+import { AlertError } from "@/components/Alert/AlertError";
 
 export default function RecuperarClavePage() {
   const [username, setUsername] = useState("");

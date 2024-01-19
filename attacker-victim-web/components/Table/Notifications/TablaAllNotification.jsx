@@ -1,6 +1,6 @@
-import FillTableAllNotification from "./FillTableAllNotification";
+import { FillTableAllNotification } from "./FillTableAllNotification";
 
-function TablaAllNotifications({ notifications }) {
+export function TablaAllNotifications({ notifications }) {
   
   return (
     <div class="items-center flex relative overflow-x-auto ring-2 ring-slate-300 rounded-md">
@@ -32,4 +32,3 @@ function TablaAllNotifications({ notifications }) {
   );
 }
 
-export default TablaAllNotifications;

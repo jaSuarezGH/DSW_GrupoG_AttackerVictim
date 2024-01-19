@@ -1,13 +1,12 @@
 
 import { Navigation } from '@/components/Navigation';
-import './../../styles/globals.css'
 
 
 export const metadata = {
-  title: 'Incio | AttackVictim',
+  title: 'Consultar Todos los Administradores | AttackVictim',
 }
 
-export default function PrincipalLayout({ children }) {
+export default function getAllLayout({ children }) {
   return (
     <html lang="es">
       <body >

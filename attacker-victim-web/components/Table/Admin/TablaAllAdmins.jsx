@@ -1,6 +1,6 @@
-import FillTableAllAdmins from "./FillTableAllAdmins";
+import { FillTableAllAdmins } from "./FillTableAllAdmins";
 
-function TablaAllAdmins({ users }) {
+export function TablaAllAdmins({ users }) {
   return (
     <div class="items-center flex relative overflow-x-auto ring-2 ring-slate-300 rounded-md">
       <table class="w-full text-sm text-center text-gray-500">
@@ -30,5 +30,3 @@ function TablaAllAdmins({ users }) {
     </div>
   );
 }
-
-export default TablaAllAdmins;

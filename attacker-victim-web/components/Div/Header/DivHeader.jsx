@@ -1,7 +1,6 @@
 import { RecorrerTags } from "@/components/Tag";
 
 
-
 export function DivHeader({title, description, tags}) {
     
       const tagsMostradas = RecorrerTags(tags);
