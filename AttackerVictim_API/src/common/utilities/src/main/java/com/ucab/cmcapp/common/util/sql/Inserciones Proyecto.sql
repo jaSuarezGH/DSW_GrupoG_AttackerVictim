@@ -3,7 +3,7 @@
 ---------------------( USER )--------------------------------
 
 insert into user (firstname, lastname, username, personal_id, email, mac_address, password) values
-('Mariangel', 'Torres', 'marpastelito', '26260787', 'mariangeltsilva@gmail.com', '01-B2-D1-64-C1-27', 'azul'),
+('Mariangel', 'Torres', 'martorres', '26260787', 'mariangeltsilva@gmail.com', '01-B2-D1-64-C1-27', 'azul'),
 ('Jesus', 'Manuel', 'jesumanu', '29552507', 'jesumanu@gmail.com', '00-B0-D0-63-C2-26', 'amarillo');
 
 
