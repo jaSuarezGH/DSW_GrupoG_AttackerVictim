@@ -67,6 +67,7 @@ export const Routes = {
     DELETE_ZS_EMAIL: '/pages/principal/coordinates/safeZone/deleteSafeZone/email/',
     DELETE_ZS_RESPONSE: '/pages/principal/coordinates/safeZone/deleteSafeZone/response',
 
+    GET_ALL_STATUS: '/pages/principal/users/statusOnOff',
     GET_ALL_NOTIFICATIONS: '/pages/principal/notification',
 
 

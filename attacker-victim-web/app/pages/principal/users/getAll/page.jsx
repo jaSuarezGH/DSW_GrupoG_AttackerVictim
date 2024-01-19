@@ -19,6 +19,17 @@ export default async function UsersPage() {
       linkText="Volver al Inicio"
     ></InformacionPage>
   );
+
+  if (users === undefined) return (
+    <InformacionPage
+      title="Error de Conexion"
+      description="Lo siento, la conexion ha fallado o el servidor no se encuentra disponible."
+      encabezado="Error 404"
+      link={Routes.PRINCIPAL}
+      linkText="Volver al Inicio"
+    ></InformacionPage>
+  );
+
   return (
     <>
       <div className="bg-white py-2 sm:py-10 ">

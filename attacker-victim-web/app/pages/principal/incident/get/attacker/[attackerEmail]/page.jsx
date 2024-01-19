@@ -56,7 +56,7 @@ import { DivDefinitionListElement } from "@/components/Div/DivResponseUser/DivDe
             ></DivSubHeader>
             <DivDefinitionListElement
               title="Distancia de Alejamiento"
-              value={incident._separation_distance}
+              value={`${incident._separation_distance} `+` metros`}
             ></DivDefinitionListElement>
           </div>
         </>

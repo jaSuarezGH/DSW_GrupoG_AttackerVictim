@@ -27,73 +27,25 @@ export default function notificationPage() {
   useEffect(() => {
     const fetchConsult = async () => {
       if (control) {
-        const users = await fetchGetDelete(endGetAllUsers);
-
-        if (users) {
-          setError(true);
-          setTitleError("No Hay Usuarios Activos");
-          setDescriptionError(
-            `No se encuentran registrados Usuarios que esten Activos en el sistema actualmente.`
-          );
-
-          // Recorrer cada usuario.
-          for (const user of users) {
-            // Solo interesan los usuarios que esten activos
-
-            if (user._active) {
-              setError(false);
-              // Buscar en la tabla Historial todos los registros del usuario dado.
-              const historiales = await fetchGetDelete(
-                endGetHistoryByUserId,
-                user.id
-              );
-              if (historiales) {
-                for (const historial of historiales) {
-                  if (tiempoRef.current < historial._full_date) {
-                    tiempoRef.current = historial._full_date;
-                  }
-                }
-                // Los tiempos estan expresados en milisegundos.
-                // Si no hay actualizacion del posicionamiento en mas de un 1min.
-                // Se crea una notificacion de OFFLINE.
-                if (Date.now() - tiempoRef.current > 80000) {
-                  const bodyNotification = {
-                    _full_date: Date.now(),
-                    _status: "USUARIO OFFLINE",
-                    _user: {
-                      id: user.id,
-                    },
-                  };
-                  const newNotificationOffline = await fetchPostPut(
-                    endAddNotification,
-                    "POST",
-                    bodyNotification
-                  );
-
-                  if (!newNotificationOffline) {
-                    setError(true);
-                    setTitleError("Error al Actualizar las Notificaciones");
-                    setDescriptionError(
-                      `No se ha podido actualizar las notificaciones en el sistema, intente nuevamente.`
-                    );
-                  }
-                }
-              }
-            }
-          }
-        } else {
-          setError(true);
-          setTitleError("No Hay Usuarios");
-          setDescriptionError(
-            `No se encuentra registrado ningun tipo de Usuario en el sistema actualmente.`
-          );
-        }
         // APARTADO PARA MOSTRAR LAS NOTIFICACIONES EN SI
         const fetchNotifications = await fetchGetDelete(endGetAllNotifications);
         if (fetchNotifications) {
           // Ordenar las notificaciones por fecha descendente.
           fetchNotifications.sort((a, b) => b._full_date - a._full_date);
-          setNotifications(fetchNotifications);
+
+          // Filtrar las notificaciones que cumplen la condición _user._active = true
+          const modifiedNotifications = fetchNotifications.filter(
+            (notification) => notification._user._active === true
+          );
+          if (modifiedNotifications) {
+            setNotifications(modifiedNotifications);
+          } else {
+            setError(true);
+            setTitleError("No hay Usuarios");
+            setDescriptionError(
+              `No se encuentran registrados en el sistema actualmente o se encuentan en estado Inactivos.`
+            );
+          }
         } else {
           setError(true);
           setTitleError("No hay Notificaciones");
@@ -103,7 +55,6 @@ export default function notificationPage() {
         }
       }
     };
-
     //Variable que se encarga de indicar cuando se podria mostrar el error
     fetchConsult();
     setControl(true);

@@ -57,6 +57,14 @@ export default async function PrincipalPage() {
             tags={[1]}
           ></Card>
 
+          
+          {/* CONSULTAR TODOS LOS ADMINISTRADORES */}
+          <Card
+            title="Consultar Online/Offline"
+            description="Consultar el estado de conexion de todos los usuarios de tipo Victima o Atacante registrados en el sistema."
+            link={Routes.GET_ALL_STATUS}
+            tags={[1]}
+          ></Card>
 
           {/* CONSULTAR VICTIMAS */}
           <Card

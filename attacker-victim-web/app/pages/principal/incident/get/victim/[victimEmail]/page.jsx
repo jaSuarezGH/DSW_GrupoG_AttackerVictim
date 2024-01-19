@@ -56,7 +56,7 @@ export default async function getIncidentByVictimEmailPage({ params }) {
           ></DivSubHeader>
           <DivDefinitionListElement
             title="Distancia de Alejamiento"
-            value={`${incident._separation_distance}`+` metros`}
+            value={`${incident._separation_distance} `+` metros`}
           ></DivDefinitionListElement>
         </div>
       </>
