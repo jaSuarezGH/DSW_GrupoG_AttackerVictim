@@ -14,12 +14,12 @@ import { DivForm } from "@/components/Div/DivForm/DivForm";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ButtonSubmit } from "@/components/Button/ButtonSubmit";
-import AlertError from "@/components/Alert/AlertError";
 import { DivHeader } from "@/components/Div";
 import { fetchPostPut } from "@/app/pages/principal/fetch/fetchPostPut/fetchPostPut";
+import { AlertError } from "@/components/Alert/AlertError";
+import { AlertInformation } from "@/components/Alert/AlertInformation";
 
 export default function UpdateMACPage({ params }) {
-  
   const router = useRouter();
 
   const [control, setControl] = useState(false);
@@ -84,57 +84,67 @@ export default function UpdateMACPage({ params }) {
       user._firstname = nombre;
       user._lastname = apellido;
       user._password = password;
-      const validateCedula = await fetchGetDelete(endGetUserByCedula, cedula);
-      if (validateCedula == null || validateCedula.id == id) {
-        user._personal_id = cedula;
-        const validateUsername = await fetchGetDelete(
-          endGetUserByUsername,
-          username
-        );
+      if (cedula > 0) {
+        const validateCedula = await fetchGetDelete(endGetUserByCedula, cedula);
+        if (validateCedula == null || validateCedula.id == id) {
+          user._personal_id = cedula;
+          const validateUsername = await fetchGetDelete(
+            endGetUserByUsername,
+            username
+          );
 
-        if (validateUsername == null || validateUsername.id == id) {
-          user._username = username;
-          const validateEmail = await fetchGetDelete(endGetUserByEmail, email);
-          if (validateEmail == null || validateEmail.id == id) {
-            user._email = email;
+          if (validateUsername == null || validateUsername.id == id) {
+            user._username = username;
+            const validateEmail = await fetchGetDelete(
+              endGetUserByEmail,
+              email
+            );
+            if (validateEmail == null || validateEmail.id == id) {
+              user._email = email;
 
-            const validateMAC = await fetchGetDelete(endGetUserByMAC, mac);
+              const validateMAC = await fetchGetDelete(endGetUserByMAC, mac);
 
-            if (validateMAC == null || validateMAC.id == id) {
+              if (validateMAC == null || validateMAC.id == id) {
                 user._mac_address = mac;
                 setErrorInfo(false);
 
                 //OPERACION PARA MODIFICAR EL DATO EN EL API
                 const updateUser = await fetchPostPut(endPutUser, "PUT", user);
-                if (updateUser != null){
-                  router.push('/pages/principal/users/updateUsers/response');
+                if (updateUser != null) {
+                  router.push("/pages/principal/users/updateUsers/response");
                 } else {
                   setDescriptionError(
                     "Ha ocurrido un error inesperado al realizar la operacion de Modificacion de Usuario. Por favor intente nuevamente mas tarde."
                   );
                   setErrorInfo(true);
                 }
-            }else {
+              } else {
+                setDescriptionError(
+                  "La Direccion MAC del Bluetooth ingresado del usuario ya se encuentra registrado por otro usuario en el sistema, ingrese otra."
+                );
+                setErrorInfo(true);
+              }
+            } else {
               setDescriptionError(
-                "La Direccion MAC del Bluetooth ingresado del usuario ya se encuentra registrado por otro usuario en el sistema, ingrese otra."
+                "El Correo Electronico (Email) ingresado del usuario ya se encuentra registrado por otro usuario en el sistema, ingrese otra."
               );
               setErrorInfo(true);
             }
           } else {
             setDescriptionError(
-              "El Correo Electronico (Email) ingresado del usuario ya se encuentra registrado por otro usuario en el sistema, ingrese otra."
+              "El Nombre de usuario (Username) ingresado del usuario ya se encuentra registrada por otro usuario en el sistema, ingrese otra."
             );
             setErrorInfo(true);
           }
         } else {
           setDescriptionError(
-            "El Nombre de usuario (Username) ingresado del usuario ya se encuentra registrada por otro usuario en el sistema, ingrese otra."
+            "La Cedula ingresada del usuario ya se encuentra registrada por otro usuario en el sistema, ingrese otra."
           );
           setErrorInfo(true);
         }
       } else {
         setDescriptionError(
-          "La Cedula ingresada del usuario ya se encuentra registrada por otro usuario en el sistema, ingrese otra."
+          "La Cedula ingresada del usuario debe ser un numero positivo mayor a 0, ingrese otra."
         );
         setErrorInfo(true);
       }
@@ -157,11 +167,11 @@ export default function UpdateMACPage({ params }) {
       </div>
 
       <form className="m-10 mb-6" onSubmit={onSubmit}>
-        {errorInfo && (
-          <div className="mt-8">
-            <AlertError description={descriptionError}></AlertError>
-          </div>
-        )}
+        <div className="mt-8">
+          <AlertInformation
+            description={"El campo Username no se puede modificar."}
+          ></AlertInformation>
+        </div>
 
         {/* DATOS DEL USUARIO */}
         <DivForm
@@ -198,6 +208,7 @@ export default function UpdateMACPage({ params }) {
           valuePassword={password}
           valuePasswordConfirm={passwordConfirm}
           valueUsername={username}
+          disabledUsername={true}
         ></DivForm>
 
         {errorInfo && (

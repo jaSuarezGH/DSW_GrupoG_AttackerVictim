@@ -14,9 +14,10 @@ import { DivForm } from "@/components/Div/DivForm/DivForm";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ButtonSubmit } from "@/components/Button/ButtonSubmit";
-import AlertError from "@/components/Alert/AlertError";
 import { DivHeader } from "@/components/Div";
 import { fetchPostPut } from "@/app/pages/principal/fetch/fetchPostPut/fetchPostPut";
+import { AlertError } from "@/components/Alert/AlertError";
+import { AlertInformation } from "@/components/Alert/AlertInformation";
 
 export default function UpdateCedulaPage({ params }) {
   
@@ -84,6 +85,7 @@ export default function UpdateCedulaPage({ params }) {
       user._firstname = nombre;
       user._lastname = apellido;
       user._password = password;
+      if (cedula > 0){
       const validateCedula = await fetchGetDelete(endGetUserByCedula, cedula);
       if (validateCedula == null || validateCedula.id == id) {
         user._personal_id = cedula;
@@ -141,11 +143,18 @@ export default function UpdateCedulaPage({ params }) {
       }
     } else {
       setDescriptionError(
+        "La Cedula ingresada del usuario debe ser un numero positivo mayor a 0, ingrese otra."
+      );
+      setErrorInfo(true);
+    }
+    } else {
+      setDescriptionError(
         "La Contraseña del usuario no es igual que la ingresada en el campo de confirmacion de contraseña."
       );
       setErrorInfo(true);
     }
   };
+
 
   return (
     <>
@@ -158,11 +167,11 @@ export default function UpdateCedulaPage({ params }) {
       </div>
 
       <form className="m-10 mb-6" onSubmit={onSubmit}>
-        {errorInfo && (
           <div className="mt-8">
-            <AlertError description={descriptionError}></AlertError>
+            <AlertInformation
+            description={"El campo Username no se puede modificar."}
+          ></AlertInformation>
           </div>
-        )}
 
         {/* DATOS DEL USUARIO */}
         <DivForm
@@ -199,8 +208,8 @@ export default function UpdateCedulaPage({ params }) {
           valuePassword={password}
           valuePasswordConfirm={passwordConfirm}
           valueUsername={username}
+          disabledUsername={true}
         ></DivForm>
-
         {errorInfo && (
           <div className="mt-8">
             <AlertError description={descriptionError}></AlertError>

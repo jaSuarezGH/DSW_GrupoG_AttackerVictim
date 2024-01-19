@@ -25,6 +25,12 @@ public class AdministratorService extends BaseService {
 
     private static Logger _logger = LoggerFactory.getLogger(AdministratorService.class);
 
+    /**
+     * Este endpoint autentica a un administrador usando LDAP
+     *
+     * @param administratorLoginDto datos para el login
+     * @return CustomResponse con true, false o excepcion
+     */
     @POST
     @Path("/auth")
     public Response authUser(AdministratorLoginDto administratorLoginDto) {
@@ -39,6 +45,12 @@ public class AdministratorService extends BaseService {
         }
     }
 
+    /**
+     * Este endpoint devuelve un administrador por su id
+     *
+     * @param administratorId id del administrador a consultar
+     * @return CustomResponse con AdministratorDto o null o excepcion
+     */
     @GET
     @Path("/{id}")
     public Response getAdministratorById(@PathParam("id") long administratorId) {
@@ -65,6 +77,11 @@ public class AdministratorService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found user with id: " + administratorId)).build();
     }
 
+    /**
+     * Este endpoint devuelve todos los administradores
+     *
+     * @return CustomResponse con lista de AdministratorDto o null o excepcion
+     */
     @GET
     @Path("/all")
     public Response getAllAdministrators() {
@@ -89,6 +106,12 @@ public class AdministratorService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully listed all administrators")).build();
     }
 
+    /**
+     * Este endpoint consulta un administrador por email
+     *
+     * @param administratorEmail email de administrador
+     * @return CustomResponse con AdministratorDto o null o excepcion
+     */
     @GET
     @Path("email/{email}")
     public Response getAdministratorByEmail(@PathParam("email") String administratorEmail) {
@@ -115,6 +138,12 @@ public class AdministratorService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found administrator with email: " + administratorEmail)).build();
     }
 
+    /**
+     * Este endpoint consulta un administrador por username
+     *
+     * @param username username de administrador
+     * @return CustomResponse con AdministratorDto o null o excepcion
+     */
     @GET
     @Path("username/{username}")
     public Response getAdministratorByUsername(@PathParam("username") String username) {
@@ -141,6 +170,12 @@ public class AdministratorService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found administrator with username: " + username)).build();
     }
 
+    /**
+     * Este endpoint agrega un administrador
+     *
+     * @param administratorDto estructura de administrador
+     * @return CustomResponse con AdministratorDto o excepcion
+     */
     @POST
     public Response addAdministrator(AdministratorDto administratorDto) {
         Administrator entity;
@@ -168,6 +203,12 @@ public class AdministratorService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] administrator created successfully")).build();
     }
 
+    /**
+     * Este endpoint elimina un administrador por id
+     *
+     * @param administratorId id de administrador
+     * @return CustomResponse con AdministratorDto o excepcion
+     */
     @DELETE
     @Path("/{id}")
     public Response deleteAdministrator(@PathParam("id") long administratorId) {
@@ -209,6 +250,12 @@ public class AdministratorService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully deleted administrator with id: " + administratorId)).build();
     }
 
+    /**
+     * Este endpoint actualiza un administrador
+     *
+     * @param administratorDto estructura de administrador a actualizar
+     * @return CustomResponse con AdministratorDto o excepcion
+     */
     @PUT
     public Response updateAdministrator(AdministratorDto administratorDto) {
         Administrator entity;

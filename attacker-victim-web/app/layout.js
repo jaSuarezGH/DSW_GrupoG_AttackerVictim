@@ -1,7 +1,6 @@
 import './styles/globals.css'
-import { Montserrat } from 'next/font/google'
-
-const montserrat = Montserrat({ subsets: ['latin'] })
+//import { Montserrat } from 'next/font/google'
+//const montserrat = Montserrat({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'AttackVictim',

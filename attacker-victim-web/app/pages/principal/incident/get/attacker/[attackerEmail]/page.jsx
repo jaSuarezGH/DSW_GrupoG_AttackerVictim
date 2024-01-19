@@ -8,8 +8,8 @@ import {
   import { Routes } from "@/app/models/routes.model";
   import { DivHeader } from "@/components/Div";
   import { ListConsultaUser } from "@/components/List/ListConsultaUser/ListConsultaUser";
-  import DivDefinitionListElement from "@/components/Div/DivResponseUser/DivDefinitionListElement/DivDefinitionListElement";
   import { DivSubHeader } from "@/components/Div/Header/DivSubHeader/DivSubHeader";
+import { DivDefinitionListElement } from "@/components/Div/DivResponseUser/DivDefinitionListElement/DivDefinitionListElement";
   
   export default async function getIncidentByAttackerEmailPage({ params }) {
     const description = `Lo siento, el usuario tipo Atacante a consultar poseedor del Email: "${params.attackerEmail}" no se encuentra registrado.`;

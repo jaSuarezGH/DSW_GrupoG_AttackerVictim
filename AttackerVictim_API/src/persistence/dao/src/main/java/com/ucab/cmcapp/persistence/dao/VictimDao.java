@@ -31,6 +31,12 @@ public class VictimDao extends BaseDao<Victim>{
         _builder = _em.getCriteriaBuilder();
     }
 
+    /**
+     * Este metodo consulta en DB una victima segun su estructura de usuario
+     *
+     * @param userId estructura de User asociada
+     * @return Victim o null o CupraException
+     */
     public Victim getVictimByUserId(User userId) {
         Victim result;
         try {
@@ -50,19 +56,4 @@ public class VictimDao extends BaseDao<Victim>{
         return result;
     }
 
-    public Boolean deleteVictimByUserId(String userId){
-        try{
-            CriteriaDelete<Victim> criteriaDelete = _builder.createCriteriaDelete(Victim.class);
-            Root<Victim> root = criteriaDelete.from(Victim.class);
-            criteriaDelete.where(_builder.equal(root.get("_user_id"), userId));
-            _em.getTransaction().begin();
-            int rowsDeleted = _em.createQuery(criteriaDelete).executeUpdate();
-            _em.getTransaction().commit();
-            _em.close();
-            return (rowsDeleted > 0);
-        }catch (Exception e){
-            System.out.println("ERROR deleteVictimByUserId");
-        }
-        return false;
-    }
 }

@@ -27,6 +27,11 @@ import java.util.List;
 public class IncidentService extends BaseService {
     private static Logger _logger = LoggerFactory.getLogger(IncidentService.class);
 
+    /**
+     * Este endpoint devuelve todas las relaciones victima-atacante (incidente)
+     *
+     * @return CustomResponse con lista de IncidentDto o null o exception
+     */
     @GET
     @Path("/all")
     public Response getAllIncidents() {
@@ -51,6 +56,12 @@ public class IncidentService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully listed all victim-attacker relationships")).build();
     }
 
+    /**
+     * Este endpoint consulta un incidente por su id
+     *
+     * @param incidentId id de incidente a consultar
+     * @return CustomResponse con IncidentDto cosnultado o null o excepcion
+     */
     @GET
     @Path("/{id}")
     public Response getIncidentById(@PathParam("id") long incidentId) {
@@ -77,6 +88,12 @@ public class IncidentService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found victim-attacker relationships with id: " + incidentId)).build();
     }
 
+    /**
+     * Este endpoint consulta un incidente segun el id de victima
+     *
+     * @param victimId id de victima a obtener su incidente
+     * @return CustomResponse con IncidentDto o null o excepcion
+     */
     @GET
     @Path("victimRegistry/{victim_id}")
     public Response getIncidentByVictimId(@PathParam("victim_id") long victimId) {
@@ -103,6 +120,12 @@ public class IncidentService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found attacker-victim relationship with victim registry id: " + victimId)).build();
     }
 
+    /**
+     * Este endpoint consulta un incidente por id de atacante
+     *
+     * @param attackerId id de atacante a obtener su id
+     * @return CustomResponse con IncidentDto o null o excepcion
+     */
     @GET
     @Path("attackerRegistry/{attacker_id}")
     public Response getIncidentByAttackerId(@PathParam("attacker_id") long attackerId) {
@@ -129,6 +152,12 @@ public class IncidentService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found attacker-victim relationship with attacker registry id: " + attackerId)).build();
     }
 
+    /**
+     * Este endpoint agrega un incidente
+     *
+     * @param incidentDto estructura de incidente a agregar
+     * @return CustomResponse con incidentDto del incidente agregado o excepcion
+     */
     @POST
     public Response addIncident(IncidentDto incidentDto) {
         Incident entity;
@@ -150,6 +179,12 @@ public class IncidentService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] relationship attacker-victim created successfully")).build();
     }
 
+    /**
+     * Este endpoint elimina un incidente por id
+     *
+     * @param incidentId id del incidente a eliminar
+     * @return CustomResponse con incidentDto del incidente eliminado o excepcion
+     */
     @DELETE
     @Path("/{id}")
     public Response deleteIncident(@PathParam("id") long incidentId) {
@@ -173,6 +208,12 @@ public class IncidentService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully deleted relationship attacker-victim registry with id: " + incidentId)).build();
     }
 
+    /**
+     * Este endpoint actualiza un incidente
+     *
+     * @param incidentDto estructura de incidente
+     * @return CustomResponse con incidentDto con el incidente actualizado o excepcion
+     */
     @PUT
     public Response updateIncident(IncidentDto incidentDto) {
         Incident entity;

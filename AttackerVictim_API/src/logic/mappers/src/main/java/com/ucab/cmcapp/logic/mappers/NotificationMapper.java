@@ -16,6 +16,12 @@ public class NotificationMapper extends BaseMapper {
 
     private static Logger _logger = LoggerFactory.getLogger(NotificationMapper.class);
 
+    /**
+     * Este metodo mapea NotificationDto a Notification
+     *
+     * @param dto NotificationDto
+     * @return Notification
+     */
     public static Notification mapDtoToEntity(NotificationDto dto) {
         Notification entity = EntityFactory.createNotification();
 
@@ -27,6 +33,12 @@ public class NotificationMapper extends BaseMapper {
         return entity;
     }
 
+    /**
+     * Este metodo mapea Notification a NotificationDto
+     *
+     * @param entity Notification
+     * @return NotificationDto
+     */
     public static NotificationDto mapEntityToDto(Notification entity) {
         final NotificationDto dto = new NotificationDto();
 
@@ -39,12 +51,24 @@ public class NotificationMapper extends BaseMapper {
         return dto;
     }
 
+    /**
+     * Este metodo mapea Notification a partir de un id
+     *
+     * @param id id asociado
+     * @return Notification
+     */
     public static Notification mapDtoToEntity(long id) {
         Notification entity = EntityFactory.createNotification(id);
         entity.set_id(id);
         return entity;
     }
 
+    /**
+     * Este metodo mapea una lista de Notification a una lista de NotificationDto
+     *
+     * @param entityList lista de Notification
+     * @return lista de NotificationDto
+     */
     public static List<NotificationDto> mapEntityListToDtoList(List<Notification> entityList) {
         List<NotificationDto> dtoList = new ArrayList<>();
         NotificationDto notificationDto;
@@ -61,6 +85,12 @@ public class NotificationMapper extends BaseMapper {
         return dtoList;
     }
 
+    /**
+     * Este metodo mapea Notification a partir de un User
+     *
+     * @param userId id del User de Notification
+     * @return Notification
+     */
     public static Notification mapDtoToEntityUserId(long userId) {
         UserDto userDto = new UserDto(userId);
         Notification entity = EntityFactory.createNotification();

@@ -1,6 +1,6 @@
-import FillTableAllUsers from "./FillTableAllUsers";
+import { FillTableAllUsers } from "./FillTableAllUsers";
 
-function TablaAllUsers({ users }) {
+export function TablaAllUsers({ users }) {
   return (
     <div class="items-center flex relative overflow-x-auto ring-2 ring-slate-300 rounded-md">
       <table class="w-full text-sm text-center text-gray-500">
@@ -43,4 +43,3 @@ function TablaAllUsers({ users }) {
   );
 }
 
-export default TablaAllUsers;

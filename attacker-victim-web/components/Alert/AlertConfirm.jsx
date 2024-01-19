@@ -1,4 +1,4 @@
-function AlertConfirm({ description }) {
+export function AlertConfirm({ description }) {
   return (
     <div className="relative items-center w-full">
       <div className="p-6 border-l-4 border-green-500 -6 rounded-r-xl bg-green-50">
@@ -28,5 +28,3 @@ function AlertConfirm({ description }) {
     </div>
   );
 }
-
-export default AlertConfirm;

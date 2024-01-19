@@ -1,6 +1,5 @@
 import { Routes } from "@/app/models/routes.model";
 import { InformacionPage } from "@/components/InformationPage/InformationPage";
-import { Navigation } from "@/components/Navigation";
 
 export default function ExitoPage() {
   return (

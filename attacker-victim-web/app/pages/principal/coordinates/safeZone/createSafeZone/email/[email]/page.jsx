@@ -12,13 +12,13 @@ import {
   endGetUserByEmail,
   endGetVictimById,
 } from "@/app/models/endpoint.model";
-import AlertError from "@/components/Alert/AlertError";
 import { InformacionPage } from "@/components/InformationPage/InformationPage";
 import { Routes } from "@/app/models/routes.model";
 import { ButtonSubmit } from "@/components/Button/ButtonSubmit";
 import { fetchPostPut } from "@/app/pages/principal/fetch/fetchPostPut/fetchPostPut";
 import { useRouter } from "next/navigation";
-import AlertInformation from "@/components/Alert/AlertInformation";
+import { AlertError } from "@/components/Alert/AlertError";
+import { AlertInformation } from "@/components/Alert/AlertInformation";
 
 function pageCreateSafeZone({ params }) {
   const containerStyle = {

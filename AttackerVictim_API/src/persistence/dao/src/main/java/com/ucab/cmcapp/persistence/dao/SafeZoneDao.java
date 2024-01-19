@@ -31,6 +31,12 @@ public class SafeZoneDao extends BaseDao<SafeZone> {
         _builder = _em.getCriteriaBuilder();
     }
 
+    /**
+     * Este metodo consulta en DB todas las zonas seguras de un usuario
+     *
+     * @param userId estructura de User asociada
+     * @return lista de SafeZone o null o CupraException
+     */
     public List<SafeZone> getAllSafeZoneByUserId(User userId) {
         List<SafeZone> results;
         try {

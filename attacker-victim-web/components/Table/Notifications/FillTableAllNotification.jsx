@@ -1,5 +1,5 @@
 
-function FillTableAllNotification({ notifications }) {
+export function FillTableAllNotification({ notifications }) {
   return notifications.map((noti) => (
     <tr key={noti.id} className="bg-gray-100 border-b-2">
       <th
@@ -15,5 +15,3 @@ function FillTableAllNotification({ notifications }) {
     </tr>
   ));
 }
-
-export default FillTableAllNotification;

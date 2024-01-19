@@ -15,6 +15,12 @@ import java.util.List;
 public class VictimMapper extends BaseMapper {
     private static Logger _logger = LoggerFactory.getLogger(VictimMapper.class);
 
+    /**
+     * Este metodo mapea una VictimDto a Victim
+     *
+     * @param dto estructura VictimDto
+     * @return Victim
+     */
     public static Victim mapDtoToEntity(VictimDto dto) {
         Victim entity = EntityFactory.createVictim();
 
@@ -24,6 +30,12 @@ public class VictimMapper extends BaseMapper {
         return entity;
     }
 
+    /**
+     * Este metodo mapea una Victim a VictimDto
+     *
+     * @param entity Victim
+     * @return VictimDto
+     */
     public static VictimDto mapEntityToDto(Victim entity){
         final VictimDto dto = new VictimDto();
 
@@ -34,12 +46,24 @@ public class VictimMapper extends BaseMapper {
         return dto;
     }
 
+    /**
+     * Este metodo mapea una VictimDto a Victim por id
+     *
+     * @param id id de VictimDto
+     * @return Victim
+     */
     public static Victim mapDtoToEntity(long id) {
         Victim entity = EntityFactory.createVictim(id);
         entity.set_id(id);
         return entity;
     }
 
+    /**
+     * Este metodo mapeo una lista de Victim a una lista de VictimDto
+     *
+     * @param entityList lista de Victim
+     * @return lista de VictimDto
+     */
     public static List<VictimDto> mapEntityListToDtoList(List<Victim> entityList){
         List<VictimDto> dtoList = new ArrayList<>();
         VictimDto victimDto;
@@ -54,6 +78,12 @@ public class VictimMapper extends BaseMapper {
         return dtoList;
     }
 
+    /**
+     * Este metodo mapea una Victim segun su id de usuario
+     *
+     * @param userId id de User de la victima
+     * @return Victim
+     */
     public static Victim mapDtoToEntityUserId(long userId){
         UserDto userDto = new UserDto(userId);
         Victim entity = EntityFactory.createVictim();

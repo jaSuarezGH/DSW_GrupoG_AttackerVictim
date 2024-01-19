@@ -18,7 +18,6 @@ import com.ucab.cmcapp.logic.commands.victim.composite.GetAllVictimCommand;
 import com.ucab.cmcapp.logic.dtos.HistoryDto;
 import com.ucab.cmcapp.logic.dtos.SafeZoneDto;
 import com.ucab.cmcapp.logic.dtos.UserDto;
-import com.ucab.cmcapp.logic.dtos.VictimDto;
 import com.ucab.cmcapp.logic.mappers.HistoryMapper;
 import com.ucab.cmcapp.logic.mappers.SafeZoneMapper;
 import com.ucab.cmcapp.logic.mappers.UserMapper;
@@ -37,6 +36,11 @@ import java.util.List;
 public class SafeZoneService extends BaseService {
     private static Logger _logger = LoggerFactory.getLogger(SafeZoneService.class);
 
+    /**
+     * Este endpoint consulta todas las zonas de seguridad registradas
+     *
+     * @return CustomResponse con lista SafeZoneDto o null o excepcion
+     */
     @GET
     @Path("/all")
     public Response getAllSafeZones() {
@@ -61,6 +65,12 @@ public class SafeZoneService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully listed all safe zones")).build();
     }
 
+    /**
+     * Este endpoint consulta todas las zonas de seguridad segun un id de usuario
+     *
+     * @param userId id de usuario a obtener todas sus zonas seguras
+     * @return CustomResponse con lista de SafeZoneDto o null o excepcion
+     */
     @GET
     @Path("/{user_id}")
     public Response getAllSafeZonesByUserId(@PathParam("user_id") long userId) {
@@ -87,6 +97,12 @@ public class SafeZoneService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found all histories with user_id: " + userId)).build();
     }
 
+    /**
+     * Este endpoint agrega una (coordenada de una) zona segura
+     *
+     * @param safeZoneDto estructura de zona segura a agregar
+     * @return CustomResponse con SafeZoneDto agregada o excepcion
+     */
     @POST
     public Response addSafeZone(SafeZoneDto safeZoneDto) {
         SafeZone entity;
@@ -108,6 +124,12 @@ public class SafeZoneService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] safe zone created successfully")).build();
     }
 
+    /**
+     * Este endpoint elimina una zona segura
+     *
+     * @param safeZoneId id de zona segura a eliminar
+     * @return CustomResponse con SafeZoneDto eliminada o excepcion
+     */
     @DELETE
     @Path("/{id}")
     public Response deleteSafeZone(@PathParam("id") long safeZoneId) {
@@ -131,6 +153,12 @@ public class SafeZoneService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully deleted safe zone registry with id: " + safeZoneId)).build();
     }
 
+    /**
+     * Este endpoint actualiza (una coordenada de) una zona segura
+     *
+     * @param safeZoneDto estructura de zona segura a actualizar
+     * @return CustomResponse con SafeZoneDto actualizada o excepcion
+     */
     @PUT
     public Response updateSafeZone(SafeZoneDto safeZoneDto) {
         SafeZone entity;

@@ -23,6 +23,11 @@ import java.util.List;
 public class HistoryService extends BaseService {
     private static Logger _logger = LoggerFactory.getLogger(HistoryService.class);
 
+    /**
+     * Este endpoint devuelve todas las posiciones registradas
+     *
+     * @return CustomResponse con lista de HistoryDto o null o excepcion
+     */
     @GET
     @Path("/all")
     public Response getAllHistories() {
@@ -47,6 +52,12 @@ public class HistoryService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully listed all histories")).build();
     }
 
+    /**
+     * Este endpoint devuelve todas las posiciones para un usuario
+     *
+     * @param userId id de usuario
+     * @return CustomResponse con HistoryDto o null o excepcion
+     */
     @GET
     @Path("/{user_id}")
     public Response getAllHistoryByUserId(@PathParam("user_id") long userId) {
@@ -73,6 +84,12 @@ public class HistoryService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found all histories with user_id: " + userId)).build();
     }
 
+    /**
+     * Este endpoint se usa para agregar una posicion de un usuario (History)
+     *
+     * @param historyDto estructura de history a agregar
+     * @return CustomResponse con HistoryDto o excepcion
+     */
     @POST
     public Response addHistory(HistoryDto historyDto) {
         History entity;
@@ -94,6 +111,12 @@ public class HistoryService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] history created successfully")).build();
     }
 
+    /**
+     * Este endpoint elimina una posicion history
+     *
+     * @param historyId id del history a eliminar
+     * @return CustomResponse con HistoryDto o excepcion
+     */
     @DELETE
     @Path("/{id}")
     public Response deleteHistory(@PathParam("id") long historyId) {

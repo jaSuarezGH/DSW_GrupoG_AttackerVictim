@@ -3,7 +3,7 @@ import { Routes } from "@/app/models/routes.model";
 import { ButtonRedirect } from "@/components/Button/ButtonRedirect";
 import { useRouter } from "next/navigation";
 
-function FillTableAllAdmins({ users }) {
+export function FillTableAllAdmins({ users }) {
   const router = useRouter();
   return users.map((person) => (
     <tr key={person._personal_id} className="bg-gray-100 border-b-2">
@@ -35,4 +35,3 @@ function FillTableAllAdmins({ users }) {
   ));
 }
 
-export default FillTableAllAdmins;

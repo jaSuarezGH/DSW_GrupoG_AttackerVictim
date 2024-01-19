@@ -4,7 +4,7 @@ import { Routes } from "@/app/models/routes.model";
 import { ButtonRedirect } from "@/components/Button/ButtonRedirect";
 import { useRouter } from "next/navigation";
 
-function FillTableAllUsers({ users }) {
+export function FillTableAllUsers({ users }) {
   const router = useRouter();
 
   return users.map((person) => (
@@ -41,4 +41,3 @@ function FillTableAllUsers({ users }) {
   ));
 }
 
-export default FillTableAllUsers;

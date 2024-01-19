@@ -18,6 +18,12 @@ public class IncidentMapper extends BaseMapper {
 
     private static Logger _logger = LoggerFactory.getLogger(IncidentMapper.class);
 
+    /**
+     * Este metodo mapea IncidentDto a Incident
+     *
+     * @param dto IncidentDto
+     * @return Incident
+     */
     public static Incident mapDtoToEntity(IncidentDto dto) {
         Incident entity = EntityFactory.createIncident();
         entity.set_id(dto.getId());
@@ -27,6 +33,12 @@ public class IncidentMapper extends BaseMapper {
         return entity;
     }
 
+    /**
+     * Este metodo mapea Incident a IncidentDto
+     *
+     * @param entity Incident
+     * @return IncidentDto
+     */
     public static IncidentDto mapEntityToDto(Incident entity){
         final IncidentDto dto = new IncidentDto();
 
@@ -43,12 +55,24 @@ public class IncidentMapper extends BaseMapper {
         return dto;
     }
 
+    /**
+     * Este metodo mapea Incident a partir de un id
+     *
+     * @param id id de incidente
+     * @return Incident
+     */
     public static Incident mapDtoToEntity(long id) {
         Incident entity = EntityFactory.createIncident(id);
         entity.set_id(id);
         return entity;
     }
 
+    /**
+     * Este metodo mapea una lista de Incident a una lista de IncidentDto
+     *
+     * @param entityList lista de Incident
+     * @return lista de IncidentDto
+     */
     public static List<IncidentDto> mapEntityListToDtoList(List<Incident> entityList){
         List<IncidentDto> dtoList = new ArrayList<>();
         IncidentDto incidentDto;
@@ -65,6 +89,12 @@ public class IncidentMapper extends BaseMapper {
         return dtoList;
     }
 
+    /**
+     * Este metodo mapea un Incident a partir de una victima
+     *
+     * @param victimId id de la victima de Incident
+     * @return Incident
+     */
     public static Incident mapDtoToEntityVictimId(long victimId){
         VictimDto victimDto = new VictimDto(victimId);
         Incident entity = EntityFactory.createIncident();
@@ -72,6 +102,12 @@ public class IncidentMapper extends BaseMapper {
         return entity;
     }
 
+    /**
+     * Este metodo mapea un Incident a partir de un atacante
+     *
+     * @param attackerId id del atacante de Incident
+     * @return Incident
+     */
     public static Incident mapDtoToEntityAttackerId(long attackerId){
         AttackerDto attackerDto = new AttackerDto(attackerId);
         Incident entity = EntityFactory.createIncident();

@@ -12,6 +12,12 @@ import java.util.List;
 public class AdministratorMapper extends BaseMapper {
     private static Logger _logger = LoggerFactory.getLogger(AdministratorMapper.class);
 
+    /**
+     * Este metodo mapea AdministratorDto a Administrator
+     *
+     * @param dto AdministratorDto
+     * @return Administrator
+     */
     public static Administrator mapDtoToEntity(AdministratorDto dto) {
         Administrator entity = EntityFactory.createAdministrator();
 
@@ -23,6 +29,12 @@ public class AdministratorMapper extends BaseMapper {
         return entity;
     }
 
+    /**
+     * Este metodo Administrator a AdministratorDto
+     *
+     * @param entity Administrator
+     * @return AdministratorDto
+     */
     public static AdministratorDto mapEntityToDto(Administrator entity) {
         final AdministratorDto dto = new AdministratorDto();
 
@@ -34,24 +46,48 @@ public class AdministratorMapper extends BaseMapper {
         return dto;
     }
 
+    /**
+     * Este metodo mapea un Administrator segun un id
+     *
+     * @param id id asociada
+     * @return Administrator
+     */
     public static Administrator mapDtoToEntity(long id) {
         Administrator entity = EntityFactory.createAdministrator(id);
         entity.set_id(id);
         return entity;
     }
 
+    /**
+     * Este metodo mapea un Administrator a partir de un email
+     *
+     * @param email email del Administrator
+     * @return Administrator
+     */
     public static Administrator mapDtoToEntityEmail(String email) {
         Administrator entity = EntityFactory.createAdministrator();
         entity.set_email(email);
         return entity;
     }
 
+    /**
+     * Este metodo mapea un Administrator a partir de un username
+     *
+     * @param username username del Administrator
+     * @return Administrator
+     */
     public static Administrator mapDtoToEntityUsername(String username){
         Administrator entity = EntityFactory.createAdministrator();
         entity.set_username(username);
         return entity;
     }
 
+    /**
+     * Este metodo mapea una lista de Administrator a una lista de AdministratorDto
+     *
+     * @param entityList lista de Administrator
+     * @return lista de AdministratorDto
+     */
     public static List<AdministratorDto> mapEntityListToDtoList(List<Administrator> entityList){
         List<AdministratorDto> dtoList = new ArrayList<>();
         AdministratorDto administratorDto;

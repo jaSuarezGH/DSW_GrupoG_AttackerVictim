@@ -31,6 +31,12 @@ public class AttackerDao extends BaseDao<Attacker>{
         _builder = _em.getCriteriaBuilder();
     }
 
+    /**
+     * Este metodo consulta en BD un atacante segun su usuario
+     *
+     * @param user estrucura User del atacante
+     * @return Attacker o null o CupraException
+     */
     public Attacker getAttackerByUserId(User user) {
         Attacker result;
         try {

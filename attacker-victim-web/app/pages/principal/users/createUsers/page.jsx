@@ -17,9 +17,9 @@ import {
   endGetUserByMAC,
   endGetUserByUsername,
 } from "@/app/models/endpoint.model";
-import AlertError from "@/components/Alert/alertError";
 import { fetchGetDelete } from "../../fetch/fetchGetDelete";
 import { fetchPostPut } from "../../fetch/fetchPostPut/fetchPostPut";
+import { AlertError } from "@/components/Alert/AlertError";
 
 export default function RegistrarVictimaPage() {
   const router = useRouter();
@@ -54,225 +54,255 @@ export default function RegistrarVictimaPage() {
         if (distanciaAlejamiento > 0) {
           if (usernameVictima != usernameAtacante) {
             if (cedulaVictima != cedulaAtacante) {
-              if (emailVictima != emailAtacante) {
-                if (macVictima != macAtacante) {
-                  //------------------------------------------
-                  //--------------- VICTIMA ------------------
-                  //------------------------------------------
-                  if (
-                    !(await fetchGetDelete(
-                      endGetUserByUsername,
-                      usernameVictima
-                    ))
-                  ) {
-                    if (
-                      !(await fetchGetDelete(endGetUserByCedula, cedulaVictima))
-                    ) {
+              if (cedulaVictima > 0) {
+                if (cedulaAtacante > 0) {
+                  if (emailVictima != emailAtacante) {
+                    if (macVictima != macAtacante) {
+                      //------------------------------------------
+                      //--------------- VICTIMA ------------------
+                      //------------------------------------------
                       if (
-                        !(await fetchGetDelete(endGetUserByEmail, emailVictima))
+                        !(await fetchGetDelete(
+                          endGetUserByUsername,
+                          usernameVictima
+                        ))
                       ) {
                         if (
-                          !(await fetchGetDelete(endGetUserByMAC, macVictima))
+                          !(await fetchGetDelete(
+                            endGetUserByCedula,
+                            cedulaVictima
+                          ))
                         ) {
-                          //------------------------------------------
-                          //--------------- ATACANTE -----------------
-                          //------------------------------------------
                           if (
                             !(await fetchGetDelete(
-                              endGetUserByUsername,
-                              usernameAtacante
+                              endGetUserByEmail,
+                              emailVictima
                             ))
                           ) {
                             if (
                               !(await fetchGetDelete(
-                                endGetUserByCedula,
-                                cedulaAtacante
+                                endGetUserByMAC,
+                                macVictima
                               ))
                             ) {
+                              //------------------------------------------
+                              //--------------- ATACANTE -----------------
+                              //------------------------------------------
                               if (
                                 !(await fetchGetDelete(
-                                  endGetUserByEmail,
-                                  emailAtacante
+                                  endGetUserByUsername,
+                                  usernameAtacante
                                 ))
                               ) {
                                 if (
                                   !(await fetchGetDelete(
-                                    endGetUserByMAC,
-                                    macAtacante
+                                    endGetUserByCedula,
+                                    cedulaAtacante
                                   ))
                                 ) {
-                                  //------------------------------------------------
-                                  //-----------------LOGICA DEL POST ---------------
-                                  //------------------------------------------------
+                                  if (
+                                    !(await fetchGetDelete(
+                                      endGetUserByEmail,
+                                      emailAtacante
+                                    ))
+                                  ) {
+                                    if (
+                                      !(await fetchGetDelete(
+                                        endGetUserByMAC,
+                                        macAtacante
+                                      ))
+                                    ) {
+                                      //------------------------------------------------
+                                      //-----------------LOGICA DEL POST ---------------
+                                      //------------------------------------------------
 
-                                  const dataVictim = {
-                                    _firstname: nombreVictima,
-                                    _lastname: apellidoVictima,
-                                    _username: usernameVictima,
-                                    _personal_id: cedulaVictima,
-                                    _email: emailVictima,
-                                    _mac_address: macVictima,
-                                    _active: true,
-                                    _password: passwordVictima,
-                                  };
-
-                                  const dataAttacker = {
-                                    _firstname: nombreAtacante,
-                                    _lastname: apellidoAtacante,
-                                    _username: usernameAtacante,
-                                    _personal_id: cedulaAtacante,
-                                    _email: emailAtacante,
-                                    _mac_address: macAtacante,
-                                    _active: true,
-                                    _password: passwordAtacante,
-                                  };
-
-                                  const victim = await fetchPostPut(
-                                    endAddUser,
-                                    "POST",
-                                    dataVictim
-                                  );
-                                  if (victim != null) {
-                                    const attacker = await fetchPostPut(
-                                      endAddUser,
-                                      "POST",
-                                      dataAttacker
-                                    );
-                                    if (attacker != null) {
-                                      const aggVictimTable = {
-                                        _user: {
-                                          id: victim.id,
-                                        },
+                                      const dataVictim = {
+                                        _firstname: nombreVictima,
+                                        _lastname: apellidoVictima,
+                                        _username: usernameVictima,
+                                        _personal_id: cedulaVictima,
+                                        _email: emailVictima,
+                                        _mac_address: macVictima,
+                                        _active: true,
+                                        _password: passwordVictima,
                                       };
 
-                                      const aggAttackerTable = {
-                                        _user: {
-                                          id: attacker.id,
-                                        },
+                                      const dataAttacker = {
+                                        _firstname: nombreAtacante,
+                                        _lastname: apellidoAtacante,
+                                        _username: usernameAtacante,
+                                        _personal_id: cedulaAtacante,
+                                        _email: emailAtacante,
+                                        _mac_address: macAtacante,
+                                        _active: true,
+                                        _password: passwordAtacante,
                                       };
 
-                                      const aggVictim = await fetchPostPut(
-                                        endAddVictim,
+                                      const victim = await fetchPostPut(
+                                        endAddUser,
                                         "POST",
-                                        aggVictimTable
+                                        dataVictim
                                       );
-                                      if (aggVictim != null) {
-                                        const aggAttacker = await fetchPostPut(
-                                          endAddAttacker,
+                                      if (victim != null) {
+                                        const attacker = await fetchPostPut(
+                                          endAddUser,
                                           "POST",
-                                          aggAttackerTable
+                                          dataAttacker
                                         );
-                                        if (aggAttacker != null) {
-                                          const dataDistancia = {
-                                            _victim: {
-                                              _user: {
-                                                id: victim.id, //Usuario
-                                              },
-                                              id: aggVictim.id, //Victima
+                                        if (attacker != null) {
+                                          const aggVictimTable = {
+                                            _user: {
+                                              id: victim.id,
                                             },
-                                            _attacker: {
-                                              _user: {
-                                                id: attacker.id, //USER
-                                              },
-                                              id: aggAttacker.id, // ATTACKER
-                                            },
-                                            _separation_distance:
-                                              distanciaAlejamiento, //DISTANCIA
                                           };
-                                          
-                                          const aggIncident = await fetchPostPut(endAddIncident, 'POST', dataDistancia);
-                                          if (aggIncident != null) {
-                                            setErrorInfo(false);
-                                            router.push('/pages/principal/users/createUsers/response');
+
+                                          const aggAttackerTable = {
+                                            _user: {
+                                              id: attacker.id,
+                                            },
+                                          };
+
+                                          const aggVictim = await fetchPostPut(
+                                            endAddVictim,
+                                            "POST",
+                                            aggVictimTable
+                                          );
+                                          if (aggVictim != null) {
+                                            const aggAttacker =
+                                              await fetchPostPut(
+                                                endAddAttacker,
+                                                "POST",
+                                                aggAttackerTable
+                                              );
+                                            if (aggAttacker != null) {
+                                              const dataDistancia = {
+                                                _victim: {
+                                                  _user: {
+                                                    id: victim.id, //Usuario
+                                                  },
+                                                  id: aggVictim.id, //Victima
+                                                },
+                                                _attacker: {
+                                                  _user: {
+                                                    id: attacker.id, //USER
+                                                  },
+                                                  id: aggAttacker.id, // ATTACKER
+                                                },
+                                                _separation_distance:
+                                                  distanciaAlejamiento, //DISTANCIA
+                                              };
+
+                                              const aggIncident =
+                                                await fetchPostPut(
+                                                  endAddIncident,
+                                                  "POST",
+                                                  dataDistancia
+                                                );
+                                              if (aggIncident != null) {
+                                                setErrorInfo(false);
+                                                router.push(
+                                                  "/pages/principal/users/createUsers/response"
+                                                );
+                                              } else {
+                                                setDescriptionError(
+                                                  "Ha ocurrido un error inesperado al momento de registrar la relacion entre la Victima y el Atacante en el sistema, por favor intente nuevamente mas tarde."
+                                                );
+                                                setErrorInfo(true);
+                                              }
+                                            } else {
+                                              setDescriptionError(
+                                                "Ha ocurrido un error inesperado al momento de registrar al Atacante en la tabla Atacante del sistema, por favor intente nuevamente mas tarde."
+                                              );
+                                              setErrorInfo(true);
+                                            }
                                           } else {
                                             setDescriptionError(
-                                              "Ha ocurrido un error inesperado al momento de registrar la relacion entre la Victima y el Atacante en el sistema, por favor intente nuevamente mas tarde."
+                                              "Ha ocurrido un error inesperado al momento de registrar a la Victima en la tabla Victima del sistema, por favor intente nuevamente mas tarde."
                                             );
                                             setErrorInfo(true);
                                           }
                                         } else {
                                           setDescriptionError(
-                                            "Ha ocurrido un error inesperado al momento de registrar al Atacante en la tabla Atacante del sistema, por favor intente nuevamente mas tarde."
+                                            "Ha ocurrido un error inesperado al momento de registrar al Atacante en la tabla User del sistema, por favor intente nuevamente mas tarde."
                                           );
                                           setErrorInfo(true);
                                         }
                                       } else {
                                         setDescriptionError(
-                                          "Ha ocurrido un error inesperado al momento de registrar a la Victima en la tabla Victima del sistema, por favor intente nuevamente mas tarde."
+                                          "Ha ocurrido un error inesperado al momento de registrar a la Victima en la tabla User del sistema, por favor intente nuevamente mas tarde."
                                         );
                                         setErrorInfo(true);
                                       }
                                     } else {
                                       setDescriptionError(
-                                        "Ha ocurrido un error inesperado al momento de registrar al Atacante en la tabla User del sistema, por favor intente nuevamente mas tarde."
+                                        "La Direccion MAC del Atacante ya se encuentra registrada en el sistema, ingrese una valida."
                                       );
                                       setErrorInfo(true);
                                     }
-                                    
                                   } else {
                                     setDescriptionError(
-                                      "Ha ocurrido un error inesperado al momento de registrar a la Victima en la tabla User del sistema, por favor intente nuevamente mas tarde."
+                                      "La Direccion de Correo Electronico (Email) del Atacante ya se encuentra registrado, ingrese otro valido."
                                     );
                                     setErrorInfo(true);
                                   }
                                 } else {
                                   setDescriptionError(
-                                    "La Direccion MAC del Atacante ya se encuentra registrada en el sistema, ingrese una valida."
+                                    "La Cedula de Identidad del Atacante ya se encuentra registrada, ingrese otro valido."
                                   );
                                   setErrorInfo(true);
                                 }
                               } else {
                                 setDescriptionError(
-                                  "La Direccion de Correo Electronico (Email) del Atacante ya se encuentra registrado, ingrese otro valido."
+                                  "El Nombre de Usuario (Username) del Atacante ya se encuentra registrado, ingrese otro valido."
                                 );
                                 setErrorInfo(true);
                               }
+                              //---------------------------------
                             } else {
                               setDescriptionError(
-                                "La Cedula de Identidad del Atacante ya se encuentra registrada, ingrese otro valido."
+                                "La Direccion MAC de la Victima ya se encuentra registrada en el sistema, ingrese una valida."
                               );
                               setErrorInfo(true);
                             }
                           } else {
                             setDescriptionError(
-                              "El Nombre de Usuario (Username) del Atacante ya se encuentra registrado, ingrese otro valido."
+                              "La Direccion de Correo Electronico (Email) de la Victima ya se encuentra registrado, ingrese otro valido."
                             );
                             setErrorInfo(true);
                           }
-                          //---------------------------------
                         } else {
                           setDescriptionError(
-                            "La Direccion MAC de la Victima ya se encuentra registrada en el sistema, ingrese una valida."
+                            "La Cedula de Identidad de la Victima ya se encuentra registrada, ingrese otro valido."
                           );
                           setErrorInfo(true);
                         }
                       } else {
                         setDescriptionError(
-                          "La Direccion de Correo Electronico (Email) de la Victima ya se encuentra registrado, ingrese otro valido."
+                          "El Nombre de Usuario (Username) de la Victima ya se encuentra registrado, ingrese otro valido."
                         );
                         setErrorInfo(true);
                       }
                     } else {
                       setDescriptionError(
-                        "La Cedula de Identidad de la Victima ya se encuentra registrada, ingrese otro valido."
+                        "La Direccion MAC de la Victima no puede ser la misma que la del Atacante, ingrese una valida."
                       );
                       setErrorInfo(true);
                     }
                   } else {
                     setDescriptionError(
-                      "El Nombre de Usuario (Username) de la Victima ya se encuentra registrado, ingrese otro valido."
+                      "La Direccion de Correo Electronico (Email) de la Victima no puede ser la misma que la del Atacante, ingrese una valida."
                     );
                     setErrorInfo(true);
                   }
                 } else {
                   setDescriptionError(
-                    "La Direccion MAC de la Victima no puede ser la misma que la del Atacante, ingrese una valida."
+                    "La Cedula ingresada del usuario Atacante debe ser un numero positivo mayor a 0, ingrese otra."
                   );
                   setErrorInfo(true);
                 }
               } else {
                 setDescriptionError(
-                  "La Direccion de Correo Electronico (Email) de la Victima no puede ser la misma que la del Atacante, ingrese una valida."
+                  "La Cedula ingresada del usuario Victima debe ser un numero positivo mayor a 0, ingrese otra."
                 );
                 setErrorInfo(true);
               }
@@ -352,6 +382,14 @@ export default function RegistrarVictimaPage() {
           onChangeBluetooth={(e) => {
             setMacVictima(e.target.value);
           }}
+          valueNombre={nombreVictima}
+          valueApellido={apellidoVictima}
+          valueUsername={usernameVictima}
+          valueEmail={emailVictima}
+          valuePassword={passwordVictima}
+          valuePasswordConfirm={passwordConfirmVictima}
+          valueCedula={cedulaVictima}
+          valueMAC={macVictima}
         ></DivForm>
 
         {/* DATOS DEL ATACANTE */}
@@ -381,6 +419,14 @@ export default function RegistrarVictimaPage() {
           onChangeBluetooth={(e) => {
             setMacAtacante(e.target.value);
           }}
+          valueNombre={nombreAtacante}
+          valueApellido={apellidoAtacante}
+          valueUsername={usernameAtacante}
+          valueEmail={emailAtacante}
+          valuePassword={passwordAtacante}
+          valuePasswordConfirm={passwordConfirmAtacante}
+          valueCedula={cedulaAtacante}
+          valueMAC={macAtacante}
         ></DivForm>
 
         {/* DATOS DE LA RELACION VIC/ATA */}
@@ -402,6 +448,7 @@ export default function RegistrarVictimaPage() {
                 onChange={(e) => {
                   setDistanciaAlejamiento(e.target.value);
                 }}
+                value={distanciaAlejamiento}
               ></DivFormElement>
             </div>
 

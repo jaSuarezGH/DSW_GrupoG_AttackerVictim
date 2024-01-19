@@ -26,6 +26,12 @@ import java.util.List;
 public class UserService extends BaseService {
     private static Logger _logger = LoggerFactory.getLogger(UserService.class);
 
+    /**
+     * Este endpoint realiza la autenticacion de usuarios usando LDAP
+     *
+     * @param userLoginDto estructura de UserLoginDto
+     * @return CustomResponse con booleano resultado de autenticacion o excepcion
+     */
     @POST
     @Path("/auth")
     public Response authUser(UserLoginDto userLoginDto) {
@@ -40,6 +46,11 @@ public class UserService extends BaseService {
         }
     }
 
+    /**
+     * Este metodo consulta todos los usuarios
+     *
+     * @return CustomResponse con lista de UserDto o null o excepcion
+     */
     @GET
     @Path("/all")
     public Response getAllUsers() {
@@ -64,6 +75,12 @@ public class UserService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully listed all users")).build();
     }
 
+    /**
+     * Este metodo consulta un usuario por id
+     *
+     * @param userId id de usuario a consultar
+     * @return CustomResponse con UserDto o null o excepcion
+     */
     @GET
     @Path("/{id}")
     public Response getUserById(@PathParam("id") long userId) {
@@ -90,7 +107,12 @@ public class UserService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found user with id: " + userId)).build();
     }
 
-
+    /**
+     * Este endpoint consulta un usuario por email
+     *
+     * @param userEmail email de usuario a consultar
+     * @return CustomResponse con UserDto o null o excepcion
+     */
     @GET
     @Path("email/{email}")
     public Response getUserByEmail(@PathParam("email") String userEmail) {
@@ -117,6 +139,12 @@ public class UserService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found user with email: " + userEmail)).build();
     }
 
+    /**
+     * Este endpoint consulta un usuario por username
+     *
+     * @param username username de usuario a consultar
+     * @return CustomResponse con UserDto o null o excepcion
+     */
     @GET
     @Path("username/{username}")
     public Response getUserByUsername(@PathParam("username") String username) {
@@ -143,6 +171,12 @@ public class UserService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found user with username: " + username)).build();
     }
 
+    /**
+     * Este endpoint consulta un usuario por cedula
+     *
+     * @param personal_id cedula de usuario a consultar
+     * @return CustomResponse con UserDto o null o excepcion
+     */
     @GET
     @Path("personal_id/{personal_id}")
     public Response getUserByPersonalId(@PathParam("personal_id") String personal_id) {
@@ -169,6 +203,12 @@ public class UserService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found user with personal_id: " + personal_id)).build();
     }
 
+    /**
+     * Este endpoint consulta un usuario por direccion MAC
+     *
+     * @param mac_address direccion MAC del usuario a consultar
+     * @return CustomResponse con UserDto o null o excepcion
+     */
     @GET
     @Path("mac/{mac_adress}")
     public Response getUserByMacAddress(@PathParam("mac_adress") String mac_address) {
@@ -195,6 +235,12 @@ public class UserService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully found user with mac_address: " + mac_address)).build();
     }
 
+    /**
+     * Este endpoint agrega un usuario
+     *
+     * @param userDto estructura de usuario a agregar
+     * @return CustomResponse con UserDto agregado o excepcion
+     */
     @POST
     public Response addUser(UserDto userDto) {
         User entity;
@@ -222,6 +268,12 @@ public class UserService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] user created successfully")).build();
     }
 
+    /**
+     * Este endpoint elimina un usuario por id
+     *
+     * @param userId id de usuario a eliminar
+     * @return CustomResponse con UserDto eliminado o excepcion
+     */
     @DELETE
     @Path("/{id}")
     public Response deleteUser(@PathParam("id") long userId) {
@@ -263,6 +315,12 @@ public class UserService extends BaseService {
         return Response.status(Response.Status.OK).entity(new CustomResponse<>(responseDTO, "[OK NORMAL RESPONSE] Successfully deleted user with id: " + userId)).build();
     }
 
+    /**
+     * Este endpoint actualiza un usuario
+     *
+     * @param userDto estructura de usuario a actualizar
+     * @return CustomResponse con UserDto actualizado o excepcion
+     */
     @PUT
     public Response updateUser(UserDto userDto) {
         User entity;

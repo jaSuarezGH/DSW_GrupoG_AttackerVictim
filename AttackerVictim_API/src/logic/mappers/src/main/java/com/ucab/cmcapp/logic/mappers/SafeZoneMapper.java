@@ -17,6 +17,12 @@ public class SafeZoneMapper extends BaseMapper {
 
     private static Logger _logger = LoggerFactory.getLogger(SafeZoneMapper.class);
 
+    /**
+     * Este metodo mapea un SafeZoneDto a un SafeZone
+     *
+     * @param dto SafeZoneDto
+     * @return SafeZone
+     */
     public static SafeZone mapDtoToEntity(SafeZoneDto dto) {
         SafeZone entity = EntityFactory.createSafeZone();
 
@@ -28,6 +34,12 @@ public class SafeZoneMapper extends BaseMapper {
         return entity;
     }
 
+    /**
+     * Este metodo mapea un SafeZone a un SafeZoneDto
+     *
+     * @param entity SafeZone
+     * @return SafeZoneDto
+     */
     public static SafeZoneDto mapEntityToDto(SafeZone entity) {
         final SafeZoneDto dto = new SafeZoneDto();
 
@@ -43,12 +55,24 @@ public class SafeZoneMapper extends BaseMapper {
         return dto;
     }
 
+    /**
+     * Este metodo mapea un SafeZone a partir de un id
+     *
+     * @param id id para la SafeZone
+     * @return SafeZone
+     */
     public static SafeZone mapDtoToEntity(long id) {
         SafeZone entity = EntityFactory.createSafeZone(id);
         entity.set_id(id);
         return entity;
     }
 
+    /**
+     * Este metodo mapea una lista de SafeZone a una lista de SafeZoneDto
+     *
+     * @param entityList lista de SafeZone
+     * @return lista de SafeZoneDto
+     */
     public static List<SafeZoneDto> mapEntityListToDtoList(List<SafeZone> entityList) {
         List<SafeZoneDto> dtoList = new ArrayList<>();
         SafeZoneDto safeZoneDto;
@@ -65,6 +89,12 @@ public class SafeZoneMapper extends BaseMapper {
         return dtoList;
     }
 
+    /**
+     * Este metodo mapea una SafeZone a partir de un user
+     *
+     * @param userId id del user de la SafeZone
+     * @return SafeZone
+     */
     public static SafeZone mapDtoToEntityUserId(long userId) {
         UserDto userDto = new UserDto(userId);
         SafeZone entity = EntityFactory.createSafeZone();

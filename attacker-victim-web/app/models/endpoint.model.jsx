@@ -10,6 +10,8 @@
 
 export const enlaceAPI = "https://attackervictim.ngrok.app";
 
+export const endPostAuthAdmin = "/cmcapp-backend-1.0/api/administrator/auth";
+
 export const endGetAllUsers = `/cmcapp-backend-1.0/api/users/all`;
 
 export const endGetAllAdmins = `/cmcapp-backend-1.0/api/administrator/all`;

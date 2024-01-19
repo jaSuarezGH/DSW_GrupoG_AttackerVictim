@@ -3,7 +3,6 @@
 import { ButtonSubmit } from "@/components/Button/ButtonSubmit";
 import { DivHeader } from "@/components/Div";
 import { DivFormElement } from "@/components/Div/DivFormElement/DivFormElement";
-import { DivSubHeader } from "@/components/Div/Header/DivSubHeader/DivSubHeader";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import {
@@ -11,9 +10,9 @@ import {
   endGetAdminByEmail,
   endGetAdminByUsername,
 } from "@/app/models/endpoint.model";
-import AlertError from "@/components/Alert/alertError";
 import { fetchPostPut } from "../../../fetch/fetchPostPut/fetchPostPut";
 import { fetchGetDelete } from "../../../fetch/fetchGetDelete";
+import { AlertError } from "@/components/Alert/AlertError";
 
 export default function RegistrarAdminPage() {
   const router = useRouter();
@@ -122,9 +121,9 @@ export default function RegistrarAdminPage() {
               <DivFormElement
                 textLabel="Confirmar Contraseña"
                 type="password"
-                id="password"
-                name="password"
-                placeholder="Ingrese nuevamente la Contraseña del Administrador aqui"
+                id="passwordConfirm"
+                name="passwordConfirm"
+                placeholder="Ingrese nuevamente la Contraseña aqui"
                 value={passwordConfirmAdmin}
                 onChange={(e) => {
                   setPasswordConfirmAdmin(e.target.value);

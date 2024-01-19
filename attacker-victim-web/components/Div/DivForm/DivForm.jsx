@@ -18,7 +18,15 @@ export function DivForm({
   valuePassword = '',
   valuePasswordConfirm = '',
   valueCedula = '',
-  valueMAC = ''
+  valueMAC = '', 
+  disabledNombre = false,
+  disabledApellido = false,
+  disabledUsername = false,
+  disabledEmail = false,
+  disabledPassword = false,
+  disabledPasswordConfirm = false,
+  disabledCedula = false,
+  disabledMAC = false,
 }) {
   return (
     <div className="space-y-12 mt-10">
@@ -37,6 +45,7 @@ export function DivForm({
             placeholder={`Ingrese el Nombre del usuario ${user} aqui`}
             onChange={onChangeNombre}
             value={valueNombre}
+            disabled={disabledNombre}
           ></DivFormElement>
 
           <DivFormElement
@@ -47,6 +56,7 @@ export function DivForm({
             placeholder={`Ingrese los Apellidos del usuario ${user} aqui`}
             onChange={onChangeApellido}
             value={valueApellido}
+            disabled={disabledApellido}
           ></DivFormElement>
 
           <DivFormElement
@@ -57,6 +67,7 @@ export function DivForm({
             placeholder={`Ingrese el Nombre de Usuario (username) del usuario ${user} aqui`}
             onChange={onChangeUsername}
             value={valueUsername}
+            disabled={disabledUsername}
           ></DivFormElement>
 
           <DivFormElement
@@ -67,6 +78,7 @@ export function DivForm({
             placeholder={`Ingrese el Correo Electronico del usuario ${user} aqui`}
             onChange={onChangeEmail}
             value={valueEmail}
+            disabled={disabledEmail}
           ></DivFormElement>
 
           <DivFormElement
@@ -77,6 +89,7 @@ export function DivForm({
             placeholder={`Ingrese la contraseña del usuario ${user} aqui`}
             onChange={onChangePassword}
             value={valuePassword}
+            disabled={disabledPassword}
           ></DivFormElement>
 
           <DivFormElement
@@ -87,6 +100,7 @@ export function DivForm({
             placeholder={`Ingrese la Contraseña nuevamente del usuario ${user} aqui`}
             onChange={onChangePasswordConfirm}
             value={valuePasswordConfirm}
+            disabled={disabledPasswordConfirm}
           ></DivFormElement>
 
           <DivFormElement
@@ -97,6 +111,7 @@ export function DivForm({
             placeholder={`Ingrese el numero de Documento de Identificacion del usuario ${user} aqui`}
             onChange={onChangeCedula}
             value={valueCedula}
+            disabled={disabledCedula}
           ></DivFormElement>
 
           <DivFormElement
@@ -107,6 +122,7 @@ export function DivForm({
             placeholder={`Ingrese la Direccion Bluetooth (MAC) dispositivo movil del usuario ${user} aqui`}
             onChange={onChangeBluetooth}
             value={valueMAC}
+            disabled={disabledMAC}
           ></DivFormElement>
         </div>
       </div>

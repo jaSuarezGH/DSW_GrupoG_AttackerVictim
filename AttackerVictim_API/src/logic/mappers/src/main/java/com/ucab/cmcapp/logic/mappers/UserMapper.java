@@ -14,6 +14,12 @@ import java.util.Objects;
 public class UserMapper extends BaseMapper {
     private static Logger _logger = LoggerFactory.getLogger(UserMapper.class);
 
+    /**
+     * Este metodo mapea un UserDto a User
+     *
+     * @param dto UserDto
+     * @return User
+     */
     public static User mapDtoToEntity(UserDto dto) {
         User entity = EntityFactory.createUser();
 
@@ -30,6 +36,12 @@ public class UserMapper extends BaseMapper {
         return entity;
     }
 
+    /**
+     * Este metodo mapea un User a UserDto
+     *
+     * @param entity User
+     * @return UserDto
+     */
     public static UserDto mapEntityToDto(User entity) {
         final UserDto dto = new UserDto();
 
@@ -46,36 +58,72 @@ public class UserMapper extends BaseMapper {
         return dto;
     }
 
+    /**
+     * Este metodo mapea un User a partir de un id
+     *
+     * @param id id para el User
+     * @return User
+     */
     public static User mapDtoToEntity(long id) {
         User entity = EntityFactory.createUser(id);
         entity.set_id(id);
         return entity;
     }
 
+    /**
+     * Este metodo mapea un User a partir de un correo
+     *
+     * @param email correo para el User
+     * @return User
+     */
     public static User mapDtoToEntityEmail(String email) {
         User entity = EntityFactory.createUser();
         entity.set_email(email);
         return entity;
     }
 
+    /**
+     * Este metodo mapea un User a partir de un username
+     *
+     * @param username username para el User
+     * @return User
+     */
     public static User mapDtoToEntityUsername(String username){
         User entity = EntityFactory.createUser();
         entity.set_username(username);
         return entity;
     }
 
+    /**
+     * Este metodo mapea un User a partir de una cedula
+     *
+     * @param personal_id cedula para el User
+     * @return User
+     */
     public static User mapDtoToEntityPersonalId(String personal_id){
         User entity = EntityFactory.createUser();
         entity.set_personal_id(personal_id);
         return entity;
     }
 
+    /**
+     * Este metodo mapea un User a partir de una direccion MAC
+     *
+     * @param mac_address direccion MAC para el User
+     * @return User
+     */
     public static User mapDtoToEntityMacAddress(String mac_address){
         User entity = EntityFactory.createUser();
         entity.set_mac_address(mac_address);
         return entity;
     }
 
+    /**
+     * Este metodo mapea una lista de User a una lista de UserDto
+     *
+     * @param entityList lista de User
+     * @return lista de UserDto
+     */
     public static List<UserDto> mapEntityListToDtoList(List<User> entityList){
         List<UserDto> dtoList = new ArrayList<>();
         UserDto userDto;

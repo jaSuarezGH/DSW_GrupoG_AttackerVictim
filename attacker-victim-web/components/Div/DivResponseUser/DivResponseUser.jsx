@@ -1,4 +1,3 @@
-import { ButtonRedirect } from "@/components/Button/ButtonRedirect";
 import { DivHeader } from "@/components/Div";
 import { ListConsultaUser } from "@/components/List/ListConsultaUser/ListConsultaUser";
 
