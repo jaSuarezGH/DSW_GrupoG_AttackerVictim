@@ -8,15 +8,27 @@ import { TablaAllAdmins } from "@/components/Table/Admin/TablaAllAdmins";
 export default async function getAllAdminsPage() {
   const users = await fetchGetDelete(endGetAllAdmins);
 
-  if (users === undefined) return (
-    <InformacionPage
-      title="Error de Conexion"
-      description="Lo siento, la conexion ha fallado o el servidor no se encuentra disponible."
-      encabezado="Error 404"
-      link={Routes.PRINCIPAL}
-      linkText="Volver al Inicio"
-    ></InformacionPage>
-  );
+  if (!users)
+    return (
+      <InformacionPage
+        title="No hay Administradores"
+        description="Lo siento, no se encuentra ningun usuario de tipo Administrador registrado en el sistema."
+        encabezado="Error 404"
+        link={Routes.PRINCIPAL}
+        linkText="Volver al Inicio"
+      ></InformacionPage>
+    );
+
+  if (users === undefined)
+    return (
+      <InformacionPage
+        title="Error de Conexion"
+        description="Lo siento, la conexion ha fallado o el servidor no se encuentra disponible."
+        encabezado="Error 404"
+        link={Routes.PRINCIPAL}
+        linkText="Volver al Inicio"
+      ></InformacionPage>
+    );
 
   return (
     <>

@@ -42,7 +42,7 @@ export default function deleteEmailAdminPage({ params }) {
   }, []);
 
   if (user === null && control) {
-    const description = `Lo siento, el usuario Administrador a eliminar poseedor del Correo Electronico (Email): "${params.email}" no se encuentra registrado.`;
+    const description = `Lo siento, el usuario Administrador a eliminar poseedor del Correo Electronico (Email): "${decodeURIComponent(params.email)}" no se encuentra registrado.`;
     return (
       <InformacionPage
         title="Usuario NO Encontrado"

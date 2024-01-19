@@ -47,7 +47,7 @@ export default function deleteEmailPage({ params }) {
   }, []);
 
   if (user === null && control) {
-    const description = `Lo siento, el usuario a eliminar poseedor del Correo Electronico Email: "${params.email}" no se encuentra registrado.`;
+    const description = `Lo siento, el usuario a eliminar poseedor del Correo Electronico Email: "${decodeURIComponent(params.email)}" no se encuentra registrado.`;
     return (
       <InformacionPage
         title="Usuario NO Encontrado"
@@ -151,7 +151,7 @@ export default function deleteEmailPage({ params }) {
           <DivResponseUser
             user={user}
             title="Informacion del usuario"
-            description={`Todos los datos del usuario a consultar poseedor del Correo Electronico (Email): ${params.email}.`}
+            description={`Todos los datos del usuario a consultar poseedor del Correo Electronico (Email): ${decodeURIComponent(params.email)}.`}
             tags={[]}
           ></DivResponseUser>
         )}

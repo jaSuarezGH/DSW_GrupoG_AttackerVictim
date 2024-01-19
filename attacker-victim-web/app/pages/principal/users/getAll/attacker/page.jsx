@@ -10,7 +10,16 @@ export default async function getAllAttackersPage() {
 
     const users = await fetchGetDelete(endGetAllAttackers);
 
-    
+    if (users === null) return (
+      <InformacionPage
+        title="No hay Atacantes"
+        description="Lo siento, no se encuentra ningun usuario de tipo Atacante registrado en el sistema."
+        encabezado="Error 404"
+        link={Routes.PRINCIPAL}
+        linkText="Volver al Inicio"
+      ></InformacionPage>
+    );
+
   if (users === undefined) return (
     <InformacionPage
       title="Error de Conexion"

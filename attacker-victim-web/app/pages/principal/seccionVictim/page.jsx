@@ -1,7 +1,6 @@
 import { Routes } from "@/app/models/routes.model";
 import { Card } from "@/components/Card/Card";
 import { HeaderPrincipal } from "@/components/Header/HeaderPrincipal";
-import { Navigation } from "@/components/Navigation";
 
 export default function PrincipalVictimPage() {
   return (

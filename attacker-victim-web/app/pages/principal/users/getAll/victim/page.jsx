@@ -8,6 +8,16 @@ import { TablaAllVictimsAttackers } from "@/components/Table/VictimAttacker/Tabl
 export default async function getAllVictimasPage() {
   const users = await fetchGetDelete(endGetAllVictims);
 
+  if (users === null) return (
+    <InformacionPage
+      title="No hay Victimas"
+      description="Lo siento, no se encuentra ningun usuario de tipo Victima registrado en el sistema."
+      encabezado="Error 404"
+      link={Routes.PRINCIPAL}
+      linkText="Volver al Inicio"
+    ></InformacionPage>
+  );
+
   if (users === undefined) return (
     <InformacionPage
       title="Error de Conexion"

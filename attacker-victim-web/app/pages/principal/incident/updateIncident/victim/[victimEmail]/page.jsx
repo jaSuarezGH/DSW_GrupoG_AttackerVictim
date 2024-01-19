@@ -60,7 +60,7 @@ export default function getIncidentByVictimEmailPage({ params }) {
   }, []);
 
   if (incident === null && control) {
-    const description = `Lo siento, el usuario a modificar poseedor del Correo Electronico (Email): "${params.victimEmail}" no se encuentra registrado.`;
+    const description = `Lo siento, el usuario a modificar poseedor del Correo Electronico (Email): "${decodeURIComponent(params.victimEmail)}" no se encuentra registrado.`;
     return (
       <InformacionPage
         title="Usuario NO Encontrado"

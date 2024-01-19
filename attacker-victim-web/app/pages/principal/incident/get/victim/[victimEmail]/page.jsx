@@ -12,7 +12,7 @@ import { DivSubHeader } from "@/components/Div/Header/DivSubHeader/DivSubHeader"
 import { DivDefinitionListElement } from "@/components/Div/DivResponseUser/DivDefinitionListElement/DivDefinitionListElement";
 
 export default async function getIncidentByVictimEmailPage({ params }) {
-  const description = `Lo siento, el usuario tipo Victima a consultar poseedor del Email: "${params.victimEmail}" no se encuentra registrado.`;
+  const description = `Lo siento, el usuario tipo Victima a consultar poseedor del Email: "${decodeURIComponent(params.victimEmail)}" no se encuentra registrado.`;
 
   try {
     const user = await fetchGetDelete(endGetUserByEmail, params.victimEmail);
@@ -37,7 +37,7 @@ export default async function getIncidentByVictimEmailPage({ params }) {
         <div className="max-w-6xl mb-6 ring-1 ring-opacity-50 ring-zinc-300 rounded-xl shadow-lg shadow-indigo-300 mt-6 flex min-h-full flex-1 flex-col justify-center align-middle px-6 py-6 lg:px-8 mx-auto gap-x-8 gap-y-12">
           <DivHeader
             title="Consultar la Relacion Victima/Atacante por Correo Electronico"
-            description={`Todos los datos de la Relacion (Incidente) del usuario a consultar poseedor del email: "${params.victimEmail}".`}
+            description={`Todos los datos de la Relacion (Incidente) del usuario a consultar poseedor del email: "${decodeURIComponent(params.victimEmail)}".`}
             tags={[2]}
           ></DivHeader>
           <DivSubHeader
@@ -56,7 +56,7 @@ export default async function getIncidentByVictimEmailPage({ params }) {
           ></DivSubHeader>
           <DivDefinitionListElement
             title="Distancia de Alejamiento"
-            value={incident._separation_distance}
+            value={`${incident._separation_distance}`+`m`}
           ></DivDefinitionListElement>
         </div>
       </>

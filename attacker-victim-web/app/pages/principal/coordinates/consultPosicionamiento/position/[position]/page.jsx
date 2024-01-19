@@ -29,12 +29,11 @@ function pageConsultPosicionamiento({ params }) {
   const [control, setControl] = useState(false);
   const [title, setTitle] = useState(`Usuario NO Encontrado`);
   const [description, setDescription] = useState(
-    `Lo siento, el usuario a consultar el posicionamiento poseedor del Correo Electronico (Email): "${params.position}" no esta registrado o activo.`
+    `Lo siento, el usuario a consultar el posicionamiento poseedor del Correo Electronico (Email): "${decodeURIComponent(params.position)}" no esta registrado o activo.`
   );
 
   useEffect(() => {
     const fetchConsult = async () => {
-      //const positionConsult = await fetchGetDelete()
       const buscarUserByEmail = await fetchGetDelete(
         endGetUserByEmail,
         params.position
@@ -64,9 +63,9 @@ function pageConsultPosicionamiento({ params }) {
             } else {
               setTitle("Usuario sin Posicionamiento");
               setDescription(
-                `Lo siento, el usuario a consultar el posicionamiento poseedor del Correo Electronico (Email): "${params.position}" no posee un ultimo posicionamiento aun.`
+                `Lo siento, el usuario a consultar el posicionamiento poseedor del Correo Electronico (Email): "${decodeURIComponent(params.position)}" no posee un ultimo posicionamiento aun.`
               );
-            }s
+            }
           }
         } else {
           const buscarUserInAttacker = await fetchGetDelete(
@@ -92,7 +91,7 @@ function pageConsultPosicionamiento({ params }) {
             } else {
               setTitle("Usuario sin Posicionamiento");
               setDescription(
-                `Lo siento, el usuario a consultar el posicionamiento poseedor del Correo Electronico (Email): "${params.position}" no posee un ultimo posicionamiento aun.`
+                `Lo siento, el usuario a consultar el posicionamiento poseedor del Correo Electronico (Email): "${decodeURIComponent(params.position)}" no posee un ultimo posicionamiento aun.`
               );
             }
           }
@@ -121,7 +120,7 @@ function pageConsultPosicionamiento({ params }) {
       <div className="max-w-6xl mb-6 ring-1 ring-opacity-50 ring-zinc-300 rounded-xl shadow-lg shadow-indigo-300 mt-6 flex min-h-full flex-1 flex-col justify-center align-middle px-6 py-6 lg:px-8 mx-auto gap-x-8 gap-y-12">
         <DivHeader
           title={`Datos y Ultimo Posicionamiento del Usuario ${typeUser}`}
-          description={`Todos los datos del usuario ${typeUser} a consultar poseedor del Email: "${params.position}" junto con su ultimo posicionamiento.`}
+          description={`Todos los datos del usuario ${typeUser} a consultar poseedor del Email: "${decodeURIComponent(params.position)}" junto con su ultimo posicionamiento.`}
           tags={typeUser == "Victima" ? [2] : [3]}
         ></DivHeader>
 

@@ -79,15 +79,15 @@ function pageCreateSafeZone({ params }) {
     return (
       <InformacionPage
         title="Usuario NO Encontrado"
-        description={`Lo siento, el usuario a crear la Zona Segura, poseedor del Correo Electronico (Email): "${params.email}" no esta registrado o activo.`}
+        description={`Lo siento, el usuario a crear la Zona Segura, poseedor del Correo Electronico (Email): "${decodeURIComponent(
+          params.email
+        )}" no esta registrado o activo.`}
         encabezado="Not Found"
         link={Routes.CREATE_ZS}
         linkText="Volver a Buscar"
       ></InformacionPage>
     );
   }
-
-
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -96,36 +96,40 @@ function pageCreateSafeZone({ params }) {
         endGetSafeZonesByUser,
         user._user.id
       );
+
       let safeZoneIDExistente = false;
-      for (const safeZone of getSafeZonesByUser) {
-        if (safeZone._name == safeZoneID) {
-          safeZoneIDExistente = true;
-          break;
+
+      if (getSafeZonesByUser) {
+        for (const safeZone of getSafeZonesByUser) {
+          if (safeZone._name == safeZoneID) {
+            safeZoneIDExistente = true;
+            break;
+          }
         }
       }
+
       if (!safeZoneIDExistente) {
         setErrorInfo(false);
 
         // Crear una coordenada en la tabla Coordinate y luego asociarla al
         // crear una zona segura. Asi en ciclo hasta recorrer todas las coordenadas.
-        for(const coordenada of coordinatesF){
-          const aggCoordinate = await fetchPostPut(endAddCoordinate, 'POST', {
-            "_latitude": coordenada.lat,
-            "_longitude": coordenada.lng
-        });
-        const aggSafeZone = await fetchPostPut(endAddSafeZone, 'POST', {
-          "_name": safeZoneID,
-          "_user": {
-              "id": user._user.id
-          },
-          "_coordinate": {
-              "id": aggCoordinate.id
-          }
-      })
+        for (const coordenada of coordinatesF) {
+          const aggCoordinate = await fetchPostPut(endAddCoordinate, "POST", {
+            _latitude: coordenada.lat,
+            _longitude: coordenada.lng,
+          });
+          const aggSafeZone = await fetchPostPut(endAddSafeZone, "POST", {
+            _name: safeZoneID,
+            _user: {
+              id: user._user.id,
+            },
+            _coordinate: {
+              id: aggCoordinate.id,
+            },
+          });
         }
-        
-        router.push(Routes.CREATE_ZS_RESPONSE);
 
+        router.push(Routes.CREATE_ZS_RESPONSE);
       } else {
         setDescriptionError(
           `El Nombre Identificador de la Zona Segura ya se encuentra registrado para este usuario, ingrese otro.`
@@ -155,7 +159,9 @@ function pageCreateSafeZone({ params }) {
       <div className="max-w-6xl mb-6 ring-1 ring-opacity-50 ring-zinc-300 rounded-xl shadow-lg shadow-indigo-300 mt-6 flex min-h-full flex-1 flex-col justify-center align-middle px-6 py-6 lg:px-8 mx-auto gap-x-8 gap-y-12">
         <DivHeader
           title={`Crear Zona Segura de la Victima`}
-          description={`Indique un Nombre identificador y el area en el mapa para establecer la Zona Segura del usuario victima a consultar poseedor del Email: "${params.email}".`}
+          description={`Indique un Nombre identificador y el area en el mapa para establecer la Zona Segura del usuario victima a consultar poseedor del Email: "${decodeURIComponent(
+            params.email
+          )}".`}
           tags={[2]}
         ></DivHeader>
         <form className="mb-6" onSubmit={onSubmit}>
@@ -176,10 +182,13 @@ function pageCreateSafeZone({ params }) {
             }}
           ></DivFormElement>
           <div className="mt-6 mb-2">
-          <AlertInformation description={'Para indicar un punto de coordenada del area de la Zona Segura, presione click Izquierdo (con dos puntos es que se genera visualmente el poligono. Click Derecho para eliminar el ultimo punto del poligono (deshacer).'}></AlertInformation>
+            <AlertInformation
+              description={
+                "Para indicar un punto de coordenada del area de la Zona Segura, presione click Izquierdo (con dos puntos es que se genera visualmente el poligono. Click Derecho para eliminar el ultimo punto del poligono (deshacer)."
+              }
+            ></AlertInformation>
           </div>
-          <div
-          >
+          <div>
             <LoadScript googleMapsApiKey="AIzaSyAVCv2edVHkkor2XENUBSsamIXFgMFn8UM">
               <GoogleMap
                 clickableIcons={false}

@@ -32,7 +32,6 @@ export function Navigation({ number = 0 }) {
   navigation[number].current = true;
 
   return (
-    <>
       <div className="min-h-full min-w-full sticky top-0 z-50">
         <Disclosure as="nav" className="bg-gray-800">
           {({ open }) => (
@@ -137,6 +136,5 @@ export function Navigation({ number = 0 }) {
           )}
         </Disclosure>
       </div>
-    </>
   );
 }

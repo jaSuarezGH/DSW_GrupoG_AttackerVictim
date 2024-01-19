@@ -12,7 +12,7 @@ import {
 import { DivDefinitionListElement } from "@/components/Div/DivResponseUser/DivDefinitionListElement/DivDefinitionListElement";
   
   export default async function getIncidentByAttackerEmailPage({ params }) {
-    const description = `Lo siento, el usuario tipo Atacante a consultar poseedor del Email: "${params.attackerEmail}" no se encuentra registrado.`;
+    const description = `Lo siento, el usuario tipo Atacante a consultar poseedor del Email: "${decodeURIComponent(params.attackerEmail)}" no se encuentra registrado.`;
   
     try {
       const user = await fetchGetDelete(endGetUserByEmail, params.attackerEmail);
@@ -37,7 +37,7 @@ import { DivDefinitionListElement } from "@/components/Div/DivResponseUser/DivDe
           <div className="max-w-6xl mb-6 ring-1 ring-opacity-50 ring-zinc-300 rounded-xl shadow-lg shadow-indigo-300 mt-6 flex min-h-full flex-1 flex-col justify-center align-middle px-6 py-6 lg:px-8 mx-auto gap-x-8 gap-y-12">
             <DivHeader
               title="Consultar la Relacion Victima/Atacante por Correo Electronico"
-              description={`Todos los datos de la Relacion (Incidente) del usuario a consultar poseedor del email: "${params.attackerEmail}".`}
+              description={`Todos los datos de la Relacion (Incidente) del usuario a consultar poseedor del email: "${decodeURIComponent(params.attackerEmail)}".`}
               tags={[3]}
             ></DivHeader>
             <DivSubHeader

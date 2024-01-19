@@ -10,7 +10,7 @@ export default async function getVictimaEmailPage({ params }) {
   
   if (user === null) {
     
-    const description = `Lo siento, el usuario a consultar poseedor del Email: "${params.email}" no se encuentra registrado.`
+    const description = `Lo siento, el usuario a consultar poseedor del Email: "${decodeURIComponent(params.email)}" no se encuentra registrado.`
     return (
       <InformacionPage
       title="Usuario NO Encontrado"
@@ -26,7 +26,7 @@ export default async function getVictimaEmailPage({ params }) {
     <DivResponseUser
       user={user}
       title="Consultar Usuario por Correo Electronico"
-      description={`Todos los datos del usuario a consultar poseedor del email: ${user._email}.`}
+      description={`Todos los datos del usuario a consultar poseedor del email: ${decodeURIComponent(user._email)}.`}
       tags={[]}
     ></DivResponseUser>
   );

@@ -38,7 +38,7 @@ function pageDeleteSafeZoneByEmail({ params }) {
   const [coordinates, setCoordinates] = useState({});
 
   const [descriptionError, setDescriptionError] = useState(
-    `Lo siento, el usuario del que se desea eliminar la Zona Segura, poseedor del Correo Electronico (Email): "${params.email}" no esta registrado o activo.`
+    `Lo siento, el usuario del que se desea eliminar la Zona Segura, poseedor del Correo Electronico (Email): "${decodeURIComponent(params.email)}" no esta registrado o activo.`
   );
   const [titleError, setTitleError] = useState("Usuario NO Encontrado");
 
@@ -79,7 +79,7 @@ function pageDeleteSafeZoneByEmail({ params }) {
           } else {
             setTitleError("No hay Zonas Seguras");
             setDescriptionError(
-              `El usuario victima poseedor del Correo Electronico (Email): "${params.email}" no posee zonas seguras asociadas.`
+              `El usuario victima poseedor del Correo Electronico (Email): "${decodeURIComponent(params.email)}" no posee zonas seguras asociadas.`
             );
           }
         }
@@ -142,7 +142,7 @@ function pageDeleteSafeZoneByEmail({ params }) {
       <div className="max-w-6xl mb-6 ring-1 ring-opacity-50 ring-zinc-300 rounded-xl shadow-lg shadow-indigo-300 mt-6 flex min-h-full flex-1 flex-col justify-center align-middle px-6 py-6 lg:px-8 mx-auto gap-x-8 gap-y-12">
         <DivHeader
           title={`Eliminar Zona Segura de una Victima`}
-          description={`Selecciona una Zona Segura asociada al usuario tipo Victima poseedor del Email: "${params.email}" registrado en el sistema.`}
+          description={`Selecciona una Zona Segura asociada al usuario tipo Victima poseedor del Email: "${decodeURIComponent(params.email)}" registrado en el sistema.`}
           tags={[2]}
         ></DivHeader>
         <form className="m-10 mb-6" onSubmit={onSubmit}>
