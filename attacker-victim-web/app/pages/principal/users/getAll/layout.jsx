@@ -2,13 +2,13 @@ import { Navigation } from '@/components/Navigation';
 
 
 export const metadata = {
-  title: 'Inicio | AttackVictim',
+  title: 'Obtener Usuarios | AttackVictim',
 }
 
-export default function victimsSectionLayout({ children }) {
+export default function InicioLayout({ children }) {
   return (
     <html lang="es">
-      <body >
+      <body>
       <Navigation></Navigation>
         {children}
         </body>
