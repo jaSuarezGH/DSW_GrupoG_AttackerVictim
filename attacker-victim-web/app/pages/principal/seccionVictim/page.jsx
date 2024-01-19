@@ -1,14 +1,11 @@
 import { Routes } from "@/app/models/routes.model";
-
-import Card from "@/components/Card/Card";
-import HeaderPrincipal from "@/components/Header/HeaderPrincipal";
+import { Card } from "@/components/Card/Card";
+import { HeaderPrincipal } from "@/components/Header/HeaderPrincipal";
 import { Navigation } from "@/components/Navigation";
 
 export default function PrincipalVictimPage() {
   return (
     <>
-      <Navigation number={1}></Navigation>
-
       <HeaderPrincipal texto="Seccion Victima"></HeaderPrincipal>
 
       <section class="px-6 py-20 mx-auto max-w-8xl pt-10">

@@ -1,4 +1,4 @@
-import DivDefinitionListElement from "@/components/Div/DivResponseUser/DivDefinitionListElement/DivDefinitionListElement";
+import { DivDefinitionListElement } from "@/components/Div/DivResponseUser/DivDefinitionListElement/DivDefinitionListElement";
 
 export function ListConsultAdmin({ user }) {
   return (

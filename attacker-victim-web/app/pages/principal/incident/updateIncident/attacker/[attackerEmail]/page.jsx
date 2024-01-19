@@ -13,10 +13,10 @@ import { DivSubHeader } from "@/components/Div/Header/DivSubHeader/DivSubHeader"
 import { useEffect, useState } from "react";
 import { ButtonSubmit } from "@/components/Button/ButtonSubmit";
 import { DivFormElement } from "@/components/Div/DivFormElement/DivFormElement";
-import AlertError from "@/components/Alert/AlertError";
 import { useRouter } from "next/navigation";
 import { DivHeader } from "@/components/Div";
 import { fetchPostPut } from "@/app/pages/principal/fetch/fetchPostPut/fetchPostPut";
+import { AlertError } from "@/components/Alert/AlertError";
 
 export default function getIncidentByAttackerEmailPage({ params }) {
   const router = useRouter();

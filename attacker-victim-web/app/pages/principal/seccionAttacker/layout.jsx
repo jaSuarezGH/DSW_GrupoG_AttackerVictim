@@ -1,17 +1,16 @@
 
 import { Navigation } from '@/components/Navigation';
-import './../../styles/globals.css'
 
 
 export const metadata = {
-  title: 'Incio | AttackVictim',
+  title: 'Attackers | AttackVictim',
 }
 
-export default function PrincipalLayout({ children }) {
+export default function attackersSectionLayout({ children }) {
   return (
     <html lang="es">
       <body >
-      <Navigation></Navigation>
+      <Navigation number={2}></Navigation>
         {children}
         </body>
     </html>

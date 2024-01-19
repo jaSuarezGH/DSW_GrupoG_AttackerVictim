@@ -12,7 +12,7 @@ import { ButtonSubmit } from "@/components/Button/ButtonSubmit";
 import { DivHeader } from "@/components/Div";
 import { fetchGetDelete } from "@/app/pages/principal/fetch/fetchGetDelete";
 import { ListConsultAdmin } from "@/components/List/ListConsultAdmin/ListConsultAdmin";
-import AlertError from "@/components/Alert/AlertError";
+import { AlertError } from "@/components/Alert/AlertError";
 
 export default function deleteEmailAdminPage({ params }) {
   const router = useRouter();

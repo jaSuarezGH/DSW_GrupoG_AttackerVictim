@@ -12,10 +12,10 @@ import { useRouter } from "next/navigation";
 import { ButtonSubmit } from "@/components/Button/ButtonSubmit";
 import { DivHeader } from "@/components/Div";
 import { fetchGetDelete } from "@/app/pages/principal/fetch/fetchGetDelete";
-import AlertError from "@/components/Alert/AlertError";
 import { fetchPostPut } from "@/app/pages/principal/fetch/fetchPostPut/fetchPostPut";
 import { DivFormAdmin } from "@/components/Div/DivFormAdmin/DivFormAdmin";
-import AlertInformation from "@/components/Alert/AlertInformation";
+import { AlertInformation } from "@/components/Alert/AlertInformation";
+import { AlertError } from "@/components/Alert/AlertError";
 
 export default function updateEmailAdminPage({ params }) {
   const router = useRouter();

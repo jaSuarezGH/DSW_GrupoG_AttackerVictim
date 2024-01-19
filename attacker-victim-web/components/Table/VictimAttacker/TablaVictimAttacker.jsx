@@ -1,6 +1,6 @@
-import FillTableVictimAttacker from "./FillTableVictimAttacker";
+import { FillTableVictimAttacker } from "./FillTableVictimAttacker";
 
-function TablaAllVictimsAttackers({ users }) {
+export function TablaAllVictimsAttackers({ users }) {
   return (
     <div class="items-center flex relative overflow-x-auto ring-2 ring-slate-300 rounded-md">
       <table class="w-full text-sm text-center text-gray-500">
@@ -42,5 +42,3 @@ function TablaAllVictimsAttackers({ users }) {
     </div>
   );
 }
-
-export default TablaAllVictimsAttackers;

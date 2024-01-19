@@ -1,6 +1,4 @@
-import React from 'react'
-
-function DivDefinitionListElement({title, value}) {
+export function DivDefinitionListElement({title, value}) {
   return (
     <div className="px-6 py-8 mb-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="font-bold leading-6 text-gray-900 text-lg">{title}</dt>
@@ -10,5 +8,3 @@ function DivDefinitionListElement({title, value}) {
     </div>
   )
 }
-
-export default DivDefinitionListElement;

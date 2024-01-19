@@ -1,4 +1,3 @@
-
 export function Input({id, name, type, placeholder, onChange, value = '', disabled = false}) {
 
   return (

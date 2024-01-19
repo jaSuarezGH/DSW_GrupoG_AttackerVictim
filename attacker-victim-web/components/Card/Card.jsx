@@ -24,4 +24,3 @@ export function Card({ title, description, link, tags }) {
   );
 }
 
-export default Card;

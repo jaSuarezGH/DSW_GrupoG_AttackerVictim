@@ -1,5 +1,5 @@
 
-function AlertError({description}) {
+export function AlertError({description}) {
   return (
     <div class="relative items-center w-full">
       <div class="p-6 border-l-4 border-red-500 rounded-r-xl bg-red-50">
@@ -33,4 +33,3 @@ function AlertError({description}) {
   );
 }
 
-export default AlertError;
