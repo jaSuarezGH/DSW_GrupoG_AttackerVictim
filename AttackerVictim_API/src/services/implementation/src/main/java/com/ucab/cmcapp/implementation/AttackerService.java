@@ -21,7 +21,6 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class AttackerService extends BaseService {
-    private static Logger _logger = LoggerFactory.getLogger(AttackerService.class);
 
     /**
      * Este metodo devuelve todos los atacantes registrados

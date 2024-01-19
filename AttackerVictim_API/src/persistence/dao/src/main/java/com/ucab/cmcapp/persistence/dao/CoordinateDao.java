@@ -9,8 +9,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 
 public class CoordinateDao extends BaseDao<Coordinate> {
-
-    private static Logger _logger = LoggerFactory.getLogger(CoordinateDao.class);
     private EntityManager _em;
     private CriteriaBuilder _builder;
 

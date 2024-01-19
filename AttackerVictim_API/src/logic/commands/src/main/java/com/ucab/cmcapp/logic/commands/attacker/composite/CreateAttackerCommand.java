@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 
 public class CreateAttackerCommand extends Command<Attacker> {
 
-    private static Logger _logger = LoggerFactory.getLogger(CreateAttackerCommand.class);
     private Attacker _attacker;
     private Attacker _result;
     private AddAttackerCommand _addAttackerCommand;

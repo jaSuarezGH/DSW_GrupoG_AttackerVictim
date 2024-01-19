@@ -15,8 +15,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 public class AttackerDao extends BaseDao<Attacker>{
-
-    private static Logger _logger = LoggerFactory.getLogger(AttackerDao.class);
     private EntityManager _em;
     private CriteriaBuilder _builder;
 

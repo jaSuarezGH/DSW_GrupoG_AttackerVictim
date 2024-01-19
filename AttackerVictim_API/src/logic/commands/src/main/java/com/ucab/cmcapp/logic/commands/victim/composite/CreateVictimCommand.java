@@ -12,8 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CreateVictimCommand extends Command<Victim> {
-
-    private static Logger _logger = LoggerFactory.getLogger(CreateVictimCommand.class);
     private Victim _victim;
     private Victim _result;
     private AddVictimCommand _addVictimCommand;

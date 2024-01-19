@@ -34,7 +34,6 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class SafeZoneService extends BaseService {
-    private static Logger _logger = LoggerFactory.getLogger(SafeZoneService.class);
 
     /**
      * Este endpoint consulta todas las zonas de seguridad registradas

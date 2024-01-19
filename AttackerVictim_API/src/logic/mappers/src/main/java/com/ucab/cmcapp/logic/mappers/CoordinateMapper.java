@@ -13,8 +13,6 @@ import java.util.List;
 
 public class CoordinateMapper extends BaseMapper {
 
-    private static Logger _logger = LoggerFactory.getLogger(CoordinateMapper.class);
-
     /**
      * Este metodo mapea CoordinateDto a Coordinate
      *

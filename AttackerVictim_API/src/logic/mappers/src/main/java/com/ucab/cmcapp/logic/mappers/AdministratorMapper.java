@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdministratorMapper extends BaseMapper {
-    private static Logger _logger = LoggerFactory.getLogger(AdministratorMapper.class);
 
     /**
      * Este metodo mapea AdministratorDto a Administrator

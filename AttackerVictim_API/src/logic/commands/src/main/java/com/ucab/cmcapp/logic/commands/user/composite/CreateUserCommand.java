@@ -9,30 +9,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CreateUserCommand extends Command<User> {
-    private static Logger _logger = LoggerFactory.getLogger(CreateUserCommand.class);
     private User _user;
     private User _result;
     private AddUserCommand _addUserCommand;
 
     public CreateUserCommand(User user) {
-        //region Instrumentation DEBUG
-        _logger.debug("Entering CreateUserCommand.ctor");
-        //endregion
-
         _user = user;
         setHandler(new DBHandler());
-
-        //region Instrumentation DEBUG
-        _logger.debug("Leaving CreateUserCommand.ctor");
-        //endregion
     }
 
     @Override
     public void execute() {
-        //region Instrumentation DEBUG
-        _logger.debug("Entering CreateUserCommand.execute");
-        //endregion
-
         try {
             getHandler().beginTransaction();
             _addUserCommand = CommandFactory.createAddUserCommand(_user, getHandler());
@@ -45,9 +32,6 @@ public class CreateUserCommand extends Command<User> {
             getHandler().closeSession();
             throw e;
         }
-        //region Instrumentation DEBUG
-        _logger.debug("Leaving CreateUserCommand.execute");
-        //endregion
     }
 
     @Override

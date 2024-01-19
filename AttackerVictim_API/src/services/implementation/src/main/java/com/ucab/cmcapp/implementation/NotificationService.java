@@ -30,8 +30,6 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 public class NotificationService extends BaseService {
 
-    private static Logger _logger = LoggerFactory.getLogger(NotificationService.class);
-
     /**
      * Este endpoint consulta todas las notificaciones
      *

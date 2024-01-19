@@ -23,8 +23,6 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 public class AdministratorService extends BaseService {
 
-    private static Logger _logger = LoggerFactory.getLogger(AdministratorService.class);
-
     /**
      * Este endpoint autentica a un administrador usando LDAP
      *

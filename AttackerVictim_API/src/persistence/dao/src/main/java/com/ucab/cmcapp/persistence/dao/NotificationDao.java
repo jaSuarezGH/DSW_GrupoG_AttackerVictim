@@ -17,7 +17,6 @@ import java.util.List;
 
 public class NotificationDao extends BaseDao<Notification> {
 
-    private static Logger _logger = LoggerFactory.getLogger(NotificationDao.class);
     private EntityManager _em;
     private CriteriaBuilder _builder;
 

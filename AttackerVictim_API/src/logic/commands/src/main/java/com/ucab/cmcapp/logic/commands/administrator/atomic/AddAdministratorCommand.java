@@ -12,8 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class AddAdministratorCommand extends Command<Administrator> {
-
-    private static Logger _logger = LoggerFactory.getLogger(AddAdministratorCommand.class);
     private Administrator _administrator;
     private AdministratorDao _dao;
 

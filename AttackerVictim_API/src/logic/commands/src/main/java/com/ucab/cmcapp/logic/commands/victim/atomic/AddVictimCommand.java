@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 
 public class AddVictimCommand extends Command<Victim> {
 
-    private static Logger _logger = LoggerFactory.getLogger(AddVictimCommand.class);
     private Victim _victim;
     private VictimDao _dao;
 

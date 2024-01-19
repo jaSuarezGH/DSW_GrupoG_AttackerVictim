@@ -14,8 +14,6 @@ import java.util.List;
 
 public class HistoryMapper extends BaseMapper {
 
-    private static Logger _logger = LoggerFactory.getLogger(HistoryMapper.class);
-
     /**
      * Este metodo mapea HistoryDto a History
      *

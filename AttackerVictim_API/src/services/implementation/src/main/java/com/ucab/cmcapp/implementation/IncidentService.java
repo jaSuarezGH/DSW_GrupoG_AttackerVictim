@@ -25,7 +25,6 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class IncidentService extends BaseService {
-    private static Logger _logger = LoggerFactory.getLogger(IncidentService.class);
 
     /**
      * Este endpoint devuelve todas las relaciones victima-atacante (incidente)

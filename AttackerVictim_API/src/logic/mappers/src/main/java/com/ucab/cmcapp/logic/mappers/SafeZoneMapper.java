@@ -15,8 +15,6 @@ import java.util.List;
 
 public class SafeZoneMapper extends BaseMapper {
 
-    private static Logger _logger = LoggerFactory.getLogger(SafeZoneMapper.class);
-
     /**
      * Este metodo mapea un SafeZoneDto a un SafeZone
      *

@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 
 public class CreateNotificationCommand extends Command<Notification> {
 
-    private static Logger _logger = LoggerFactory.getLogger(CreateNotificationCommand.class);
     private Notification _notification;
     private Notification _result;
     private AddNotificationCommand _addNotificationCommand;

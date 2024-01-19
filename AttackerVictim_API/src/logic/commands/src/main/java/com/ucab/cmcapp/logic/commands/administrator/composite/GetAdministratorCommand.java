@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 
 public class GetAdministratorCommand extends Command<Administrator> {
 
-    private static Logger _logger = LoggerFactory.getLogger(GetAdministratorCommand.class);
     private Administrator _administrator;
     long _id;
     private GetAdministratorByIdCommand _getAdministratorByIdCommand;
